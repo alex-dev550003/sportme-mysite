@@ -316,6 +316,59 @@ export default function PricingPage() {
             </div>
           </section>
 
+          <section className="rounded-[24px] border border-[#d8d1bf] bg-white p-4 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)] sm:rounded-[28px] sm:p-6">
+            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+              <div className="space-y-3">
+                <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">{t("about.managers.label")}</p>
+                <div className="inline-flex items-center gap-3 rounded-full border border-[#d8d1bf] bg-[#f1f2f4] px-3 py-2 text-xs font-semibold text-[#1f211f]">
+                  <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-[#d8d1bf] bg-white">
+                    <img src="/logo-512admin.png" alt="Admin SportMe logo" className="h-full w-full object-cover" />
+                  </span>
+                  <span>{t("about.managers.badge")}</span>
+                </div>
+                <h3 className="text-lg font-semibold text-[#1f211f] sm:text-xl">{t("about.managers.title")}</h3>
+              </div>
+              <button
+                type="button"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#1877F2] bg-[#1877F2] px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-500/20 transition hover:-translate-y-0.5 hover:bg-[#0f6de5]"
+                onClick={() => setShowManagerAccessModal(true)}
+              >
+                {t("pricing.new.final.cta")}
+              </button>
+            </div>
+            <div className="mt-6 grid gap-4 text-sm text-[#5b564b] md:grid-cols-2 xl:grid-cols-3">
+              {[
+                ["about.managers.bookingsTitle", "about.managers.bookingsItem1", "about.managers.bookingsItem2", "about.managers.bookingsItem3"],
+                ["about.managers.occupancyTitle", "about.managers.occupancyItem1", "about.managers.occupancyItem2", "about.managers.occupancyItem3"],
+                ["about.managers.managementTitle", "about.managers.managementItem1", "about.managers.managementItem2", "about.managers.managementItem3"],
+                ["about.managers.communicationTitle", "about.managers.communicationItem1", "about.managers.communicationItem2", "about.managers.communicationItem3"],
+                [
+                  "about.managers.whyTitle",
+                  "about.managers.whyItem1",
+                  "about.managers.whyItem2",
+                  "about.managers.whyItem3",
+                  "about.managers.whyItem4",
+                  "about.managers.whyItem5",
+                  "about.managers.whyItem6",
+                  "about.managers.whyItem7",
+                ],
+                ["about.managers.securityTitle", "about.managers.securityItem1", "about.managers.securityItem2", "about.managers.securityItem3"],
+                ["about.managers.startTitle", "about.managers.startItem1", "about.managers.startItem2", "about.managers.startItem3", "about.managers.startItem4"],
+                ["about.managers.forTitle", "about.managers.forItem1", "about.managers.forItem2", "about.managers.forItem3", "about.managers.forItem4"],
+                ["about.managers.ctaTitle", "about.managers.ctaBody", "about.managers.ctaAction"],
+              ].map(([titleKey, ...itemKeys]) => (
+                <div key={titleKey} className="rounded-2xl border border-[#e6e0d2] bg-[#f1f2f4] p-4">
+                  <p className="font-semibold text-[#1f211f]">{t(titleKey as TranslationKey)}</p>
+                  <div className="mt-2 space-y-1">
+                    {itemKeys.map((key) => (
+                      <p key={key}>{t(key as TranslationKey)}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
           <SiteFooter />
         </div>
       </div>

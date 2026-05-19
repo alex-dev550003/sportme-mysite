@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "../app/i18n";
+
 const googlePlayUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
 const appStoreFallbackUrl = "https://www.sportme.ro/app";
 const managerUrl = "https://www.sportme.ro/pricing";
@@ -123,10 +125,38 @@ const benefits = [
   },
 ];
 
+function LanguageToggle() {
+  const { language, setLanguage } = useI18n();
+
+  return (
+    <div className="inline-flex rounded-full border border-white/18 bg-black/24 p-1 text-xs font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md">
+      <button
+        type="button"
+        onClick={() => setLanguage("RO")}
+        aria-pressed={language === "RO"}
+        className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}
+      >
+        RO
+      </button>
+      <button
+        type="button"
+        onClick={() => setLanguage("EN")}
+        aria-pressed={language === "EN"}
+        className={`rounded-full px-3 py-1.5 transition ${language === "EN" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}
+      >
+        EN
+      </button>
+    </div>
+  );
+}
+
 export default function HomeLandingPage() {
+  const { language } = useI18n();
+  const isEnglish = language === "EN";
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#020814] text-white">
-      <section className="relative min-h-screen overflow-hidden">
+      <section className="relative min-h-[940px] overflow-hidden md:min-h-screen">
         <picture>
           <source media="(min-width: 768px)" srcSet="/home/sportme-home-desktop-wide.png" />
           <img
@@ -135,74 +165,124 @@ export default function HomeLandingPage() {
             className="absolute inset-0 h-full w-full object-cover object-[60%_center] md:object-center"
           />
         </picture>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,20,0.94)_0%,rgba(2,8,20,0.78)_33%,rgba(2,8,20,0.28)_67%,rgba(2,8,20,0.48)_100%)] md:bg-[linear-gradient(90deg,rgba(2,8,20,0.95)_0%,rgba(2,8,20,0.82)_38%,rgba(2,8,20,0.18)_66%,rgba(2,8,20,0.2)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,8,20,0.92)_0%,rgba(2,8,20,0.16)_38%,rgba(2,8,20,0.3)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,20,0.96)_0%,rgba(2,8,20,0.82)_39%,rgba(2,8,20,0.28)_70%,rgba(2,8,20,0.18)_100%)] md:bg-[linear-gradient(90deg,rgba(2,8,20,0.96)_0%,rgba(2,8,20,0.82)_36%,rgba(2,8,20,0.22)_68%,rgba(2,8,20,0.12)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,8,20,0.96)_0%,rgba(2,8,20,0.42)_30%,rgba(2,8,20,0.12)_62%,rgba(2,8,20,0.34)_100%)]" />
 
-        <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1540px] flex-col px-5 pb-7 pt-8 sm:px-8 md:px-12 lg:px-16 xl:px-20">
-          <div className="flex w-full min-w-0 items-center justify-between gap-3">
+        <div className="absolute right-5 top-[calc(env(safe-area-inset-top)+18px)] z-20 sm:right-8 lg:right-12">
+          <LanguageToggle />
+        </div>
+
+        <div className="relative z-10 mx-auto flex min-h-[940px] w-full max-w-[1540px] flex-col px-5 pb-9 pt-[calc(env(safe-area-inset-top)+28px)] sm:px-8 md:min-h-screen md:px-12 lg:px-16 xl:px-20">
+          <div className="flex w-full min-w-0 items-center justify-between gap-3 pr-[104px] sm:pr-[120px]">
             <div className="flex items-center gap-4">
               <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[12px] shadow-[0_12px_30px_rgba(0,93,255,0.35)] sm:h-14 sm:w-14" />
               <span className="text-3xl font-bold tracking-normal sm:text-4xl">SportMe</span>
             </div>
-            <div className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#176fff]/55 bg-white/[0.06] px-3 py-2 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur sm:gap-3 sm:px-6 sm:py-3 sm:text-lg">
+            <div className="hidden shrink-0 items-center gap-3 rounded-full border border-[#176fff]/55 bg-white/[0.06] px-6 py-3 text-lg font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur md:inline-flex">
               <ShieldIcon />
-              <span className="hidden sm:inline">Partener oficial</span>
+              <span>{isEnglish ? "Official partner" : "Partener oficial"}</span>
             </div>
           </div>
 
-          <div className="flex flex-1 items-end pb-5 pt-10 md:items-center md:pb-0 md:pt-0">
+          <div className="flex flex-1 items-end pb-0 pt-12 md:items-center md:pb-0 md:pt-0">
             <div className="home-hero-copy min-w-0">
-              <h1 className="max-w-full text-[42px] font-bold leading-[1.02] tracking-normal sm:text-6xl sm:leading-[0.98] lg:text-7xl">
-                Rezerva rapid
+              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#176fff]/50 bg-white/[0.06] px-4 py-2 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur md:hidden">
+                <ShieldIcon />
+                <span>{isEnglish ? "Official partner" : "Partener oficial"}</span>
+              </div>
+
+              <h1 className="max-w-full text-[44px] font-bold leading-[1.02] tracking-normal sm:text-6xl sm:leading-[0.98] lg:text-[82px]">
+                {isEnglish ? "Book fast" : "Rezerva rapid"}
                 <br />
-                prin <span className="text-[#106dff]">SportMe</span>
+                {isEnglish ? "with " : "prin "}
+                <span className="text-[#106dff]">SportMe</span>
               </h1>
-              <p className="mt-5 max-w-full text-base leading-7 text-white/82 sm:max-w-[620px] sm:text-2xl sm:leading-9">
-              Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde.
+              <p className="mt-5 max-w-full text-lg leading-7 text-white/84 sm:max-w-[640px] sm:text-2xl sm:leading-9">
+                {isEnglish
+                  ? "Check availability and book sports courts in a few seconds."
+                  : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
               </p>
 
-              <div className="mt-8 grid w-full max-w-[610px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-11">
+              <div className="mt-9 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-12">
                 {benefits.map((benefit) => (
                   <div key={benefit.id} className="min-w-0 px-1.5 sm:px-5">
-                    <div className="mx-auto mb-3 flex h-[52px] w-[52px] items-center justify-center rounded-full border border-[#176fff] bg-black/20 text-white shadow-[0_0_24px_rgba(0,93,255,0.28)] sm:mb-4 sm:h-[72px] sm:w-[72px]">
+                    <div className="mx-auto mb-3 flex h-[58px] w-[58px] items-center justify-center rounded-full border border-[#176fff] bg-black/20 text-white shadow-[0_0_24px_rgba(0,93,255,0.28)] sm:mb-4 sm:h-[78px] sm:w-[78px]">
                       {benefit.icon}
                     </div>
-                    <p className="text-[13px] font-semibold leading-5 sm:text-lg sm:leading-6">{benefit.label}</p>
+                    <p className="text-[13px] font-semibold leading-5 sm:text-xl sm:leading-7">
+                      {benefit.id === "fast-bookings" ? (
+                        isEnglish ? (
+                          <>
+                            Fast
+                            <br />
+                            bookings
+                          </>
+                        ) : (
+                          benefit.label
+                        )
+                      ) : benefit.id === "availability" ? (
+                        isEnglish ? (
+                          <>
+                            Real-time
+                            <br />
+                            availability
+                          </>
+                        ) : (
+                          benefit.label
+                        )
+                      ) : isEnglish ? (
+                        <>
+                          No calls,
+                          <br />
+                          no stress
+                        </>
+                      ) : (
+                        benefit.label
+                      )}
+                    </p>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 hidden max-w-[610px] items-center justify-end gap-2 pr-7 text-sm font-medium text-white/82 sm:flex">
-                <span>Descarca aplicatia</span>
+              <div className="mt-7 hidden max-w-[670px] items-center justify-end gap-2 pr-8 text-base font-medium text-white/82 sm:flex">
+                <span>{isEnglish ? "Download the app" : "Descarca aplicatia"}</span>
                 <DownloadArrowIcon />
               </div>
 
-              <div className="mt-5 w-full max-w-[610px] space-y-3 sm:mt-0 sm:space-y-4">
+              <div className="mt-6 w-full max-w-[670px] space-y-3 sm:mt-0 sm:space-y-4">
                 <a
                   href={googlePlayUrl}
-                  className="flex h-16 items-center justify-center gap-3 rounded-full bg-[#0564ff] px-4 text-lg font-semibold shadow-[0_20px_48px_rgba(0,93,255,0.42)] hover:bg-[#1472ff] sm:h-[72px] sm:gap-4 sm:text-2xl"
+                  className="flex h-16 items-center justify-center gap-3 rounded-full bg-[#0564ff] px-4 text-lg font-semibold shadow-[0_20px_48px_rgba(0,93,255,0.42)] hover:bg-[#1472ff] sm:h-[78px] sm:gap-4 sm:text-2xl"
                 >
                   <AndroidIcon />
-                  <span>Descarca din Google Play</span>
+                  <span>{isEnglish ? "Get it on Google Play" : "Descarca din Google Play"}</span>
                 </a>
                 <a
                   href={appStoreFallbackUrl}
-                  className="flex h-16 items-center justify-center gap-3 rounded-full border border-white/38 bg-black/20 px-4 text-lg font-semibold hover:border-white/58 hover:bg-white/8 sm:h-[72px] sm:gap-4 sm:text-2xl"
+                  className="flex h-16 items-center justify-center gap-3 rounded-full border border-white/38 bg-black/20 px-4 text-lg font-semibold hover:border-white/58 hover:bg-white/8 sm:h-[78px] sm:gap-4 sm:text-2xl"
                 >
                   <AppleIcon />
-                  <span>Descarca din App Store</span>
+                  <span>{isEnglish ? "Download on the App Store" : "Descarca din App Store"}</span>
                 </a>
               </div>
 
               <a
                 href={managerUrl}
-                className="mt-6 flex w-full max-w-[610px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.08] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:mt-8 sm:gap-5 sm:p-5"
+                className="mt-6 flex w-full max-w-[670px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.08] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:mt-8 sm:gap-5 sm:p-5"
               >
                 <img src="/logo-512admin.png" alt="" className="h-16 w-16 rounded-[10px] sm:h-20 sm:w-20" />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-sm text-white/72 sm:text-lg">Esti administrator de baza sportiva?</span>
+                  <span className="block text-sm text-white/72 sm:text-lg">
+                    {isEnglish ? "Do you manage a sports venue?" : "Esti administrator de baza sportiva?"}
+                  </span>
                   <span className="mt-1 block text-xl font-bold sm:text-2xl">
-                    Acceseaza <span className="text-[#106dff]">SportMe Manager</span>
+                    {isEnglish ? "Open " : "Acceseaza "}
+                    <span className="text-[#106dff]">SportMe Manager</span>
+                  </span>
+                  <span className="mt-2 hidden text-base leading-6 text-white/72 sm:block">
+                    {isEnglish
+                      ? "The complete platform for bookings, calendar and activities."
+                      : "Platforma completa pentru administrarea rezervarilor, calendarului si activitatilor."}
                   </span>
                 </span>
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0b62df] sm:h-14 sm:w-14">
@@ -214,18 +294,18 @@ export default function HomeLandingPage() {
         </div>
         <style jsx>{`
           .home-hero-copy {
-            width: min(350px, calc(100vw - 40px));
+            width: min(390px, calc(100vw - 40px));
           }
 
           @media (min-width: 640px) {
             .home-hero-copy {
-              width: min(760px, calc(100vw - 64px));
+              width: min(780px, calc(100vw - 64px));
             }
           }
 
           @media (min-width: 1024px) {
             .home-hero-copy {
-              width: 760px;
+              width: 780px;
             }
           }
         `}</style>

@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "../app/i18n";
-import { PublicTopControls } from "../components/PublicTopControls";
 import { SiteFooter } from "../components/SiteFooter";
 
 interface BeforeInstallPromptEvent extends Event {
@@ -10,11 +9,90 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
 }
 
+function CalendarCheckIcon() {
+  return (
+    <svg viewBox="0 0 36 36" aria-hidden className="h-10 w-10">
+      <path d="M10.5 4.7v6.2M25.5 4.7v6.2M6.8 13.2h22.4" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+      <rect x="6.8" y="8.1" width="22.4" height="21.1" rx="3.7" fill="none" stroke="currentColor" strokeWidth="2.4" />
+      <path d="m12.1 22.1 4 4 8.4-9.2" fill="none" stroke="#1476ff" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M24.7 26.2a6 6 0 1 0-7.1-5.9" fill="none" stroke="#1476ff" strokeWidth="2.6" strokeLinecap="round" />
+      <path d="m26.5 25.7-2.9.4.5-2.9" fill="none" stroke="#1476ff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg viewBox="0 0 36 36" aria-hidden className="h-10 w-10">
+      <circle cx="18" cy="18" r="12" fill="none" stroke="currentColor" strokeWidth="2.6" />
+      <path d="M18 9.8v8.7l6 3.7" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function PhoneArrowIcon() {
+  return (
+    <svg viewBox="0 0 36 36" aria-hidden className="h-10 w-10">
+      <path
+        d="M11.2 7.5 8.9 9.8c-1.2 1.2-1.4 3.1-.6 4.6 1.5 2.9 3.4 5.5 5.8 7.9 2.4 2.4 5 4.3 7.9 5.8 1.5.8 3.4.6 4.6-.6l2.3-2.3c.8-.8.8-2 0-2.8l-3.6-3.6c-.7-.7-2-.8-2.8-.1l-1.7 1.4c-.6.5-1.5.4-2-.2a24 24 0 0 1-4.2-4.2c-.5-.6-.6-1.5-.2-2l1.4-1.7c.7-.8.6-2-.1-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M23.2 5.8h7v7M22.4 13.6l7.8-7.8" fill="none" stroke="#1476ff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8.4 28.1 6.2 30.3M11.4 30.4l-2.7.6.6-2.7" fill="none" stroke="#1476ff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function AndroidIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="h-7 w-7">
+      <path
+        fill="currentColor"
+        d="M7.2 8.2h9.6c1.1 0 2 .9 2 2v6.2c0 .7-.5 1.2-1.2 1.2h-.7v2.2c0 .6-.5 1-1 1s-1-.4-1-1v-2.2H9.1v2.2c0 .6-.5 1-1 1s-1-.4-1-1v-2.2h-.7c-.7 0-1.2-.5-1.2-1.2v-6.2c0-1.1.9-2 2-2Zm-.9-3.8a.6.6 0 0 1 .8.2l1.2 2.1A6.9 6.9 0 0 1 12 5.6c1.3 0 2.6.4 3.7 1.1l1.2-2.1a.6.6 0 1 1 1 .6l-1.2 2A6.4 6.4 0 0 1 19 9H5c.5-.8 1.3-1.4 2.2-1.8L6 5.2a.6.6 0 0 1 .3-.8Z"
+      />
+    </svg>
+  );
+}
+
+function AppleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="h-8 w-8">
+      <path
+        fill="currentColor"
+        d="M17.7 13.1c0-2.4 2-3.5 2.1-3.6-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.1-2.8.8-3.5.8s-1.8-.8-3-.8c-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 6.9 1.1 9.2.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.2-2.5 1.3-2.6 0 0-2.5-1-2.5-3.4ZM15.4 6.1c.6-.8 1-1.8.9-2.9-.9 0-2 .6-2.6 1.3-.6.7-1.1 1.8-.9 2.8 1 .1 2-.5 2.6-1.2Z"
+      />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="h-8 w-8">
+      <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function DownloadArrowIcon() {
+  return (
+    <svg viewBox="0 0 80 36" aria-hidden className="h-9 w-20 text-white/82">
+      <path d="M4 18c20-10 43-8 58 8" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="M58 18.5 63.6 27l-10.2.1" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function AboutPage() {
-  const { t } = useI18n();
+  const { t, language, setLanguage } = useI18n();
+  const isEnglish = language === "EN";
   const screenshotsTrackRef = useRef<HTMLDivElement | null>(null);
   const [activeScreenshot, setActiveScreenshot] = useState<string | null>(null);
   const [showApplePrompt, setShowApplePrompt] = useState(false);
+  const [showHeroMenu, setShowHeroMenu] = useState(false);
   const [installPromptEvent, setInstallPromptEvent] = useState<BeforeInstallPromptEvent | null>(null);
   const screenshots = useMemo(() => {
     const cdnBase = "https://app.sportme.ro";
@@ -122,7 +200,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main className="public-site min-h-screen bg-[#f6f1e7] text-[#1f211f]">
+    <main className="min-h-screen bg-[#f6f1e7] text-[#1f211f]">
       <style jsx global>{`
         @keyframes floaty {
           0% {
@@ -146,111 +224,288 @@ export default function AboutPage() {
             transform: translateX(0px);
           }
         }
+        .about-dark-section {
+          background:
+            linear-gradient(180deg, #020814 0%, #030b18 46%, #06101f 100%);
+        }
+        .about-glass-card {
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          background: rgba(255, 255, 255, 0.075);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.24);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
+        }
+        .about-glass-tile {
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          background: rgba(255, 255, 255, 0.055);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+        .about-glass-tile p {
+          color: rgba(255, 255, 255, 0.78) !important;
+        }
+        .about-glass-tile p.font-semibold {
+          color: rgba(255, 255, 255, 0.94) !important;
+        }
+        .about-section-kicker {
+          color: rgba(255, 255, 255, 0.58);
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+        }
+        .about-section-title {
+          color: rgba(255, 255, 255, 0.96);
+          font-weight: 700;
+        }
+        .about-section-title .accent {
+          color: #106dff;
+        }
+        .about-dark-section .bg-white,
+        .about-dark-section .bg-\\[\\#f1f2f4\\],
+        .about-dark-section .bg-\\[\\#f4f7ff\\] {
+          background: rgba(255, 255, 255, 0.075) !important;
+          border-color: rgba(255, 255, 255, 0.14) !important;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.22) !important;
+          backdrop-filter: blur(18px);
+        }
+        .about-dark-section .text-\\[\\#1f211f\\],
+        .about-dark-section .text-\\[\\#2a2d33\\] {
+          color: rgba(255, 255, 255, 0.96) !important;
+        }
+        .about-dark-section .text-\\[\\#5b564b\\],
+        .about-dark-section .text-\\[\\#7a7566\\] {
+          color: rgba(255, 255, 255, 0.68) !important;
+        }
+        .about-dark-section footer {
+          border-color: rgba(255, 255, 255, 0.14) !important;
+          background: rgba(255, 255, 255, 0.075) !important;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.24) !important;
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
+        }
+        .about-dark-section .border-\\[\\#d8d1bf\\],
+        .about-dark-section .border-\\[\\#e6e0d2\\] {
+          border-color: rgba(255, 255, 255, 0.14) !important;
+        }
+        .about-dark-section .shadow-\\[0_25px_50px_-40px_rgba\\(32\\,33\\,31\\,0\\.6\\)\\] {
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.24) !important;
+        }
       `}</style>
       <div className="relative overflow-hidden">
-        
+        <section className="relative min-h-[940px] overflow-hidden text-white md:min-h-screen">
+          <picture>
+            <source media="(min-width: 768px)" srcSet="/home/sportme-home-desktop-wide.png" />
+            <img src="/home/sportme-home-mobile-bg.png" alt="" className="absolute inset-0 h-full w-full object-cover object-[60%_center] md:object-center" />
+          </picture>
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,20,0.96)_0%,rgba(2,8,20,0.83)_40%,rgba(2,8,20,0.28)_72%,rgba(2,8,20,0.14)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,8,20,0.98)_0%,rgba(2,8,20,0.48)_31%,rgba(2,8,20,0.1)_62%,rgba(2,8,20,0.36)_100%)]" />
 
-        <div className="mx-auto w-full max-w-6xl space-y-10 px-5 py-6 lg:py-10">
-          <div className="flex justify-end">
-            <PublicTopControls />
-          </div>
-          <header className="space-y-6">
-            <div className="space-y-4">
-              <p className="text-xs uppercase tracking-[0.4em] text-[#7a7566]">SportMe</p>
-              <h1 className="text-4xl font-semibold leading-tight md:text-5xl">{t("about.hero.title")}</h1>
-              <p className="max-w-3xl text-base text-[#5b564b]">{t("about.hero.subtitle")}</p>
+          <div className="absolute right-5 top-[calc(env(safe-area-inset-top)+18px)] z-20 sm:right-8 lg:right-12">
+            <div
+              className="inline-flex rounded-full border border-white/18 bg-black/24 p-1 text-xs font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md"
+              aria-label={t("about.languageToggleLabel")}
+            >
+              <button
+                type="button"
+                onClick={() => setLanguage("RO")}
+                aria-pressed={language === "RO"}
+                className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}
+              >
+                RO
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage("EN")}
+                aria-pressed={language === "EN"}
+                className={`rounded-full px-3 py-1.5 transition ${language === "EN" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}
+              >
+                EN
+              </button>
             </div>
-            <div className="grid gap-5 lg:grid-cols-2 lg:gap-x-7 lg:gap-y-4">
-              <div className="flex flex-col rounded-[28px] border border-[#d8d1bf] bg-[radial-gradient(circle_at_top_right,_#ffffff_0%,_#f3f4f6_62%,_#eceff3_100%)] p-4 shadow-[0_30px_80px_-48px_rgba(32,33,31,0.85)] backdrop-blur">
-                <div className="order-3 mt-3 flex w-full justify-center">
-                  <img src="/patterns/6247dd6f-1.png" alt="SportMe" className="h-7 w-auto object-contain" />
-                </div>
-                <div className="order-1 inline-flex w-full items-center justify-center gap-3 px-2 py-1 text-sm font-semibold text-[#1f211f]">
-                  <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-[8px] bg-white">
-                    <img src="/logo-512.png" alt="" className="h-full w-full object-cover" />
-                  </span>
-                  <span className="flex flex-col items-center">
-                    <span className="text-[19px] leading-tight">{t("about.cta.download")}</span>
-                    <span className="text-sm font-normal text-[#5b564b]">{t("about.cta.downloadAppleNote")}</span>
-                  </span>
-                </div>
-                <div className="order-2 mt-3 grid grid-cols-2 gap-3">
-                  <div className="flex flex-col items-center gap-1.5">
-                    <a
-                      className="group inline-flex w-[92%] items-center justify-center gap-2 rounded-full border border-[#d8d1bf] bg-white px-2.5 py-2.5 text-[#2a2d33] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#f9fafb] sm:gap-3 sm:px-4"
-                      href="https://play.google.com/store/apps/details?id=ro.sportme.app"
-                    >
-                      <svg aria-hidden viewBox="0 0 24 24" className="h-5.5 w-5.5 shrink-0 transition group-hover:scale-110 sm:h-6.5 sm:w-6.5">
-                        <polygon points="3,2 14,12 3,22" fill="#34a853" />
-                        <polygon points="3,2 21,12 14,12" fill="#fbbc05" />
-                        <polygon points="3,22 21,12 14,12" fill="#ea4335" />
-                        <polygon points="8,6.5 14,12 8,17.5 12,12" fill="#4285f4" />
-                      </svg>
-                      <span className="flex min-w-0 flex-col items-start leading-tight sm:min-w-[120px]">
-                        <span className="text-[8.5px] font-semibold uppercase tracking-[0.1em] text-[#4b5563] sm:text-[9.5px] sm:tracking-[0.14em]">Get it on</span>
-                        <span className="whitespace-nowrap text-[13px] font-semibold tracking-tight text-[#2a2d33] sm:text-[17px]">Google Play</span>
-                      </span>
-                    </a>
-                    <span className="rounded-full border border-[#b7dfc2] bg-[#e8f8ed] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#2e7d44]">
-                      {t("about.cta.live")}
-                    </span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1.5">
-                    <div className="inline-flex w-[92%] cursor-not-allowed items-center justify-center gap-2 rounded-full border border-[#d8d1bf] bg-white px-2.5 py-2.5 text-[#2a2d33] opacity-95 sm:gap-3 sm:px-4">
-                      <svg aria-hidden viewBox="0 0 24 24" className="h-5.5 w-5.5 shrink-0 fill-[#2f3440] sm:h-6.5 sm:w-6.5">
-                        <path d="M18.71 19.5c-.83 1.24-1.74 2.48-3.1 2.5-1.21.02-1.6-.72-3.01-.72-1.41 0-1.84.7-2.95.74-1.3.05-2.3-1.32-3.13-2.55-1.7-2.52-3-7.12-1.25-10.16.88-1.5 2.45-2.45 4.16-2.48 1.16-.02 2.26.79 3.01.79.75 0 2.16-.98 3.64-.84.62.03 2.37.25 3.49 1.89-.09.06-2.08 1.21-2.06 3.6.03 2.86 2.5 3.81 2.53 3.82-.02.07-.39 1.35-1.33 2.41zM14.84 4.36c.69-.84 1.16-2.01 1.03-3.18-.99.04-2.19.66-2.9 1.5-.64.74-1.2 1.94-1.05 3.08 1.11.09 2.23-.56 2.92-1.4z" />
-                      </svg>
-                      <span className="flex min-w-0 flex-col items-start leading-tight sm:min-w-[120px]">
-                        <span className="text-[8.5px] font-semibold tracking-[0.03em] text-[#4b5563] sm:text-[9.5px] sm:tracking-[0.04em]">Download on the</span>
-                        <span className="whitespace-nowrap text-[13px] font-semibold tracking-tight text-[#2a2d33] sm:text-[17px]">App Store</span>
-                      </span>
-                    </div>
-                    <span className="rounded-full border border-[#efb1b1] bg-[#ffe8e8] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#a63b3b]">
-                      {t("about.cta.soon")}
-                    </span>
-                  </div>
-                </div>
+          </div>
+
+          <div className="relative z-10 mx-auto flex min-h-[940px] w-full max-w-[1540px] flex-col px-5 pb-9 pt-[calc(env(safe-area-inset-top)+28px)] sm:px-8 md:min-h-screen md:px-12 lg:px-16 xl:px-20">
+            <div className="flex w-full min-w-0 items-center justify-between gap-3 pr-[104px] sm:pr-[120px]">
+              <div className="flex items-center gap-4">
+                <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[12px] shadow-[0_12px_30px_rgba(0,93,255,0.35)] sm:h-14 sm:w-14" />
+                <span className="text-3xl font-bold tracking-normal sm:text-4xl">SportMe</span>
               </div>
+              <div className="relative hidden md:block">
+                <button
+                  type="button"
+                  onClick={() => setShowHeroMenu((value) => !value)}
+                  aria-expanded={showHeroMenu}
+                  className="inline-flex items-center gap-3 rounded-full border border-[#176fff]/55 bg-white/[0.06] px-5 py-3 text-lg font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur transition hover:bg-white/[0.1]"
+                >
+                  <span className="flex h-6 w-6 flex-col justify-center gap-1.5">
+                    <span className="block h-0.5 w-6 rounded-full bg-white" />
+                    <span className="block h-0.5 w-4 rounded-full bg-white" />
+                    <span className="block h-0.5 w-6 rounded-full bg-white" />
+                  </span>
+                  <span>{isEnglish ? "Menu" : "Meniu"}</span>
+                </button>
+                {showHeroMenu ? (
+                  <div className="absolute right-0 top-[calc(100%+12px)] z-30 w-64 overflow-hidden rounded-[22px] border border-white/14 bg-[#111b2b]/88 p-2 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+                    {[
+                      { href: "/about", label: isEnglish ? "Home" : "Acasa" },
+                      { href: "/pricing", label: "SportMe Manager" },
+                      { href: "/privacy-policy", label: isEnglish ? "Privacy policy" : "Politica de confidentialitate" },
+                      { href: "/terms", label: isEnglish ? "Terms" : "Termeni si conditii" },
+                      { href: "/cookies", label: isEnglish ? "Cookies" : "Politica de cookies" },
+                    ].map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="block rounded-2xl px-4 py-3 text-sm font-semibold text-white/82 transition hover:bg-white/10 hover:text-white"
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            </div>
 
-              <div className="flex flex-col rounded-[28px] border border-[#d8d1bf] bg-[radial-gradient(circle_at_top_right,_#ffffff_0%,_#f3f4f6_62%,_#eceff3_100%)] p-4 shadow-[0_30px_80px_-48px_rgba(32,33,31,0.85)] backdrop-blur">
-                <div className="inline-flex w-full items-center justify-center gap-3 px-2 py-1 text-sm font-semibold text-[#1f211f]">
-                  <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-[8px] bg-white">
-                    <img src="/logo-512admin.png" alt="" className="h-full w-full object-cover" />
-                  </span>
-                  <span className="flex flex-col items-center">
-                    <span className="text-[19px] leading-tight">{t("about.cta.managerTitle")}</span>
-                    <span className="text-sm font-normal text-[#5b564b]">{t("about.cta.managerSubtitle")}</span>
-                  </span>
+            <div className="flex flex-1 items-end pb-0 pt-12 md:items-center md:pb-0 md:pt-0">
+              <div className="w-[min(390px,calc(100vw-40px))] min-w-0 sm:w-[min(780px,calc(100vw-64px))] lg:w-[780px]">
+                <div className="relative mb-8 inline-block md:hidden">
+                  <button
+                    type="button"
+                    onClick={() => setShowHeroMenu((value) => !value)}
+                    aria-expanded={showHeroMenu}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#176fff]/50 bg-white/[0.06] px-4 py-2 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur"
+                  >
+                    <span className="flex h-5 w-5 flex-col justify-center gap-1">
+                      <span className="block h-0.5 w-5 rounded-full bg-white" />
+                      <span className="block h-0.5 w-3.5 rounded-full bg-white" />
+                      <span className="block h-0.5 w-5 rounded-full bg-white" />
+                    </span>
+                    <span>{isEnglish ? "Menu" : "Meniu"}</span>
+                  </button>
+                  {showHeroMenu ? (
+                    <div className="absolute left-0 top-[calc(100%+10px)] z-30 w-64 overflow-hidden rounded-[22px] border border-white/14 bg-[#111b2b]/90 p-2 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+                      {[
+                        { href: "/about", label: isEnglish ? "Home" : "Acasa" },
+                        { href: "/pricing", label: "SportMe Manager" },
+                        { href: "/privacy-policy", label: isEnglish ? "Privacy policy" : "Politica de confidentialitate" },
+                        { href: "/terms", label: isEnglish ? "Terms" : "Termeni si conditii" },
+                        { href: "/cookies", label: isEnglish ? "Cookies" : "Politica de cookies" },
+                      ].map((item) => (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          className="block rounded-2xl px-4 py-3 text-sm font-semibold text-white/82 transition hover:bg-white/10 hover:text-white"
+                        >
+                          {item.label}
+                        </a>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
 
-                <div className="mt-3 flex flex-col items-center gap-1.5">
+                <h1 className="max-w-full text-[44px] font-bold leading-[1.02] tracking-normal sm:text-6xl sm:leading-[0.98] lg:text-[82px]">
+                  {isEnglish ? "Book fast" : "Rezerva rapid"}
+                  <br />
+                  {isEnglish ? "with " : "prin "}
+                  <span className="text-[#106dff]">SportMe</span>
+                </h1>
+                <p className="mt-5 max-w-full text-lg leading-7 text-white/84 sm:max-w-[640px] sm:text-2xl sm:leading-9">
+                  {isEnglish
+                    ? "Check availability and book sports courts in a few seconds."
+                    : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
+                </p>
+
+                <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10">
+                  {[
+                    { id: "fast", icon: <CalendarCheckIcon />, ro: ["Rezervari", "rapide"], en: ["Fast", "bookings"] },
+                    { id: "live", icon: <ClockIcon />, ro: ["Disponibilitate", "in timp real"], en: ["Real-time", "availability"] },
+                    { id: "calls", icon: <PhoneArrowIcon />, ro: ["Fara apeluri,", "fara stres"], en: ["No calls,", "no stress"] },
+                  ].map((benefit) => (
+                    <div key={benefit.id} className="min-w-0 px-1.5 sm:px-5">
+                      <div className="mx-auto mb-2.5 flex h-[70px] w-[70px] items-center justify-center rounded-full border border-[#0d67ff] bg-black/24 text-white shadow-[0_0_22px_rgba(0,93,255,0.34),inset_0_0_20px_rgba(255,255,255,0.04)] sm:mb-3 sm:h-[82px] sm:w-[82px]">
+                        {benefit.icon}
+                      </div>
+                      <p className="text-[13px] font-semibold leading-5 sm:text-xl sm:leading-6">
+                        {(isEnglish ? benefit.en : benefit.ro).map((line) => (
+                          <span key={line} className="block">
+                            {line}
+                          </span>
+                        ))}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-7 hidden max-w-[670px] items-center justify-center gap-2 pl-28 text-xl font-medium text-white/90 sm:flex">
+                  <span>{isEnglish ? "Download the app" : "Descarca aplicatia"}</span>
+                  <DownloadArrowIcon />
+                </div>
+
+                <div className="mt-6 grid w-full gap-4 lg:w-[1420px] lg:grid-cols-[670px_700px] lg:items-start lg:gap-8">
+                  <div className="w-full max-w-[670px] space-y-3 sm:space-y-4">
+                    <a
+                      href="https://play.google.com/store/apps/details?id=ro.sportme.app"
+                      className="flex h-16 items-center justify-center gap-3 rounded-full bg-[#0564ff] px-4 text-lg font-semibold shadow-[0_20px_48px_rgba(0,93,255,0.42)] hover:bg-[#1472ff] sm:h-[78px] sm:gap-4 sm:text-2xl"
+                    >
+                      <AndroidIcon />
+                      <span>{isEnglish ? "Get it on Google Play" : "Descarca din Google Play"}</span>
+                    </a>
+                    <a
+                      href="https://www.sportme.ro/app"
+                      className="flex h-16 items-center justify-center gap-3 rounded-full border border-white/38 bg-black/20 px-4 text-lg font-semibold hover:border-white/58 hover:bg-white/8 sm:h-[78px] sm:gap-4 sm:text-2xl"
+                    >
+                      <AppleIcon />
+                      <span>{isEnglish ? "Download on the App Store" : "Descarca din App Store"}</span>
+                    </a>
+                  </div>
+
                   <a
-                    className="group inline-flex w-[92%] items-center justify-center gap-3 rounded-full border border-[#d8d1bf] bg-white px-4 py-2.5 text-[#2a2d33] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#f9fafb]"
                     href="https://www.sportme.ro/pricing"
+                    className="flex w-full max-w-[670px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.08] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:gap-5 sm:p-5 lg:h-[172px] lg:max-w-none lg:translate-x-10 lg:translate-y-0 lg:gap-5 lg:rounded-[22px] lg:px-6 lg:py-5"
                   >
-                    <span className="flex min-w-0 flex-1 flex-col items-center text-center leading-tight">
-                      <span className="text-[15px] font-semibold tracking-tight text-[#2a2d33] sm:text-[16px]">{t("about.cta.managerButtonLine1")}</span>
-                      <span className="text-[13px] font-normal text-[#5b564b] sm:text-sm">{t("about.cta.managerButtonLine2")}</span>
+                    <img src="/logo-512admin.png" alt="" className="h-16 w-16 rounded-[10px] sm:h-20 sm:w-20 lg:h-20 lg:w-20" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm text-white/72 sm:text-lg lg:text-sm">
+                        {isEnglish ? "Do you manage a sports venue?" : "Esti administrator de baza sportiva?"}
+                      </span>
+                      <span className="mt-0.5 block text-xl font-bold sm:text-2xl lg:whitespace-nowrap lg:text-[22px] lg:leading-7">
+                        {isEnglish ? "Open " : "Acceseaza "}
+                        <span className="text-[#106dff]">SportMe Manager</span>
+                      </span>
+                      <span className="mt-2 hidden max-w-[430px] text-base leading-6 text-white/72 sm:block lg:text-base lg:leading-6">
+                        {isEnglish ? (
+                          <>
+                            The complete platform for bookings,
+                            <br />
+                            calendar and activities.
+                          </>
+                        ) : (
+                          <>
+                            Platforma completa pentru administrarea rezervarilor,
+                            <br />
+                            calendarului si activitatilor.
+                          </>
+                        )}
+                      </span>
+                    </span>
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0b62df] sm:h-14 sm:w-14 lg:h-12 lg:w-12">
+                      <ArrowIcon />
                     </span>
                   </a>
-                  <span className="rounded-full border border-[#b7dfc2] bg-[#e8f8ed] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#2e7d44]">
-                    {t("about.cta.live")}
-                  </span>
-                </div>
-
-                <div className="mt-3 flex items-center justify-center">
-                  <div className="inline-flex">
-                    <img src="/patterns/6247dd6f-1.png" alt="SportMe" className="h-7 w-auto object-contain" />
-                  </div>
                 </div>
               </div>
             </div>
-          </header>
+          </div>
+        </section>
 
-          <section className="rounded-[28px] border border-[#d8d1bf] bg-white p-6 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)]">
+        <div className="about-dark-section w-full px-5 py-12 lg:py-16">
+        <div className="mx-auto w-full max-w-7xl space-y-10">
+
+          <section className="about-glass-card rounded-[28px] p-6 lg:p-8">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-              <h2 className="text-2xl font-semibold">{t("about.screenshots.title")}</h2>
-              <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">{t("about.screenshots.subtitle")}</p>
+              <h2 className="about-section-title text-2xl lg:text-3xl">
+                {isEnglish ? "Product " : "Capturi "}
+                <span className="accent">{isEnglish ? "screenshots" : "de ecran"}</span>
+              </h2>
+              <p className="about-section-kicker text-xs">{t("about.screenshots.subtitle")}</p>
             </div>
             <div ref={screenshotsTrackRef} className="mt-5 overflow-hidden pb-2" aria-label="Product screenshots">
               <div className="flex w-max gap-2.5 sm:gap-3">
@@ -331,162 +586,77 @@ export default function AboutPage() {
             </div>
           ) : null}
 
-          <section className="grid gap-6 lg:grid-cols-2">
-            <div className="rounded-[28px] border border-[#d8d1bf] bg-[#f1f2f4] p-6 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)]">
+          <section>
+            <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
               <div className="space-y-4">
-                <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">{t("about.users.label")}</p>
-                <div className="inline-flex items-center gap-3 rounded-full border border-[#d8d1bf] bg-white/80 px-3 py-2 text-xs font-semibold text-[#1f211f]">
-                  <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-[#d8d1bf] bg-white">
-                    <img src="/logo-512.png" alt="SportMe app logo" className="h-full w-full object-cover" />
-                  </span>
-                  <span>
-                    {t("about.users.badge")} <span className="font-normal">{t("about.users.badgeNote")}</span>
-                  </span>
-                </div>
-                <h2 className="text-2xl font-semibold">{t("about.users.title")}</h2>
-                <p className="text-sm text-[#5b564b]">{t("about.users.intro")}</p>
+                <p className="about-section-kicker text-xs">{t("about.users.label")}</p>
+                <h2 className="about-section-title text-2xl lg:text-3xl">
+                  {isEnglish ? "Book your sport, " : "Rezerva sportul tau, "}
+                  <span className="accent">{isEnglish ? "hassle free" : "fara batai de cap"}</span>
+                </h2>
+                <p className="max-w-4xl text-base leading-7 text-white/72">{t("about.users.intro")}</p>
               </div>
-              <div className="mt-5 space-y-5 text-sm text-[#5b564b]">
-                <div className="space-y-1">
+              <div className="mt-7 grid gap-5 text-sm leading-6 text-[#5b564b] md:grid-cols-2 xl:grid-cols-4">
+                <div className="about-glass-tile space-y-1 rounded-2xl p-4">
                   <p className="font-semibold text-[#1f211f]">{t("about.users.sectionTitle")}</p>
                   <p className="font-semibold text-[#1f211f]">{t("about.users.findTitle")}</p>
                   <p>{t("about.users.findItem1")}</p>
                   <p>{t("about.users.findItem2")}</p>
                   <p>{t("about.users.findItem3")}</p>
                 </div>
-                <div className="space-y-1">
+                <div className="about-glass-tile space-y-1 rounded-2xl p-4">
                   <p className="font-semibold text-[#1f211f]">{t("about.users.bookTitle")}</p>
                   <p>{t("about.users.bookItem1")}</p>
                   <p>{t("about.users.bookItem2")}</p>
                   <p>{t("about.users.bookItem3")}</p>
                 </div>
-                <div className="space-y-1">
+                <div className="about-glass-tile space-y-1 rounded-2xl p-4">
                   <p className="font-semibold text-[#1f211f]">{t("about.users.notifyTitle")}</p>
                   <p>{t("about.users.notifyItem1")}</p>
                   <p>{t("about.users.notifyItem2")}</p>
                   <p>{t("about.users.notifyItem3")}</p>
                 </div>
-                <div className="space-y-1">
+                <div className="about-glass-tile space-y-1 rounded-2xl p-4">
                   <p className="font-semibold text-[#1f211f]">{t("about.users.accountTitle")}</p>
                   <p>{t("about.users.accountItem1")}</p>
                   <p>{t("about.users.accountItem2")}</p>
                   <p>{t("about.users.accountItem3")}</p>
                 </div>
-                <div className="space-y-1">
+                <div className="about-glass-tile space-y-1 rounded-2xl p-4">
                   <p className="font-semibold text-[#1f211f]">{t("about.users.nearTitle")}</p>
                   <p>{t("about.users.nearBody")}</p>
                 </div>
-                <div className="space-y-1">
+                <div className="about-glass-tile space-y-1 rounded-2xl p-4">
                   <p className="font-semibold text-[#1f211f]">{t("about.users.whyTitle")}</p>
                   <p>{t("about.users.whyItem1")}</p>
                   <p>{t("about.users.whyItem2")}</p>
                   <p>{t("about.users.whyItem3")}</p>
                   <p>{t("about.users.whyItem4")}</p>
                 </div>
-                <div className="space-y-1">
+                <div className="about-glass-tile space-y-1 rounded-2xl p-4">
                   <p className="font-semibold text-[#1f211f]">{t("about.users.forTitle")}</p>
                   <p>{t("about.users.forItem1")}</p>
                   <p>{t("about.users.forItem2")}</p>
                   <p>{t("about.users.forItem3")}</p>
                 </div>
-                <div className="space-y-1">
+                <div className="about-glass-tile space-y-1 rounded-2xl p-4">
                   <p className="font-semibold text-[#1f211f]">{t("about.users.startTitle")}</p>
                   <p>{t("about.users.startBody")}</p>
                   <p>{t("about.users.startTagline")}</p>
                 </div>
               </div>
             </div>
-
-            <div className="rounded-[28px] border border-[#d8d1bf] bg-white p-6 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)]">
-              <div className="space-y-4">
-                <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">{t("about.managers.label")}</p>
-                <div className="flex flex-wrap items-center gap-2">
-                  <div className="inline-flex items-center gap-3 rounded-full border border-[#d8d1bf] bg-[#f1f2f4] px-3 py-2 text-xs font-semibold text-[#1f211f]">
-                    <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-[#d8d1bf] bg-white">
-                      <img src="/logo-512admin.png" alt="Admin SportMe logo" className="h-full w-full object-cover" />
-                    </span>
-                    <span>{t("about.managers.badge")}</span>
-                  </div>
-                  <a
-                    className="inline-flex items-center gap-2 rounded-full border border-[#1d5f63]/30 bg-[#ecf7f6] px-4 py-2 text-sm font-semibold text-[#1d5f63] shadow-[0_12px_25px_-20px_rgba(29,95,99,0.9)] transition hover:-translate-y-0.5 hover:border-[#1d5f63]/50 hover:bg-[#e0f2f1]"
-                    href="/pricing"
-                  >
-                    <span>{t("about.managers.pricing")}</span>
-                    <span aria-hidden>→</span>
-                  </a>
-                </div>
-                <h2 className="text-2xl font-semibold">{t("about.managers.title")}</h2>
-              </div>
-              <div className="mt-5 space-y-5 text-sm text-[#5b564b]">
-                <div className="space-y-1">
-                  <p className="font-semibold text-[#1f211f]">{t("about.managers.bookingsTitle")}</p>
-                  <p>{t("about.managers.bookingsItem1")}</p>
-                  <p>{t("about.managers.bookingsItem2")}</p>
-                  <p>{t("about.managers.bookingsItem3")}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="font-semibold text-[#1f211f]">{t("about.managers.occupancyTitle")}</p>
-                  <p>{t("about.managers.occupancyItem1")}</p>
-                  <p>{t("about.managers.occupancyItem2")}</p>
-                  <p>{t("about.managers.occupancyItem3")}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="font-semibold text-[#1f211f]">{t("about.managers.managementTitle")}</p>
-                  <p>{t("about.managers.managementItem1")}</p>
-                  <p>{t("about.managers.managementItem2")}</p>
-                  <p>{t("about.managers.managementItem3")}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="font-semibold text-[#1f211f]">{t("about.managers.communicationTitle")}</p>
-                  <p>{t("about.managers.communicationItem1")}</p>
-                  <p>{t("about.managers.communicationItem2")}</p>
-                  <p>{t("about.managers.communicationItem3")}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="font-semibold text-[#1f211f]">{t("about.managers.whyTitle")}</p>
-                  <p>{t("about.managers.whyItem1")}</p>
-                  <p>{t("about.managers.whyItem2")}</p>
-                  <p>{t("about.managers.whyItem3")}</p>
-                  <p>{t("about.managers.whyItem4")}</p>
-                  <p>{t("about.managers.whyItem5")}</p>
-                  <p>{t("about.managers.whyItem6")}</p>
-                  <p>{t("about.managers.whyItem7")}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="font-semibold text-[#1f211f]">{t("about.managers.securityTitle")}</p>
-                  <p>{t("about.managers.securityItem1")}</p>
-                  <p>{t("about.managers.securityItem2")}</p>
-                  <p>{t("about.managers.securityItem3")}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="font-semibold text-[#1f211f]">{t("about.managers.startTitle")}</p>
-                  <p>{t("about.managers.startItem1")}</p>
-                  <p>{t("about.managers.startItem2")}</p>
-                  <p>{t("about.managers.startItem3")}</p>
-                  <p>{t("about.managers.startItem4")}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="font-semibold text-[#1f211f]">{t("about.managers.forTitle")}</p>
-                  <p>{t("about.managers.forItem1")}</p>
-                  <p>{t("about.managers.forItem2")}</p>
-                  <p>{t("about.managers.forItem3")}</p>
-                  <p>{t("about.managers.forItem4")}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="font-semibold text-[#1f211f]">{t("about.managers.ctaTitle")}</p>
-                  <p>{t("about.managers.ctaBody")}</p>
-                  <p>{t("about.managers.ctaAction")}</p>
-                </div>
-              </div>
-            </div>
           </section>
 
           <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-            <div className="rounded-[28px] border border-[#d8d1bf] bg-[#f4f7ff] p-6 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)]">
+            <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
               <div className="space-y-2">
-                <h2 className="text-2xl font-semibold">{t("about.privacy.title")}</h2>
-                <p className="text-sm text-[#5b564b]">{t("about.privacy.body1")}</p>
-                <p className="text-sm text-[#5b564b]">
+                <h2 className="about-section-title text-2xl lg:text-3xl">
+                  {isEnglish ? "Privacy and " : "Confidentialitate si "}
+                  <span className="accent">{isEnglish ? "security" : "securitate"}</span>
+                </h2>
+                <p className="text-base leading-7 text-white/72">{t("about.privacy.body1")}</p>
+                <p className="text-base leading-7 text-white/72">
                   {t("about.privacy.policyLabel")}{" "}
                   <a className="text-[#1d5f63] underline" href="https://sportme.ro/privacy-policy">
                     https://sportme.ro/privacy-policy
@@ -495,23 +665,26 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="rounded-[28px] border border-[#d8d1bf] bg-white p-6 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)]">
+            <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
               <div className="space-y-3">
-                <h2 className="text-2xl font-semibold">{t("about.platform.title")}</h2>
-                <ul className="space-y-2 text-sm text-[#5b564b]">
+                <h2 className="about-section-title text-2xl lg:text-3xl">
+                  <span className="accent">{t("about.platform.title")}</span>
+                </h2>
+                <ul className="space-y-2 text-base leading-7 text-white/72">
                   <li>{t("about.platform.item1")}</li>
                   <li>{t("about.platform.item2")}</li>
                   <li>{t("about.platform.item3")}</li>
                 </ul>
               </div>
               <div className="mt-6 space-y-2 border-t border-[#e6e0d2] pt-4">
-                <h3 className="text-base font-semibold text-[#1f211f]">{t("about.platform.publishedTitle")}</h3>
-                <p className="text-sm text-[#5b564b]">{t("about.platform.publishedValue")}</p>
+                <h3 className="text-base font-semibold text-white/96">{t("about.platform.publishedTitle")}</h3>
+                <p className="text-base text-white/72">{t("about.platform.publishedValue")}</p>
               </div>
             </div>
           </section>
 
           <SiteFooter />
+        </div>
         </div>
       </div>
     </main>
