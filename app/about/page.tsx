@@ -290,7 +290,7 @@ export default function AboutPage() {
         }
       `}</style>
       <div className="relative overflow-hidden">
-        <section className="relative min-h-[940px] overflow-hidden text-white md:min-h-screen">
+        <section className="relative min-h-[850px] overflow-hidden text-white md:min-h-screen">
           <picture>
             <source media="(min-width: 768px)" srcSet="/home/sportme-home-desktop-wide.png" />
             <img src="/home/sportme-home-mobile-bg.png" alt="" className="absolute inset-0 h-full w-full object-cover object-[60%_center] md:object-center" />
@@ -298,7 +298,7 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,20,0.96)_0%,rgba(2,8,20,0.83)_40%,rgba(2,8,20,0.28)_72%,rgba(2,8,20,0.14)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,8,20,0.98)_0%,rgba(2,8,20,0.48)_31%,rgba(2,8,20,0.1)_62%,rgba(2,8,20,0.36)_100%)]" />
 
-          <div className="absolute right-5 top-[calc(env(safe-area-inset-top)+18px)] z-20 sm:right-8 lg:right-12">
+          <div className="absolute right-5 top-[calc(env(safe-area-inset-top)+18px)] z-20 flex flex-col items-end gap-3 sm:right-8 lg:right-12">
             <div
               className="inline-flex rounded-full border border-white/18 bg-black/24 p-1 text-xs font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md"
               aria-label={t("about.languageToggleLabel")}
@@ -320,9 +320,43 @@ export default function AboutPage() {
                 EN
               </button>
             </div>
+            <div className="relative md:hidden">
+              <button
+                type="button"
+                onClick={() => setShowHeroMenu((value) => !value)}
+                aria-expanded={showHeroMenu}
+                className="inline-flex items-center gap-2 rounded-full border border-[#176fff]/50 bg-white/[0.06] px-4 py-2 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur"
+              >
+                <span className="flex h-5 w-5 flex-col justify-center gap-1">
+                  <span className="block h-0.5 w-5 rounded-full bg-white" />
+                  <span className="block h-0.5 w-3.5 rounded-full bg-white" />
+                  <span className="block h-0.5 w-5 rounded-full bg-white" />
+                </span>
+                <span>{isEnglish ? "Menu" : "Meniu"}</span>
+              </button>
+              {showHeroMenu ? (
+                <div className="absolute right-0 top-[calc(100%+10px)] z-30 w-64 overflow-hidden rounded-[22px] border border-white/14 bg-[#111b2b]/90 p-2 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+                  {[
+                    { href: "/about", label: isEnglish ? "Home" : "Acasa" },
+                    { href: "/pricing", label: "SportMe Manager" },
+                    { href: "/privacy-policy", label: isEnglish ? "Privacy policy" : "Politica de confidentialitate" },
+                    { href: "/terms", label: isEnglish ? "Terms" : "Termeni si conditii" },
+                    { href: "/cookies", label: isEnglish ? "Cookies" : "Politica de cookies" },
+                  ].map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="block rounded-2xl px-4 py-3 text-sm font-semibold text-white/82 transition hover:bg-white/10 hover:text-white"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           </div>
 
-          <div className="relative z-10 mx-auto flex min-h-[940px] w-full max-w-[1540px] flex-col px-5 pb-9 pt-[calc(env(safe-area-inset-top)+28px)] sm:px-8 md:min-h-screen md:px-12 lg:px-16 xl:px-20">
+          <div className="relative z-10 mx-auto flex min-h-[850px] w-full max-w-[1540px] flex-col px-5 pb-9 pt-[calc(env(safe-area-inset-top)+22px)] sm:px-8 md:min-h-screen md:px-12 lg:px-16 xl:px-20">
             <div className="flex w-full min-w-0 items-center justify-between gap-3 pr-[104px] sm:pr-[120px]">
               <div className="flex items-center gap-4">
                 <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[12px] shadow-[0_12px_30px_rgba(0,93,255,0.35)] sm:h-14 sm:w-14" />
@@ -364,50 +398,15 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="flex flex-1 items-end pb-0 pt-12 md:items-center md:pb-0 md:pt-0">
+            <div className="flex flex-1 items-start pb-0 pt-16 md:items-center md:pb-0 md:pt-0">
               <div className="w-[min(390px,calc(100vw-40px))] min-w-0 sm:w-[min(780px,calc(100vw-64px))] lg:w-[780px]">
-                <div className="relative mb-8 inline-block md:hidden">
-                  <button
-                    type="button"
-                    onClick={() => setShowHeroMenu((value) => !value)}
-                    aria-expanded={showHeroMenu}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#176fff]/50 bg-white/[0.06] px-4 py-2 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur"
-                  >
-                    <span className="flex h-5 w-5 flex-col justify-center gap-1">
-                      <span className="block h-0.5 w-5 rounded-full bg-white" />
-                      <span className="block h-0.5 w-3.5 rounded-full bg-white" />
-                      <span className="block h-0.5 w-5 rounded-full bg-white" />
-                    </span>
-                    <span>{isEnglish ? "Menu" : "Meniu"}</span>
-                  </button>
-                  {showHeroMenu ? (
-                    <div className="absolute left-0 top-[calc(100%+10px)] z-30 w-64 overflow-hidden rounded-[22px] border border-white/14 bg-[#111b2b]/90 p-2 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl">
-                      {[
-                        { href: "/about", label: isEnglish ? "Home" : "Acasa" },
-                        { href: "/pricing", label: "SportMe Manager" },
-                        { href: "/privacy-policy", label: isEnglish ? "Privacy policy" : "Politica de confidentialitate" },
-                        { href: "/terms", label: isEnglish ? "Terms" : "Termeni si conditii" },
-                        { href: "/cookies", label: isEnglish ? "Cookies" : "Politica de cookies" },
-                      ].map((item) => (
-                        <a
-                          key={item.href}
-                          href={item.href}
-                          className="block rounded-2xl px-4 py-3 text-sm font-semibold text-white/82 transition hover:bg-white/10 hover:text-white"
-                        >
-                          {item.label}
-                        </a>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
-
-                <h1 className="max-w-full text-[44px] font-bold leading-[1.02] tracking-normal sm:text-6xl sm:leading-[0.98] lg:text-[82px]">
+                <h1 className="max-w-full text-[38px] font-bold leading-[1.04] tracking-normal sm:text-6xl sm:leading-[0.98] lg:text-[82px]">
                   {isEnglish ? "Book fast" : "Rezerva rapid"}
                   <br />
                   {isEnglish ? "with " : "prin "}
                   <span className="text-[#106dff]">SportMe</span>
                 </h1>
-                <p className="mt-5 max-w-full text-lg leading-7 text-white/84 sm:max-w-[640px] sm:text-2xl sm:leading-9">
+                <p className="mt-4 max-w-full text-[16px] leading-6 text-white/84 sm:mt-5 sm:max-w-[640px] sm:text-2xl sm:leading-9">
                   {isEnglish
                     ? "Check availability and book sports courts in a few seconds."
                     : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
