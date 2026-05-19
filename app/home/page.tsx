@@ -13,6 +13,41 @@ function ShieldIcon() {
   );
 }
 
+function CalendarCheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="h-7 w-7">
+      <path d="M7 3v3M17 3v3M4.5 9.2h15" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <rect x="4.5" y="5.5" width="15" height="14" rx="2.8" fill="none" stroke="currentColor" strokeWidth="1.7" />
+      <path d="m8 14.1 2.1 2.1 5-5.1" fill="none" stroke="#1476ff" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="h-7 w-7">
+      <circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M12 7.7v4.7l3.3 2" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function PhoneOffIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="h-7 w-7">
+      <path d="m4 4 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <path
+        d="M8.1 5.3 6.7 6.7c-.8.8-.9 2-.4 3 .9 1.8 2.1 3.5 3.7 5.1 1.5 1.5 3.2 2.8 5.1 3.7 1 .5 2.2.4 3-.4l1.4-1.4c.5-.5.5-1.4 0-1.9l-2.1-2.1c-.5-.5-1.3-.5-1.8-.1l-1.1.9c-.4.3-.9.3-1.3 0a15.3 15.3 0 0 1-2.7-2.7c-.3-.4-.3-.9 0-1.3l.9-1.1c.4-.5.4-1.3-.1-1.8L9.9 5.3c-.5-.5-1.3-.5-1.8 0Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function AndroidIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden className="h-7 w-7">
@@ -43,114 +78,157 @@ function ArrowIcon() {
   );
 }
 
+function DownloadArrowIcon() {
+  return (
+    <svg viewBox="0 0 80 36" aria-hidden className="h-9 w-20 text-white/82">
+      <path d="M4 18c20-10 43-8 58 8" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="M58 18.5 63.6 27l-10.2.1" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+const benefits = [
+  {
+    id: "fast-bookings",
+    label: (
+      <>
+        Rezervari
+        <br />
+        rapide
+      </>
+    ),
+    icon: <CalendarCheckIcon />,
+  },
+  {
+    id: "availability",
+    label: (
+      <>
+        Disponibilitate
+        <br />
+        in timp real
+      </>
+    ),
+    icon: <ClockIcon />,
+  },
+  {
+    id: "no-calls",
+    label: (
+      <>
+        Fara apeluri,
+        <br />
+        fara stres
+      </>
+    ),
+    icon: <PhoneOffIcon />,
+  },
+];
+
 export default function HomeLandingPage() {
   return (
-    <main className="min-h-screen bg-[#020915] text-white">
-      <section className="mx-auto flex min-h-screen w-full max-w-[1500px] flex-col lg:grid lg:grid-cols-[minmax(390px,0.86fr)_minmax(420px,0.64fr)] lg:items-center lg:gap-10 lg:px-10 lg:py-10 xl:gap-16">
-        <div className="relative mx-auto aspect-[2/3] min-h-screen w-full max-w-[520px] overflow-hidden bg-[#020915] shadow-[0_30px_90px_rgba(0,0,0,0.55)] lg:min-h-0 lg:rounded-[34px] lg:ring-1 lg:ring-white/12">
+    <main className="min-h-screen overflow-x-hidden bg-[#020814] text-white">
+      <section className="relative min-h-screen overflow-hidden">
+        <picture>
+          <source media="(min-width: 768px)" srcSet="/home/sportme-home-desktop-wide.png" />
           <img
-            src="/home/sportme-home-mobile.png"
-            alt="SportMe - rezervari rapide pentru terenuri sportive"
-            className="absolute inset-0 h-full w-full object-cover"
+            src="/home/sportme-home-mobile-bg.png"
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-[60%_center] md:object-center"
           />
-          <a
-            href={googlePlayUrl}
-            className="absolute left-[7.2%] top-[59.8%] h-[7.1%] w-[85.6%] rounded-full"
-            aria-label="Descarca SportMe din Google Play"
-          />
-          <a
-            href={appStoreFallbackUrl}
-            className="absolute left-[7.2%] top-[68%] h-[7.1%] w-[85.6%] rounded-full"
-            aria-label="Descarca SportMe din App Store"
-          />
-          <a
-            href={managerUrl}
-            className="absolute left-[7.2%] top-[78.1%] h-[14.7%] w-[85.6%] rounded-[28px]"
-            aria-label="Acceseaza SportMe Manager"
-          />
-        </div>
+        </picture>
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,20,0.94)_0%,rgba(2,8,20,0.78)_33%,rgba(2,8,20,0.28)_67%,rgba(2,8,20,0.48)_100%)] md:bg-[linear-gradient(90deg,rgba(2,8,20,0.95)_0%,rgba(2,8,20,0.82)_38%,rgba(2,8,20,0.18)_66%,rgba(2,8,20,0.2)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,8,20,0.92)_0%,rgba(2,8,20,0.16)_38%,rgba(2,8,20,0.3)_100%)]" />
 
-        <div className="hidden lg:block">
-          <div className="mb-10 flex items-center justify-between gap-5">
+        <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1540px] flex-col px-5 pb-7 pt-8 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+          <div className="flex w-full min-w-0 items-center justify-between gap-3">
             <div className="flex items-center gap-4">
-              <img src="/logo-512.png" alt="" className="h-16 w-16 rounded-[16px] shadow-[0_12px_30px_rgba(0,93,255,0.35)]" />
-              <span className="text-5xl font-bold tracking-normal">SportMe</span>
+              <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[12px] shadow-[0_12px_30px_rgba(0,93,255,0.35)] sm:h-14 sm:w-14" />
+              <span className="text-3xl font-bold tracking-normal sm:text-4xl">SportMe</span>
             </div>
-            <div className="inline-flex items-center gap-3 rounded-full border border-[#176fff]/55 bg-white/[0.06] px-6 py-3 text-xl font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur">
+            <div className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#176fff]/55 bg-white/[0.06] px-3 py-2 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur sm:gap-3 sm:px-6 sm:py-3 sm:text-lg">
               <ShieldIcon />
-              <span>Partener oficial</span>
+              <span className="hidden sm:inline">Partener oficial</span>
             </div>
           </div>
 
-          <div className="max-w-2xl">
-            <h1 className="text-7xl font-bold leading-[0.98] tracking-normal">
-              Rezerva rapid prin <span className="text-[#106dff]">SportMe</span>
-            </h1>
-            <p className="mt-7 max-w-xl text-2xl leading-9 text-white/78">
+          <div className="flex flex-1 items-end pb-5 pt-10 md:items-center md:pb-0 md:pt-0">
+            <div className="home-hero-copy min-w-0">
+              <h1 className="max-w-full text-[42px] font-bold leading-[1.02] tracking-normal sm:text-6xl sm:leading-[0.98] lg:text-7xl">
+                Rezerva rapid
+                <br />
+                prin <span className="text-[#106dff]">SportMe</span>
+              </h1>
+              <p className="mt-5 max-w-full text-base leading-7 text-white/82 sm:max-w-[620px] sm:text-2xl sm:leading-9">
               Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde.
-            </p>
-          </div>
+              </p>
 
-          <div className="mt-12 grid max-w-2xl grid-cols-3 divide-x divide-white/16 text-center">
-            {[
-              ["Rezervari", "rapide"],
-              ["Disponibilitate", "in timp real"],
-              ["Fara apeluri,", "fara stres"],
-            ].map(([line1, line2]) => (
-              <div key={line1} className="px-5">
-                <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full border border-[#176fff] bg-black/20 text-white shadow-[0_0_28px_rgba(0,93,255,0.28)]">
-                  <ShieldIcon />
-                </div>
-                <p className="text-xl font-semibold leading-7">
-                  {line1}
-                  <br />
-                  {line2}
-                </p>
+              <div className="mt-8 grid w-full max-w-[610px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-11">
+                {benefits.map((benefit) => (
+                  <div key={benefit.id} className="min-w-0 px-1.5 sm:px-5">
+                    <div className="mx-auto mb-3 flex h-[52px] w-[52px] items-center justify-center rounded-full border border-[#176fff] bg-black/20 text-white shadow-[0_0_24px_rgba(0,93,255,0.28)] sm:mb-4 sm:h-[72px] sm:w-[72px]">
+                      {benefit.icon}
+                    </div>
+                    <p className="text-[13px] font-semibold leading-5 sm:text-lg sm:leading-6">{benefit.label}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          <div className="mt-12 max-w-2xl space-y-4">
-            <a
-              href={googlePlayUrl}
-              className="flex h-20 items-center justify-center gap-5 rounded-full bg-[#0564ff] px-8 text-3xl font-semibold shadow-[0_20px_48px_rgba(0,93,255,0.42)] hover:bg-[#1472ff]"
-            >
-              <AndroidIcon />
-              <span>Descarca din Google Play</span>
-            </a>
-            <a
-              href={appStoreFallbackUrl}
-              className="flex h-20 items-center justify-center gap-5 rounded-full border border-white/38 bg-black/20 px-8 text-3xl font-semibold hover:border-white/58 hover:bg-white/8"
-            >
-              <AppleIcon />
-              <span>Descarca din App Store</span>
-            </a>
-          </div>
+              <div className="mt-6 hidden max-w-[610px] items-center justify-end gap-2 pr-7 text-sm font-medium text-white/82 sm:flex">
+                <span>Descarca aplicatia</span>
+                <DownloadArrowIcon />
+              </div>
 
-          <a
-            href={managerUrl}
-            className="mt-10 flex max-w-2xl items-center gap-7 rounded-[28px] border border-white/10 bg-white/[0.07] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.1]"
-          >
-            <img src="/logo-512admin.png" alt="" className="h-24 w-24 rounded-[12px]" />
-            <span className="min-w-0 flex-1">
-              <span className="block text-xl text-white/72">Esti administrator de baza sportiva?</span>
-              <span className="mt-2 block text-3xl font-bold">
-                Acceseaza <span className="text-[#106dff]">SportMe Manager</span>
-              </span>
-              <span className="mt-2 block text-lg leading-7 text-white/70">
-                Platforma completa pentru administrarea rezervarilor, calendarului si activitatilor.
-              </span>
-            </span>
-            <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#0b62df]">
-              <ArrowIcon />
-            </span>
-          </a>
+              <div className="mt-5 w-full max-w-[610px] space-y-3 sm:mt-0 sm:space-y-4">
+                <a
+                  href={googlePlayUrl}
+                  className="flex h-16 items-center justify-center gap-3 rounded-full bg-[#0564ff] px-4 text-lg font-semibold shadow-[0_20px_48px_rgba(0,93,255,0.42)] hover:bg-[#1472ff] sm:h-[72px] sm:gap-4 sm:text-2xl"
+                >
+                  <AndroidIcon />
+                  <span>Descarca din Google Play</span>
+                </a>
+                <a
+                  href={appStoreFallbackUrl}
+                  className="flex h-16 items-center justify-center gap-3 rounded-full border border-white/38 bg-black/20 px-4 text-lg font-semibold hover:border-white/58 hover:bg-white/8 sm:h-[72px] sm:gap-4 sm:text-2xl"
+                >
+                  <AppleIcon />
+                  <span>Descarca din App Store</span>
+                </a>
+              </div>
 
-          <div className="mt-9 flex items-center justify-center gap-3 text-xl font-medium text-white/58">
-            <ShieldIcon />
-            <span>Sigur. Rapid. Creat pentru sport.</span>
+              <a
+                href={managerUrl}
+                className="mt-6 flex w-full max-w-[610px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.08] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:mt-8 sm:gap-5 sm:p-5"
+              >
+                <img src="/logo-512admin.png" alt="" className="h-16 w-16 rounded-[10px] sm:h-20 sm:w-20" />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm text-white/72 sm:text-lg">Esti administrator de baza sportiva?</span>
+                  <span className="mt-1 block text-xl font-bold sm:text-2xl">
+                    Acceseaza <span className="text-[#106dff]">SportMe Manager</span>
+                  </span>
+                </span>
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0b62df] sm:h-14 sm:w-14">
+                  <ArrowIcon />
+                </span>
+              </a>
+            </div>
           </div>
         </div>
+        <style jsx>{`
+          .home-hero-copy {
+            width: min(350px, calc(100vw - 40px));
+          }
+
+          @media (min-width: 640px) {
+            .home-hero-copy {
+              width: min(760px, calc(100vw - 64px));
+            }
+          }
+
+          @media (min-width: 1024px) {
+            .home-hero-copy {
+              width: 760px;
+            }
+          }
+        `}</style>
       </section>
     </main>
   );
