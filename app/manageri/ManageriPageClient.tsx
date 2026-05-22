@@ -116,11 +116,11 @@ export default function ManageriPageClient() {
                 <div className="overflow-hidden rounded-2xl border border-[#e6e0d2]">
                   <div className="grid grid-cols-[1.45fr_0.5fr_0.5fr_0.5fr] bg-[#f1f2f4] px-2 py-2 text-[11px] font-semibold text-[#1f211f] sm:grid-cols-[1.35fr_0.7fr_0.7fr_0.7fr] sm:px-3 sm:py-2.5 sm:text-xs md:grid-cols-[1.4fr_0.9fr_1fr_1fr] md:px-4 md:py-3 md:text-sm">
                     <span>{t("pricing.new.compare.feature")}</span>
-                    <div className="flex flex-col items-center text-center">
+                    <div className="flex w-full flex-col items-center justify-center text-center">
                       <div className="text-[11px] font-semibold text-[#1f211f] sm:text-xs md:text-sm">{t("pricing.new.compare.freemium")}</div>
                       <div className="text-[10px] font-normal text-[#5b564b] sm:text-[11px] md:text-xs">{t("pricing.new.compare.freemiumPrice")}</div>
                     </div>
-                    <div className="flex flex-col items-center text-center">
+                    <div className="flex w-full flex-col items-center justify-center text-center">
                       <div className="text-[11px] font-semibold leading-tight text-[#1f211f] sm:text-xs md:text-sm">
                         <span className="block">Premium</span>
                         <span className="block">Starter</span>
@@ -130,7 +130,7 @@ export default function ManageriPageClient() {
                         {t("pricing.new.starter.limit")}
                       </div>
                     </div>
-                    <div className="flex flex-col items-center text-center">
+                    <div className="flex w-full flex-col items-center justify-center text-center">
                       <div className="text-[11px] font-semibold leading-tight text-[#1f211f] sm:text-xs md:text-sm">
                         <span className="block">Premium</span>
                         <span className="block">Pro</span>
