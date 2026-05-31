@@ -681,6 +681,29 @@ body {
   color: rgba(248, 250, 252, 0.72) !important;
 }
 
+/* Keep manager access modal readable in public-dark pages */
+.public-dark .manager-access-modal {
+  color: #1f211f !important;
+}
+
+.public-dark .manager-access-modal .bg-white {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: #d8d1bf !important;
+  box-shadow: none !important;
+}
+
+.public-dark .manager-access-modal .text-\[\#1f211f\],
+.public-dark .manager-access-modal .text-\[\#2a2d33\] {
+  color: #1f211f !important;
+}
+
+.public-dark .manager-access-modal .text-\[\#5b564b\],
+.public-dark .manager-access-modal .text-\[\#4b5563\] {
+  color: #5b564b !important;
+}
+
 /* default cards to crisp white */
 .bg-\[\#f9f8f3\],
 .bg-\[\#f9f8f4\],

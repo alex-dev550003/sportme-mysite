@@ -20,7 +20,7 @@ export default function ManagerAccessModal({ onClose, adminUrl, managerPlayStore
       aria-modal="true"
     >
       <div
-        className="w-full max-w-3xl rounded-[28px] border border-[#d8d1bf] bg-[radial-gradient(circle_at_top_right,_#ffffff_0%,_#f3f4f6_62%,_#eceff3_100%)] p-5 shadow-[0_30px_80px_-38px_rgba(32,33,31,0.9)]"
+        className="manager-access-modal w-full max-w-3xl rounded-[28px] border border-[#d8d1bf] bg-[radial-gradient(circle_at_top_right,_#ffffff_0%,_#f3f4f6_62%,_#eceff3_100%)] p-5 shadow-[0_30px_80px_-38px_rgba(32,33,31,0.9)]"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">
