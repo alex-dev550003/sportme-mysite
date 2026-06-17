@@ -83,10 +83,13 @@ function DownloadArrowIcon() {
 }
 
 const menuItems = [
-  { href: "/", ro: "Acasa", en: "Home" },
+  { href: "/", ro: "Acasă", en: "Home" },
+  { href: "/terenuri-sportive", ro: "Terenuri sportive", en: "Sports courts" },
   { href: "/manageri", ro: "SportMe Manager", en: "SportMe Manager" },
-  { href: "/privacy-policy", ro: "Politica de confidentialitate", en: "Privacy policy" },
-  { href: "/terms", ro: "Termeni si conditii", en: "Terms" },
+  { href: "/software-management-baze-sportive", ro: "Software baze sportive", en: "Sports venue software" },
+  { href: "/intrebari-frecvente", ro: "Întrebări frecvente", en: "FAQ" },
+  { href: "/privacy-policy", ro: "Politica de confidențialitate", en: "Privacy policy" },
+  { href: "/terms", ro: "Termeni și condiții", en: "Terms" },
   { href: "/cookies", ro: "Politica de cookies", en: "Cookies" },
 ];
 
