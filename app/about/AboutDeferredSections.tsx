@@ -225,6 +225,45 @@ export default function AboutDeferredSections() {
         </div>
       </section>
 
+      <section className="about-glass-card rounded-[28px] p-6 lg:p-8">
+        <div className="space-y-3">
+          <p className="about-section-kicker text-xs">{isEnglish ? "Useful links" : "Linkuri utile"}</p>
+          <h2 className="about-section-title text-2xl lg:text-3xl">
+            {isEnglish ? "Explore " : "Descopera "}
+            <span className="accent">SportMe</span>
+          </h2>
+          <p className="max-w-3xl text-base leading-7 text-white/72">
+            {isEnglish
+              ? "Find more details about online sports court booking, SportMe Manager and the most common questions about the platform."
+              : "Află mai multe despre rezervarea terenurilor sportive online, SportMe Manager și răspunsurile la cele mai frecvente întrebări despre platformă."}
+          </p>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              href: "/terenuri-sportive",
+              title: isEnglish ? "Sports courts" : "Terenuri sportive",
+              body: isEnglish ? "Book football, tennis, padel, squash and other sports online." : "Rezervă online terenuri de fotbal, tenis, padel, squash și alte sporturi.",
+            },
+            {
+              href: "/software-management-baze-sportive",
+              title: isEnglish ? "Management software" : "Software management baze sportive",
+              body: isEnglish ? "Tools for bookings, calendars, employees and sports venue activity." : "Instrumente pentru rezervări, calendare, angajați și activitatea bazei sportive.",
+            },
+            {
+              href: "/intrebari-frecvente",
+              title: isEnglish ? "Questions and answers" : "Întrebări frecvente",
+              body: isEnglish ? "Clear answers for players and sports venue administrators." : "Răspunsuri clare pentru jucători și administratori de baze sportive.",
+            },
+          ].map((item) => (
+            <a key={item.href} href={item.href} className="about-glass-tile block rounded-2xl p-4 transition hover:-translate-y-0.5">
+              <p className="font-semibold text-[#1f211f]">{item.title}</p>
+              <p className="mt-2 text-sm leading-6">{item.body}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
       <SiteFooter />
     </div>
   );
