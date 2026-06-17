@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { GoogleAnalytics } from "./components/GoogleAnalytics";
 
 const geistSans = Inter({
   variable: "--font-geist-sans",
@@ -15,32 +16,59 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.sportme.ro"),
+  title: {
+    default: "SportMe",
+    template: "%s | SportMe",
+  },
+  description: "Rezerva rapid terenuri sportive si administreaza bazele sportive cu SportMe.",
+  manifest: "/manifest.webmanifest",
+  applicationName: "SportMe",
+  authors: [{ name: "SportMe" }],
+  creator: "SportMe",
+  publisher: "SportMe",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/logo-512.png",
+  },
+  openGraph: {
     title: "SportMe",
     description: "Rezerva rapid terenuri sportive si administreaza bazele sportive cu SportMe.",
-    manifest: "/manifest.webmanifest",
-    icons: {
-      icon: "/logo-512.png",
-      shortcut: "/logo-512.png",
-      apple: "/logo-512.png",
-    },
-    openGraph: {
-      title: "SportMe",
-      description: "Rezerva rapid terenuri sportive si administreaza bazele sportive cu SportMe.",
-      images: ["https://www.sportme.ro/logo-512.png"],
-      url: "https://www.sportme.ro",
-      type: "website",
-    },
-  };
-}
+    images: [
+      {
+        url: "https://www.sportme.ro/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "SportMe",
+      },
+    ],
+    url: "https://www.sportme.ro/",
+    siteName: "SportMe",
+    locale: "ro_RO",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SportMe",
+    description: "Rezerva rapid terenuri sportive si administreaza bazele sportive cu SportMe.",
+    images: ["https://www.sportme.ro/og-image.png"],
+  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#020915",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const themeColor = "#020915";
   const bodyClassName = `${geistSans.variable} ${poppins.variable} antialiased`;
 
   return (
@@ -48,21 +76,12 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="apple-touch-icon" href="/logo-512.png" />
-        <link rel="shortcut icon" href="/logo-512.png" />
-        <link rel="icon" type="image/png" href="/logo-512.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
         <meta name="msapplication-TileImage" content="/logo-512.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content={themeColor} />
-        <meta property="og:title" content="SportMe" />
-        <meta property="og:description" content="Rezerva rapid terenuri sportive si administreaza bazele sportive cu SportMe." />
-        <meta property="og:image" content="https://www.sportme.ro/logo-512.png" />
-        <meta property="og:image:secure_url" content="https://www.sportme.ro/logo-512.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://www.sportme.ro/logo-512.png" />
-        <meta property="og:url" content="https://www.sportme.ro" />
-        <meta property="og:type" content="website" />
       </head>
       <body className={bodyClassName}>
+        <GoogleAnalytics />
         <Providers>
           <main className="min-h-screen">{children}</main>
         </Providers>

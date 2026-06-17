@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useI18n } from "../app/i18n";
+import { trackEvent } from "../utils/analytics";
 
 function CalendarCheckIcon() {
   return (
@@ -82,7 +83,7 @@ function DownloadArrowIcon() {
 }
 
 const menuItems = [
-  { href: "/about", ro: "Acasa", en: "Home" },
+  { href: "/", ro: "Acasa", en: "Home" },
   { href: "/manageri", ro: "SportMe Manager", en: "SportMe Manager" },
   { href: "/privacy-policy", ro: "Politica de confidentialitate", en: "Privacy policy" },
   { href: "/terms", ro: "Termeni si conditii", en: "Terms" },
@@ -94,6 +95,21 @@ export function AboutHero() {
   const isEnglish = language === "EN";
   const [isDesktopHero, setIsDesktopHero] = useState(false);
   const [showHeroMenu, setShowHeroMenu] = useState(false);
+
+  const switchLanguage = (nextLanguage: "RO" | "EN") => {
+    setLanguage(nextLanguage);
+    trackEvent(nextLanguage === "RO" ? "language_switch_ro" : "language_switch_en");
+  };
+
+  const toggleHeroMenu = () => {
+    setShowHeroMenu((value) => {
+      if (!value) {
+        trackEvent("open_menu");
+      }
+
+      return !value;
+    });
+  };
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 768px)");
@@ -136,17 +152,17 @@ export function AboutHero() {
 
       <div className="absolute right-5 top-[calc(env(safe-area-inset-top)+18px)] z-20 flex flex-col items-end gap-3 sm:right-8 lg:right-12">
         <div className="inline-flex rounded-full border border-white/18 bg-black/24 p-1 text-xs font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md" aria-label={t("about.languageToggleLabel")}>
-          <button type="button" onClick={() => setLanguage("RO")} aria-pressed={language === "RO"} className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}>
+          <button type="button" onClick={() => switchLanguage("RO")} aria-pressed={language === "RO"} className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}>
             RO
           </button>
-          <button type="button" onClick={() => setLanguage("EN")} aria-pressed={language === "EN"} className={`rounded-full px-3 py-1.5 transition ${language === "EN" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}>
+          <button type="button" onClick={() => switchLanguage("EN")} aria-pressed={language === "EN"} className={`rounded-full px-3 py-1.5 transition ${language === "EN" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}>
             EN
           </button>
         </div>
         <div className="relative md:hidden">
           <button
             type="button"
-            onClick={() => setShowHeroMenu((value) => !value)}
+            onClick={toggleHeroMenu}
             aria-expanded={showHeroMenu}
             className="inline-flex items-center gap-2 rounded-full border border-[#176fff]/50 bg-white/[0.06] px-4 py-2 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur"
           >
@@ -170,7 +186,7 @@ export function AboutHero() {
           <div className="relative hidden md:block">
             <button
               type="button"
-              onClick={() => setShowHeroMenu((value) => !value)}
+              onClick={toggleHeroMenu}
               aria-expanded={showHeroMenu}
               className="inline-flex items-center gap-3 rounded-full border border-[#176fff]/55 bg-white/[0.06] px-5 py-3 text-lg font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur transition hover:bg-white/[0.1]"
             >
@@ -225,11 +241,19 @@ export function AboutHero() {
 
             <div className="mt-6 grid w-full gap-4 lg:w-[1420px] lg:grid-cols-[670px_700px] lg:items-start lg:gap-8">
               <div className="w-full max-w-[670px] space-y-3 sm:space-y-4">
-                <a href="https://play.google.com/store/apps/details?id=ro.sportme.app" className="flex h-16 items-center justify-center gap-3 rounded-full bg-[#0564ff] px-4 text-lg font-normal shadow-[0_20px_48px_rgba(0,93,255,0.42)] hover:bg-[#1472ff] sm:h-[78px] sm:gap-4 sm:text-2xl">
+                <a
+                  href="https://play.google.com/store/apps/details?id=ro.sportme.app"
+                  onClick={() => trackEvent("click_google_play")}
+                  className="flex h-16 items-center justify-center gap-3 rounded-full bg-[#0564ff] px-4 text-lg font-normal shadow-[0_20px_48px_rgba(0,93,255,0.42)] hover:bg-[#1472ff] sm:h-[78px] sm:gap-4 sm:text-2xl"
+                >
                   <AndroidIcon />
                   <span>{isEnglish ? "Get it on Google Play" : "Descarca din Google Play"}</span>
                 </a>
-                <a href="https://www.sportme.ro/app" className="flex h-16 items-center justify-center gap-3 rounded-full border border-white/38 bg-black/20 px-4 text-lg font-normal hover:border-white/58 hover:bg-white/8 sm:h-[78px] sm:gap-4 sm:text-2xl">
+                <a
+                  href="https://www.sportme.ro/app"
+                  onClick={() => trackEvent("click_app_store")}
+                  className="flex h-16 items-center justify-center gap-3 rounded-full border border-white/38 bg-black/20 px-4 text-lg font-normal hover:border-white/58 hover:bg-white/8 sm:h-[78px] sm:gap-4 sm:text-2xl"
+                >
                   <AppleIcon />
                   <span>{isEnglish ? "Download on the App Store" : "Descarca din App Store"}</span>
                 </a>
@@ -237,6 +261,7 @@ export function AboutHero() {
 
               <a
                 href="https://www.sportme.ro/manageri"
+                onClick={() => trackEvent("click_sportme_manager")}
                 className="flex w-full max-w-[670px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.08] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:gap-5 sm:p-5 lg:h-[172px] lg:max-w-none lg:translate-x-10 lg:translate-y-0 lg:gap-5 lg:rounded-[22px] lg:px-6 lg:py-5"
               >
                 <img src="/logo-512admin.png" alt="" className="h-16 w-16 rounded-[10px] sm:h-20 sm:w-20 lg:h-20 lg:w-20" />

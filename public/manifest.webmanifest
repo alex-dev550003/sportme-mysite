@@ -1,7 +1,7 @@
 {
   "name": "SportMe",
   "short_name": "SportMe",
-  "start_url": "/home",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#020915",
   "theme_color": "#020915",

@@ -6,7 +6,9 @@ const description =
   "Platforma pentru manageri de baze sportive: administrare terenuri, software rezervari online, calendar public, notificari si planuri pentru baze sportive.";
 
 export const metadata: Metadata = {
-  title,
+  title: {
+    absolute: title,
+  },
   description,
   alternates: {
     canonical: "https://www.sportme.ro/manageri",

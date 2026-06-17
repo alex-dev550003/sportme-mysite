@@ -1,14 +1,20 @@
 "use client";
 
 import { useI18n } from "../app/i18n";
+import { trackEvent } from "../utils/analytics";
 
 type PublicTopControlsProps = {
   showBack?: boolean;
   homeHref?: string;
 };
 
-export function PublicTopControls({ showBack = false, homeHref = "/about" }: PublicTopControlsProps) {
+export function PublicTopControls({ showBack = false, homeHref = "/" }: PublicTopControlsProps) {
   const { t, language, setLanguage } = useI18n();
+
+  const switchLanguage = (nextLanguage: "RO" | "EN") => {
+    setLanguage(nextLanguage);
+    trackEvent(nextLanguage === "RO" ? "language_switch_ro" : "language_switch_en");
+  };
 
   return (
     <div className="flex flex-col items-end gap-3">
@@ -18,7 +24,7 @@ export function PublicTopControls({ showBack = false, homeHref = "/about" }: Pub
       >
         <button
           type="button"
-          onClick={() => setLanguage("RO")}
+          onClick={() => switchLanguage("RO")}
           aria-pressed={language === "RO"}
           className={`rounded-full px-3 py-1 transition ${
             language === "RO" ? "bg-[#1f211f] text-white" : "text-[#4b4a43] hover:bg-white"
@@ -28,7 +34,7 @@ export function PublicTopControls({ showBack = false, homeHref = "/about" }: Pub
         </button>
         <button
           type="button"
-          onClick={() => setLanguage("EN")}
+          onClick={() => switchLanguage("EN")}
           aria-pressed={language === "EN"}
           className={`rounded-full px-3 py-1 transition ${
             language === "EN" ? "bg-[#1f211f] text-white" : "text-[#4b4a43] hover:bg-white"

@@ -12,6 +12,16 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/about",
+        destination: "/",
+        statusCode: 301,
+      },
+      {
+        source: "/home",
+        destination: "/",
+        statusCode: 301,
+      },
+      {
         source: "/pricing",
         destination: "/manageri",
         statusCode: 301,
