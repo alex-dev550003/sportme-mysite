@@ -2,19 +2,21 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { GA_MEASUREMENT_ID, trackPageView } from "../utils/analytics";
 import { COOKIE_CONSENT_CHANGE_EVENT, applyGoogleConsent, hasAnalyticsConsent } from "../utils/consent";
 
 function GoogleAnalyticsPageViews({ enabled }: { enabled: boolean }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const trackedInitialPageView = useRef(false);
 
   useEffect(() => {
-    if (!enabled) {
+    if (!enabled || trackedInitialPageView.current) {
       return;
     }
 
+    trackedInitialPageView.current = true;
     const queryString = searchParams.toString();
     trackPageView(queryString ? `${pathname}?${queryString}` : pathname);
   }, [enabled, pathname, searchParams]);
@@ -28,6 +30,7 @@ export function GoogleAnalytics() {
   useEffect(() => {
     const syncConsent = () => {
       const allowed = hasAnalyticsConsent();
+      window[`ga-disable-${GA_MEASUREMENT_ID}`] = !allowed;
       applyGoogleConsent(allowed);
       setAnalyticsEnabled(allowed);
     };

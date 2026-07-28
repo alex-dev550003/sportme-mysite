@@ -83,6 +83,7 @@ export default function RootLayout({
         <Script id="sportme-consent-default" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
+            window['ga-disable-G-RLVDZPWDJL'] = true;
             function gtag(){dataLayer.push(arguments);}
             window.gtag = window.gtag || gtag;
             gtag('consent', 'default', {
