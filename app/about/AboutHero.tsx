@@ -258,7 +258,7 @@ export function AboutHero() {
                   className="flex h-16 items-center justify-center gap-3 rounded-full border border-white/38 bg-black/20 px-4 text-lg font-normal hover:border-white/58 hover:bg-white/8 sm:h-[78px] sm:gap-4 sm:text-2xl"
                 >
                   <AppleIcon />
-                  <span>{isEnglish ? "Download on the App Store" : "Descarca din App Store"}</span>
+                  <span>{isEnglish ? "Download on the App Store (soon)" : "Descarca din App Store (curand)"}</span>
                 </a>
               </div>
 

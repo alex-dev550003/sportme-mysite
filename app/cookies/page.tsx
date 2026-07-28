@@ -46,6 +46,32 @@ function CookiesContent() {
                       <p key={`${section.title}-${index}`}>{line}</p>
                     ))}
                   </div>
+                  {"table" in section && section.table ? (
+                    <div className="mt-4 overflow-x-auto">
+                      <table className="w-full min-w-[720px] border-collapse text-left text-xs text-[#5b564b]">
+                        <thead>
+                          <tr>
+                            {section.table.headers.map((header) => (
+                              <th key={header} className="border border-[#d8d1bf] bg-[#f1f2f4] px-3 py-2 font-semibold text-[#1f2c2d]">
+                                {header}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {section.table.rows.map((row) => (
+                            <tr key={row.join("|")}>
+                              {row.map((cell, index) => (
+                                <td key={`${row[0]}-${index}`} className="border border-[#d8d1bf] px-3 py-2 align-top">
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : null}
                 </div>
               ))}
             </section>
