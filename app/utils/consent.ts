@@ -5,6 +5,8 @@ export const COOKIE_CONSENT_VERSION = 1;
 export const COOKIE_CONSENT_CHANGE_EVENT = "sportme-cookie-consent-change";
 export const COOKIE_SETTINGS_OPEN_EVENT = "sportme-cookie-settings-open";
 
+const GOOGLE_ANALYTICS_COOKIE_NAMES = ["_ga", "_ga_RLVDZPWDJL"];
+
 export type CookieConsentState = {
   version: typeof COOKIE_CONSENT_VERSION;
   analytics: boolean;
@@ -73,10 +75,53 @@ export function hasAnalyticsConsent() {
 
 export function applyGoogleConsent(analytics: boolean) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") {
+    if (!analytics) {
+      deleteGoogleAnalyticsCookies();
+    }
+
     return;
   }
 
   window.gtag("consent", "update", getGoogleConsentModeValues(analytics));
+
+  if (!analytics) {
+    deleteGoogleAnalyticsCookies();
+  }
+}
+
+function getCookieDeletionDomains() {
+  const hostname = window.location.hostname;
+  const domains = new Set<string | null>([null, hostname, `.${hostname}`]);
+
+  if (hostname === "sportme.ro" || hostname.endsWith(".sportme.ro")) {
+    domains.add("sportme.ro");
+    domains.add(".sportme.ro");
+  }
+
+  return Array.from(domains);
+}
+
+function deleteGoogleAnalyticsCookies() {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  const expires = "expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  const maxAge = "Max-Age=0";
+  const cookieNames = new Set([
+    ...GOOGLE_ANALYTICS_COOKIE_NAMES,
+    ...document.cookie
+      .split(";")
+      .map((cookie) => cookie.trim().split("=")[0])
+      .filter((name) => name.startsWith("_ga")),
+  ]);
+
+  for (const name of cookieNames) {
+    for (const domain of getCookieDeletionDomains()) {
+      const domainPart = domain ? `; domain=${domain}` : "";
+      document.cookie = `${name}=; ${expires}; ${maxAge}; path=/${domainPart}`;
+    }
+  }
 }
 
 export function saveCookieConsent(analytics: boolean) {

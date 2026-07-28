@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Oswald, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Providers } from "./providers";
@@ -13,6 +13,13 @@ const geistSans = Inter({
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const oswald = Oswald({
+  variable: "--font-oswald",
+  weight: ["500", "600"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -70,7 +77,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const bodyClassName = `${geistSans.variable} ${poppins.variable} antialiased`;
+  const bodyClassName = `${geistSans.variable} ${poppins.variable} ${oswald.variable} antialiased`;
 
   return (
     <html lang="ro">
