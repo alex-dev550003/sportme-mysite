@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "../app/i18n";
+import { openCookieSettings } from "../utils/consent";
 
 export function SiteFooter() {
   const { t } = useI18n();
@@ -16,6 +17,13 @@ export function SiteFooter() {
           <a className="font-semibold text-[#1d5f63] underline" href="/cookies">
             {t("footer.cookies")}
           </a>
+          <button
+            type="button"
+            className="font-semibold text-[#1d5f63] underline"
+            onClick={openCookieSettings}
+          >
+            {t("footer.cookieSettings")}
+          </button>
           <a className="font-semibold text-[#1d5f63] underline" href="/privacy-policy">
             {t("privacy.title")}
           </a>

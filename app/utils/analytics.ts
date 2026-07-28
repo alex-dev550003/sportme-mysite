@@ -1,5 +1,7 @@
 "use client";
 
+import { hasAnalyticsConsent } from "./consent";
+
 export const GA_MEASUREMENT_ID = "G-RLVDZPWDJL";
 
 declare global {
@@ -9,7 +11,7 @@ declare global {
 }
 
 export function trackEvent(eventName: string, parameters?: Record<string, string | number | boolean>) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+  if (typeof window === "undefined" || typeof window.gtag !== "function" || !hasAnalyticsConsent()) {
     return;
   }
 
@@ -17,7 +19,7 @@ export function trackEvent(eventName: string, parameters?: Record<string, string
 }
 
 export function trackPageView(path: string) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+  if (typeof window === "undefined" || typeof window.gtag !== "function" || !hasAnalyticsConsent()) {
     return;
   }
 
