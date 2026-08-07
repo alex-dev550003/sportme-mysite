@@ -82,6 +82,32 @@ function DownloadArrowIcon() {
   );
 }
 
+function AppHomePreview({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`pointer-events-none select-none ${className}`}
+      aria-hidden="true"
+      style={{
+        animation: "appPreviewFloat 5.8s ease-in-out infinite",
+      }}
+    >
+      <div className="relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[34px] border border-white/18 bg-white/10 p-1.5 shadow-[0_34px_90px_rgba(0,0,0,0.48),0_0_42px_rgba(16,109,255,0.22)] backdrop-blur-sm sm:w-[238px] lg:w-[min(196px,13.1vw)] xl:w-[220px] 2xl:w-[242px]">
+        <div className="relative overflow-hidden rounded-[28px] bg-[#eef2f8]">
+          <Image
+            src="/home/sportme-app-home-preview.jpeg"
+            alt=""
+            width={945}
+            height={2048}
+            sizes="(min-width: 1280px) 300px, (min-width: 1024px) 270px, 56vw"
+            className="h-auto w-full"
+          />
+          <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/18" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const menuItems = [
   { href: "/", ro: "Acasă", en: "Home" },
   { href: "/terenuri-sportive", ro: "Terenuri sportive", en: "Sports courts" },
@@ -215,6 +241,8 @@ export function AboutHero() {
             <p className="mt-4 max-w-full text-[15px] leading-6 text-white/84 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:text-[22px]">
               {isEnglish ? "Check availability and book sports courts in a few seconds." : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
             </p>
+
+            <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:right-[4.5%] lg:top-[124px] lg:z-10 lg:mt-0 xl:right-[5.5%] xl:top-[110px] 2xl:right-[7%]" />
 
             <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10">
               {[

@@ -101,6 +101,17 @@ export default function RootPage() {
             transform: translateX(0px);
           }
         }
+        @keyframes appPreviewFloat {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-12px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
         .about-dark-section {
           background:
             linear-gradient(180deg, #020814 0%, #030b18 46%, #06101f 100%);
