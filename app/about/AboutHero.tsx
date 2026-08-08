@@ -92,21 +92,21 @@ function AppHomePreview({ className = "" }: { className?: string }) {
       }}
     >
       <div
-        className="absolute left-[-52px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-[#176fff]/28 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
+        className="absolute left-[-18px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.2s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Feature</span>
         <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Location Maps</span>
       </div>
       <div
-        className="absolute right-[-56px] top-[48%] z-20 min-w-[88px] rounded-[8px] border border-[#176fff]/28 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-[-80px] sm:min-w-[104px] lg:right-[-106px] lg:min-w-[118px] lg:px-3 lg:py-2"
+        className="absolute right-[-18px] top-[48%] z-20 min-w-[88px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-[-80px] sm:min-w-[104px] lg:right-[-106px] lg:min-w-[118px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 5.7s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Reminder</span>
         <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Your next event</span>
       </div>
       <div
-        className="absolute left-[-50px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-[#176fff]/28 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
+        className="absolute left-[-16px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.8s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Browse</span>
@@ -125,6 +125,46 @@ function AppHomePreview({ className = "" }: { className?: string }) {
           />
           <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/18" />
         </div>
+      </div>
+    </div>
+  );
+}
+
+function ManagerTabletPreview({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`pointer-events-none select-none ${className}`}
+      aria-hidden="true"
+      style={{ animation: "appPreviewFloat 6.4s ease-in-out infinite" }}
+    >
+      <div
+        className="absolute left-[-86px] top-[24%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md"
+        style={{ animation: "appPreviewFloat 6s ease-in-out infinite" }}
+      >
+        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Dashboard</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[13px] font-medium text-white">Bookings</span>
+      </div>
+      <div
+        className="absolute left-[-86px] top-[66%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md"
+        style={{ animation: "appPreviewFloat 6.7s ease-in-out infinite" }}
+      >
+        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Bookings</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[13px] font-medium text-white">Statistics</span>
+      </div>
+      <div className="relative w-full overflow-hidden rounded-[28px] border border-white/16 bg-[#07111f] p-2 shadow-[0_30px_90px_rgba(0,0,0,0.5),0_0_44px_rgba(16,109,255,0.18)]">
+        <div className="absolute left-1/2 top-1 h-1 w-12 -translate-x-1/2 rounded-full bg-white/16" />
+        <div className="overflow-hidden rounded-[20px] bg-[#e8eef6]">
+          <Image
+            src="/home/sportme-manager-tablet-preview.png"
+            alt=""
+            width={1618}
+            height={996}
+            quality={100}
+            sizes="(min-width: 1536px) 500px, (min-width: 1280px) 450px, 410px"
+            className="h-auto w-full"
+          />
+        </div>
+        <div className="pointer-events-none absolute inset-2 rounded-[20px] ring-1 ring-inset ring-white/12" />
       </div>
     </div>
   );
@@ -270,6 +310,31 @@ export function AboutHero() {
 
             <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
 
+            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[136px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[130px]">
+              <h2 className="max-w-[520px] text-[43px] font-bold leading-[1.04] tracking-normal xl:max-w-[580px] xl:text-[48px] 2xl:text-[52px]">
+                {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
+                <br />
+                {isEnglish ? "with " : "prin "}
+                <span className="text-[#106dff]">SportMe</span>
+              </h2>
+              <p className="mt-4 max-w-[470px] text-left text-[16px] leading-7 text-white/84 xl:max-w-[520px] xl:text-[17px]">
+                {isEnglish ? (
+                  <>
+                    Register your venue in a few minutes and start managing
+                    <br />
+                    online bookings.
+                  </>
+                ) : (
+                  <>
+                    In cateva minute iti inscrii locatia si incepi sa gestionezi
+                    <br />
+                    si sa primesti rezervari online.
+                  </>
+                )}
+              </p>
+              <ManagerTabletPreview className="absolute right-0 top-[184px] w-[400px] xl:top-[188px] xl:w-[440px] 2xl:w-[490px]" />
+            </div>
+
             <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10 lg:mt-7 lg:max-w-[390px]">
               {[
                 { id: "fast", icon: <CalendarCheckIcon />, ro: ["Rezervari", "rapide"], en: ["Fast", "bookings"] },
@@ -319,14 +384,11 @@ export function AboutHero() {
               <a
                 href="https://www.sportme.ro/manageri"
                 onClick={() => trackEvent("click_sportme_manager")}
-                className="flex w-full max-w-[670px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.08] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:gap-5 sm:p-5 lg:h-[172px] lg:max-w-none lg:translate-x-10 lg:translate-y-0 lg:gap-5 lg:rounded-[22px] lg:px-6 lg:py-5"
+                className="flex w-full max-w-[670px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.08] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:gap-5 sm:p-5 lg:h-[118px] lg:max-w-none lg:translate-x-10 lg:translate-y-[54px] lg:gap-5 lg:rounded-[22px] lg:px-6 lg:py-3"
               >
-                <img src="/logo-512admin.png" alt="" className="h-16 w-16 rounded-[10px] sm:h-20 sm:w-20 lg:h-20 lg:w-20" />
+                <img src="/logo-512admin.png" alt="" className="h-14 w-14 rounded-[10px] sm:h-16 sm:w-16 lg:h-16 lg:w-16" />
                 <span className="min-w-0 flex-1">
-                  <span className="block whitespace-nowrap text-[clamp(11px,3vw,14px)] text-white/72 sm:text-lg lg:text-sm">
-                    {isEnglish ? "Do you manage a sports venue?" : "Esti administrator de baza sportiva?"}
-                  </span>
-                  <span className="mt-0.5 block text-lg font-bold leading-tight sm:text-2xl lg:whitespace-nowrap lg:text-[22px] lg:leading-7">
+                  <span className="block text-lg font-bold leading-tight sm:text-2xl lg:whitespace-nowrap lg:text-[22px] lg:leading-7">
                     {isEnglish ? "Open " : "Acceseaza "}
                     <span className="block text-[#106dff] text-[0.95em] sm:inline sm:pl-1">SportMe Manager</span>
                   </span>
