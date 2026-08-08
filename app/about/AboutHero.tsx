@@ -292,13 +292,6 @@ export function AboutHero() {
       )}
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,20,0.96)_0%,rgba(2,8,20,0.83)_40%,rgba(2,8,20,0.28)_72%,rgba(2,8,20,0.14)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,8,20,0.98)_0%,rgba(2,8,20,0.48)_31%,rgba(2,8,20,0.1)_62%,rgba(2,8,20,0.36)_100%)]" />
-      <div
-        className={`fixed inset-x-0 top-0 z-30 bg-[linear-gradient(180deg,rgba(2,8,20,0.9)_0%,rgba(2,8,20,0.64)_72%,rgba(2,8,20,0)_100%)] transition-[height] duration-300 md:h-[104px] ${
-          isMobileHeaderCompact ? "h-[134px]" : "h-[164px]"
-        }`}
-        aria-hidden="true"
-      />
-
       <div className="fixed right-5 top-[calc(env(safe-area-inset-top)+18px)] z-50 flex flex-col items-end gap-3 sm:right-8 lg:right-12">
         <div className="inline-flex rounded-full border border-white/18 bg-black/24 p-1 text-xs font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md" aria-label={t("about.languageToggleLabel")}>
           <button type="button" onClick={() => switchLanguage("RO")} aria-pressed={language === "RO"} className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}>

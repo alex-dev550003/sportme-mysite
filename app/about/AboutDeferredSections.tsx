@@ -306,8 +306,8 @@ export default function AboutDeferredSections() {
               </h3>
             </div>
 
-            <div className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:overflow-visible lg:pb-0">
-              <div className="relative flex min-w-[300px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[340px] lg:min-h-[520px] lg:min-w-0">
+            <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
+              <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <h4 className="text-xl font-bold text-white">Freemium</h4>
                 <div className="mt-8 flex items-end gap-1">
                   <span className="text-4xl font-bold leading-none text-white">€0</span>
@@ -316,16 +316,16 @@ export default function AboutDeferredSections() {
                 <button
                   type="button"
                   onClick={openManagerAccessModal}
-                  className="mt-8 inline-flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
+                  className="mt-8 hidden w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8 lg:inline-flex"
                 >
                   <span>Deschide dashboard Manager</span>
                   <span className="mt-0.5 font-normal text-white/72">(gratuit)</span>
                 </button>
-                <div className="mt-5 space-y-2 border-t border-white/10 pt-4 text-sm text-white/72">
+                <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
                   {adminFreemiumFeatures.map((item) => (
                     <p
                       key={item}
-                      className={`flex gap-2 leading-5 ${
+                      className={`flex gap-2 leading-4 lg:leading-5 ${
                         isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
                       }`}
                     >
@@ -334,7 +334,7 @@ export default function AboutDeferredSections() {
                     </p>
                   ))}
                   {adminAdvancedPlanFeatures.map((item) => (
-                    <p key={item} className="flex gap-2 leading-5">
+                    <p key={item} className="flex gap-2 leading-4 lg:leading-5">
                       <PricingCross />
                       <span>{item}</span>
                     </p>
@@ -345,7 +345,7 @@ export default function AboutDeferredSections() {
                 </div>
               </div>
 
-              <div className="relative flex min-w-[300px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-6 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[340px] lg:min-h-[520px] lg:min-w-0">
+              <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-5 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-6 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
                   MOST POPULAR
                 </div>
@@ -357,16 +357,16 @@ export default function AboutDeferredSections() {
                 <button
                   type="button"
                   onClick={openManagerAccessModal}
-                  className="mt-8 inline-flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)] transition hover:bg-[#1472ff]"
+                  className="mt-8 hidden w-full cursor-pointer flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)] transition hover:bg-[#1472ff] lg:inline-flex"
                 >
                   <span>Deschide dashboard Manager</span>
                   <span className="mt-0.5 font-normal text-white/78">(primele 120 zile gratuit)</span>
                 </button>
-                <div className="mt-5 space-y-2 border-t border-white/10 pt-4 text-sm text-white/72">
+                <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
                   {adminStarterFeatures.map((item) => (
                     <p
                       key={item}
-                      className={`flex gap-2 leading-5 ${
+                      className={`flex gap-2 leading-4 lg:leading-5 ${
                         isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
                       }`}
                     >
@@ -380,7 +380,7 @@ export default function AboutDeferredSections() {
                 </div>
               </div>
 
-              <div className="relative flex min-w-[300px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[340px] lg:min-h-[520px] lg:min-w-0">
+              <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <h4 className="text-xl font-bold text-white">Premium - PRO</h4>
                 <div className="mt-8 flex items-end gap-1">
                   <span className="text-4xl font-bold leading-none text-white">€14,90</span>
@@ -389,16 +389,16 @@ export default function AboutDeferredSections() {
                 <button
                   type="button"
                   onClick={openManagerAccessModal}
-                  className="mt-8 inline-flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
+                  className="mt-8 hidden w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8 lg:inline-flex"
                 >
                   <span>Deschide dashboard Manager</span>
                   <span className="mt-0.5 font-normal text-white/72">(primele 120 zile gratuit)</span>
                 </button>
-                <div className="mt-5 space-y-2 border-t border-white/10 pt-4 text-sm text-white/72">
+                <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
                   {adminProFeatures.map((item) => (
                     <p
                       key={item}
-                      className={`flex gap-2 leading-5 ${
+                      className={`flex gap-2 leading-4 lg:leading-5 ${
                         isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
                       }`}
                     >
