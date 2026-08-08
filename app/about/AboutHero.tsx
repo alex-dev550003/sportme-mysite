@@ -208,9 +208,9 @@ export function AboutHero() {
 
       <div className="relative z-10 mx-auto flex min-h-[850px] w-full max-w-[1540px] flex-col px-5 pb-9 pt-[calc(env(safe-area-inset-top)+22px)] sm:px-8 md:min-h-screen md:px-12 lg:px-16 xl:px-20">
         <div className="flex w-full min-w-0 items-center justify-between gap-3 pr-[104px] sm:pr-[120px]">
-          <div className="flex items-center gap-4">
+          <div className="flex items-end gap-4">
             <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[12px] shadow-[0_12px_30px_rgba(0,93,255,0.35)] sm:h-14 sm:w-14" />
-            <span className="text-3xl font-bold tracking-normal sm:text-4xl">SportMe</span>
+            <img src="/home/sportme-wordmark.png" alt="SportMe" className="h-[33px] w-auto object-contain sm:h-[47px]" />
           </div>
           <div className="relative hidden md:block">
             <button
@@ -232,6 +232,10 @@ export function AboutHero() {
 
         <div className="flex flex-1 items-start pb-0 pt-16 md:items-center md:pb-0 md:pt-0">
           <div className="w-[min(390px,calc(100vw-40px))] min-w-0 sm:w-[min(780px,calc(100vw-64px))] lg:w-[780px]">
+            <div
+              className="pointer-events-none absolute left-1/2 top-[150px] hidden h-[650px] w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:block"
+              aria-hidden="true"
+            />
             <h1 className="max-w-full text-[36px] font-bold leading-[1.04] tracking-normal sm:text-[54px] sm:leading-[0.98] lg:text-[72px]">
               {isEnglish ? "Book fast" : "Rezerva rapid"}
               <br />
