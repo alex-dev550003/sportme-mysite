@@ -98,7 +98,8 @@ function AppHomePreview({ className = "" }: { className?: string }) {
             alt=""
             width={945}
             height={2048}
-            sizes="(min-width: 1280px) 300px, (min-width: 1024px) 270px, 56vw"
+            quality={100}
+            sizes="(min-width: 1536px) 196px, (min-width: 1280px) 184px, (min-width: 1024px) 172px, 56vw"
             className="h-auto w-full"
           />
           <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/18" />
