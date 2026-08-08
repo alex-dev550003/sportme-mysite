@@ -1,11 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
-
-const ManagerAccessModal = dynamic(() => import("../components/ManagerAccessModal"), { ssr: false });
 
 const cdnBase = "https://app.sportme.ro";
 const appShots = [
@@ -54,11 +51,8 @@ export default function AboutDeferredSections() {
   const isEnglish = language === "EN";
   const screenshotsTrackRef = useRef<HTMLDivElement | null>(null);
   const [activeScreenshot, setActiveScreenshot] = useState<string | null>(null);
-  const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const screenshots = useMemo(getScreenshots, []);
   const loopedScreenshots = useMemo(() => [...screenshots, ...screenshots], [screenshots]);
-  const adminUrl = "https://admin.sportme.ro/auth";
-  const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
   const periodLabel = isEnglish ? "month + VAT" : "luna + TVA";
   const adminCommonPlanFeatures = isEnglish
     ? ["Online venue listing", "Visible public calendar", "Manager bookings"]
@@ -98,6 +92,9 @@ export default function AboutDeferredSections() {
       <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
     </svg>
   );
+  const openManagerAccessModal = () => {
+    window.dispatchEvent(new Event("sportme:open-manager-access"));
+  };
 
   useEffect(() => {
     const track = screenshotsTrackRef.current;
@@ -318,7 +315,7 @@ export default function AboutDeferredSections() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => setShowManagerAccessModal(true)}
+                  onClick={openManagerAccessModal}
                   className="mt-8 inline-flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
                 >
                   <span>Deschide dashboard Manager</span>
@@ -359,7 +356,7 @@ export default function AboutDeferredSections() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => setShowManagerAccessModal(true)}
+                  onClick={openManagerAccessModal}
                   className="mt-8 inline-flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)] transition hover:bg-[#1472ff]"
                 >
                   <span>Deschide dashboard Manager</span>
@@ -391,7 +388,7 @@ export default function AboutDeferredSections() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => setShowManagerAccessModal(true)}
+                  onClick={openManagerAccessModal}
                   className="mt-8 inline-flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
                 >
                   <span>Deschide dashboard Manager</span>
@@ -464,14 +461,6 @@ export default function AboutDeferredSections() {
           </div>
         </div>
       </section>
-
-      {showManagerAccessModal ? (
-        <ManagerAccessModal
-          onClose={() => setShowManagerAccessModal(false)}
-          adminUrl={adminUrl}
-          managerPlayStoreUrl={managerPlayStoreUrl}
-        />
-      ) : null}
 
       <SiteFooter />
     </div>
