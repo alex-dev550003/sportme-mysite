@@ -131,7 +131,7 @@ export default function AboutDeferredSections() {
       <section>
         <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
           <div className="space-y-4">
-            <p className="about-section-kicker text-xs">{t("about.users.label")}</p>
+            <p className="about-section-kicker text-sm font-extrabold text-[#2b8cff]">{t("about.users.label")}</p>
             <h2 className="about-section-title text-2xl lg:text-3xl">
               {isEnglish ? "Book your sport, " : "Rezerva sportul tau, "}
               <span className="accent">{isEnglish ? "hassle free" : "fara batai de cap"}</span>
@@ -140,51 +140,28 @@ export default function AboutDeferredSections() {
           </div>
           <div className="mt-7 grid gap-5 text-sm leading-6 text-[#5b564b] md:grid-cols-2 xl:grid-cols-4">
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{t("about.users.sectionTitle")}</p>
               <p className="font-semibold text-[#1f211f]">{t("about.users.findTitle")}</p>
               <p>{t("about.users.findItem1")}</p>
               <p>{t("about.users.findItem2")}</p>
-              <p>{t("about.users.findItem3")}</p>
+              <p>{isEnglish ? "- clear venue details" : "- detalii clare despre locatie"}</p>
             </div>
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
               <p className="font-semibold text-[#1f211f]">{t("about.users.bookTitle")}</p>
               <p>{t("about.users.bookItem1")}</p>
               <p>{t("about.users.bookItem2")}</p>
-              <p>{t("about.users.bookItem3")}</p>
+              <p>{isEnglish ? "- no calls or delayed confirmations" : "- fara apeluri sau confirmari intarziate"}</p>
             </div>
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{t("about.users.notifyTitle")}</p>
+              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Notifications and account" : "Notificari si cont"}</p>
               <p>{t("about.users.notifyItem1")}</p>
               <p>{t("about.users.notifyItem2")}</p>
-              <p>{t("about.users.notifyItem3")}</p>
+              <p>{isEnglish ? "- active bookings in one account" : "- rezervari active intr-un singur cont"}</p>
             </div>
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{t("about.users.accountTitle")}</p>
-              <p>{t("about.users.accountItem1")}</p>
-              <p>{t("about.users.accountItem2")}</p>
-              <p>{t("about.users.accountItem3")}</p>
-            </div>
-            <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{t("about.users.nearTitle")}</p>
-              <p>{t("about.users.nearBody")}</p>
-            </div>
-            <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{t("about.users.whyTitle")}</p>
-              <p>{t("about.users.whyItem1")}</p>
-              <p>{t("about.users.whyItem2")}</p>
-              <p>{t("about.users.whyItem3")}</p>
-              <p>{t("about.users.whyItem4")}</p>
-            </div>
-            <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{t("about.users.forTitle")}</p>
-              <p>{t("about.users.forItem1")}</p>
-              <p>{t("about.users.forItem2")}</p>
-              <p>{t("about.users.forItem3")}</p>
-            </div>
-            <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{t("about.users.startTitle")}</p>
-              <p>{t("about.users.startBody")}</p>
-              <p>{t("about.users.startTagline")}</p>
+              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Nearby sport, ready to book" : "Sport aproape, gata de rezervat"}</p>
+              <p>{isEnglish ? "- optional location access" : "- acces optional la locatie"}</p>
+              <p>{isEnglish ? "- save time with updated info" : "- economisesti timp cu informatii actualizate"}</p>
+              <p>{isEnglish ? "- start with a free account" : "- pornesti cu un cont gratuit"}</p>
             </div>
           </div>
         </div>

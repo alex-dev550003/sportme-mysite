@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 import { useState } from "react";
 import { PublicTopControls } from "../components/PublicTopControls";
@@ -12,7 +11,8 @@ import dynamic from "next/dynamic";
 const ManagerAccessModal = dynamic(() => import("./ManagerAccessModal"), { ssr: false });
 
 export default function ManageriPageClient() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
+  const isEnglish = language === "EN";
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const adminUrl = "https://admin.sportme.ro/auth";
   const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
@@ -48,20 +48,6 @@ export default function ManageriPageClient() {
     { label: t("pricing.compare.feature7"), freemium: false, starter: true, pro: true },
   ];
 
-  const freemiumItemKeys: TranslationKey[] = [
-    "pricing.new.freemium.item1",
-    "pricing.new.freemium.item2",
-    "pricing.new.freemium.item3",
-    "pricing.new.freemium.item4",
-  ];
-  const sharedPremiumItemKeys: TranslationKey[] = [
-    "pricing.new.premium.shared.item1",
-    "pricing.new.premium.shared.item2",
-    "pricing.new.premium.shared.item3",
-    "pricing.new.premium.shared.item4",
-    "pricing.new.premium.shared.item5",
-    "pricing.new.premium.shared.item6",
-  ];
   const premiumGainItemKeys: TranslationKey[] = [
     "pricing.new.gains.item1",
     "pricing.new.gains.item2",
@@ -69,9 +55,60 @@ export default function ManageriPageClient() {
     "pricing.new.gains.item4",
     "pricing.new.gains.item5",
   ];
-  const freemiumItems = freemiumItemKeys.map((key) => t(key));
-  const sharedPremiumItems = sharedPremiumItemKeys.map((key) => t(key));
   const premiumGainItems = premiumGainItemKeys.map((key) => t(key));
+  const periodLabel = isEnglish ? "month + VAT" : "luna + TVA";
+  const commonPlanFeatures = isEnglish
+    ? ["Online venue listing", "Visible public calendar", "Manager bookings"]
+    : ["Listare locatie online", "Calendar public vizibil", "Rezervari manageri"];
+  const scheduleControlFeature = isEnglish ? "Full schedule and pricing control" : "Control complet program si tarife";
+  const advancedPlanFeatures = isEnglish
+    ? [
+        "Instant confirmations",
+        "Automatic notifications",
+        "Booking statistics",
+        "Priority support",
+        "Venue employee dashboard",
+      ]
+    : [
+        "Confirmari instant",
+        "Notificari automate",
+        "Statistici rezervari",
+        "Suport prioritar",
+        "Dashboard angajati locatie",
+      ];
+  const freemiumPlanFeatures = [
+    ...commonPlanFeatures,
+    isEnglish ? "Player bookings - phone only" : "Rezervari jucatori - doar telefonic",
+    scheduleControlFeature,
+    isEnglish ? "Locations count - MAX 1" : "Numar locatii - MAXIM 1",
+  ];
+  const freemiumUnavailableFeatures = advancedPlanFeatures;
+  const starterPlanFeatures = [
+    ...commonPlanFeatures,
+    isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
+    scheduleControlFeature,
+    isEnglish ? "Locations count - MAX 2*" : "Numar locatii - MAXIM 2*",
+    ...advancedPlanFeatures,
+  ];
+  const proPlanFeatures = [
+    ...commonPlanFeatures,
+    isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
+    scheduleControlFeature,
+    isEnglish ? "Locations count - UNLIMITED*" : "Numar locatii - NELIMITAT*",
+    ...advancedPlanFeatures,
+  ];
+  const isLocationLimitFeature = (item: string) =>
+    item.includes("Locations count") || item.includes("Numar locatii");
+  const PricingCheck = () => (
+    <svg viewBox="0 0 20 20" aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0564ff]">
+      <path d="M4 10.5l3.2 3.2L16 5.8" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+  const PricingCross = () => (
+    <svg viewBox="0 0 20 20" aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#ff4b55]">
+      <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
+    </svg>
+  );
 
   return (
     <main className="public-site public-dark min-h-screen text-white">
@@ -170,120 +207,123 @@ export default function ManageriPageClient() {
           </section>
 
           <section className="space-y-4 sm:space-y-6">
-            <div className="relative pt-16 lg:pt-0">
-              <div className="pointer-events-none absolute left-0 right-0 top-0 z-30 hidden rounded-2xl border-2 border-emerald-300 bg-[linear-gradient(135deg,rgba(7,31,24,0.84),rgba(18,67,48,0.8))] px-5 py-4 text-center shadow-[0_18px_45px_rgba(0,0,0,0.28)] lg:left-2 lg:right-2 lg:top-[56%] lg:block lg:-translate-y-1/2 lg:-rotate-[6deg]">
-                <span className="block text-[24px] font-extrabold leading-tight tracking-[-0.02em] text-[#7dffb2] drop-shadow-[0_2px_10px_rgba(32,255,142,0.35)]">
-                  {t("pricing.new.trialBannerLine1")}
-                </span>
-                <span className="mt-1 block text-[18px] font-bold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.22)]">
-                  {t("pricing.new.trialBannerLine2")}
-                </span>
-              </div>
-              <p className="text-center text-sm font-semibold text-[#5b564b]">{t("pricing.new.selector")}</p>
-              <p className="text-center text-sm font-semibold text-[#1f211f]">{t("pricing.new.proHighlight")}</p>
+            <div className="relative">
+              <p className="text-center text-sm font-semibold text-white/64">{t("pricing.new.selector")}</p>
+              <p className="text-center text-sm font-semibold text-white">{t("pricing.new.proHighlight")}</p>
 
               <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
-                <div className="relative rounded-[24px] border border-[#d8d1bf] bg-[#f1f2f4] p-4 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)] sm:rounded-[28px] sm:p-6">
-                  <h3 className="text-lg font-semibold text-[#1f211f] sm:text-xl">{t("pricing.new.freemium.title")}</h3>
-                  <p className="mt-2 text-sm font-semibold text-[#1f211f]">{t("pricing.new.freemium.subtitle")}</p>
-                  <div className="pointer-events-none relative z-10 mt-16 -mb-28 lg:hidden">
-                    <div className="rotate-[-5deg] rounded-xl border-2 border-emerald-300 bg-[linear-gradient(135deg,rgba(7,31,24,0.82),rgba(18,67,48,0.78))] px-3 py-2 text-center shadow-[0_12px_32px_rgba(0,0,0,0.22)]">
-                      <span className="block text-[15px] font-extrabold leading-tight tracking-[-0.02em] text-[#7dffb2]">
-                        {t("pricing.new.trialBannerLine1")}
-                      </span>
-                      <span className="mt-0.5 block text-[13px] font-bold leading-tight text-white">
-                        {t("pricing.new.trialBannerLine2")}
-                      </span>
-                    </div>
+                <div className="relative flex flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.28)] sm:p-6 lg:min-h-[420px]">
+                  <h3 className="text-xl font-bold text-white">Freemium</h3>
+                  <div className="mt-8 flex items-end gap-1">
+                    <span className="text-4xl font-bold leading-none text-white">€0</span>
+                    <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
                   </div>
-                  <div className="mt-4 space-y-2 text-sm text-[#5b564b]">
-                    {freemiumItems.map((item) => (
-                      <p key={item}>{item}</p>
+                  <button
+                    type="button"
+                    disabled
+                    className="mt-8 inline-flex w-full cursor-not-allowed flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white"
+                  >
+                    <span>Deschide dashboard Manager</span>
+                    <span className="mt-0.5 font-normal text-white/72">(gratuit)</span>
+                  </button>
+                  <div className="mt-5 space-y-2 border-t border-white/10 pt-4 text-sm text-white/58">
+                    {freemiumPlanFeatures.map((item) => (
+                      <p
+                        key={item}
+                        className={`flex gap-2 leading-5 ${
+                          isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
+                        }`}
+                      >
+                        <PricingCheck />
+                        <span>{item}</span>
+                      </p>
+                    ))}
+                    {freemiumUnavailableFeatures.map((item) => (
+                      <p key={item} className="flex gap-2 leading-5">
+                        <PricingCross />
+                        <span>{item}</span>
+                      </p>
                     ))}
                   </div>
-                  <p className="mt-4 text-sm text-[#5b564b]">{t("pricing.new.freemium.note")}</p>
-                  <div className="relative mt-5">
-                    <button
-                      type="button"
-                      disabled
-                      className="inline-flex w-full cursor-not-allowed items-center justify-center rounded-full border border-[#1f211f] bg-white px-5 py-2 text-center text-sm font-semibold text-[#1f211f] opacity-60 sm:w-auto lg:mt-5"
-                    >
-                      {t("pricing.new.freemium.cta")}
-                    </button>
+                  <div className="mt-auto pt-6">
+                    <p className="text-xs text-white/48">* {t("pricing.new.freemium.noteCta")}</p>
                   </div>
-                  <p className="mt-2 text-xs text-[#7a7566]">* {t("pricing.new.freemium.noteCta")}</p>
                 </div>
 
-                <div className="relative rounded-[24px] border border-[#d8d1bf] bg-white p-4 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)] sm:rounded-[28px] sm:p-6">
-                  <h3 className="text-lg font-semibold text-[#1f211f] sm:text-xl">{t("pricing.new.starter.title")}</h3>
-                  <p className="mt-2 text-sm font-semibold text-[#1f211f]">{t("pricing.new.starter.subtitle")}</p>
-                  <div className="mt-3 rounded-xl border-2 border-[#4aa3ff] bg-[#ffffff] px-3 py-2 text-sm font-normal uppercase tracking-[0.1em] text-[#0b84ff] shadow-[0_10px_22px_rgba(13,132,255,0.14)]">
-                    {t("pricing.new.starter.limit")}
+                <div className="relative flex flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-6 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:p-6 lg:min-h-[420px]">
+                  <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-6 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
+                    MOST POPULAR
                   </div>
-                  <div className="pointer-events-none relative z-10 mt-16 -mb-28 lg:hidden">
-                    <div className="rotate-[-5deg] rounded-xl border-2 border-emerald-300 bg-[linear-gradient(135deg,rgba(7,31,24,0.82),rgba(18,67,48,0.78))] px-3 py-2 text-center shadow-[0_12px_32px_rgba(0,0,0,0.22)]">
-                      <span className="block text-[15px] font-extrabold leading-tight tracking-[-0.02em] text-[#7dffb2]">
-                        {t("pricing.new.trialBannerLine1")}
-                      </span>
-                      <span className="mt-0.5 block text-[13px] font-bold leading-tight text-white">
-                        {t("pricing.new.trialBannerLine2")}
-                      </span>
-                    </div>
+                  <h3 className="text-xl font-bold text-white">Premium - STARTER</h3>
+                  <div className="mt-8 flex items-end gap-1">
+                    <span className="text-4xl font-bold leading-none text-white">€8,90</span>
+                    <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
                   </div>
-                  <div className="mt-4 space-y-2 text-sm text-[#5b564b]">
-                    {sharedPremiumItems.map((item) => (
-                      <p key={item}>{item}</p>
+                  <button
+                    type="button"
+                    disabled
+                    className="mt-8 inline-flex w-full cursor-not-allowed flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)]"
+                  >
+                    <span>Deschide dashboard Manager</span>
+                    <span className="mt-0.5 font-normal text-white/78">(primele 120 zile gratuit)</span>
+                  </button>
+                  <div className="mt-5 space-y-2 border-t border-white/10 pt-4 text-sm text-white/58">
+                    {starterPlanFeatures.map((item) => (
+                      <p
+                        key={item}
+                        className={`flex gap-2 leading-5 ${
+                          isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
+                        }`}
+                      >
+                        <PricingCheck />
+                        <span className={item.includes("MAX 2") || item.includes("MAXIM 2") ? "font-semibold text-white/68" : undefined}>{item}</span>
+                      </p>
                     ))}
                   </div>
-                  <p className="mt-4 text-sm text-[#5b564b]">{t("pricing.new.starter.note")}</p>
-                  <div className="relative mt-5">
-                    <button
-                      type="button"
-                      disabled
-                      className="inline-flex w-full cursor-not-allowed items-center justify-center rounded-full border border-[#1f211f] bg-white px-5 py-2 text-center text-sm font-semibold text-[#1f211f] opacity-60 sm:w-auto lg:mt-5"
-                    >
-                      {t("pricing.new.starter.cta")}
-                    </button>
+                  <div className="mt-auto pt-6">
+                    <p className="text-xs text-white/48">* {t("pricing.new.starter.noteCta")}</p>
                   </div>
-                  <p className="mt-2 text-xs text-[#7a7566]">* {t("pricing.new.starter.noteCta")}</p>
                 </div>
 
-                <div className="relative rounded-[24px] border-2 border-[#1f211f] bg-white p-4 shadow-[0_30px_65px_-38px_rgba(32,33,31,0.75)] sm:rounded-[28px] sm:p-6">
-                  <div className="inline-flex items-center rounded-full border border-[#1f211f] bg-[#f1f2f4] px-3 py-1 text-xs font-semibold text-[#1f211f]">
-                    {t("pricing.new.pro.badge")}
+                <div className="relative flex flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.28)] sm:p-6 lg:min-h-[420px]">
+                  <h3 className="text-xl font-bold text-white">Premium PRO</h3>
+                  <div className="mt-8 flex items-end gap-1">
+                    <span className="text-4xl font-bold leading-none text-white">€14,90</span>
+                    <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
                   </div>
-                  <h3 className="mt-3 text-lg font-semibold text-[#1f211f] sm:text-xl">{t("pricing.new.pro.title")}</h3>
-                  <p className="mt-2 text-sm font-semibold text-[#1f211f]">{t("pricing.new.pro.subtitle")}</p>
-                  <div className="mt-3 rounded-xl border-2 border-[#4aa3ff] bg-[#ffffff] px-3 py-2 text-sm font-normal uppercase tracking-[0.1em] text-[#0b84ff] shadow-[0_10px_22px_rgba(13,132,255,0.14)]">
-                    {t("pricing.new.pro.limit")}
-                  </div>
-                  <div className="pointer-events-none relative z-10 mt-16 -mb-28 lg:hidden">
-                    <div className="rotate-[-5deg] rounded-xl border-2 border-emerald-300 bg-[linear-gradient(135deg,rgba(7,31,24,0.82),rgba(18,67,48,0.78))] px-3 py-2 text-center shadow-[0_12px_32px_rgba(0,0,0,0.22)]">
-                      <span className="block text-[15px] font-extrabold leading-tight tracking-[-0.02em] text-[#7dffb2]">
-                        {t("pricing.new.trialBannerLine1")}
-                      </span>
-                      <span className="mt-0.5 block text-[13px] font-bold leading-tight text-white">
-                        {t("pricing.new.trialBannerLine2")}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="mt-4 space-y-2 text-sm text-[#5b564b]">
-                    {sharedPremiumItems.map((item) => (
-                      <p key={item}>{item}</p>
+                  <button
+                    type="button"
+                    disabled
+                    className="mt-8 inline-flex w-full cursor-not-allowed flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white"
+                  >
+                    <span>Deschide dashboard Manager</span>
+                    <span className="mt-0.5 font-normal text-white/72">(primele 120 zile gratuit)</span>
+                  </button>
+                  <div className="mt-5 space-y-2 border-t border-white/10 pt-4 text-sm text-white/58">
+                    {proPlanFeatures.map((item) => (
+                      <p
+                        key={item}
+                        className={`flex gap-2 leading-5 ${
+                          isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
+                        }`}
+                      >
+                        <PricingCheck />
+                        <span className={item.includes("UNLIMITED") || item.includes("NELIMITAT") ? "font-semibold text-white/68" : undefined}>{item}</span>
+                      </p>
                     ))}
                   </div>
-                  <p className="mt-4 text-sm text-[#5b564b]">{t("pricing.new.pro.note")}</p>
-                  <div className="relative mt-5">
-                    <button
-                      type="button"
-                      disabled
-                      className="inline-flex w-full cursor-not-allowed items-center justify-center rounded-full border border-[#1877F2] bg-[#1877F2] px-5 py-2 text-center text-sm font-semibold text-white opacity-60 sm:w-auto lg:mt-5"
-                    >
-                      {t("pricing.new.pro.cta")}
-                    </button>
+                  <div className="mt-auto pt-6">
+                    <p className="text-xs text-white/48">* {t("pricing.new.pro.noteCta")}</p>
                   </div>
-                  <p className="mt-2 text-xs text-[#7a7566]">* {t("pricing.new.pro.noteCta")}</p>
                 </div>
+              </div>
+              <div className="mt-6 rounded-2xl border-2 border-[#2b8cff] bg-[linear-gradient(135deg,rgba(2,26,64,0.92),rgba(5,100,255,0.76))] px-5 py-4 text-center shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
+                <span className="block text-[20px] font-extrabold leading-tight tracking-[-0.02em] text-white drop-shadow-[0_2px_10px_rgba(5,100,255,0.45)] sm:text-[24px]">
+                  {t("pricing.new.trialBannerLine1")}
+                </span>
+                <span className="mt-1 block text-[16px] font-bold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.22)] sm:text-[18px]">
+                  {t("pricing.new.trialBannerLine2")}
+                </span>
               </div>
             </div>
           </section>

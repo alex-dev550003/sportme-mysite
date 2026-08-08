@@ -345,7 +345,7 @@ export function AboutHero() {
 
             <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
 
-            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[188px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[182px]">
+            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[158px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[150px]">
               <p className="mb-3 text-sm font-medium uppercase tracking-[0.16em] text-white/60">
                 {isEnglish ? "Are you an admin?" : "Esti administrator?"}
               </p>
@@ -355,7 +355,7 @@ export function AboutHero() {
                 {isEnglish ? "with " : "prin "}
                 <span className="text-[#106dff]">SportMe</span>
               </h2>
-              <ManagerTabletPreview className="absolute right-0 top-[184px] w-[400px] xl:top-[188px] xl:w-[440px] 2xl:w-[490px]" />
+              <ManagerTabletPreview className="absolute right-0 top-[178px] w-[400px] xl:top-[184px] xl:w-[440px] 2xl:w-[490px]" />
             </div>
 
             <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10 lg:mt-7 lg:max-w-[390px]">
@@ -404,7 +404,9 @@ export function AboutHero() {
                 </a>
               </div>
 
-              <div className="mt-8 lg:hidden">
+              <div className="my-8 h-px w-full bg-[repeating-linear-gradient(to_right,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:hidden" aria-hidden="true" />
+
+              <div className="lg:hidden">
                 <p className="mb-3 text-sm font-medium uppercase tracking-[0.16em] text-white/60">
                   {isEnglish ? "Are you an admin?" : "Esti administrator?"}
                 </p>
