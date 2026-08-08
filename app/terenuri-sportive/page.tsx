@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { SeoContentPage, type SeoFaqItem } from "../components/SeoContentPage";
 
 const title = "Rezervare terenuri sportive online - SportMe";
@@ -96,6 +97,8 @@ const structuredData = [
 ];
 
 export default function TerenuriSportivePage() {
+  redirect("/");
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />

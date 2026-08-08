@@ -286,7 +286,7 @@ export default function ManageriPageClient() {
                 </div>
 
                 <div className="relative flex flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.28)] sm:p-6 lg:min-h-[420px]">
-                  <h3 className="text-xl font-bold text-white">Premium PRO</h3>
+                  <h3 className="text-xl font-bold text-white">Premium - PRO</h3>
                   <div className="mt-8 flex items-end gap-1">
                     <span className="text-4xl font-bold leading-none text-white">€14,90</span>
                     <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>

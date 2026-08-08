@@ -1,9 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useI18n } from "../app/i18n";
 import { trackEvent } from "../utils/analytics";
+
+const ManagerAccessModal = dynamic(() => import("../manageri/ManagerAccessModal"), { ssr: false });
 
 function CalendarCheckIcon() {
   return (
@@ -204,8 +207,6 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
 
 const menuItems = [
   { href: "/", ro: "Acasă", en: "Home" },
-  { href: "/terenuri-sportive", ro: "Terenuri sportive", en: "Sports courts" },
-  { href: "/manageri", ro: "SportMe Manager", en: "SportMe Manager" },
   { href: "/software-management-baze-sportive", ro: "Software baze sportive", en: "Sports venue software" },
   { href: "/intrebari-frecvente", ro: "Întrebări frecvente", en: "FAQ" },
   { href: "/privacy-policy", ro: "Politica de confidențialitate", en: "Privacy policy" },
@@ -218,6 +219,9 @@ export function AboutHero() {
   const isEnglish = language === "EN";
   const [isDesktopHero, setIsDesktopHero] = useState(false);
   const [showHeroMenu, setShowHeroMenu] = useState(false);
+  const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
+  const adminUrl = "https://admin.sportme.ro/auth";
+  const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
 
   const switchLanguage = (nextLanguage: "RO" | "EN") => {
     setLanguage(nextLanguage);
@@ -306,6 +310,21 @@ export function AboutHero() {
             <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[12px] shadow-[0_12px_30px_rgba(0,93,255,0.35)] sm:h-14 sm:w-14" />
             <img src="/home/sportme-wordmark.png" alt="SportMe" className="h-[33px] w-auto object-contain sm:h-[47px]" />
           </div>
+          <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.055] p-1 text-sm font-semibold text-white/58 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur lg:flex">
+            {[
+              { href: "#pentru-jucatori", ro: "Pentru jucatori", en: "For players" },
+              { href: "#pentru-administratori", ro: "Pentru administratori", en: "For admins" },
+              { href: "#preturi", ro: "Preturi", en: "Pricing" },
+            ].map((item, index) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white ${index === 0 ? "bg-white/10 text-white" : ""}`}
+              >
+                {isEnglish ? item.en : item.ro}
+              </a>
+            ))}
+          </nav>
           <div className="relative hidden md:block">
             <button
               type="button"
@@ -345,7 +364,7 @@ export function AboutHero() {
 
             <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
 
-            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[158px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[150px]">
+            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[166px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[158px]">
               <p className="mb-3 text-sm font-medium uppercase tracking-[0.16em] text-white/60">
                 {isEnglish ? "Are you an admin?" : "Esti administrator?"}
               </p>
@@ -420,8 +439,12 @@ export function AboutHero() {
               </div>
 
               <a
-                href="https://www.sportme.ro/manageri"
-                onClick={() => trackEvent("click_sportme_manager")}
+                href="#"
+                onClick={(event) => {
+                  event.preventDefault();
+                  trackEvent("click_sportme_manager");
+                  setShowManagerAccessModal(true);
+                }}
                 className="flex w-full max-w-[670px] items-center gap-4 rounded-full border border-white/12 bg-white/[0.08] p-4 pl-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:gap-5 sm:p-5 sm:pl-8 lg:h-[118px] lg:max-w-none lg:translate-x-10 lg:translate-y-[54px] lg:gap-5 lg:px-6 lg:py-3 lg:pl-10"
               >
                 <img src="/logo-512admin.png" alt="" className="h-14 w-14 rounded-[10px] sm:h-16 sm:w-16 lg:h-16 lg:w-16" />
@@ -455,6 +478,13 @@ export function AboutHero() {
         </div>
       </div>
 
+      {showManagerAccessModal ? (
+        <ManagerAccessModal
+          onClose={() => setShowManagerAccessModal(false)}
+          adminUrl={adminUrl}
+          managerPlayStoreUrl={managerPlayStoreUrl}
+        />
+      ) : null}
     </section>
   );
 }

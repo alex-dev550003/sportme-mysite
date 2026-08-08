@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ManageriPageClient from "./ManageriPageClient";
+import { redirect } from "next/navigation";
 
 const title = "SportMe Manager | Software rezervari terenuri sportive";
 const description =
@@ -45,5 +45,5 @@ export const metadata: Metadata = {
 };
 
 export default function ManageriPage() {
-  return <ManageriPageClient />;
+  redirect("/");
 }

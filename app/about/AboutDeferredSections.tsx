@@ -1,8 +1,11 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
+
+const ManagerAccessModal = dynamic(() => import("../manageri/ManagerAccessModal"), { ssr: false });
 
 const cdnBase = "https://app.sportme.ro";
 const appShots = [
@@ -51,8 +54,50 @@ export default function AboutDeferredSections() {
   const isEnglish = language === "EN";
   const screenshotsTrackRef = useRef<HTMLDivElement | null>(null);
   const [activeScreenshot, setActiveScreenshot] = useState<string | null>(null);
+  const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const screenshots = useMemo(getScreenshots, []);
   const loopedScreenshots = useMemo(() => [...screenshots, ...screenshots], [screenshots]);
+  const adminUrl = "https://admin.sportme.ro/auth";
+  const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
+  const periodLabel = isEnglish ? "month + VAT" : "luna + TVA";
+  const adminCommonPlanFeatures = isEnglish
+    ? ["Online venue listing", "Visible public calendar", "Manager bookings"]
+    : ["Listare locatie online", "Calendar public vizibil", "Rezervari manageri"];
+  const adminScheduleControlFeature = isEnglish ? "Full schedule and pricing control" : "Control complet program si tarife";
+  const adminAdvancedPlanFeatures = isEnglish
+    ? ["Instant confirmations", "Automatic notifications", "Booking statistics", "Priority support", "Venue employee dashboard"]
+    : ["Confirmari instant", "Notificari automate", "Statistici rezervari", "Suport prioritar", "Dashboard angajati locatie"];
+  const adminFreemiumFeatures = [
+    ...adminCommonPlanFeatures,
+    isEnglish ? "Player bookings - phone only" : "Rezervari jucatori - doar telefonic",
+    adminScheduleControlFeature,
+    isEnglish ? "Locations count - MAX 1" : "Numar locatii - MAXIM 1",
+  ];
+  const adminStarterFeatures = [
+    ...adminCommonPlanFeatures,
+    isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
+    adminScheduleControlFeature,
+    isEnglish ? "Locations count - MAX 2*" : "Numar locatii - MAXIM 2*",
+    ...adminAdvancedPlanFeatures,
+  ];
+  const adminProFeatures = [
+    ...adminCommonPlanFeatures,
+    isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
+    adminScheduleControlFeature,
+    isEnglish ? "Locations count - UNLIMITED*" : "Numar locatii - NELIMITAT*",
+    ...adminAdvancedPlanFeatures,
+  ];
+  const isLocationLimitFeature = (item: string) => item.includes("Locations count") || item.includes("Numar locatii");
+  const PricingCheck = () => (
+    <svg viewBox="0 0 20 20" aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0564ff]">
+      <path d="M4 10.5l3.2 3.2L16 5.8" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+  const PricingCross = () => (
+    <svg viewBox="0 0 20 20" aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#ff4b55]">
+      <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
+    </svg>
+  );
 
   useEffect(() => {
     const track = screenshotsTrackRef.current;
@@ -128,10 +173,10 @@ export default function AboutDeferredSections() {
         </div>
       ) : null}
 
-      <section>
+      <section id="pentru-jucatori" className="scroll-mt-8">
         <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
           <div className="space-y-4">
-            <p className="about-section-kicker text-sm font-extrabold text-[#2b8cff]">{t("about.users.label")}</p>
+            <p className="about-section-kicker text-sm font-extrabold !text-[#2b8cff]">{t("about.users.label")}</p>
             <h2 className="about-section-title text-2xl lg:text-3xl">
               {isEnglish ? "Book your sport, " : "Rezerva sportul tau, "}
               <span className="accent">{isEnglish ? "hassle free" : "fara batai de cap"}</span>
@@ -164,6 +209,222 @@ export default function AboutDeferredSections() {
               <p>{isEnglish ? "- start with a free account" : "- pornesti cu un cont gratuit"}</p>
             </div>
           </div>
+          <div className="mt-5 grid gap-5 md:grid-cols-2">
+            <div className="about-glass-tile rounded-2xl p-6">
+              <p className="about-section-kicker text-xs">{isEnglish ? "Availability" : "Disponibilitate"}</p>
+              <h3 className="mt-3 text-2xl font-bold leading-tight text-white">
+                {isEnglish ? "See the right intervals before calling the sports venue" : "Vezi intervalele potrivite inainte sa suni la baza sportiva"}
+              </h3>
+              <p className="mt-4 text-sm leading-6 text-white/72">
+                {isEnglish
+                  ? "SportMe reduces uncertainty in the booking process. When a venue manages its schedule in the platform, you can quickly see what slots are free and make an informed decision."
+                  : "SportMe reduce incertitudinea din procesul de rezervare. Cand o locatie isi gestioneaza programul in platforma, vezi mai usor ce intervale sunt libere si poti lua o decizie informata."}
+              </p>
+            </div>
+            <div className="about-glass-tile rounded-2xl p-6">
+              <p className="about-section-kicker text-xs">{isEnglish ? "Benefits" : "Beneficii"}</p>
+              <h3 className="mt-3 text-2xl font-bold leading-tight text-white">
+                {isEnglish ? "Fewer messages, more play" : "Mai putine mesaje, mai multa miscare"}
+              </h3>
+              <p className="mt-4 text-sm leading-6 text-white/72">
+                {isEnglish
+                  ? "The app keeps bookings in one place, sends useful notifications and helps player groups organize more clearly for the next match."
+                  : "Aplicatia pastreaza rezervarile intr-un singur loc, trimite notificari utile si ajuta grupurile de jucatori sa se organizeze mai clar pentru urmatorul meci."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pentru-administratori" className="scroll-mt-8">
+        <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
+          <div className="space-y-4">
+            <p className="about-section-kicker text-sm font-extrabold !text-[#2b8cff]">
+              {isEnglish ? "For administrators" : "Pentru administratori"}
+            </p>
+            <h2 className="about-section-title text-2xl lg:text-3xl">
+              {isEnglish ? "Manage your sports venue, " : "Administreaza baza sportiva, "}
+              <span className="accent">{isEnglish ? "faster and clearer" : "mai rapid si mai clar"}</span>
+            </h2>
+            <p className="max-w-4xl text-base leading-7 text-white/72">
+              {isEnglish
+                ? "SportMe Manager centralizes bookings, court availability and team activity in a clear platform for sports venue operators."
+                : "SportMe Manager centralizeaza rezervarile, disponibilitatea terenurilor si activitatea echipei intr-o platforma clara pentru operatorii de baze sportive."}
+            </p>
+          </div>
+          <div className="mt-7 grid gap-5 text-sm leading-6 text-[#5b564b] md:grid-cols-2 xl:grid-cols-4">
+            <div className="about-glass-tile space-y-1 rounded-2xl p-4">
+              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Bookings calendar" : "Calendar rezervari"}</p>
+              <p>{isEnglish ? "- online bookings in one place" : "- rezervari online intr-un singur loc"}</p>
+              <p>{isEnglish ? "- visible availability by court" : "- disponibilitate vizibila pe teren"}</p>
+              <p>{isEnglish ? "- fewer manual checks" : "- mai putine verificari manuale"}</p>
+            </div>
+            <div className="about-glass-tile space-y-1 rounded-2xl p-4">
+              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Instant confirmations" : "Confirmari instant"}</p>
+              <p>{isEnglish ? "- automatic booking flow" : "- flux automat pentru rezervari"}</p>
+              <p>{isEnglish ? "- useful player notifications" : "- notificari utile pentru jucatori"}</p>
+              <p>{isEnglish ? "- clearer operational updates" : "- actualizari operationale mai clare"}</p>
+            </div>
+            <div className="about-glass-tile space-y-1 rounded-2xl p-4">
+              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Team access" : "Acces pentru echipa"}</p>
+              <p>{isEnglish ? "- employee dashboard" : "- dashboard pentru angajati"}</p>
+              <p>{isEnglish ? "- easier daily activity tracking" : "- evidenta zilnica mai simpla"}</p>
+              <p>{isEnglish ? "- fewer scattered messages" : "- mai putine mesaje imprastiate"}</p>
+            </div>
+            <div className="about-glass-tile space-y-1 rounded-2xl p-4">
+              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Schedule control" : "Control program si tarife"}</p>
+              <p>{isEnglish ? "- manage opening hours" : "- gestionezi programul"}</p>
+              <p>{isEnglish ? "- configure prices and rules" : "- configurezi tarife si reguli"}</p>
+              <p>{isEnglish ? "- suitable for multisport venues" : "- potrivit pentru baze multisport"}</p>
+            </div>
+          </div>
+          <div className="mt-5 grid gap-5 md:grid-cols-2">
+            <div className="about-glass-tile rounded-2xl p-6">
+              <p className="about-section-kicker text-xs">{isEnglish ? "Operations" : "Operare"}</p>
+              <h3 className="mt-3 text-2xl font-bold leading-tight text-white">
+                {isEnglish ? "Clearer operations for every court" : "Operare mai clara pentru fiecare teren"}
+              </h3>
+              <p className="mt-4 text-sm leading-6 text-white/72">
+                {isEnglish
+                  ? "The platform helps teams follow schedules, bookings and changes in one place, with fewer manual checks and less back-and-forth communication."
+                  : "Platforma ajuta echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc, cu mai putine verificari manuale si mai putine discutii repetitive."}
+              </p>
+            </div>
+            <div className="about-glass-tile rounded-2xl p-6">
+              <p className="about-section-kicker text-xs">{isEnglish ? "Growth" : "Vizibilitate"}</p>
+              <h3 className="mt-3 text-2xl font-bold leading-tight text-white">
+                {isEnglish ? "List your venue and start receiving bookings online" : "Inscrie locatia si incepe sa primesti rezervari online"}
+              </h3>
+              <p className="mt-4 text-sm leading-6 text-white/72">
+                {isEnglish
+                  ? "In a few minutes you can add your sports venue, organize available slots and offer players a simpler way to book."
+                  : "In cateva minute iti inscrii locatia, organizezi intervalele disponibile si oferi jucatorilor o metoda mai simpla de rezervare."}
+              </p>
+            </div>
+          </div>
+          <div id="preturi" className="mt-8 scroll-mt-8">
+            <div className="text-center">
+              <h3 className="text-xl font-bold leading-tight text-white">
+                {isEnglish ? "Simple pricing. No commissions. No risks." : "Pret simplu. Fara comisioane. Fara riscuri."}
+              </h3>
+            </div>
+
+            <div className="mt-7 grid gap-5 lg:grid-cols-3">
+              <div className="relative flex flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.24)] lg:min-h-[520px]">
+                <h4 className="text-xl font-bold text-white">Freemium</h4>
+                <div className="mt-8 flex items-end gap-1">
+                  <span className="text-4xl font-bold leading-none text-white">€0</span>
+                  <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowManagerAccessModal(true)}
+                  className="mt-8 inline-flex w-full flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
+                >
+                  <span>Deschide dashboard Manager</span>
+                  <span className="mt-0.5 font-normal text-white/72">(gratuit)</span>
+                </button>
+                <div className="mt-5 space-y-2 border-t border-white/10 pt-4 text-sm text-white/72">
+                  {adminFreemiumFeatures.map((item) => (
+                    <p
+                      key={item}
+                      className={`flex gap-2 leading-5 ${
+                        isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
+                      }`}
+                    >
+                      <PricingCheck />
+                      <span>{item}</span>
+                    </p>
+                  ))}
+                  {adminAdvancedPlanFeatures.map((item) => (
+                    <p key={item} className="flex gap-2 leading-5">
+                      <PricingCross />
+                      <span>{item}</span>
+                    </p>
+                  ))}
+                </div>
+                <div className="mt-auto pt-6">
+                  <p className="text-xs text-white/48">* {isEnglish ? "Upgrade is available anytime" : "Se poate face upgrade oricand"}</p>
+                </div>
+              </div>
+
+              <div className="relative flex flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-6 shadow-[0_28px_80px_rgba(5,100,255,0.16)] lg:min-h-[520px]">
+                <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-6 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
+                  MOST POPULAR
+                </div>
+                <h4 className="text-xl font-bold text-white">Premium - STARTER</h4>
+                <div className="mt-8 flex items-end gap-1">
+                  <span className="text-4xl font-bold leading-none text-white">€8,90</span>
+                  <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowManagerAccessModal(true)}
+                  className="mt-8 inline-flex w-full flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)] transition hover:bg-[#1472ff]"
+                >
+                  <span>Deschide dashboard Manager</span>
+                  <span className="mt-0.5 font-normal text-white/78">(primele 120 zile gratuit)</span>
+                </button>
+                <div className="mt-5 space-y-2 border-t border-white/10 pt-4 text-sm text-white/72">
+                  {adminStarterFeatures.map((item) => (
+                    <p
+                      key={item}
+                      className={`flex gap-2 leading-5 ${
+                        isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
+                      }`}
+                    >
+                      <PricingCheck />
+                      <span className={isLocationLimitFeature(item) ? "font-semibold text-white/82" : undefined}>{item}</span>
+                    </p>
+                  ))}
+                </div>
+                <div className="mt-auto pt-6">
+                  <p className="text-xs text-white/48">* {isEnglish ? "Upgrade/downgrade is available anytime" : "Se poate face upgrade/downgrade oricand"}</p>
+                </div>
+              </div>
+
+              <div className="relative flex flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.24)] lg:min-h-[520px]">
+                <h4 className="text-xl font-bold text-white">Premium - PRO</h4>
+                <div className="mt-8 flex items-end gap-1">
+                  <span className="text-4xl font-bold leading-none text-white">€14,90</span>
+                  <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowManagerAccessModal(true)}
+                  className="mt-8 inline-flex w-full flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
+                >
+                  <span>Deschide dashboard Manager</span>
+                  <span className="mt-0.5 font-normal text-white/72">(primele 120 zile gratuit)</span>
+                </button>
+                <div className="mt-5 space-y-2 border-t border-white/10 pt-4 text-sm text-white/72">
+                  {adminProFeatures.map((item) => (
+                    <p
+                      key={item}
+                      className={`flex gap-2 leading-5 ${
+                        isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
+                      }`}
+                    >
+                      <PricingCheck />
+                      <span className={isLocationLimitFeature(item) ? "font-semibold text-white/82" : undefined}>{item}</span>
+                    </p>
+                  ))}
+                </div>
+                <div className="mt-auto pt-6">
+                  <p className="text-xs text-white/48">* {isEnglish ? "Downgrade is available anytime" : "Se poate face downgrade oricand"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-2xl border-2 border-[#2b8cff] bg-[linear-gradient(135deg,rgba(2,26,64,0.92),rgba(5,100,255,0.76))] px-5 py-4 text-center shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
+              <span className="block text-[20px] font-extrabold leading-tight tracking-[-0.02em] text-white drop-shadow-[0_2px_10px_rgba(5,100,255,0.45)] sm:text-[24px]">
+                {isEnglish ? "Get 120 days of Premium STARTER or PRO for FREE." : "Beneficiaza GRATUIT 120 de zile de planul Premium STARTER sau PRO."}
+              </span>
+              <span className="mt-1 block text-[16px] font-bold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.22)] sm:text-[18px]">
+                {isEnglish ? "No costs, no card, no obligations." : "Fara costuri, fara card, fara obligatii."}
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -190,9 +451,11 @@ export default function AboutDeferredSections() {
               <span className="accent">{t("about.platform.title")}</span>
             </h2>
             <ul className="space-y-2 text-base leading-7 text-white/72">
-              <li>{t("about.platform.item1")}</li>
-              <li>{t("about.platform.item2")}</li>
-              <li>{t("about.platform.item3")}</li>
+              {[t("about.platform.item1"), t("about.platform.item2"), t("about.platform.item3")]
+                .filter(Boolean)
+                .map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
             </ul>
           </div>
           <div className="mt-6 space-y-2 border-t border-[#e6e0d2] pt-4">
@@ -240,6 +503,14 @@ export default function AboutDeferredSections() {
           ))}
         </div>
       </section>
+
+      {showManagerAccessModal ? (
+        <ManagerAccessModal
+          onClose={() => setShowManagerAccessModal(false)}
+          adminUrl={adminUrl}
+          managerPlayStoreUrl={managerPlayStoreUrl}
+        />
+      ) : null}
 
       <SiteFooter />
     </div>
