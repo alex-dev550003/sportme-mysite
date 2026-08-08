@@ -91,6 +91,27 @@ function AppHomePreview({ className = "" }: { className?: string }) {
         animation: "appPreviewFloat 5.8s ease-in-out infinite",
       }}
     >
+      <div
+        className="absolute left-[-52px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-[#176fff]/28 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
+        style={{ animation: "appPreviewFloat 6.2s ease-in-out infinite" }}
+      >
+        <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Feature</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Location Maps</span>
+      </div>
+      <div
+        className="absolute right-[-56px] top-[48%] z-20 min-w-[88px] rounded-[8px] border border-[#176fff]/28 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-[-80px] sm:min-w-[104px] lg:right-[-106px] lg:min-w-[118px] lg:px-3 lg:py-2"
+        style={{ animation: "appPreviewFloat 5.7s ease-in-out infinite" }}
+      >
+        <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Reminder</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Your next event</span>
+      </div>
+      <div
+        className="absolute left-[-50px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-[#176fff]/28 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
+        style={{ animation: "appPreviewFloat 6.8s ease-in-out infinite" }}
+      >
+        <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Browse</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">All Locations</span>
+      </div>
       <div className="relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[34px] border border-white/18 bg-white/10 p-1.5 shadow-[0_34px_90px_rgba(0,0,0,0.48),0_0_42px_rgba(16,109,255,0.22)] backdrop-blur-sm sm:w-[238px] lg:w-[min(172px,11.5vw)] xl:w-[184px] 2xl:w-[196px]">
         <div className="relative overflow-hidden rounded-[28px] bg-[#eef2f8]">
           <Image
@@ -249,7 +270,7 @@ export function AboutHero() {
 
             <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
 
-            <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10 lg:mt-7 lg:max-w-[470px]">
+            <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10 lg:mt-7 lg:max-w-[390px]">
               {[
                 { id: "fast", icon: <CalendarCheckIcon />, ro: ["Rezervari", "rapide"], en: ["Fast", "bookings"] },
                 { id: "live", icon: <ClockIcon />, ro: ["Disponibilitate", "in timp real"], en: ["Real-time", "availability"] },
