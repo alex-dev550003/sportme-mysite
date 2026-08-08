@@ -91,7 +91,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
         animation: "appPreviewFloat 5.8s ease-in-out infinite",
       }}
     >
-      <div className="relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[34px] border border-white/18 bg-white/10 p-1.5 shadow-[0_34px_90px_rgba(0,0,0,0.48),0_0_42px_rgba(16,109,255,0.22)] backdrop-blur-sm sm:w-[238px] lg:w-[min(196px,13.1vw)] xl:w-[220px] 2xl:w-[242px]">
+      <div className="relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[34px] border border-white/18 bg-white/10 p-1.5 shadow-[0_34px_90px_rgba(0,0,0,0.48),0_0_42px_rgba(16,109,255,0.22)] backdrop-blur-sm sm:w-[238px] lg:w-[min(172px,11.5vw)] xl:w-[184px] 2xl:w-[196px]">
         <div className="relative overflow-hidden rounded-[28px] bg-[#eef2f8]">
           <Image
             src="/home/sportme-app-home-preview.jpeg"
@@ -236,29 +236,29 @@ export function AboutHero() {
               className="pointer-events-none absolute left-1/2 top-[150px] hidden h-[650px] w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:block"
               aria-hidden="true"
             />
-            <h1 className="max-w-full text-[36px] font-bold leading-[1.04] tracking-normal sm:text-[54px] sm:leading-[0.98] lg:text-[72px]">
+            <h1 className="max-w-full text-[36px] font-bold leading-[1.04] tracking-normal sm:text-[54px] sm:leading-[0.98] lg:max-w-[470px] lg:text-[58px]">
               {isEnglish ? "Book fast" : "Rezerva rapid"}
               <br />
               {isEnglish ? "with " : "prin "}
               <span className="text-[#106dff]">SportMe</span>
             </h1>
-            <p className="mt-4 max-w-full text-[15px] leading-6 text-white/84 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:text-[22px]">
+            <p className="mt-4 max-w-full text-[15px] leading-6 text-white/84 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[455px] lg:text-[18px] lg:leading-7">
               {isEnglish ? "Check availability and book sports courts in a few seconds." : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
             </p>
 
-            <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:right-[4.5%] lg:top-[124px] lg:z-10 lg:mt-0 xl:right-[5.5%] xl:top-[110px] 2xl:right-[7%]" />
+            <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
 
-            <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10">
+            <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10 lg:mt-7 lg:max-w-[470px]">
               {[
                 { id: "fast", icon: <CalendarCheckIcon />, ro: ["Rezervari", "rapide"], en: ["Fast", "bookings"] },
                 { id: "live", icon: <ClockIcon />, ro: ["Disponibilitate", "in timp real"], en: ["Real-time", "availability"] },
                 { id: "calls", icon: <PhoneArrowIcon />, ro: ["Fara apeluri,", "fara stres"], en: ["No calls,", "no stress"] },
               ].map((benefit) => (
                 <div key={benefit.id} className="min-w-0 px-1.5 sm:px-5">
-                  <div className="mx-auto mb-2.5 flex h-[62px] w-[62px] items-center justify-center rounded-full border border-[#0d67ff] bg-black/24 text-white shadow-[0_0_22px_rgba(0,93,255,0.34),inset_0_0_20px_rgba(255,255,255,0.04)] sm:mb-3 sm:h-[74px] sm:w-[74px]">
+                  <div className="mx-auto mb-2.5 flex h-[62px] w-[62px] items-center justify-center rounded-full border border-[#0d67ff] bg-black/24 text-white shadow-[0_0_22px_rgba(0,93,255,0.34),inset_0_0_20px_rgba(255,255,255,0.04)] sm:mb-3 sm:h-[74px] sm:w-[74px] lg:h-[58px] lg:w-[58px] lg:[&_svg]:h-8 lg:[&_svg]:w-8">
                     {benefit.icon}
                   </div>
-                  <p className="text-[13px] font-normal leading-5 sm:text-xl sm:leading-6">
+                  <p className="text-[13px] font-normal leading-5 sm:text-xl sm:leading-6 lg:text-[16px] lg:leading-5">
                     {(isEnglish ? benefit.en : benefit.ro).map((line) => (
                       <span key={line} className="block">
                         {line}
@@ -269,7 +269,7 @@ export function AboutHero() {
               ))}
             </div>
 
-            <div className="mt-7 hidden max-w-[670px] items-center justify-center gap-2 pl-28 text-xl font-medium text-white/90 sm:flex">
+            <div className="mt-7 hidden max-w-[670px] items-center justify-center gap-2 pr-24 text-xl font-medium text-white/90 sm:flex lg:max-w-[470px] lg:pr-0">
               <span>{isEnglish ? "Download the app" : "Descarca aplicatia"}</span>
               <DownloadArrowIcon />
             </div>
