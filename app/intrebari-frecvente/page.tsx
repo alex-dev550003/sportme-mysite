@@ -134,11 +134,11 @@ export default function IntrebariFrecventePage() {
         description="Răspunsuri clare pentru jucători și administratori: cum rezervi terenuri sportive, cum verifici disponibilitatea și cum poate o bază sportivă să folosească SportMe Manager."
         primaryCta={{
           label: "Rezervă terenuri sportive",
-          href: "/terenuri-sportive",
+          href: "/",
         }}
         secondaryCta={{
           label: "Vezi SportMe Manager",
-          href: "/manageri",
+          href: "/#pentru-administratori",
         }}
         sections={[
           {
@@ -158,8 +158,8 @@ export default function IntrebariFrecventePage() {
         ]}
         links={[
           { label: "Acasă", href: "/" },
-          { label: "Terenuri sportive", href: "/terenuri-sportive" },
-          { label: "SportMe Manager", href: "/manageri" },
+          { label: "Pentru jucători", href: "/#pentru-jucatori" },
+          { label: "Pentru administratori", href: "/#pentru-administratori" },
         ]}
       />
     </>

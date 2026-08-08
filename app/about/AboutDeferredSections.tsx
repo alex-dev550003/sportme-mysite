@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
 
-const ManagerAccessModal = dynamic(() => import("../manageri/ManagerAccessModal"), { ssr: false });
+const ManagerAccessModal = dynamic(() => import("../components/ManagerAccessModal"), { ssr: false });
 
 const cdnBase = "https://app.sportme.ro";
 const appShots = [
@@ -309,7 +309,7 @@ export default function AboutDeferredSections() {
               </h3>
             </div>
 
-            <div className="mt-7 grid gap-5 lg:grid-cols-3">
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
               <div className="relative flex flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.24)] lg:min-h-[520px]">
                 <h4 className="text-xl font-bold text-white">Freemium</h4>
                 <div className="mt-8 flex items-end gap-1">
@@ -319,7 +319,7 @@ export default function AboutDeferredSections() {
                 <button
                   type="button"
                   onClick={() => setShowManagerAccessModal(true)}
-                  className="mt-8 inline-flex w-full flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
+                  className="mt-8 inline-flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
                 >
                   <span>Deschide dashboard Manager</span>
                   <span className="mt-0.5 font-normal text-white/72">(gratuit)</span>
@@ -360,7 +360,7 @@ export default function AboutDeferredSections() {
                 <button
                   type="button"
                   onClick={() => setShowManagerAccessModal(true)}
-                  className="mt-8 inline-flex w-full flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)] transition hover:bg-[#1472ff]"
+                  className="mt-8 inline-flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)] transition hover:bg-[#1472ff]"
                 >
                   <span>Deschide dashboard Manager</span>
                   <span className="mt-0.5 font-normal text-white/78">(primele 120 zile gratuit)</span>
@@ -392,7 +392,7 @@ export default function AboutDeferredSections() {
                 <button
                   type="button"
                   onClick={() => setShowManagerAccessModal(true)}
-                  className="mt-8 inline-flex w-full flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
+                  className="mt-8 inline-flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8"
                 >
                   <span>Deschide dashboard Manager</span>
                   <span className="mt-0.5 font-normal text-white/72">(primele 120 zile gratuit)</span>
@@ -462,45 +462,6 @@ export default function AboutDeferredSections() {
             <h3 className="text-base font-semibold text-white/96">{t("about.platform.publishedTitle")}</h3>
             <p className="text-base text-white/72">{t("about.platform.publishedValue")}</p>
           </div>
-        </div>
-      </section>
-
-      <section className="about-glass-card rounded-[28px] p-6 lg:p-8">
-        <div className="space-y-3">
-          <p className="about-section-kicker text-xs">{isEnglish ? "Useful links" : "Linkuri utile"}</p>
-          <h2 className="about-section-title text-2xl lg:text-3xl">
-            {isEnglish ? "Explore " : "Descopera "}
-            <span className="accent">SportMe</span>
-          </h2>
-          <p className="max-w-3xl text-base leading-7 text-white/72">
-            {isEnglish
-              ? "Find more details about online sports court booking, SportMe Manager and the most common questions about the platform."
-              : "Află mai multe despre rezervarea terenurilor sportive online, SportMe Manager și răspunsurile la cele mai frecvente întrebări despre platformă."}
-          </p>
-        </div>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {[
-            {
-              href: "/terenuri-sportive",
-              title: isEnglish ? "Sports courts" : "Terenuri sportive",
-              body: isEnglish ? "Book football, tennis, padel, squash and other sports online." : "Rezervă online terenuri de fotbal, tenis, padel, squash și alte sporturi.",
-            },
-            {
-              href: "/software-management-baze-sportive",
-              title: isEnglish ? "Management software" : "Software management baze sportive",
-              body: isEnglish ? "Tools for bookings, calendars, employees and sports venue activity." : "Instrumente pentru rezervări, calendare, angajați și activitatea bazei sportive.",
-            },
-            {
-              href: "/intrebari-frecvente",
-              title: isEnglish ? "Questions and answers" : "Întrebări frecvente",
-              body: isEnglish ? "Clear answers for players and sports venue administrators." : "Răspunsuri clare pentru jucători și administratori de baze sportive.",
-            },
-          ].map((item) => (
-            <a key={item.href} href={item.href} className="about-glass-tile block rounded-2xl p-4 transition hover:-translate-y-0.5">
-              <p className="font-semibold text-[#1f211f]">{item.title}</p>
-              <p className="mt-2 text-sm leading-6">{item.body}</p>
-            </a>
-          ))}
         </div>
       </section>
 

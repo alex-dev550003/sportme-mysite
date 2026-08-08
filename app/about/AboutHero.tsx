@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useI18n } from "../app/i18n";
 import { trackEvent } from "../utils/analytics";
 
-const ManagerAccessModal = dynamic(() => import("../manageri/ManagerAccessModal"), { ssr: false });
+const ManagerAccessModal = dynamic(() => import("../components/ManagerAccessModal"), { ssr: false });
 
 function CalendarCheckIcon() {
   return (
@@ -95,21 +95,21 @@ function AppHomePreview({ className = "" }: { className?: string }) {
       }}
     >
       <div
-        className="absolute left-[-8px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
+        className="absolute left-[8px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.2s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Feature</span>
         <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Location Maps</span>
       </div>
       <div
-        className="absolute right-[-8px] top-[48%] z-20 min-w-[88px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-[-80px] sm:min-w-[104px] lg:right-[-106px] lg:min-w-[118px] lg:px-3 lg:py-2"
+        className="absolute right-[8px] top-[48%] z-20 min-w-[88px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-[-80px] sm:min-w-[104px] lg:right-[-106px] lg:min-w-[118px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 5.7s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Reminder</span>
         <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Your next event</span>
       </div>
       <div
-        className="absolute left-[-8px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
+        className="absolute left-[8px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.8s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Browse</span>
@@ -148,14 +148,14 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
       style={{ animation: "appPreviewFloat 6.4s ease-in-out infinite" }}
     >
       <div
-        className="pointer-events-none absolute left-[-86px] top-[24%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md"
+        className="pointer-events-none absolute left-2 top-[24%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-86px]"
         style={{ animation: "appPreviewFloat 6s ease-in-out infinite" }}
       >
         <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Dashboard</span>
         <span className="mt-0.5 block whitespace-nowrap text-[13px] font-medium text-white">Bookings</span>
       </div>
       <div
-        className="pointer-events-none absolute left-[-86px] top-[66%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md"
+        className="pointer-events-none absolute left-2 top-[66%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-86px]"
         style={{ animation: "appPreviewFloat 6.7s ease-in-out infinite" }}
       >
         <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Bookings</span>
@@ -315,11 +315,11 @@ export function AboutHero() {
               { href: "#pentru-jucatori", ro: "Pentru jucatori", en: "For players" },
               { href: "#pentru-administratori", ro: "Pentru administratori", en: "For admins" },
               { href: "#preturi", ro: "Preturi", en: "Pricing" },
-            ].map((item, index) => (
+            ].map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white ${index === 0 ? "bg-white/10 text-white" : ""}`}
+                className="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white"
               >
                 {isEnglish ? item.en : item.ro}
               </a>
@@ -435,7 +435,7 @@ export function AboutHero() {
                   {isEnglish ? "with " : "prin "}
                   <span className="text-[#106dff]">SportMe</span>
                 </h2>
-                <ManagerTabletPreview className="relative mt-7 ml-auto mr-0 w-[min(520px,calc(100vw-26px))]" />
+                <ManagerTabletPreview className="relative mt-7 ml-auto mr-0 w-[min(430px,calc(100vw-64px))]" />
               </div>
 
               <a

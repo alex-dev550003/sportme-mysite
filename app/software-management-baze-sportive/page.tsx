@@ -104,7 +104,7 @@ export default function SoftwareManagementBazeSportivePage() {
         description="SportMe Manager centralizează rezervările, disponibilitatea terenurilor și activitatea echipei într-o platformă clară pentru operatorii de baze sportive."
         primaryCta={{
           label: "Vezi SportMe Manager",
-          href: "/manageri",
+          href: "/#pentru-administratori",
         }}
         secondaryCta={{
           label: "Întrebări frecvente",
@@ -136,7 +136,7 @@ export default function SoftwareManagementBazeSportivePage() {
         ]}
         faqGroups={[{ title: "FAQ pentru administratori", items: faqItems }]}
         links={[
-          { label: "SportMe Manager", href: "/manageri" },
+          { label: "Pentru administratori", href: "/#pentru-administratori" },
           { label: "Întrebări frecvente", href: "/intrebari-frecvente" },
           { label: "Acasă", href: "/" },
         ]}
