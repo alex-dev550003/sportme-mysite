@@ -131,21 +131,28 @@ function AppHomePreview({ className = "" }: { className?: string }) {
 }
 
 function ManagerTabletPreview({ className = "" }: { className?: string }) {
+  const slides = [
+    "/home/sportme-manager-tablet-preview.png",
+    "/home/sportme-manager-bookings-preview.png",
+  ];
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const showPrevious = () => setCurrentSlide((value) => (value === 0 ? slides.length - 1 : value - 1));
+  const showNext = () => setCurrentSlide((value) => (value + 1) % slides.length);
+
   return (
     <div
-      className={`pointer-events-none select-none ${className}`}
-      aria-hidden="true"
+      className={`select-none ${className}`}
       style={{ animation: "appPreviewFloat 6.4s ease-in-out infinite" }}
     >
       <div
-        className="absolute left-[-86px] top-[24%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md"
+        className="pointer-events-none absolute left-[-86px] top-[24%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md"
         style={{ animation: "appPreviewFloat 6s ease-in-out infinite" }}
       >
         <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Dashboard</span>
         <span className="mt-0.5 block whitespace-nowrap text-[13px] font-medium text-white">Bookings</span>
       </div>
       <div
-        className="absolute left-[-86px] top-[66%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md"
+        className="pointer-events-none absolute left-[-86px] top-[66%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md"
         style={{ animation: "appPreviewFloat 6.7s ease-in-out infinite" }}
       >
         <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Bookings</span>
@@ -154,17 +161,42 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
       <div className="relative w-full overflow-hidden rounded-[28px] border border-white/16 bg-[#07111f] p-2 shadow-[0_30px_90px_rgba(0,0,0,0.5),0_0_44px_rgba(16,109,255,0.18)]">
         <div className="absolute left-1/2 top-1 h-1 w-12 -translate-x-1/2 rounded-full bg-white/16" />
         <div className="overflow-hidden rounded-[20px] bg-[#e8eef6]">
-          <Image
-            src="/home/sportme-manager-tablet-preview.png"
-            alt=""
-            width={1618}
-            height={996}
-            quality={100}
-            sizes="(min-width: 1536px) 500px, (min-width: 1280px) 450px, 410px"
-            className="h-auto w-full"
-          />
+          <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+            {slides.map((slide) => (
+              <Image
+                key={slide}
+                src={slide}
+                alt=""
+                width={1618}
+                height={996}
+                quality={100}
+                sizes="(min-width: 1536px) 500px, (min-width: 1280px) 450px, 410px"
+                className="h-auto w-full shrink-0"
+              />
+            ))}
+          </div>
         </div>
         <div className="pointer-events-none absolute inset-2 rounded-[20px] ring-1 ring-inset ring-white/12" />
+        <button
+          type="button"
+          onClick={showPrevious}
+          aria-label="Previous manager screenshot"
+          className="absolute left-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/22 bg-[#0b1728]/78 text-white shadow-[0_12px_28px_rgba(0,0,0,0.34)] backdrop-blur-md transition hover:bg-[#132843]"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5">
+            <path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={showNext}
+          aria-label="Next manager screenshot"
+          className="absolute right-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/22 bg-[#0b1728]/78 text-white shadow-[0_12px_28px_rgba(0,0,0,0.34)] backdrop-blur-md transition hover:bg-[#132843]"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5">
+            <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
       </div>
     </div>
   );
