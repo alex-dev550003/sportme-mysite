@@ -330,6 +330,9 @@ export function AboutHero() {
               className="pointer-events-none absolute left-1/2 top-[150px] hidden h-[650px] w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:block"
               aria-hidden="true"
             />
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.16em] text-white/60 sm:text-base lg:text-sm">
+              {isEnglish ? "Are you a player?" : "Esti jucator?"}
+            </p>
             <h1 className="max-w-full text-[36px] font-bold leading-[1.04] tracking-normal sm:text-[54px] sm:leading-[0.98] lg:max-w-[470px] lg:text-[58px]">
               {isEnglish ? "Book fast" : "Rezerva rapid"}
               <br />
@@ -342,28 +345,16 @@ export function AboutHero() {
 
             <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
 
-            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[136px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[130px]">
+            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[188px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[182px]">
+              <p className="mb-3 text-sm font-medium uppercase tracking-[0.16em] text-white/60">
+                {isEnglish ? "Are you an admin?" : "Esti administrator?"}
+              </p>
               <h2 className="max-w-[520px] text-[43px] font-bold leading-[1.04] tracking-normal xl:max-w-[580px] xl:text-[48px] 2xl:text-[52px]">
                 {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
                 <br />
                 {isEnglish ? "with " : "prin "}
                 <span className="text-[#106dff]">SportMe</span>
               </h2>
-              <p className="mt-4 max-w-[470px] text-left text-[16px] leading-7 text-white/84 xl:max-w-[520px] xl:text-[17px]">
-                {isEnglish ? (
-                  <>
-                    Register your venue in a few minutes and start managing
-                    <br />
-                    online bookings.
-                  </>
-                ) : (
-                  <>
-                    In cateva minute iti inscrii locatia si incepi sa gestionezi
-                    <br />
-                    si sa primesti rezervari online.
-                  </>
-                )}
-              </p>
               <ManagerTabletPreview className="absolute right-0 top-[184px] w-[400px] xl:top-[188px] xl:w-[440px] 2xl:w-[490px]" />
             </div>
 
@@ -414,27 +405,15 @@ export function AboutHero() {
               </div>
 
               <div className="mt-8 lg:hidden">
+                <p className="mb-3 text-sm font-medium uppercase tracking-[0.16em] text-white/60">
+                  {isEnglish ? "Are you an admin?" : "Esti administrator?"}
+                </p>
                 <h2 className="text-[34px] font-bold leading-[1.04] tracking-normal sm:text-[44px]">
                   {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
                   <br />
                   {isEnglish ? "with " : "prin "}
                   <span className="text-[#106dff]">SportMe</span>
                 </h2>
-                <p className="mt-4 max-w-[360px] text-left text-[15px] leading-6 text-white/84 sm:max-w-[520px] sm:text-[17px] sm:leading-7">
-                  {isEnglish ? (
-                    <>
-                      Register your venue in a few minutes and start managing
-                      <br className="hidden sm:block" />
-                      online bookings.
-                    </>
-                  ) : (
-                    <>
-                      In cateva minute iti inscrii locatia si incepi sa gestionezi
-                      <br className="hidden sm:block" />
-                      si sa primesti rezervari online.
-                    </>
-                  )}
-                </p>
                 <ManagerTabletPreview className="relative mt-7 ml-auto mr-0 w-[min(520px,calc(100vw-26px))]" />
               </div>
 
