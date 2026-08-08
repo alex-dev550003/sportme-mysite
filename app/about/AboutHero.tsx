@@ -218,7 +218,7 @@ export function AboutHero() {
   const { t, language, setLanguage } = useI18n();
   const isEnglish = language === "EN";
   const [isDesktopHero, setIsDesktopHero] = useState(false);
-  const [isMobileHeaderCompact, setIsMobileHeaderCompact] = useState(false);
+  const [headerScrollProgress, setHeaderScrollProgress] = useState(0);
   const [showHeroMenu, setShowHeroMenu] = useState(false);
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const adminUrl = "https://admin.sportme.ro/auth";
@@ -250,7 +250,7 @@ export function AboutHero() {
 
   useEffect(() => {
     const updateCompactHeader = () => {
-      setIsMobileHeaderCompact(window.scrollY > 28);
+      setHeaderScrollProgress(Math.min(window.scrollY / 96, 1));
     };
     updateCompactHeader();
     window.addEventListener("scroll", updateCompactHeader, { passive: true });
@@ -292,7 +292,7 @@ export function AboutHero() {
       )}
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,20,0.96)_0%,rgba(2,8,20,0.83)_40%,rgba(2,8,20,0.28)_72%,rgba(2,8,20,0.14)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,8,20,0.98)_0%,rgba(2,8,20,0.48)_31%,rgba(2,8,20,0.1)_62%,rgba(2,8,20,0.36)_100%)]" />
-      <div className="fixed right-5 top-[calc(env(safe-area-inset-top)+18px)] z-50 flex flex-col items-end gap-3 sm:right-8 lg:right-12">
+      <div className="absolute right-5 top-[calc(env(safe-area-inset-top)+18px)] z-20 flex flex-col items-end gap-3 sm:right-8 lg:right-12">
         <div className="inline-flex rounded-full border border-white/18 bg-black/24 p-1 text-xs font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md" aria-label={t("about.languageToggleLabel")}>
           <button type="button" onClick={() => switchLanguage("RO")} aria-pressed={language === "RO"} className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}>
             RO
@@ -320,17 +320,16 @@ export function AboutHero() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[850px] w-full max-w-[1540px] flex-col px-5 pb-9 pt-[calc(env(safe-area-inset-top)+22px)] sm:px-8 md:min-h-screen md:px-12 lg:px-16 xl:px-20">
-        <div className="fixed left-0 right-0 top-0 z-40 mx-auto flex w-full max-w-[1540px] min-w-0 items-center justify-between gap-3 pl-5 pr-[104px] pt-[calc(env(safe-area-inset-top)+22px)] sm:pl-8 sm:pr-[120px] md:pl-12 lg:pl-16 xl:pl-20">
+        <div className="flex w-full min-w-0 items-center justify-between gap-3 pr-[104px] sm:pr-[120px]">
           <div className="flex items-end gap-4">
             <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[12px] shadow-[0_12px_30px_rgba(0,93,255,0.35)] sm:h-14 sm:w-14" />
             <img src="/home/sportme-wordmark.png" alt="SportMe" className="h-[33px] w-auto object-contain sm:h-[47px]" />
           </div>
           <nav
-            className={`fixed left-1/2 z-50 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/10 bg-white/[0.055] p-1 font-semibold text-white/58 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur transition-all duration-300 lg:static lg:left-auto lg:translate-x-0 lg:text-sm ${
-              isMobileHeaderCompact
-                ? "top-[calc(env(safe-area-inset-top)+78px)] text-[11px]"
-                : "top-[calc(env(safe-area-inset-top)+98px)] text-xs"
-            }`}
+            className="fixed left-1/2 top-[calc(env(safe-area-inset-top)+98px)] z-50 flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.055] p-1 text-xs font-semibold text-white/58 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur transition-transform duration-150 ease-out lg:top-[calc(env(safe-area-inset-top)+22px)] lg:text-sm"
+            style={{
+              transform: `translateX(-50%) scale(${1 - headerScrollProgress * 0.08})`,
+            }}
           >
             {[
               { href: "#pentru-jucatori", ro: "Pentru jucatori", en: "For players" },
@@ -340,9 +339,7 @@ export function AboutHero() {
               <a
                 key={item.href}
                 href={item.href}
-                className={`whitespace-nowrap rounded-full transition hover:bg-white/10 hover:text-white lg:px-4 lg:py-2 ${
-                  isMobileHeaderCompact ? "px-2.5 py-1.5" : "px-3 py-2"
-                }`}
+                className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-white/10 hover:text-white lg:px-4 lg:py-2"
               >
                 {isEnglish ? item.en : item.ro}
               </a>
@@ -366,7 +363,7 @@ export function AboutHero() {
           </div>
         </div>
 
-        <div className="flex flex-1 items-start pb-0 pt-16 md:items-center md:pb-0 md:pt-0">
+        <div className="flex flex-1 items-start pb-0 pt-28 md:items-center md:pb-0 md:pt-0">
           <div className="w-[min(390px,calc(100vw-40px))] min-w-0 sm:w-[min(780px,calc(100vw-64px))] lg:w-[780px]">
             <div
               className="pointer-events-none absolute left-1/2 top-[150px] hidden h-[650px] w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:block"
