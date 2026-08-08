@@ -703,6 +703,25 @@ body {
   color: #5b564b !important;
 }
 
+.public-dark .manager-access-modal p,
+.public-dark .manager-access-modal button,
+.public-dark .manager-access-modal button span {
+  color: #1f211f !important;
+}
+
+.public-dark .manager-access-modal p.text-sm,
+.public-dark .manager-access-modal button span span:first-child {
+  color: #5b564b !important;
+}
+
+.public-dark .manager-access-modal .text-\[\#2e7d44\] {
+  color: #2e7d44 !important;
+}
+
+.public-dark .manager-access-modal .text-\[\#a63b3b\] {
+  color: #a63b3b !important;
+}
+
 /* default cards to crisp white */
 .bg-\[\#f9f8f3\],
 .bg-\[\#f9f8f4\],

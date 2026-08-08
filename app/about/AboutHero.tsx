@@ -148,14 +148,14 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
       style={{ animation: "appPreviewFloat 6.4s ease-in-out infinite" }}
     >
       <div
-        className="pointer-events-none absolute left-2 top-[24%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-86px]"
+        className="pointer-events-none absolute right-[-40px] top-[24%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-auto sm:left-[-86px]"
         style={{ animation: "appPreviewFloat 6s ease-in-out infinite" }}
       >
         <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Dashboard</span>
         <span className="mt-0.5 block whitespace-nowrap text-[13px] font-medium text-white">Bookings</span>
       </div>
       <div
-        className="pointer-events-none absolute left-2 top-[66%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-86px]"
+        className="pointer-events-none absolute right-[-40px] top-[66%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-auto sm:left-[-86px]"
         style={{ animation: "appPreviewFloat 6.7s ease-in-out infinite" }}
       >
         <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Bookings</span>
@@ -435,7 +435,7 @@ export function AboutHero() {
                   {isEnglish ? "with " : "prin "}
                   <span className="text-[#106dff]">SportMe</span>
                 </h2>
-                <ManagerTabletPreview className="relative mt-7 ml-auto mr-0 w-[min(430px,calc(100vw-64px))]" />
+                <ManagerTabletPreview className="relative mt-7 ml-0 mr-auto w-[min(430px,calc(100vw-64px))]" />
               </div>
 
               <a
