@@ -92,21 +92,21 @@ function AppHomePreview({ className = "" }: { className?: string }) {
       }}
     >
       <div
-        className="absolute left-[-18px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
+        className="absolute left-[-8px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.2s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Feature</span>
         <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Location Maps</span>
       </div>
       <div
-        className="absolute right-[-18px] top-[48%] z-20 min-w-[88px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-[-80px] sm:min-w-[104px] lg:right-[-106px] lg:min-w-[118px] lg:px-3 lg:py-2"
+        className="absolute right-[-8px] top-[48%] z-20 min-w-[88px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-[-80px] sm:min-w-[104px] lg:right-[-106px] lg:min-w-[118px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 5.7s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Reminder</span>
         <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Your next event</span>
       </div>
       <div
-        className="absolute left-[-16px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
+        className="absolute left-[-8px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.8s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Browse</span>
@@ -400,8 +400,8 @@ export function AboutHero() {
                   onClick={() => trackEvent("click_google_play")}
                   className="flex h-16 items-center justify-center gap-3 rounded-full bg-[#0564ff] px-4 text-lg font-normal shadow-[0_20px_48px_rgba(0,93,255,0.42)] hover:bg-[#1472ff] sm:h-[78px] sm:gap-4 sm:text-2xl"
                 >
-                  <AndroidIcon />
-                  <span>{isEnglish ? "Get it on Google Play" : "Descarca din Google Play"}</span>
+                  <img src="/home/google-play-icon.png" alt="" className="h-7 w-7 object-contain" />
+                  <span>{isEnglish ? "Get it on Google Play Store" : "Descarca din Google Play Store"}</span>
                 </a>
                 <a
                   href="https://www.sportme.ro/app"
@@ -413,10 +413,35 @@ export function AboutHero() {
                 </a>
               </div>
 
+              <div className="mt-8 lg:hidden">
+                <h2 className="text-[34px] font-bold leading-[1.04] tracking-normal sm:text-[44px]">
+                  {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
+                  <br />
+                  {isEnglish ? "with " : "prin "}
+                  <span className="text-[#106dff]">SportMe</span>
+                </h2>
+                <p className="mt-4 max-w-[360px] text-left text-[15px] leading-6 text-white/84 sm:max-w-[520px] sm:text-[17px] sm:leading-7">
+                  {isEnglish ? (
+                    <>
+                      Register your venue in a few minutes and start managing
+                      <br className="hidden sm:block" />
+                      online bookings.
+                    </>
+                  ) : (
+                    <>
+                      In cateva minute iti inscrii locatia si incepi sa gestionezi
+                      <br className="hidden sm:block" />
+                      si sa primesti rezervari online.
+                    </>
+                  )}
+                </p>
+                <ManagerTabletPreview className="relative mt-7 ml-auto mr-0 w-[min(520px,calc(100vw-26px))]" />
+              </div>
+
               <a
                 href="https://www.sportme.ro/manageri"
                 onClick={() => trackEvent("click_sportme_manager")}
-                className="flex w-full max-w-[670px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.08] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:gap-5 sm:p-5 lg:h-[118px] lg:max-w-none lg:translate-x-10 lg:translate-y-[54px] lg:gap-5 lg:rounded-[22px] lg:px-6 lg:py-3"
+                className="flex w-full max-w-[670px] items-center gap-4 rounded-full border border-white/12 bg-white/[0.08] p-4 pl-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:gap-5 sm:p-5 sm:pl-8 lg:h-[118px] lg:max-w-none lg:translate-x-10 lg:translate-y-[54px] lg:gap-5 lg:px-6 lg:py-3 lg:pl-10"
               >
                 <img src="/logo-512admin.png" alt="" className="h-14 w-14 rounded-[10px] sm:h-16 sm:w-16 lg:h-16 lg:w-16" />
                 <span className="min-w-0 flex-1">
