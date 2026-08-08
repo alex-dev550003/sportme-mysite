@@ -293,7 +293,7 @@ export function AboutHero() {
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,20,0.96)_0%,rgba(2,8,20,0.83)_40%,rgba(2,8,20,0.28)_72%,rgba(2,8,20,0.14)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,8,20,0.98)_0%,rgba(2,8,20,0.48)_31%,rgba(2,8,20,0.1)_62%,rgba(2,8,20,0.36)_100%)]" />
       <div
-        className={`fixed inset-x-0 top-0 z-30 bg-[#020814]/72 shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-md transition-[height] duration-300 md:h-[104px] ${
+        className={`fixed inset-x-0 top-0 z-30 bg-[linear-gradient(180deg,rgba(2,8,20,0.9)_0%,rgba(2,8,20,0.64)_72%,rgba(2,8,20,0)_100%)] transition-[height] duration-300 md:h-[104px] ${
           isMobileHeaderCompact ? "h-[134px]" : "h-[164px]"
         }`}
         aria-hidden="true"
