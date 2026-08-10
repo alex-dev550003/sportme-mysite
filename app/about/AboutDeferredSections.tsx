@@ -247,18 +247,18 @@ export default function AboutDeferredSections() {
           <button
             type="button"
             onClick={() => setShowPlayerAccessModal(true)}
-            className="mt-6 flex w-full cursor-pointer items-center gap-4 rounded-full border border-white/12 bg-white/[0.08] p-4 pl-6 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition hover:bg-white/[0.11] sm:gap-5 sm:p-5 sm:pl-8 lg:max-w-[680px]"
+            className="mt-6 flex w-full cursor-pointer items-center gap-3 rounded-full border border-white/12 bg-white/[0.08] p-3 pl-5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition hover:bg-white/[0.11] sm:gap-4 sm:p-4 sm:pl-6 lg:max-w-[620px]"
           >
-            <img src="/logo-512.png" alt="" className="h-14 w-14 rounded-[10px] sm:h-16 sm:w-16" />
+            <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[9px] sm:h-14 sm:w-14" />
             <span className="min-w-0 flex-1">
-              <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">
+              <span className="block text-base font-bold leading-tight text-white sm:text-xl">
                 {isEnglish ? "Open player app" : "Acceseaza aplicatia jucatorilor"}
               </span>
-              <span className="mt-1 block text-sm leading-5 text-white/64 sm:text-base">
+              <span className="mt-1 block text-xs leading-5 text-white/64 sm:text-sm">
                 {isEnglish ? "Book courts from mobile or web." : "Rezerva terenuri din mobil sau web."}
               </span>
             </span>
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:h-14 sm:w-14">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:h-12 sm:w-12 [&_svg]:h-6 [&_svg]:w-6">
               <AccessArrowIcon />
             </span>
           </button>
