@@ -1,8 +1,11 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
+
+const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"), { ssr: false });
 
 const cdnBase = "https://app.sportme.ro";
 const appShots = [
@@ -28,6 +31,14 @@ const banners = [
   `${cdnBase}/12banner_volleyball-1.png`,
 ];
 
+function AccessArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="h-8 w-8">
+      <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function getScreenshots() {
   const interleaved: string[] = [];
   const maxItems = Math.max(banners.length, appShots.length);
@@ -51,8 +62,11 @@ export default function AboutDeferredSections() {
   const isEnglish = language === "EN";
   const screenshotsTrackRef = useRef<HTMLDivElement | null>(null);
   const [activeScreenshot, setActiveScreenshot] = useState<string | null>(null);
+  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const screenshots = useMemo(getScreenshots, []);
   const loopedScreenshots = useMemo(() => [...screenshots, ...screenshots], [screenshots]);
+  const playerWebUrl = "https://app.sportme.ro/app";
+  const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
   const periodLabel = isEnglish ? "month + VAT" : "luna + TVA";
   const adminCommonPlanFeatures = isEnglish
     ? ["Online venue listing", "Visible public calendar", "Manager bookings"]
@@ -173,7 +187,7 @@ export default function AboutDeferredSections() {
       <section id="pentru-jucatori" className="scroll-mt-8">
         <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
           <div className="space-y-4">
-            <p className="about-section-kicker text-sm font-extrabold !text-[#2b8cff]">{t("about.users.label")}</p>
+            <p className="about-section-kicker text-xs">{isEnglish ? "Players" : "Jucatori"}</p>
             <h2 className="about-section-title text-2xl lg:text-3xl">
               {isEnglish ? "Book your sport, " : "Rezerva sportul tau, "}
               <span className="accent">{isEnglish ? "hassle free" : "fara batai de cap"}</span>
@@ -230,14 +244,32 @@ export default function AboutDeferredSections() {
               </p>
             </div>
           </div>
+          <button
+            type="button"
+            onClick={() => setShowPlayerAccessModal(true)}
+            className="mt-6 flex w-full cursor-pointer items-center gap-4 rounded-full border border-white/12 bg-white/[0.08] p-4 pl-6 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition hover:bg-white/[0.11] sm:gap-5 sm:p-5 sm:pl-8 lg:max-w-[680px]"
+          >
+            <img src="/logo-512.png" alt="" className="h-14 w-14 rounded-[10px] sm:h-16 sm:w-16" />
+            <span className="min-w-0 flex-1">
+              <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">
+                {isEnglish ? "Open player app" : "Acceseaza aplicatia jucatorilor"}
+              </span>
+              <span className="mt-1 block text-sm leading-5 text-white/64 sm:text-base">
+                {isEnglish ? "Book courts from mobile or web." : "Rezerva terenuri din mobil sau web."}
+              </span>
+            </span>
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:h-14 sm:w-14">
+              <AccessArrowIcon />
+            </span>
+          </button>
         </div>
       </section>
 
       <section id="pentru-administratori" className="scroll-mt-8">
-        <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
+        <div className="about-glass-card flex flex-col rounded-[28px] p-6 lg:p-8">
           <div className="space-y-4">
-            <p className="about-section-kicker text-sm font-extrabold !text-[#2b8cff]">
-              {isEnglish ? "For administrators" : "Pentru administratori"}
+            <p className="about-section-kicker text-xs">
+              {isEnglish ? "Managers" : "Manageri"}
             </p>
             <h2 className="about-section-title text-2xl lg:text-3xl">
               {isEnglish ? "Manage your sports venue, " : "Administreaza baza sportiva, "}
@@ -249,7 +281,7 @@ export default function AboutDeferredSections() {
                 : "SportMe Manager centralizeaza rezervarile, disponibilitatea terenurilor si activitatea echipei intr-o platforma clara pentru operatorii de baze sportive."}
             </p>
           </div>
-          <div className="mt-7 grid gap-5 text-sm leading-6 text-[#5b564b] md:grid-cols-2 xl:grid-cols-4">
+          <div className="order-3 mt-7 grid gap-5 text-sm leading-6 text-[#5b564b] md:grid-cols-2 xl:grid-cols-4">
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
               <p className="font-semibold text-[#1f211f]">{isEnglish ? "Bookings calendar" : "Calendar rezervari"}</p>
               <p>{isEnglish ? "- online bookings in one place" : "- rezervari online intr-un singur loc"}</p>
@@ -275,7 +307,7 @@ export default function AboutDeferredSections() {
               <p>{isEnglish ? "- suitable for multisport venues" : "- potrivit pentru baze multisport"}</p>
             </div>
           </div>
-          <div className="mt-5 grid gap-5 md:grid-cols-2">
+          <div className="order-4 mt-5 grid gap-5 md:grid-cols-2">
             <div className="about-glass-tile rounded-2xl p-6">
               <p className="about-section-kicker text-xs">{isEnglish ? "Operations" : "Operare"}</p>
               <h3 className="mt-3 text-2xl font-bold leading-tight text-white">
@@ -299,7 +331,7 @@ export default function AboutDeferredSections() {
               </p>
             </div>
           </div>
-          <div id="preturi" className="mt-8 scroll-mt-8">
+          <div id="preturi" className="order-1 mt-8 scroll-mt-8">
             <div className="text-center">
               <h3 className="text-xl font-bold leading-tight text-white">
                 {isEnglish ? "Simple pricing. No commissions. No risks." : "Pret simplu. Fara comisioane. Fara riscuri."}
@@ -461,6 +493,14 @@ export default function AboutDeferredSections() {
           </div>
         </div>
       </section>
+
+      {showPlayerAccessModal ? (
+        <PlayerAccessModal
+          onClose={() => setShowPlayerAccessModal(false)}
+          playerWebUrl={playerWebUrl}
+          playerPlayStoreUrl={playerPlayStoreUrl}
+        />
+      ) : null}
 
       <SiteFooter />
     </div>

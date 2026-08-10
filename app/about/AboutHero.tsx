@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useI18n } from "../app/i18n";
 import { trackEvent } from "../utils/analytics";
 
@@ -95,7 +95,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
       }}
     >
       <div
-        className="absolute left-[8px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
+        className="absolute left-[24px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.2s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Feature</span>
@@ -109,7 +109,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
         <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Your next event</span>
       </div>
       <div
-        className="absolute left-[8px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
+        className="absolute left-[24px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.8s ease-in-out infinite" }}
       >
         <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Browse</span>
@@ -326,14 +326,15 @@ export function AboutHero() {
             <img src="/home/sportme-wordmark.png" alt="SportMe" className="h-[33px] w-auto object-contain sm:h-[47px]" />
           </div>
           <nav
-            className="fixed left-1/2 top-[calc(env(safe-area-inset-top)+98px)] z-50 flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.055] p-1 text-xs font-semibold text-white/58 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur transition-transform duration-150 ease-out lg:top-[calc(env(safe-area-inset-top)+22px)] lg:text-sm"
+            className="fixed left-1/2 top-[calc(env(safe-area-inset-top)+var(--audience-nav-top))] z-50 flex items-center gap-1 rounded-full border border-white/10 bg-[#07111f]/86 p-1 text-xs font-semibold text-white/68 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition-[transform,top] duration-150 ease-out lg:top-[calc(env(safe-area-inset-top)+22px)] lg:text-sm"
             style={{
+              "--audience-nav-top": `${98 - headerScrollProgress * 76}px`,
               transform: `translateX(-50%) scale(${1 - headerScrollProgress * 0.08})`,
-            }}
+            } as CSSProperties}
           >
             {[
-              { href: "#pentru-jucatori", ro: "Pentru jucatori", en: "For players" },
-              { href: "#pentru-administratori", ro: "Pentru administratori", en: "For admins" },
+              { href: "#pentru-jucatori", ro: "Jucatori", en: "Players" },
+              { href: "#pentru-administratori", ro: "Manageri", en: "Managers" },
               { href: "#preturi", ro: "Preturi", en: "Pricing" },
             ].map((item) => (
               <a
@@ -392,7 +393,7 @@ export function AboutHero() {
                 {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
                 <br />
                 {isEnglish ? "with " : "prin "}
-                <span className="text-[#106dff]">SportMe</span>
+                <span className="text-[#106dff]">SportMe Manager</span>
               </h2>
               <ManagerTabletPreview className="absolute right-0 top-[178px] w-[400px] xl:top-[184px] xl:w-[440px] 2xl:w-[490px]" />
             </div>
@@ -453,7 +454,7 @@ export function AboutHero() {
                   {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
                   <br />
                   {isEnglish ? "with " : "prin "}
-                  <span className="text-[#106dff]">SportMe</span>
+                  <span className="text-[#106dff]">SportMe Manager</span>
                 </h2>
                 <ManagerTabletPreview className="relative mt-7 ml-0 mr-auto w-[min(430px,calc(100vw-64px))]" />
               </div>

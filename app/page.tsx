@@ -162,6 +162,44 @@ export default function RootPage() {
         .about-dark-section .text-\\[\\#7a7566\\] {
           color: rgba(255, 255, 255, 0.68) !important;
         }
+        .about-dark-section .manager-access-modal {
+          color: #1f211f !important;
+        }
+        .about-dark-section .manager-access-modal.bg-\\[radial-gradient\\(circle_at_top_right\\,_\\#ffffff_0\\%\\,_\\#f3f4f6_62\\%\\,_\\#eceff3_100\\%\\)\\] {
+          background: radial-gradient(circle at top right, #ffffff 0%, #f3f4f6 62%, #eceff3 100%) !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+        }
+        .about-dark-section .manager-access-modal .bg-white {
+          background: #ffffff !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+          border-color: #d8d1bf !important;
+          box-shadow: none !important;
+        }
+        .about-dark-section .manager-access-modal .text-\\[\\#1f211f\\],
+        .about-dark-section .manager-access-modal .text-\\[\\#2a2d33\\] {
+          color: #1f211f !important;
+        }
+        .about-dark-section .manager-access-modal .text-\\[\\#5b564b\\],
+        .about-dark-section .manager-access-modal .text-\\[\\#4b5563\\] {
+          color: #5b564b !important;
+        }
+        .about-dark-section .manager-access-modal p,
+        .about-dark-section .manager-access-modal button,
+        .about-dark-section .manager-access-modal button span {
+          color: #1f211f !important;
+        }
+        .about-dark-section .manager-access-modal p.text-sm,
+        .about-dark-section .manager-access-modal button span span:first-child {
+          color: #5b564b !important;
+        }
+        .about-dark-section .manager-access-modal .text-\\[\\#2e7d44\\] {
+          color: #2e7d44 !important;
+        }
+        .about-dark-section .manager-access-modal .text-\\[\\#a63b3b\\] {
+          color: #a63b3b !important;
+        }
         .about-dark-section footer {
           border-color: rgba(255, 255, 255, 0.14) !important;
           background: rgba(255, 255, 255, 0.075) !important;
