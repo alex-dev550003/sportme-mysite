@@ -460,12 +460,8 @@ export function AboutHero() {
               </div>
 
               <a
-                href="#"
-                onClick={(event) => {
-                  event.preventDefault();
-                  trackEvent("click_sportme_manager");
-                  setShowManagerAccessModal(true);
-                }}
+                href="#preturi"
+                onClick={() => trackEvent("click_sportme_manager_pricing")}
                 className="flex w-full max-w-[670px] items-center gap-4 rounded-full border border-white/12 bg-white/[0.08] p-4 pl-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:gap-5 sm:p-5 sm:pl-8 lg:h-[118px] lg:max-w-none lg:translate-x-10 lg:translate-y-[54px] lg:gap-5 lg:px-6 lg:py-3 lg:pl-10"
               >
                 <img src="/logo-512admin.png" alt="" className="h-14 w-14 rounded-[10px] sm:h-16 sm:w-16 lg:h-16 lg:w-16" />
@@ -474,7 +470,7 @@ export function AboutHero() {
                     {isEnglish ? "Open " : "Acceseaza "}
                     <span className="block text-[#106dff] text-[0.95em] sm:inline sm:pl-1">SportMe Manager</span>
                   </span>
-                  <span className="mt-2 hidden max-w-[430px] text-base leading-6 text-white/72 sm:block lg:text-base lg:leading-6">
+                  <span className="mt-2 hidden max-w-[430px] text-base leading-6 text-white/72 sm:block lg:text-sm lg:leading-5">
                     {isEnglish ? (
                       <>
                         The complete platform for bookings,
