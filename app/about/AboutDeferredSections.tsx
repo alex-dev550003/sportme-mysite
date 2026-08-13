@@ -352,7 +352,7 @@ export default function AboutDeferredSections() {
               </h3>
             </div>
 
-            <div className="relative mt-10 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
+            <div className="relative mt-10 flex snap-x snap-mandatory items-stretch gap-2 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc((100% - 40px) / 3 - 12px)" }} />
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc(((100% - 40px) / 3) * 2 + 8px)" }} />
               <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
@@ -393,7 +393,7 @@ export default function AboutDeferredSections() {
                 </div>
               </div>
 
-              <PricingStepArrow className="relative z-30 -mx-4 self-center lg:hidden" />
+              <PricingStepArrow className="relative z-30 -mx-3 self-center lg:hidden" />
 
               <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-5 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-6 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
@@ -430,7 +430,7 @@ export default function AboutDeferredSections() {
                 </div>
               </div>
 
-              <PricingStepArrow className="relative z-30 -mx-4 self-center lg:hidden" />
+              <PricingStepArrow className="relative z-30 -mx-3 self-center lg:hidden" />
 
               <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <h4 className="text-xl font-bold text-white">Premium - PRO</h4>
@@ -475,10 +475,10 @@ export default function AboutDeferredSections() {
             </button>
 
             <div className="mt-6 rounded-2xl border-2 border-[#2b8cff] bg-[linear-gradient(135deg,rgba(2,26,64,0.92),rgba(5,100,255,0.76))] px-5 py-4 text-center shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
-              <span className="block text-[20px] font-extrabold leading-tight tracking-[-0.02em] text-white drop-shadow-[0_2px_10px_rgba(5,100,255,0.45)] sm:text-[24px]">
+              <span className="block text-[17px] font-extrabold leading-tight tracking-[-0.02em] text-white drop-shadow-[0_2px_10px_rgba(5,100,255,0.45)] sm:text-[20px] lg:text-[24px]">
                 {isEnglish ? "Get 120 days of Premium STARTER or PRO for FREE." : "Beneficiaza GRATUIT 120 de zile de planul Premium STARTER sau PRO."}
               </span>
-              <span className="mt-1 block text-[16px] font-bold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.22)] sm:text-[18px]">
+              <span className="mt-1 block text-[14px] font-bold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.22)] sm:text-[16px] lg:text-[18px]">
                 {isEnglish ? "No costs, no card, no obligations." : "Fara costuri, fara card, fara obligatii."}
               </span>
             </div>
