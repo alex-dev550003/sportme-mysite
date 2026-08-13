@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
 
@@ -39,6 +39,20 @@ function AccessArrowIcon() {
   );
 }
 
+function PricingStepArrow({ className = "", style }: { className?: string; style?: CSSProperties }) {
+  return (
+    <div
+      className={`pointer-events-none flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#2b8cff]/70 bg-[#06245a]/88 text-[#72b4ff] shadow-[0_0_0_5px_rgba(43,140,255,0.24),0_0_18px_rgba(43,140,255,0.3)] ${className}`}
+      style={style}
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 24 24" className="h-5 w-5">
+        <path d="M5 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </div>
+  );
+}
+
 function getScreenshots() {
   const interleaved: string[] = [];
   const maxItems = Math.max(banners.length, appShots.length);
@@ -67,7 +81,7 @@ export default function AboutDeferredSections() {
   const loopedScreenshots = useMemo(() => [...screenshots, ...screenshots], [screenshots]);
   const playerWebUrl = "https://app.sportme.ro/app";
   const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
-  const periodLabel = isEnglish ? "month + VAT" : "luna + TVA";
+  const periodLabel = isEnglish ? "month" : "luna";
   const adminCommonPlanFeatures = isEnglish
     ? ["Online venue listing", "Visible public calendar", "Manager bookings"]
     : ["Listare locatie online", "Calendar public vizibil", "Rezervari manageri"];
@@ -338,7 +352,9 @@ export default function AboutDeferredSections() {
               </h3>
             </div>
 
-            <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
+            <div className="relative mt-10 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
+              <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc((100% - 40px) / 3 - 12px)" }} />
+              <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc(((100% - 40px) / 3) * 2 + 8px)" }} />
               <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <h4 className="text-xl font-bold text-white">Freemium</h4>
                 <div className="mt-8 flex items-end gap-1">
@@ -377,6 +393,8 @@ export default function AboutDeferredSections() {
                 </div>
               </div>
 
+              <PricingStepArrow className="relative z-30 -mx-4 self-center lg:hidden" />
+
               <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-5 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-6 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
                   MOST POPULAR
@@ -412,6 +430,8 @@ export default function AboutDeferredSections() {
                 </div>
               </div>
 
+              <PricingStepArrow className="relative z-30 -mx-4 self-center lg:hidden" />
+
               <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <h4 className="text-xl font-bold text-white">Premium - PRO</h4>
                 <div className="mt-8 flex items-end gap-1">
@@ -444,6 +464,15 @@ export default function AboutDeferredSections() {
                 </div>
               </div>
             </div>
+
+            <button
+              type="button"
+              onClick={openManagerAccessModal}
+              className="mt-5 flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)] transition hover:bg-[#1472ff] lg:hidden"
+            >
+              <span>Deschide dashboard Manager</span>
+              <span className="mt-0.5 font-normal text-white/78">(primele 120 zile gratuit)</span>
+            </button>
 
             <div className="mt-6 rounded-2xl border-2 border-[#2b8cff] bg-[linear-gradient(135deg,rgba(2,26,64,0.92),rgba(5,100,255,0.76))] px-5 py-4 text-center shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
               <span className="block text-[20px] font-extrabold leading-tight tracking-[-0.02em] text-white drop-shadow-[0_2px_10px_rgba(5,100,255,0.45)] sm:text-[24px]">
