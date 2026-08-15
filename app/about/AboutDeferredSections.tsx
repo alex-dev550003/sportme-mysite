@@ -93,23 +93,23 @@ export default function AboutDeferredSections() {
     ...adminCommonPlanFeatures,
     isEnglish ? "Player bookings - phone only" : "Rezervari jucatori - doar telefonic",
     adminScheduleControlFeature,
-    isEnglish ? "Locations count - MAX 1" : "Numar locatii - MAXIM 1",
+    isEnglish ? "Locations / sports zones count - MAX 1" : "Numar locatii/zone sportive - MAXIM 1",
   ];
   const adminStarterFeatures = [
     ...adminCommonPlanFeatures,
     isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
     adminScheduleControlFeature,
-    isEnglish ? "Locations count - MAX 2*" : "Numar locatii - MAXIM 2*",
+    isEnglish ? "Locations / sports zones count - MAX 2*" : "Numar locatii/zone sportive - MAXIM 2*",
     ...adminAdvancedPlanFeatures,
   ];
   const adminProFeatures = [
     ...adminCommonPlanFeatures,
     isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
     adminScheduleControlFeature,
-    isEnglish ? "Locations count - UNLIMITED*" : "Numar locatii - NELIMITAT*",
+    isEnglish ? "Locations / sports zones count - UNLIMITED*" : "Numar locatii/zone sportive - NELIMITAT*",
     ...adminAdvancedPlanFeatures,
   ];
-  const isLocationLimitFeature = (item: string) => item.includes("Locations count") || item.includes("Numar locatii");
+  const isLocationLimitFeature = (item: string) => item.includes("Locations / sports zones count") || item.includes("Numar locatii/zone sportive");
   const PricingCheck = () => (
     <svg viewBox="0 0 20 20" aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0564ff]">
       <path d="M4 10.5l3.2 3.2L16 5.8" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
