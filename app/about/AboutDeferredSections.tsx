@@ -110,6 +110,8 @@ export default function AboutDeferredSections() {
     ...adminAdvancedPlanFeatures,
   ];
   const isLocationLimitFeature = (item: string) => item.includes("Locations / sports zones count") || item.includes("Numar locatii/zone sportive");
+  const isHighlightedPricingFeature = (item: string) => isLocationLimitFeature(item) || item.includes("Instant confirmations") || item.includes("Confirmari instant");
+  const highlightedPricingFeatureClass = "-ml-1 rounded-lg border border-[#2b8cff]/34 bg-white/[0.085] px-2 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]";
   const PricingCheck = () => (
     <svg viewBox="0 0 20 20" aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0564ff]">
       <path d="M4 10.5l3.2 3.2L16 5.8" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -366,17 +368,22 @@ export default function AboutDeferredSections() {
                     <p
                       key={item}
                       className={`flex gap-2 leading-4 lg:leading-5 ${
-                        isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
+                        isHighlightedPricingFeature(item) ? highlightedPricingFeatureClass : ""
                       }`}
                     >
                       <PricingCheck />
-                      <span>{item}</span>
+                      <span className={isHighlightedPricingFeature(item) ? "font-semibold text-white/86" : undefined}>{item}</span>
                     </p>
                   ))}
                   {adminAdvancedPlanFeatures.map((item) => (
-                    <p key={item} className="flex gap-2 leading-4 lg:leading-5">
+                    <p
+                      key={item}
+                      className={`flex gap-2 leading-4 lg:leading-5 ${
+                        isHighlightedPricingFeature(item) ? highlightedPricingFeatureClass : ""
+                      }`}
+                    >
                       <PricingCross />
-                      <span>{item}</span>
+                      <span className={isHighlightedPricingFeature(item) ? "font-semibold text-white/86" : undefined}>{item}</span>
                     </p>
                   ))}
                 </div>
@@ -401,11 +408,11 @@ export default function AboutDeferredSections() {
                     <p
                       key={item}
                       className={`flex gap-2 leading-4 lg:leading-5 ${
-                        isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
+                        isHighlightedPricingFeature(item) ? highlightedPricingFeatureClass : ""
                       }`}
                     >
                       <PricingCheck />
-                      <span className={isLocationLimitFeature(item) ? "font-semibold text-white/82" : undefined}>{item}</span>
+                      <span className={isHighlightedPricingFeature(item) ? "font-semibold text-white/86" : undefined}>{item}</span>
                     </p>
                   ))}
                 </div>
@@ -427,11 +434,11 @@ export default function AboutDeferredSections() {
                     <p
                       key={item}
                       className={`flex gap-2 leading-4 lg:leading-5 ${
-                        isLocationLimitFeature(item) ? "-ml-1 rounded-lg border border-white/18 px-1 py-1" : ""
+                        isHighlightedPricingFeature(item) ? highlightedPricingFeatureClass : ""
                       }`}
                     >
                       <PricingCheck />
-                      <span className={isLocationLimitFeature(item) ? "font-semibold text-white/82" : undefined}>{item}</span>
+                      <span className={isHighlightedPricingFeature(item) ? "font-semibold text-white/86" : undefined}>{item}</span>
                     </p>
                   ))}
                 </div>

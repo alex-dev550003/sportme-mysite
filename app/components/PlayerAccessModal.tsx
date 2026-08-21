@@ -63,7 +63,7 @@ export default function PlayerAccessModal({ onClose, playerWebUrl, playerPlaySto
 
         <div className="mt-5 grid gap-5 md:grid-cols-[1fr_auto_2fr] md:items-start">
           <div>
-            <p className="mb-3 text-center text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#4b5563]">Desktop</p>
+            <p className="mb-4 text-center text-[14px] font-extrabold uppercase tracking-[0.2em] text-[#334155] sm:text-[15px]">Desktop</p>
             <div className="flex flex-col items-center gap-1.5">
               <button
                 type="button"
@@ -85,7 +85,7 @@ export default function PlayerAccessModal({ onClose, playerWebUrl, playerPlaySto
           <div className="h-px bg-[#d8d1bf] md:h-[104px] md:w-px md:self-end" aria-hidden="true" />
 
           <div>
-            <p className="mb-3 text-center text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#4b5563]">Aplicatii</p>
+            <p className="mb-4 text-center text-[14px] font-extrabold uppercase tracking-[0.2em] text-[#334155] sm:text-[15px]">Aplicatii</p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="flex flex-col items-center gap-1.5">
                 <button

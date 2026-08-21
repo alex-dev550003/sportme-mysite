@@ -370,7 +370,7 @@ export function AboutHero() {
               className="pointer-events-none absolute left-1/2 top-[150px] hidden h-[650px] w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:block"
               aria-hidden="true"
             />
-            <p className="mb-4 inline-flex rounded-full border border-[#106dff]/36 bg-[#106dff]/16 px-4 py-2 text-[13px] font-extrabold uppercase tracking-[0.2em] text-white shadow-[0_0_28px_rgba(16,109,255,0.24),inset_0_1px_0_rgba(255,255,255,0.12)] sm:text-base lg:text-[15px]">
+            <p className="mb-4 inline-flex rounded-full border border-[#2b8cff]/70 bg-[#106dff]/22 px-4 py-2 text-[13px] font-extrabold uppercase tracking-[0.2em] text-white shadow-[0_0_18px_rgba(16,109,255,0.52),0_0_42px_rgba(16,109,255,0.28),inset_0_1px_0_rgba(255,255,255,0.18)] sm:text-base lg:text-[15px]">
               {isEnglish ? "Are you a player?" : "Esti jucator?"}
             </p>
             <h1 className="max-w-full text-[36px] font-bold leading-[1.04] tracking-normal sm:text-[54px] sm:leading-[0.98] lg:max-w-[470px] lg:text-[58px]">
@@ -385,8 +385,8 @@ export function AboutHero() {
 
             <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
 
-            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[148px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[140px]">
-              <p className="mb-4 inline-flex rounded-full border border-[#106dff]/36 bg-[#106dff]/16 px-4 py-2 text-[13px] font-extrabold uppercase tracking-[0.2em] text-white shadow-[0_0_28px_rgba(16,109,255,0.24),inset_0_1px_0_rgba(255,255,255,0.12)] xl:text-[14px]">
+            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[132px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[126px]">
+              <p className="mb-4 inline-flex rounded-full border border-[#2b8cff]/70 bg-[#106dff]/22 px-4 py-2 text-[13px] font-extrabold uppercase tracking-[0.2em] text-white shadow-[0_0_18px_rgba(16,109,255,0.52),0_0_42px_rgba(16,109,255,0.28),inset_0_1px_0_rgba(255,255,255,0.18)] xl:text-[14px]">
                 {isEnglish ? "Are you a venue or academy admin?" : "Esti administrator de baza sportiva sau academie?"}
               </p>
               <h2 className="max-w-[520px] text-[43px] font-bold leading-[1.04] tracking-normal xl:max-w-[580px] xl:text-[48px] 2xl:text-[52px]">
@@ -440,14 +440,17 @@ export function AboutHero() {
                   className="flex h-16 items-center justify-center gap-3 rounded-full border border-white/38 bg-black/20 px-4 text-lg font-normal hover:border-white/58 hover:bg-white/8 sm:h-[78px] sm:gap-4 sm:text-2xl"
                 >
                   <AppleIcon />
-                  <span>{isEnglish ? "Download on the App Store (soon)" : "Descarca din App Store (curand)"}</span>
+                  <span className="inline-flex items-baseline gap-1.5">
+                    <span>{isEnglish ? "Download on the App Store" : "Descarca din App Store"}</span>
+                    <span className="text-[0.72em] font-normal text-white/72">{isEnglish ? "(soon, site only)" : "(curand, site only)"}</span>
+                  </span>
                 </a>
               </div>
 
               <div className="my-8 h-px w-full bg-[repeating-linear-gradient(to_right,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:hidden" aria-hidden="true" />
 
               <div className="lg:hidden">
-                <p className="mb-4 inline-flex rounded-full border border-[#106dff]/36 bg-[#106dff]/16 px-4 py-2 text-[12px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[0_0_28px_rgba(16,109,255,0.24),inset_0_1px_0_rgba(255,255,255,0.12)] sm:text-sm">
+                <p className="mb-4 inline-flex rounded-full border border-[#2b8cff]/70 bg-[#106dff]/22 px-4 py-2 text-[12px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[0_0_18px_rgba(16,109,255,0.52),0_0_42px_rgba(16,109,255,0.28),inset_0_1px_0_rgba(255,255,255,0.18)] sm:text-sm">
                   {isEnglish ? "Are you a venue or academy admin?" : "Esti administrator de baza sportiva sau academie?"}
                 </p>
                 <h2 className="text-[34px] font-bold leading-[1.04] tracking-normal sm:text-[44px]">
