@@ -361,14 +361,6 @@ export default function AboutDeferredSections() {
                   <span className="text-4xl font-bold leading-none text-white">€0</span>
                   <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={openManagerAccessModal}
-                  className="mt-8 hidden w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8 lg:inline-flex"
-                >
-                  <span>Deschide dashboard Manager</span>
-                  <span className="mt-0.5 font-normal text-white/72">(gratuit)</span>
-                </button>
                 <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
                   {adminFreemiumFeatures.map((item) => (
                     <p
@@ -404,14 +396,6 @@ export default function AboutDeferredSections() {
                   <span className="text-4xl font-bold leading-none text-white">€8,90</span>
                   <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={openManagerAccessModal}
-                  className="mt-8 hidden w-full cursor-pointer flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)] transition hover:bg-[#1472ff] lg:inline-flex"
-                >
-                  <span>Deschide dashboard Manager</span>
-                  <span className="mt-0.5 font-normal text-white/78">(primele 90 zile gratuit)</span>
-                </button>
                 <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
                   {adminStarterFeatures.map((item) => (
                     <p
@@ -438,14 +422,6 @@ export default function AboutDeferredSections() {
                   <span className="text-4xl font-bold leading-none text-white">€14,90</span>
                   <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={openManagerAccessModal}
-                  className="mt-8 hidden w-full cursor-pointer flex-col items-center justify-center rounded-full border border-white/18 bg-transparent px-5 py-3 text-center text-sm font-semibold leading-tight text-white transition hover:border-white/34 hover:bg-white/8 lg:inline-flex"
-                >
-                  <span>Deschide dashboard Manager</span>
-                  <span className="mt-0.5 font-normal text-white/72">(primele 90 zile gratuit)</span>
-                </button>
                 <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
                   {adminProFeatures.map((item) => (
                     <p
@@ -468,20 +444,11 @@ export default function AboutDeferredSections() {
             <button
               type="button"
               onClick={openManagerAccessModal}
-              className="mt-5 flex w-full cursor-pointer flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-5 py-3 text-center text-sm font-semibold leading-tight text-white shadow-[0_12px_28px_rgba(5,100,255,0.28)] transition hover:bg-[#1472ff] lg:hidden"
+              className="mx-auto mt-7 flex w-full max-w-[760px] cursor-pointer flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-6 py-4 text-center text-base font-bold leading-tight text-white shadow-[0_18px_42px_rgba(5,100,255,0.34)] transition hover:bg-[#1472ff] sm:py-5 sm:text-lg lg:mt-8 lg:max-w-[620px] lg:text-lg"
             >
               <span>Deschide dashboard Manager</span>
               <span className="mt-0.5 font-normal text-white/78">(primele 90 zile gratuit)</span>
             </button>
-
-            <div className="mt-6 rounded-2xl border-2 border-[#2b8cff] bg-[linear-gradient(135deg,rgba(2,26,64,0.92),rgba(5,100,255,0.76))] px-5 py-4 text-center shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
-              <span className="block text-[17px] font-extrabold leading-tight tracking-[-0.02em] text-white drop-shadow-[0_2px_10px_rgba(5,100,255,0.45)] sm:text-[20px] lg:text-[24px]">
-                {isEnglish ? "Get 90 days of Premium STARTER or PRO for FREE." : "Beneficiaza GRATUIT 90 de zile de planul Premium STARTER sau PRO."}
-              </span>
-              <span className="mt-1 block text-[14px] font-bold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.22)] sm:text-[16px] lg:text-[18px]">
-                {isEnglish ? "No costs, no card, no obligations." : "Fara costuri, fara card, fara obligatii."}
-              </span>
-            </div>
           </div>
         </div>
       </section>
