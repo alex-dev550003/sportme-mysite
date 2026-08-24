@@ -370,8 +370,8 @@ export function AboutHero() {
               className="pointer-events-none absolute left-1/2 top-[150px] hidden h-[650px] w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:block"
               aria-hidden="true"
             />
-            <p className="mb-4 inline-flex rounded-full border border-[#ff9d2e]/70 bg-[#ff8a00]/22 px-4 py-2 text-[13px] font-extrabold uppercase tracking-[0.2em] text-white shadow-[0_0_18px_rgba(255,138,0,0.5),0_0_42px_rgba(255,138,0,0.26),inset_0_1px_0_rgba(255,255,255,0.18)] sm:text-base lg:relative lg:left-1/2 lg:-translate-x-1/2 lg:text-[15px]">
-              {isEnglish ? "Are you a player?" : "Esti jucator?"}
+            <p className="mb-4 inline-flex rounded-full border border-[#ff9d2e]/70 bg-[#ff8a00]/22 px-4 py-2 text-[13px] font-extrabold tracking-[0.2em] text-white shadow-[0_0_18px_rgba(255,138,0,0.5),0_0_42px_rgba(255,138,0,0.26),inset_0_1px_0_rgba(255,255,255,0.18)] sm:text-base lg:text-[15px]">
+              {isEnglish ? "Are you a player?" : "esti JUCATOR?"}
             </p>
             <h1 className="max-w-full text-[36px] font-bold leading-[1.04] tracking-normal sm:text-[54px] sm:leading-[0.98] lg:max-w-[470px] lg:text-[58px]">
               {isEnglish ? "Book fast" : "Rezerva rapid"}
@@ -386,8 +386,8 @@ export function AboutHero() {
             <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
 
             <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[114px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[114px]">
-              <p className="relative left-1/2 mb-4 inline-flex -translate-x-1/2 rounded-full border border-[#ff9d2e]/70 bg-[#ff8a00]/22 px-4 py-2 text-[13px] font-extrabold uppercase tracking-[0.2em] text-white shadow-[0_0_18px_rgba(255,138,0,0.5),0_0_42px_rgba(255,138,0,0.26),inset_0_1px_0_rgba(255,255,255,0.18)] xl:text-[14px]">
-                {isEnglish ? "Are you a venue or academy admin?" : "Esti administrator de baza sportiva sau academie?"}
+              <p className="mb-4 inline-flex rounded-full border border-[#ff9d2e]/70 bg-[#ff8a00]/22 px-4 py-2 text-[13px] font-extrabold tracking-[0.2em] text-white shadow-[0_0_18px_rgba(255,138,0,0.5),0_0_42px_rgba(255,138,0,0.26),inset_0_1px_0_rgba(255,255,255,0.18)] xl:text-[14px]">
+                {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
               </p>
               <h2 className="max-w-[520px] text-[43px] font-bold leading-[1.04] tracking-normal xl:max-w-[580px] xl:text-[48px] 2xl:text-[52px]">
                 {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
@@ -395,7 +395,12 @@ export function AboutHero() {
                 {isEnglish ? "with " : "prin "}
                 <span className="text-[#106dff]">SportMe Manager</span>
               </h2>
-              <ManagerTabletPreview className="absolute right-0 top-[178px] w-[400px] xl:top-[184px] xl:w-[440px] 2xl:w-[490px]" />
+              <p className="mt-4 max-w-[520px] text-[18px] leading-7 text-white/84 xl:max-w-[560px]">
+                {isEnglish
+                  ? "Help players and teams track schedules, bookings and changes in one place."
+                  : "Ajuta jucatorii/echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc."}
+              </p>
+              <ManagerTabletPreview className="absolute right-0 top-[218px] w-[400px] xl:top-[230px] xl:w-[440px] 2xl:w-[490px]" />
             </div>
 
             <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10 lg:mt-7 lg:max-w-[390px]">
@@ -450,8 +455,8 @@ export function AboutHero() {
               <div className="my-8 h-px w-full bg-[repeating-linear-gradient(to_right,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:hidden" aria-hidden="true" />
 
               <div className="lg:hidden">
-                <p className="mb-4 inline-flex rounded-full border border-[#ff9d2e]/70 bg-[#ff8a00]/22 px-4 py-2 text-[12px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[0_0_18px_rgba(255,138,0,0.5),0_0_42px_rgba(255,138,0,0.26),inset_0_1px_0_rgba(255,255,255,0.18)] sm:text-sm">
-                  {isEnglish ? "Are you a venue or academy admin?" : "Esti administrator de baza sportiva sau academie?"}
+                <p className="mb-4 inline-flex rounded-full border border-[#ff9d2e]/70 bg-[#ff8a00]/22 px-4 py-2 text-[12px] font-extrabold tracking-[0.16em] text-white shadow-[0_0_18px_rgba(255,138,0,0.5),0_0_42px_rgba(255,138,0,0.26),inset_0_1px_0_rgba(255,255,255,0.18)] sm:text-sm">
+                  {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
                 </p>
                 <h2 className="text-[34px] font-bold leading-[1.04] tracking-normal sm:text-[44px]">
                   {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
@@ -459,7 +464,12 @@ export function AboutHero() {
                   {isEnglish ? "with " : "prin "}
                   <span className="text-[#106dff]">SportMe Manager</span>
                 </h2>
-                <ManagerTabletPreview className="relative mt-7 ml-0 mr-auto w-[min(430px,calc(100vw-64px))]" />
+                <p className="mt-4 max-w-full text-[15px] leading-6 text-white/84 sm:text-xl sm:leading-8">
+                  {isEnglish
+                    ? "Help players and teams track schedules, bookings and changes in one place."
+                    : "Ajuta jucatorii/echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc."}
+                </p>
+                <ManagerTabletPreview className="relative mt-9 ml-0 mr-auto w-[min(430px,calc(100vw-64px))]" />
               </div>
 
               <a
