@@ -400,7 +400,7 @@ export function AboutHero() {
                   ? "Help players and teams track schedules, bookings and changes in one place."
                   : "Ajuta jucatorii/echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc."}
               </p>
-              <ManagerTabletPreview className="absolute right-0 top-[218px] w-[400px] xl:top-[230px] xl:w-[440px] 2xl:w-[490px]" />
+              <ManagerTabletPreview className="absolute right-0 top-[246px] w-[400px] xl:top-[258px] xl:w-[440px] 2xl:w-[490px]" />
             </div>
 
             <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10 lg:mt-7 lg:max-w-[390px]">
