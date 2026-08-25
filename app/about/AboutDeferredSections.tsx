@@ -9,9 +9,9 @@ const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"
 
 const cdnBase = "https://app.sportme.ro";
 const appShots = [
-  "/about/user-1-20260225.png",
-  "/about/user-2-20260225.png",
-  "/about/user-3-20260225.png",
+  "/about/user-1.jpg",
+  "/about/user-2.jpg",
+  "/about/user-3.jpg",
   "/about/manager-1.png",
   "/about/manager-2.png",
   "/about/manager-3.png",
