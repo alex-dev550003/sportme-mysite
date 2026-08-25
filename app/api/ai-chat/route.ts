@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { buildSportMeSystemPrompt, sanitizeChatMessages } from "@/lib/sportme-ai";
+import { buildSportMeSystemPrompt, getSportMeDirectResponse, sanitizeChatMessages } from "@/lib/sportme-ai";
 
 export const runtime = "nodejs";
 
@@ -36,6 +36,11 @@ export async function POST(request: Request) {
 
     if (!lastUserMessage) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
+    }
+
+    const directReply = getSportMeDirectResponse(lastUserMessage.content);
+    if (directReply) {
+      return NextResponse.json({ reply: directReply });
     }
 
     const apiKey = process.env.OPENAI_API_KEY;
