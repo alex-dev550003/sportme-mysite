@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties, type MouseEvent } from "react";
 import { useI18n } from "../app/i18n";
 import { trackEvent } from "../utils/analytics";
 
@@ -272,6 +272,29 @@ export function AboutHero() {
     });
   };
 
+  const scrollToAudienceSection = (event: MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    event.preventDefault();
+    window.dispatchEvent(new Event("sportme:load-deferred-sections"));
+    window.history.pushState(null, "", `#${targetId}`);
+    setShowHeroMenu(false);
+
+    let attempts = 0;
+    const scrollWhenReady = () => {
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      attempts += 1;
+      if (attempts < 20) {
+        window.setTimeout(scrollWhenReady, 100);
+      }
+    };
+
+    scrollWhenReady();
+  };
+
   useEffect(() => {
     const query = window.matchMedia("(min-width: 768px)");
     const mobileUserAgent = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
@@ -368,11 +391,11 @@ export function AboutHero() {
             {[
               { href: "#pentru-jucatori", ro: "Jucatori", en: "Players" },
               { href: "#pentru-administratori", ro: "Manageri", en: "Managers" },
-              { href: "#preturi", ro: "Preturi", en: "Pricing" },
             ].map((item) => (
               <a
                 key={item.href}
                 href={item.href}
+                onClick={(event) => scrollToAudienceSection(event, item.href.slice(1))}
                 className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-white/10 hover:text-white lg:px-4 lg:py-2"
               >
                 {isEnglish ? item.en : item.ro}

@@ -29,6 +29,21 @@ export function AboutDeferredLoader() {
     return () => observer.disconnect();
   }, [shouldLoad]);
 
+  useEffect(() => {
+    const loadDeferredSections = () => setShouldLoad(true);
+
+    if (window.location.hash === "#pentru-jucatori" || window.location.hash === "#pentru-administratori") {
+      loadDeferredSections();
+    }
+
+    window.addEventListener("sportme:load-deferred-sections", loadDeferredSections);
+    window.addEventListener("hashchange", loadDeferredSections);
+    return () => {
+      window.removeEventListener("sportme:load-deferred-sections", loadDeferredSections);
+      window.removeEventListener("hashchange", loadDeferredSections);
+    };
+  }, []);
+
   return (
     <div ref={rootRef} className="about-dark-section w-full px-5 py-12 lg:py-16">
       {shouldLoad ? <AboutDeferredSections /> : <div className="mx-auto h-[360px] w-full max-w-7xl rounded-[28px] border border-white/10 bg-white/[0.035]" aria-hidden="true" />}
