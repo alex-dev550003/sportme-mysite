@@ -186,12 +186,10 @@ export default function RootPage() {
           color: #5b564b !important;
         }
         .about-dark-section .manager-access-modal p,
-        .about-dark-section .manager-access-modal button,
-        .about-dark-section .manager-access-modal button span {
+        .about-dark-section .manager-access-modal button {
           color: #1f211f !important;
         }
-        .about-dark-section .manager-access-modal p.text-sm,
-        .about-dark-section .manager-access-modal button span span:first-child {
+        .about-dark-section .manager-access-modal p.text-sm {
           color: #5b564b !important;
         }
         .about-dark-section .manager-access-modal .text-\\[\\#2e7d44\\] {

@@ -704,13 +704,11 @@ body {
 }
 
 .public-dark .manager-access-modal p,
-.public-dark .manager-access-modal button,
-.public-dark .manager-access-modal button span {
+.public-dark .manager-access-modal button {
   color: #1f211f !important;
 }
 
-.public-dark .manager-access-modal p.text-sm,
-.public-dark .manager-access-modal button span span:first-child {
+.public-dark .manager-access-modal p.text-sm {
   color: #5b564b !important;
 }
 
