@@ -19,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${SITE_URL}/manager/quick-start`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/intrebari-frecvente`,
       lastModified: now,
       changeFrequency: "monthly",
