@@ -210,7 +210,7 @@ export default function AboutDeferredSections() {
             </h2>
             <p className="max-w-4xl text-base leading-7 text-white/72">{t("about.users.intro")}</p>
           </div>
-          <div className="mt-7 grid gap-5 text-sm leading-6 text-[#5b564b] md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-7 hidden gap-5 text-sm leading-6 text-[#5b564b] md:grid md:grid-cols-2 xl:grid-cols-4">
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
               <p className="font-semibold text-[#1f211f]">{t("about.users.findTitle")}</p>
               <p>{t("about.users.findItem1")}</p>

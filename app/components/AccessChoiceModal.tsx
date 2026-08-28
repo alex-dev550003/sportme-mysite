@@ -32,7 +32,7 @@ type Props = {
   sections: Section[];
 };
 
-function WebIcon({ className = "h-8 w-8" }: { className?: string }) {
+function WebIcon({ className = "h-7 w-7" }: { className?: string }) {
   return (
     <svg aria-hidden viewBox="0 0 24 24" className={`${className} shrink-0 text-[#1877f2]`} fill="none" stroke="currentColor" strokeWidth="1.8">
       <circle cx="12" cy="12" r="9" />
@@ -43,7 +43,7 @@ function WebIcon({ className = "h-8 w-8" }: { className?: string }) {
 
 function GooglePlayIcon() {
   return (
-    <svg aria-hidden viewBox="0 0 24 24" className="h-8 w-8 shrink-0 transition group-hover:scale-105">
+    <svg aria-hidden viewBox="0 0 24 24" className="h-7 w-7 shrink-0 transition group-hover:scale-105">
       <polygon points="3,2 14,12 3,22" fill="#34a853" />
       <polygon points="3,2 21,12 14,12" fill="#fbbc05" />
       <polygon points="3,22 21,12 14,12" fill="#ea4335" />
@@ -54,7 +54,7 @@ function GooglePlayIcon() {
 
 function AppleStoreIcon() {
   return (
-    <svg aria-hidden viewBox="0 0 24 24" className="h-8 w-8 shrink-0 fill-[#171b26] transition group-hover:scale-105">
+    <svg aria-hidden viewBox="0 0 24 24" className="h-7 w-7 shrink-0 fill-[#171b26] transition group-hover:scale-105">
       <path d="M18.71 19.5c-.83 1.24-1.74 2.48-3.1 2.5-1.21.02-1.6-.72-3.01-.72-1.41 0-1.84.7-2.95.74-1.3.05-2.3-1.32-3.13-2.55-1.7-2.52-3-7.12-1.25-10.16.88-1.5 2.45-2.45 4.16-2.48 1.16-.02 2.26.79 3.01.79.75 0 2.16-.98 3.64-.84.62.03 2.37.25 3.49 1.89-.09.06-2.08 1.21-2.06 3.6.03 2.86 2.5 3.81 2.53 3.82-.02.07-.39 1.35-1.33 2.41zM14.84 4.36c.69-.84 1.16-2.01 1.03-3.18-.99.04-2.19.66-2.9 1.5-.64.74-1.2 1.94-1.05 3.08 1.11.09 2.23-.56 2.92-1.4z" />
     </svg>
   );
@@ -124,24 +124,24 @@ function StatusPill({ status }: { status: NonNullable<Action["status"]> }) {
 function ActionRow({ action }: { action: Action }) {
   const content = (
     <>
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
         <ActionIcon icon={action.icon} />
       </span>
       <span className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-left leading-tight">
-        <span className="text-[11px] font-medium tracking-[0.08em] text-[#6d7280]">{action.eyebrow}</span>
+        <span className="text-[10px] font-medium tracking-[0.08em] text-[#6d7280]">{action.eyebrow}</span>
         <span className="flex min-w-0 flex-wrap items-center gap-2">
-          <span className="text-[19px] font-extrabold tracking-normal text-[#171b26] sm:text-[21px]">{action.title}</span>
+          <span className="text-[17px] font-extrabold tracking-normal text-[#171b26] sm:text-[19px]">{action.title}</span>
           {action.status ? <StatusPill status={action.status} /> : null}
         </span>
       </span>
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#eef6ff] transition group-hover:bg-[#dbeeff]">
+      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#eef6ff] transition group-hover:bg-[#dbeeff]">
         <ArrowIcon />
       </span>
     </>
   );
 
   const className =
-    "group flex min-h-[66px] w-full items-center gap-3.5 rounded-[16px] border border-[#c9d9ee] bg-white px-3.5 py-3 text-[#171b26] shadow-[0_14px_34px_rgba(24,119,242,0.1),inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 hover:border-[#94c4ff] hover:shadow-[0_18px_44px_rgba(24,119,242,0.16)]";
+    "group flex min-h-[60px] w-full items-center gap-3 rounded-[15px] border border-[#c9d9ee] bg-white px-3 py-2.5 text-[#171b26] shadow-[0_14px_34px_rgba(24,119,242,0.1),inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 hover:border-[#94c4ff] hover:shadow-[0_18px_44px_rgba(24,119,242,0.16)]";
 
   if (action.disabled || !action.href) {
     return <div className={`${className} cursor-not-allowed opacity-70`}>{content}</div>;
@@ -156,9 +156,9 @@ function ActionRow({ action }: { action: Action }) {
 
 export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, safetyTitle, safetyBody, loginLabel, loginUrl, sections }: Props) {
   return (
-    <div className="fixed inset-0 isolate z-[999] flex items-start justify-center overflow-y-auto bg-black/82 px-4 py-4 backdrop-blur-[5px] sm:items-center" onClick={onClose} role="dialog" aria-modal="true">
+    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/82 px-4 py-4 backdrop-blur-[5px]" onClick={onClose} role="dialog" aria-modal="true">
       <div
-        className="manager-access-modal relative z-[1000] w-full max-w-[480px] rounded-[22px] border border-white/80 bg-[radial-gradient(circle_at_20%_0%,_#ffffff_0%,_#f7f9fc_50%,_#edf3fb_100%)] px-4 py-4 text-[#171b26] shadow-[0_26px_72px_rgba(0,0,0,0.36)] sm:rounded-[24px] sm:px-7 sm:py-6"
+        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-white/80 bg-[radial-gradient(circle_at_20%_0%,_#ffffff_0%,_#f7f9fc_50%,_#edf3fb_100%)] px-3.5 py-3.5 text-[#171b26] shadow-[0_24px_68px_rgba(0,0,0,0.36)] sm:rounded-[22px] sm:px-6 sm:py-5"
         onClick={(event) => event.stopPropagation()}
       >
         <button
@@ -170,26 +170,26 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
           <CloseIcon />
         </button>
 
-        <div className="flex items-start gap-3.5 pr-10 sm:gap-4">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-white shadow-[0_10px_24px_rgba(24,119,242,0.18)] sm:h-14 sm:w-14">
+        <div className="flex items-start gap-3 pr-9 sm:gap-3.5">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[11px] bg-white shadow-[0_10px_24px_rgba(24,119,242,0.18)] sm:h-12 sm:w-12">
             <img src={logoSrc} alt="" className="h-full w-full object-cover" />
           </span>
           <div>
-            <p className="text-[22px] font-extrabold leading-none tracking-normal text-[#171b26] sm:text-[27px]">{title}</p>
-            <p className="mt-1.5 max-w-[310px] text-[13px] font-medium leading-[1.32] text-[#6a7080] sm:text-[14px]">{subtitle}</p>
+            <p className="text-[20px] font-extrabold leading-none tracking-normal text-[#171b26] sm:text-[24px]">{title}</p>
+            <p className="mt-1 max-w-[292px] text-[12px] font-medium leading-[1.3] text-[#6a7080] sm:text-[13px]">{subtitle}</p>
           </div>
         </div>
 
-        <div className="mt-5 space-y-4">
+        <div className="mt-4 space-y-3.5">
           {sections.map((section, index) => (
-            <section key={section.label} className={index > 0 ? "border-t border-[#dce1e9] pt-4" : ""}>
-              <div className="mb-2.5 flex items-center gap-3">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#e6f2ff]">
+            <section key={section.label} className={index > 0 ? "border-t border-[#dce1e9] pt-3.5" : ""}>
+              <div className="mb-2 flex items-center gap-2.5">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e6f2ff]">
                   <DeviceIcon type={section.icon} />
                 </span>
-                <p className="text-[11px] font-extrabold uppercase tracking-[0.26em] text-[#242936]">{section.label}</p>
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#242936]">{section.label}</p>
               </div>
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 {section.actions.map((action) => (
                   <ActionRow key={`${section.label}-${action.title}`} action={action} />
                 ))}
@@ -198,15 +198,15 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
           ))}
         </div>
 
-        <div className="mt-4 flex items-center gap-3 rounded-[14px] bg-[#e8f3ff] px-4 py-3 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+        <div className="mt-3.5 flex items-center gap-2.5 rounded-[13px] bg-[#e8f3ff] px-3.5 py-2.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
           <ShieldIcon />
-          <p className="text-[12px] font-medium leading-snug text-[#374151] sm:text-[13px]">
+          <p className="text-[11px] font-medium leading-snug text-[#374151] sm:text-[12px]">
             <span className="block font-extrabold text-[#2d3340]">{safetyTitle}</span>
             {safetyBody}
           </p>
         </div>
 
-        <button type="button" onClick={() => void openExternal(loginUrl)} className="mx-auto mt-4 flex items-center justify-center gap-2 text-[13px] font-semibold text-[#6c7280]">
+        <button type="button" onClick={() => void openExternal(loginUrl)} className="mx-auto mt-3.5 flex items-center justify-center gap-2 text-[12px] font-semibold text-[#6c7280]">
           <span>{loginLabel}</span>
           <ArrowIcon className="h-4 w-4" />
         </button>
