@@ -111,8 +111,8 @@ function ActionIcon({ icon }: { icon: Action["icon"] }) {
 function StatusPill({ status }: { status: NonNullable<Action["status"]> }) {
   const toneClass =
     status.tone === "live"
-      ? "bg-[#e9f3fb] text-[#179c59] before:bg-[#22c55e]"
-      : "bg-[#fff1e9] text-[#b75b22] before:bg-[#f97316]";
+      ? "bg-[#dff1ff] text-[#087f49] before:bg-[#16a34a]"
+      : "bg-[#fff0e8] text-[#b95017] before:bg-[#f97316]";
 
   return (
     <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] ${toneClass} before:h-1.5 before:w-1.5 before:rounded-full`}>
@@ -124,7 +124,7 @@ function StatusPill({ status }: { status: NonNullable<Action["status"]> }) {
 function ActionRow({ action }: { action: Action }) {
   const content = (
     <>
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
         <ActionIcon icon={action.icon} />
       </span>
       <span className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-left leading-tight">
@@ -134,12 +134,14 @@ function ActionRow({ action }: { action: Action }) {
           {action.status ? <StatusPill status={action.status} /> : null}
         </span>
       </span>
-      <ArrowIcon />
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#eef6ff] transition group-hover:bg-[#dbeeff]">
+        <ArrowIcon />
+      </span>
     </>
   );
 
   const className =
-    "group flex min-h-[72px] w-full items-center gap-4 rounded-[18px] border border-[#dde2ea] bg-white/88 px-4 py-3.5 text-[#171b26] shadow-[0_14px_34px_rgba(15,23,42,0.055)] transition hover:-translate-y-0.5 hover:border-[#b9d6ff] hover:bg-white hover:shadow-[0_18px_44px_rgba(24,119,242,0.11)]";
+    "group flex min-h-[66px] w-full items-center gap-3.5 rounded-[16px] border border-[#c9d9ee] bg-white px-3.5 py-3 text-[#171b26] shadow-[0_14px_34px_rgba(24,119,242,0.1),inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 hover:border-[#94c4ff] hover:shadow-[0_18px_44px_rgba(24,119,242,0.16)]";
 
   if (action.disabled || !action.href) {
     return <div className={`${className} cursor-not-allowed opacity-70`}>{content}</div>;
@@ -154,40 +156,40 @@ function ActionRow({ action }: { action: Action }) {
 
 export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, safetyTitle, safetyBody, loginLabel, loginUrl, sections }: Props) {
   return (
-    <div className="fixed inset-0 isolate z-[999] flex items-start justify-center overflow-y-auto bg-black/82 px-4 py-5 backdrop-blur-[5px] sm:items-center" onClick={onClose} role="dialog" aria-modal="true">
+    <div className="fixed inset-0 isolate z-[999] flex items-start justify-center overflow-y-auto bg-black/82 px-4 py-4 backdrop-blur-[5px] sm:items-center" onClick={onClose} role="dialog" aria-modal="true">
       <div
-        className="manager-access-modal relative z-[1000] w-full max-w-[520px] rounded-[24px] border border-white/80 bg-[radial-gradient(circle_at_20%_0%,_#ffffff_0%,_#f7f9fc_50%,_#edf3fb_100%)] px-4 py-5 text-[#171b26] shadow-[0_28px_80px_rgba(0,0,0,0.38)] sm:rounded-[26px] sm:px-8 sm:py-7"
+        className="manager-access-modal relative z-[1000] w-full max-w-[480px] rounded-[22px] border border-white/80 bg-[radial-gradient(circle_at_20%_0%,_#ffffff_0%,_#f7f9fc_50%,_#edf3fb_100%)] px-4 py-4 text-[#171b26] shadow-[0_26px_72px_rgba(0,0,0,0.36)] sm:rounded-[24px] sm:px-7 sm:py-6"
         onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d9dee7] bg-white/45 text-[#171b26] shadow-sm transition hover:bg-white sm:right-6 sm:top-6"
+          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#d9dee7] bg-white/55 text-[#171b26] shadow-sm transition hover:bg-white sm:right-5 sm:top-5"
         >
           <CloseIcon />
         </button>
 
-        <div className="flex items-start gap-4 pr-11 sm:gap-5">
-          <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-[14px] bg-white shadow-[0_12px_28px_rgba(24,119,242,0.18)] sm:h-16 sm:w-16">
+        <div className="flex items-start gap-3.5 pr-10 sm:gap-4">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-white shadow-[0_10px_24px_rgba(24,119,242,0.18)] sm:h-14 sm:w-14">
             <img src={logoSrc} alt="" className="h-full w-full object-cover" />
           </span>
           <div>
-            <p className="text-[24px] font-extrabold leading-none tracking-normal text-[#171b26] sm:text-[30px]">{title}</p>
-            <p className="mt-2 max-w-[330px] text-[14px] font-medium leading-[1.35] text-[#6a7080] sm:text-[16px]">{subtitle}</p>
+            <p className="text-[22px] font-extrabold leading-none tracking-normal text-[#171b26] sm:text-[27px]">{title}</p>
+            <p className="mt-1.5 max-w-[310px] text-[13px] font-medium leading-[1.32] text-[#6a7080] sm:text-[14px]">{subtitle}</p>
           </div>
         </div>
 
-        <div className="mt-6 space-y-5">
+        <div className="mt-5 space-y-4">
           {sections.map((section, index) => (
-            <section key={section.label} className={index > 0 ? "border-t border-[#dce1e9] pt-5" : ""}>
-              <div className="mb-3 flex items-center gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#e6f2ff]">
+            <section key={section.label} className={index > 0 ? "border-t border-[#dce1e9] pt-4" : ""}>
+              <div className="mb-2.5 flex items-center gap-3">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#e6f2ff]">
                   <DeviceIcon type={section.icon} />
                 </span>
-                <p className="text-[12px] font-extrabold uppercase tracking-[0.28em] text-[#242936]">{section.label}</p>
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.26em] text-[#242936]">{section.label}</p>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {section.actions.map((action) => (
                   <ActionRow key={`${section.label}-${action.title}`} action={action} />
                 ))}
@@ -196,7 +198,7 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
           ))}
         </div>
 
-        <div className="mt-5 flex items-center gap-3 rounded-[15px] bg-[#e8f3ff] px-4 py-3.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+        <div className="mt-4 flex items-center gap-3 rounded-[14px] bg-[#e8f3ff] px-4 py-3 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
           <ShieldIcon />
           <p className="text-[12px] font-medium leading-snug text-[#374151] sm:text-[13px]">
             <span className="block font-extrabold text-[#2d3340]">{safetyTitle}</span>
@@ -204,7 +206,7 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
           </p>
         </div>
 
-        <button type="button" onClick={() => void openExternal(loginUrl)} className="mx-auto mt-5 flex items-center justify-center gap-2 text-[13px] font-semibold text-[#6c7280] sm:text-[14px]">
+        <button type="button" onClick={() => void openExternal(loginUrl)} className="mx-auto mt-4 flex items-center justify-center gap-2 text-[13px] font-semibold text-[#6c7280]">
           <span>{loginLabel}</span>
           <ArrowIcon className="h-4 w-4" />
         </button>
