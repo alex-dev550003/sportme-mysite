@@ -74,9 +74,8 @@ const DIRECT_RESPONSES: Array<{
   },
   {
     patterns: [
-      /\bpret\b/i,
-      /\bpre[tț]\b/i,
-      /\btarif/i,
+      /\bpre[tț][a-zăâîșşțţ]*/i,
+      /\btarif[a-zăâîșşțţ]*/i,
       /\bdurat[ae]\s+personalizat/i,
       /\bcustom[_\s-]?duration/i,
       /\b15\s*min/i,
