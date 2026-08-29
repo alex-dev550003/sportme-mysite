@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useI18n } from "../../app/i18n";
 
 type LightboxImageProps = {
   src: string;
@@ -10,7 +11,10 @@ type LightboxImageProps = {
 };
 
 export function LightboxImage({ src, alt, priority = false }: LightboxImageProps) {
+  const { language } = useI18n();
   const [open, setOpen] = useState(false);
+  const enlargeLabel = language === "EN" ? "Enlarge screenshot" : "Mărește captura";
+  const closeLabel = language === "EN" ? "Close screenshot" : "Închide captura";
 
   useEffect(() => {
     if (!open) return undefined;
@@ -33,7 +37,7 @@ export function LightboxImage({ src, alt, priority = false }: LightboxImageProps
         type="button"
         onClick={() => setOpen(true)}
         className="block w-full cursor-zoom-in text-left"
-        aria-label={`Mărește captura: ${alt}`}
+        aria-label={`${enlargeLabel}: ${alt}`}
       >
         <Image
           src={src}
@@ -58,7 +62,7 @@ export function LightboxImage({ src, alt, priority = false }: LightboxImageProps
               type="button"
               onClick={() => setOpen(false)}
               className="absolute right-2 top-2 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/55 text-lg leading-none text-white shadow-lg backdrop-blur transition hover:bg-black/75"
-              aria-label="Închide captura"
+              aria-label={closeLabel}
             >
               ×
             </button>
