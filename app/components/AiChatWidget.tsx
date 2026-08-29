@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, useMemo, useRef, useState } from "react";
 
 type ChatMessage = {
   id: string;
@@ -78,6 +78,13 @@ export function AiChatWidget() {
     }
   };
 
+  const handleInputKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key !== "Enter" || event.shiftKey) return;
+
+    event.preventDefault();
+    event.currentTarget.form?.requestSubmit();
+  };
+
   return (
     <div className="fixed bottom-5 right-4 z-[80] sm:bottom-6 sm:right-6">
       {open ? (
@@ -136,6 +143,7 @@ export function AiChatWidget() {
                 id="sportme-ai-chat-input"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
+                onKeyDown={handleInputKeyDown}
                 rows={1}
                 maxLength={600}
                 placeholder="Scrie mesajul..."
@@ -166,4 +174,3 @@ export function AiChatWidget() {
     </div>
   );
 }
-

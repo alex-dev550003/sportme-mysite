@@ -237,7 +237,7 @@ const copy: Record<LanguageKey, QuickStartCopy> = {
           "SportMe va crea rezervările recurente până la data selectată, în limita disponibilității intervalelor.",
           "Seriile recurente pot fi gestionate și din istoricul rezervărilor, inclusiv pentru rezervările afișate în zona Past, conform opțiunilor disponibile în aplicație.",
         ],
-        bullets: ["repetare zilnică", "repetare lunară", "data de sfârșit a seriei"],
+        bullets: ["repetare zilnică", "repetare săptămânală", "repetare lunară", "data de sfârșit a seriei"],
       },
       {
         title: "Aprobă sau respinge o rezervare",
@@ -462,7 +462,7 @@ const copy: Record<LanguageKey, QuickStartCopy> = {
           "SportMe creates the recurring bookings up to the selected end date, subject to slot availability.",
           "Recurring series can also be managed from booking history, including bookings shown in the Past section, according to the options available in the application.",
         ],
-        bullets: ["daily recurrence", "monthly recurrence", "an end date for the series"],
+        bullets: ["daily recurrence", "weekly recurrence", "monthly recurrence", "an end date for the series"],
       },
       {
         title: "Approve or reject a booking",
