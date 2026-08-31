@@ -24,6 +24,7 @@ export function AiChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([initialMessage]);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const apiMessages = useMemo(
@@ -36,7 +37,17 @@ export function AiChatWidget() {
 
   useEffect(() => {
     if (!open) return;
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    const container = messagesContainerRef.current;
+    if (!container) return;
+
+    const scrollToLatestMessage = () => {
+      container.scrollTop = container.scrollHeight;
+      messagesEndRef.current?.scrollIntoView({ block: "nearest" });
+    };
+
+    scrollToLatestMessage();
+    const frame = window.requestAnimationFrame(scrollToLatestMessage);
+    return () => window.cancelAnimationFrame(frame);
   }, [messages, loading, open]);
 
   const submitMessage = async (event: FormEvent<HTMLFormElement>) => {
@@ -113,7 +124,7 @@ export function AiChatWidget() {
             </button>
           </div>
 
-          <div className="flex-1 space-y-3 overflow-y-auto bg-[#f7f8fa] px-4 py-4">
+          <div ref={messagesContainerRef} className="flex-1 space-y-3 overflow-y-auto bg-[#f7f8fa] px-4 py-4">
             {messages.map((message) => (
               <div
                 key={message.id}

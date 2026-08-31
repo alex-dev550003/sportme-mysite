@@ -96,9 +96,9 @@ const DIRECT_RESPONSES: Array<{
       /\bprime[șs]te\s+notificar/i,
       /\bprimest[eeaă]\s+notificar/i,
       /\bnotificar[aă]ri?\b.*\b(jucator|rezervar|joc|teren)/i,
-      /\breminder\b.*\b(inainte|rezervar|joc)/i,
-      /\b(inainte|înainte)\s+de\s+a\s+(se\s+)?prezenta\b/i,
-      /\b(inainte|înainte)\s+de\s+joc\b/i,
+      /\breminder\b.*(?:inainte|înainte)\s+de\s+(?:a\s+)?(?:se\s+)?prezenta\b/i,
+      /(?:^|\s)(?:inainte|înainte)\s+de\s+a\s+(?:se\s+)?prezenta\b/i,
+      /(?:^|\s)(?:inainte|înainte)\s+de\s+joc\b/i,
     ],
     reply:
       "Da. Jucatorul poate primi notificari push: un reminder cu o zi inainte si unul in ziua rezervarii, implicit la ora 10:00. Notificarile trebuie sa fie activate in aplicatie sau in browser.",
