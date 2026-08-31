@@ -95,6 +95,8 @@ const DIRECT_RESPONSES: Array<{
   {
     patterns: [
       /\brezerv[aă]r[^\s]*\s+repet/i,
+      /\brepetat[aă]?(?:\s+la|\s+o)?\b/i,
+      /\brepet[aă]\b/i,
       /\brecuren/i,
       /\brepet[^\s]*\s+(zilnic|saptamanal|s[aă]pt[aă]m[aâ]nal|lunar)/i,
       /\bweekly\b/i,
