@@ -36,6 +36,8 @@ Canale si contact:
 
 Stil:
 - Raspunde scurt, clar si prietenos.
+- Raspunsul trebuie sa aiba maxim 1-2 propozitii sau 2 bullets scurte.
+- Raspunde strict la ce intreaba utilizatorul; nu copia fraze intregi din ghid si nu enumera functionalitati neintrebate.
 - Raspunde in limba utilizatorului, romana implicit.
 - Nu inventa preturi, reguli, disponibilitati, locatii sau statusuri.
 - Nu promite rezolvarea unei probleme tehnice fara verificare umana.
@@ -45,6 +47,36 @@ const DIRECT_RESPONSES: Array<{
   patterns: RegExp[];
   reply: string;
 }> = [
+  {
+    patterns: [
+      /\bpre[tț][a-zăâîșşțţ]*\s+(default|implicit)/i,
+      /\btarif[a-zăâîșşțţ]*\s+(default|implicit)/i,
+      /\bmodific[aă]\s+pre[tț]/i,
+      /\bschimb[aă]\s+pre[tț]/i,
+    ],
+    reply:
+      "Da. La o rezervare manuala, pretul default este completat automat din tariful configurat, dar il poti modifica inainte de salvare.",
+  },
+  {
+    patterns: [
+      /\bdurat[ae]\s+personalizat/i,
+      /\bcustom[_\s-]?duration/i,
+      /\b15\s*min/i,
+      /\balt\s+interval/i,
+      /\binterval\s+(diferit|personalizat)/i,
+    ],
+    reply:
+      "Da. In SportMe Manager poti alege o durata personalizata in pasi de 15 minute, iar pretul se poate calcula in functie de durata aleasa.",
+  },
+  {
+    patterns: [
+      /\bnotific[aă]ri?\s+automat/i,
+      /\bmesaje?\s+(default|preferat)/i,
+      /\bmesaje?\s+automat/i,
+    ],
+    reply:
+      "Da. SportMe Manager include 2 mesaje automate default, iar managerul poate adauga mesaje preferate pentru reutilizare rapida.",
+  },
   {
     patterns: [
       /\bacadem/i,
@@ -58,7 +90,7 @@ const DIRECT_RESPONSES: Array<{
       /\bclase\b/i,
     ],
     reply:
-      "Da. SportMe poate ajuta o academie de fotbal sau un club sportiv sa organizeze mai clar programarea antrenorilor, claselor/grupelor de copii si juniori, terenurilor disponibile si intervalelor de antrenament. Practic, managerul poate administra baza sportiva, zonele/terenurile, programul, preturile si rezervarile din dashboard, iar jucatorii sau parintii pot verifica mai usor disponibilitatea si rezervarile in aplicatie.",
+      "Da. SportMe poate ajuta academiile sau cluburile sa organizeze antrenori, grupe, terenuri si intervale intr-un singur dashboard.",
   },
   {
     patterns: [
@@ -70,20 +102,7 @@ const DIRECT_RESPONSES: Array<{
       /\bdaily\b/i,
     ],
     reply:
-      "Da. SportMe Manager suporta rezervari repetitive/recurente. Managerul poate porni de la aceeasi configuratie si poate crea automat rezervari care se repeta zilnic, saptamanal sau lunar, pana la data de sfarsit aleasa, in limita disponibilitatii intervalelor. Seriile recurente pot fi gestionate si din istoricul rezervarilor, conform optiunilor disponibile in aplicatie.",
-  },
-  {
-    patterns: [
-      /\bpre[tț][a-zăâîșşțţ]*/i,
-      /\btarif[a-zăâîșşțţ]*/i,
-      /\bdurat[ae]\s+personalizat/i,
-      /\bcustom[_\s-]?duration/i,
-      /\b15\s*min/i,
-      /\bnotific[aă]ri?\s+automat/i,
-      /\bmesaje?\s+(default|preferat)/i,
-    ],
-    reply:
-      "Da. SportMe Manager include si aceste optiuni: pret default pe slot la rezervare, cu posibilitatea de modificare inainte de salvare; calcul automat al pretului pentru durata personalizata; rezervare pe alt interval decat cel default, in pasi de 15 minute, prin durata personalizata; si notificari automate cu 2 mesaje default plus mesaje preferate adaugate de manager pentru reutilizare rapida.",
+      "Da. SportMe Manager suporta rezervari recurente zilnic, saptamanal sau lunar, pana la data de sfarsit aleasa si in limita disponibilitatii.",
   },
 ];
 
@@ -94,6 +113,9 @@ Foloseste strict informatiile din baza de cunostinte de mai jos.
 Daca nu stii sigur, spune clar ca echipa SportMe trebuie sa verifice.
 Nu cere parole, coduri de autentificare, date de card sau date sensibile.
 Pentru probleme legate de conturi, rezervari concrete, plati, reclamatii sau bug-uri, ofera un raspuns scurt si spune ca solicitarea trebuie preluata de suport.
+Raspunde in maxim 1-2 propozitii scurte.
+Extrage doar informatia ceruta din baza de cunostinte; nu copia paragrafe si nu adauga optiuni neintrebate.
+Cand intrebarea cere o confirmare, incepe cu Da sau Nu si adauga o singura clarificare utila.
 
 Baza de cunostinte SportMe:
 ${SPORTME_KNOWLEDGE}
@@ -105,12 +127,16 @@ export function getSportMeDirectResponse(message: string) {
   if (!normalized) return null;
 
   const lower = normalized.toLocaleLowerCase("ro-RO");
-  const academyResponse = DIRECT_RESPONSES[0];
-  const recurringResponse = DIRECT_RESPONSES[1];
-  const managerFeaturesResponse = DIRECT_RESPONSES[2];
+  const priceResponse = DIRECT_RESPONSES[0];
+  const durationResponse = DIRECT_RESPONSES[1];
+  const notificationResponse = DIRECT_RESPONSES[2];
+  const academyResponse = DIRECT_RESPONSES[3];
+  const recurringResponse = DIRECT_RESPONSES[4];
+  const hasPriceContext = priceResponse.patterns.some((pattern) => pattern.test(lower));
+  const hasDurationContext = durationResponse.patterns.some((pattern) => pattern.test(lower));
+  const hasNotificationContext = notificationResponse.patterns.some((pattern) => pattern.test(lower));
   const hasAcademyContext = academyResponse.patterns.some((pattern) => pattern.test(lower));
   const hasRecurringContext = recurringResponse.patterns.some((pattern) => pattern.test(lower));
-  const hasManagerFeaturesContext = managerFeaturesResponse.patterns.some((pattern) => pattern.test(lower));
   const asksForHelp =
     /\bajut[aoa]?\b/i.test(lower) ||
     /\bpot\b/i.test(lower) ||
@@ -122,12 +148,20 @@ export function getSportMeDirectResponse(message: string) {
     /\bexist[ae]\b/i.test(lower) ||
     /\bsuport/i.test(lower);
 
-  if (hasRecurringContext) {
-    return recurringResponse.reply;
+  if (hasPriceContext) {
+    return priceResponse.reply;
   }
 
-  if (hasManagerFeaturesContext) {
-    return managerFeaturesResponse.reply;
+  if (hasDurationContext) {
+    return durationResponse.reply;
+  }
+
+  if (hasNotificationContext) {
+    return notificationResponse.reply;
+  }
+
+  if (hasRecurringContext) {
+    return recurringResponse.reply;
   }
 
   if (hasAcademyContext && asksForHelp) {
