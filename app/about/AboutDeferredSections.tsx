@@ -352,6 +352,11 @@ export default function AboutDeferredSections() {
               <h3 className="text-xl font-bold leading-tight text-white">
                 {isEnglish ? "Simple pricing. No commissions. No risks." : "Pret simplu. Fara comisioane. Fara riscuri."}
               </h3>
+              <p className="mt-3 text-sm leading-6 text-white/64">
+                {isEnglish
+                  ? "Up to 2 courts or sports zones: STARTER €8.90/month. More than 2: PRO €14.90/month."
+                  : "Pana la 2 terenuri sau zone sportive: STARTER 8,90 EUR/luna. Peste 2: PRO 14,90 EUR/luna."}
+              </p>
             </div>
 
             <div className="relative mt-10 flex snap-x snap-mandatory items-stretch gap-2 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">

@@ -10,6 +10,12 @@ Public/jucatori:
 - Aplicatia pentru jucatori este la https://app.sportme.ro/app.
 - Jucatorii pot cauta baze sportive, vedea disponibilitatea, face rezervari si primi notificari.
 - Contul de jucator este gratuit.
+- Notificarile push pot include confirmarea rezervarii, remindere inainte de joc si modificari importante ale rezervarii; jucatorul trebuie sa permita notificarile in aplicatie sau in browser.
+- In configuratia standard, managerul poate trimite un reminder cu o zi inainte si un reminder in ziua rezervarii, ambele programate implicit la ora 10:00; managerul poate modifica ziua, ora, mesajul si poate adauga mesaje personalizate.
+- Disponibilitatea, preturile, regulile terenului si politica de anulare sunt stabilite de baza sportiva; taxele si totalul rezervarii sunt afisate inainte de confirmare.
+- Din profil, jucatorul isi poate modifica datele disponibile, limba si preferinta pentru notificari; parola se poate reseta prin linkul primit pe email.
+- Stergerea contului este permanenta si sterge contul, rezervarile si datele asociate; solicitarea se poate face din aplicatie daca functia este disponibila sau prin email.
+- Invitatiile in grupuri si invitatiile la rezervari pot fi acceptate sau refuzate, iar actualizarile apar in zona de notificari.
 - Pentru probleme de cont, rezervare lipsa, anulare sau plati, agentul trebuie sa trimita utilizatorul catre suport uman.
 
 Manageri/baze sportive:
@@ -24,9 +30,17 @@ Manageri/baze sportive:
 - SportMe ajuta managerii sa reduca apelurile telefonice si suprapunerile de rezervari.
 - SportMe este util si pentru academii, scoli sportive si cluburi care organizeaza antrenamente pentru copii si juniori. Ii ajuta sa programeze antrenorii, grupele/clasele, terenurile disponibile si intervalele de antrenament intr-un mod mai clar.
 - SportMe Manager include rezervari viitoare si recente, calendar rezervari, aprobari in asteptare, notificari automate si manuale, zile indisponibile, dashboard angajati si administrarea bazelor/zonelor sportive.
+- Managerul poate activa sau dezactiva notificarile automate, poate configura doua mesaje standard (cu o zi inainte si in ziua rezervarii) si poate adauga pana la 12 sabloane personalizate pentru reguli, echipament, parcare sau alte instructiuni.
+- Mesajele de reminder pot include automat numele jucatorului, data rezervarii, ora de inceput si sfarsit, locatia, baza sportiva si pretul total.
+- Notificarile push sunt trimise doar utilizatorilor care au notificarile activate pe profil si pe dispozitiv; daca permisiunea este refuzata, mesajul nu poate fi livrat ca push.
+- Managerul isi poate edita profilul, datele firmei si datele de facturare, poate schimba parola si poate gestiona angajatii si permisiunile lor.
+- Un angajat poate primi separat permisiuni pentru creare rezervari, administrare rezervari si trimitere remindere; conturile de angajati pot fi modificate sau sterse de manager.
+- Stergerea contului de manager este permanenta si necesita confirmare; pentru probleme de stergere sau date ramase, solicitarea trebuie verificata de echipa SportMe.
+- Abonamentul Premium poate fi gestionat din cont, iar anularea opreste reinnoirea conform starii afisate in aplicatie; platile, facturile si statusul concret necesita verificare in cont.
 - Freemium permite listare de baza cu functionalitati limitate.
 - Premium STARTER costa 8,90 EUR/luna si este potrivit pentru baze mici.
 - Premium PRO costa 14,90 EUR/luna si este potrivit pentru baze cu mai multe zone sportive.
+- Pentru pana la 2 terenuri sau zone sportive se aplica abonamentul Premium STARTER (8,90 EUR/luna); pentru mai mult de 2 terenuri sau zone sportive se aplica Premium PRO (14,90 EUR/luna).
 - Exista trial gratuit de 90 zile pentru Premium, daca eligibilitatea contului permite.
 
 Canale si contact:
@@ -79,6 +93,17 @@ const DIRECT_RESPONSES: Array<{
   },
   {
     patterns: [
+      /\bprimest[eeaă]\s+notificar/i,
+      /\bnotificar[aă]ri?\b.*\b(jucator|rezervar|joc|teren)/i,
+      /\breminder\b.*\b(inainte|rezervar|joc)/i,
+      /\b(inainte|înainte)\s+de\s+a\s+(se\s+)?prezenta\b/i,
+      /\b(inainte|înainte)\s+de\s+joc\b/i,
+    ],
+    reply:
+      "Da. Jucatorul poate primi notificari push: un reminder cu o zi inainte si unul in ziua rezervarii, implicit la ora 10:00. Notificarile trebuie sa fie activate in aplicatie sau in browser.",
+  },
+  {
+    patterns: [
       /\bacadem/i,
       /\bclub/i,
       /\bscoal[ae]\s+sportiv/i,
@@ -108,6 +133,26 @@ const DIRECT_RESPONSES: Array<{
   },
 ];
 
+function getPricingResponse(message: string) {
+  const lower = message.toLocaleLowerCase("ro-RO");
+  const asksAboutPricing =
+    /\b(pre[tț]|tarif|abonament|costa|cost|lunar|luna)\w*/i.test(lower) &&
+    /\b(teren|terenuri|zon[aă]|zone|baza|baze)\w*/i.test(lower);
+
+  if (!asksAboutPricing) return null;
+
+  const countMatch = lower.match(/\b(\d+)\s*(?:de\s*)?(?:teren(?:uri)?|zon(?:a|e|ă))\b/i);
+  const count = countMatch ? Number(countMatch[1]) : null;
+
+  if (count !== null && Number.isFinite(count)) {
+    return count <= 2
+      ? "Pentru până la 2 terenuri sau zone sportive, abonamentul este Premium STARTER: 8,90 EUR/lună."
+      : "Pentru mai mult de 2 terenuri sau zone sportive, abonamentul este Premium PRO: 14,90 EUR/lună.";
+  }
+
+  return "Până la 2 terenuri sau zone sportive ai Premium STARTER la 8,90 EUR/lună; pentru mai mult de 2 ai Premium PRO la 14,90 EUR/lună.";
+}
+
 export function buildSportMeSystemPrompt(channel: "site" | "meta" = "site") {
   return `
 Esti asistentul AI SportMe pentru ${channel === "site" ? "site-ul public" : "Meta Business"}.
@@ -132,11 +177,14 @@ export function getSportMeDirectResponse(message: string) {
   const priceResponse = DIRECT_RESPONSES[0];
   const durationResponse = DIRECT_RESPONSES[1];
   const notificationResponse = DIRECT_RESPONSES[2];
-  const academyResponse = DIRECT_RESPONSES[3];
-  const recurringResponse = DIRECT_RESPONSES[4];
+  const playerNotificationResponse = DIRECT_RESPONSES[3];
+  const academyResponse = DIRECT_RESPONSES[4];
+  const recurringResponse = DIRECT_RESPONSES[5];
+  const pricingResponse = getPricingResponse(normalized);
   const hasPriceContext = priceResponse.patterns.some((pattern) => pattern.test(lower));
   const hasDurationContext = durationResponse.patterns.some((pattern) => pattern.test(lower));
   const hasNotificationContext = notificationResponse.patterns.some((pattern) => pattern.test(lower));
+  const hasPlayerNotificationContext = playerNotificationResponse.patterns.some((pattern) => pattern.test(lower));
   const hasAcademyContext = academyResponse.patterns.some((pattern) => pattern.test(lower));
   const hasRecurringContext = recurringResponse.patterns.some((pattern) => pattern.test(lower));
   const asksForHelp =
@@ -149,6 +197,14 @@ export function getSportMeDirectResponse(message: string) {
     /\bare\b/i.test(lower) ||
     /\bexist[ae]\b/i.test(lower) ||
     /\bsuport/i.test(lower);
+
+  if (pricingResponse) {
+    return pricingResponse;
+  }
+
+  if (hasPlayerNotificationContext) {
+    return playerNotificationResponse.reply;
+  }
 
   if (hasPriceContext) {
     return priceResponse.reply;

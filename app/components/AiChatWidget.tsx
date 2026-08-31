@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, KeyboardEvent, useMemo, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 
 type ChatMessage = {
   id: string;
@@ -24,6 +24,7 @@ export function AiChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([initialMessage]);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const apiMessages = useMemo(
     () =>
@@ -32,6 +33,11 @@ export function AiChatWidget() {
         .map(({ role, content }) => ({ role, content })),
     [messages],
   );
+
+  useEffect(() => {
+    if (!open) return;
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, loading, open]);
 
   const submitMessage = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -131,6 +137,7 @@ export function AiChatWidget() {
                 </div>
               </div>
             ) : null}
+            <div ref={messagesEndRef} aria-hidden="true" className="h-px" />
           </div>
 
           <form onSubmit={submitMessage} className="border-t border-slate-200 bg-white p-3">
