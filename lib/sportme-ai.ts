@@ -93,6 +93,7 @@ const DIRECT_RESPONSES: Array<{
   },
   {
     patterns: [
+      /\bprime[șs]te\s+notificar/i,
       /\bprimest[eeaă]\s+notificar/i,
       /\bnotificar[aă]ri?\b.*\b(jucator|rezervar|joc|teren)/i,
       /\breminder\b.*\b(inainte|rezervar|joc)/i,
