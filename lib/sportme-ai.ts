@@ -3,6 +3,22 @@ export type SportMeChatMessage = {
   content: string;
 };
 
+function removeRomanianDiacritics(value: string) {
+  return value.replace(/[ăâîșşțţ]/g, (character) => {
+    if (character === "ă") return "a";
+    if (character === "â") return "a";
+    if (character === "î") return "i";
+    if (character === "ș" || character === "ş") return "s";
+    return "t";
+  });
+}
+
+function matchesPattern(pattern: RegExp, original: string, normalized: string) {
+  if (pattern.test(original)) return true;
+  const asciiPattern = new RegExp(removeRomanianDiacritics(pattern.source), pattern.flags);
+  return asciiPattern.test(normalized);
+}
+
 const SPORTME_KNOWLEDGE = `
 SportMe este platforma pentru rezervari terenuri sportive si management pentru baze sportive.
 
@@ -69,7 +85,7 @@ const DIRECT_RESPONSES: Array<{
       /\bschimb[aă]\s+pre[tț]/i,
     ],
     reply:
-      "Da. La o rezervare manuala, pretul default este completat automat din tariful configurat, dar il poti modifica inainte de salvare.",
+      "Da. La o rezervare manuală, prețul implicit este completat automat din tariful configurat, dar îl poți modifica înainte de salvare.",
   },
   {
     patterns: [
@@ -80,7 +96,7 @@ const DIRECT_RESPONSES: Array<{
       /\binterval\s+(diferit|personalizat)/i,
     ],
     reply:
-      "Da. In SportMe Manager poti alege o durata personalizata in pasi de 15 minute, iar pretul se poate calcula in functie de durata aleasa.",
+      "Da. În SportMe Manager poți alege o durată personalizată în pași de 15 minute, iar prețul se poate calcula în funcție de durata aleasă.",
   },
   {
     patterns: [
@@ -89,7 +105,7 @@ const DIRECT_RESPONSES: Array<{
       /\bmesaje?\s+automat/i,
     ],
     reply:
-      "Da. SportMe Manager include 2 mesaje automate default, iar managerul poate adauga mesaje preferate pentru reutilizare rapida.",
+      "Da. SportMe Manager include 2 mesaje automate implicite, iar managerul poate adăuga mesaje preferate pentru reutilizare rapidă.",
   },
   {
     patterns: [
@@ -101,7 +117,7 @@ const DIRECT_RESPONSES: Array<{
       /(?:^|\s)(?:inainte|înainte)\s+de\s+joc\b/i,
     ],
     reply:
-      "Da. Jucatorul poate primi notificari push: un reminder cu o zi inainte si unul in ziua rezervarii, implicit la ora 10:00. Notificarile trebuie sa fie activate in aplicatie sau in browser.",
+      "Da. Jucătorul poate primi notificări push: un reminder cu o zi înainte și unul în ziua rezervării, implicit la ora 10:00. Notificările trebuie să fie activate în aplicație sau în browser.",
   },
   {
     patterns: [
@@ -116,7 +132,7 @@ const DIRECT_RESPONSES: Array<{
       /\bclase\b/i,
     ],
     reply:
-      "Da. SportMe poate ajuta academiile sau cluburile sa organizeze antrenori, grupe, terenuri si intervale intr-un singur dashboard.",
+      "Da. SportMe poate ajuta academiile sau cluburile să organizeze antrenori, grupe, terenuri și intervale într-un singur dashboard.",
   },
   {
     patterns: [
@@ -130,12 +146,12 @@ const DIRECT_RESPONSES: Array<{
       /\bdaily\b/i,
     ],
     reply:
-      "Da. SportMe Manager suporta rezervari recurente zilnic, saptamanal sau lunar, pana la data de sfarsit aleasa si in limita disponibilitatii.",
+      "Da. SportMe Manager suportă rezervări recurente zilnic, săptămânal sau lunar, până la data de sfârșit aleasă și în limita disponibilității.",
   },
 ];
 
 function getPricingResponse(message: string) {
-  const lower = message.toLocaleLowerCase("ro-RO");
+  const lower = removeRomanianDiacritics(message.toLocaleLowerCase("ro-RO"));
   const asksAboutPricing =
     /\b(pre[tț]|tarif|abonament|costa|cost|lunar|luna)\w*/i.test(lower) &&
     /\b(teren|terenuri|zon[aă]|zone|baza|baze)\w*/i.test(lower);
@@ -161,7 +177,8 @@ Foloseste strict informatiile din baza de cunostinte de mai jos.
 Daca nu stii sigur, spune clar ca echipa SportMe trebuie sa verifice.
 Nu cere parole, coduri de autentificare, date de card sau date sensibile.
 Pentru probleme legate de conturi, rezervari concrete, plati, reclamatii sau bug-uri, ofera un raspuns scurt si spune ca solicitarea trebuie preluata de suport.
-Raspunde in maxim 1-2 propozitii scurte.
+Răspunde în limba utilizatorului, cu diacritice corecte; pentru română folosește ă, â, î, ș și ț.
+Răspunde în maxim 1-2 propoziții scurte.
 Extrage doar informatia ceruta din baza de cunostinte; nu copia paragrafe si nu adauga optiuni neintrebate.
 Cand intrebarea cere o confirmare, incepe cu Da sau Nu si adauga o singura clarificare utila.
 
@@ -175,6 +192,7 @@ export function getSportMeDirectResponse(message: string) {
   if (!normalized) return null;
 
   const lower = normalized.toLocaleLowerCase("ro-RO");
+  const normalizedLower = removeRomanianDiacritics(lower);
   const priceResponse = DIRECT_RESPONSES[0];
   const durationResponse = DIRECT_RESPONSES[1];
   const notificationResponse = DIRECT_RESPONSES[2];
@@ -182,12 +200,14 @@ export function getSportMeDirectResponse(message: string) {
   const academyResponse = DIRECT_RESPONSES[4];
   const recurringResponse = DIRECT_RESPONSES[5];
   const pricingResponse = getPricingResponse(normalized);
-  const hasPriceContext = priceResponse.patterns.some((pattern) => pattern.test(lower));
-  const hasDurationContext = durationResponse.patterns.some((pattern) => pattern.test(lower));
-  const hasNotificationContext = notificationResponse.patterns.some((pattern) => pattern.test(lower));
-  const hasPlayerNotificationContext = playerNotificationResponse.patterns.some((pattern) => pattern.test(lower));
-  const hasAcademyContext = academyResponse.patterns.some((pattern) => pattern.test(lower));
-  const hasRecurringContext = recurringResponse.patterns.some((pattern) => pattern.test(lower));
+  const hasPriceContext = priceResponse.patterns.some((pattern) => matchesPattern(pattern, lower, normalizedLower));
+  const hasDurationContext = durationResponse.patterns.some((pattern) => matchesPattern(pattern, lower, normalizedLower));
+  const hasNotificationContext = notificationResponse.patterns.some((pattern) => matchesPattern(pattern, lower, normalizedLower));
+  const hasPlayerNotificationContext = playerNotificationResponse.patterns.some((pattern) =>
+    matchesPattern(pattern, lower, normalizedLower),
+  );
+  const hasAcademyContext = academyResponse.patterns.some((pattern) => matchesPattern(pattern, lower, normalizedLower));
+  const hasRecurringContext = recurringResponse.patterns.some((pattern) => matchesPattern(pattern, lower, normalizedLower));
   const asksForHelp =
     /\bajut[aoa]?\b/i.test(lower) ||
     /\bpot\b/i.test(lower) ||

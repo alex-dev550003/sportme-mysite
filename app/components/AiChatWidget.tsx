@@ -11,7 +11,7 @@ type ChatMessage = {
 const initialMessage: ChatMessage = {
   id: "welcome",
   role: "assistant",
-  content: "Salut! Sunt asistentul SportMe. Te pot ajuta cu rezervari, cont de jucator sau administrarea unei baze sportive.",
+  content: "Salut! Sunt asistentul SportMe. Te pot ajuta cu rezervări, cont de jucător sau administrarea unei baze sportive.",
 };
 
 function makeId() {
@@ -77,7 +77,7 @@ export function AiChatWidget() {
           role: "assistant",
           content:
             body?.reply ||
-            "Nu pot raspunde acum. Scrie-ne pe Facebook, Instagram sau WhatsApp si echipa SportMe verifica mesajul.",
+            "Nu pot răspunde acum. Scrie-ne pe Facebook, Instagram sau WhatsApp și echipa SportMe verifică mesajul.",
         },
       ]);
     } catch {
@@ -86,7 +86,7 @@ export function AiChatWidget() {
         {
           id: makeId(),
           role: "assistant",
-          content: "Conexiunea nu a functionat. Te rugam sa incerci din nou sau sa ne scrii pe WhatsApp.",
+          content: "Conexiunea nu a funcționat. Te rugăm să încerci din nou sau să ne scrii pe WhatsApp.",
         },
       ]);
     } finally {

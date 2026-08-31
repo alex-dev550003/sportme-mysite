@@ -203,7 +203,7 @@ export async function POST(request: Request) {
         message: error instanceof Error ? sanitizeLogText(error.message) : "",
       });
       return NextResponse.json({
-        reply: "Nu pot genera raspunsul acum. Trimite mesajul, iar echipa SportMe il verifica manual.",
+        reply: "Nu pot genera răspunsul acum. Trimite mesajul, iar echipa SportMe îl verifică manual.",
       });
     } finally {
       clearTimeout(timeout);
@@ -218,7 +218,7 @@ export async function POST(request: Request) {
         message: errorDetail.message,
       });
       return NextResponse.json(
-        { reply: "Nu pot genera raspunsul acum. Trimite mesajul, iar echipa SportMe il verifica manual." },
+        { reply: "Nu pot genera răspunsul acum. Trimite mesajul, iar echipa SportMe îl verifică manual." },
         { status: 502 },
       );
     }
@@ -235,7 +235,7 @@ export async function POST(request: Request) {
       message: error instanceof Error ? sanitizeLogText(error.message) : "",
     });
     return NextResponse.json(
-      { reply: "A aparut o eroare. Echipa SportMe poate prelua conversatia manual." },
+      { reply: "A apărut o eroare. Echipa SportMe poate prelua conversația manual." },
       { status: 500 },
     );
   }
