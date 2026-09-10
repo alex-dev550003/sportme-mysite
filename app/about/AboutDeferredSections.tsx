@@ -362,7 +362,10 @@ export default function AboutDeferredSections() {
             <div className="relative mt-10 flex snap-x snap-mandatory items-stretch gap-2 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc((100% - 40px) / 3 - 12px)" }} />
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc(((100% - 40px) / 3) * 2 + 8px)" }} />
-              <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
+              <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-5 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
+                <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-6 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
+                  MOST POPULAR
+                </div>
                 <h4 className="text-xl font-bold text-white">Freemium</h4>
                 <div className="mt-8 flex items-end gap-1">
                   <span className="text-4xl font-bold leading-none text-white">€0</span>
@@ -399,10 +402,7 @@ export default function AboutDeferredSections() {
 
               <PricingStepArrow className="relative z-30 -mx-3 self-center lg:hidden" />
 
-              <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-5 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
-                <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-6 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
-                  MOST POPULAR
-                </div>
+              <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <h4 className="text-xl font-bold text-white">Premium - STARTER</h4>
                 <div className="mt-8 flex items-end gap-1">
                   <span className="text-4xl font-bold leading-none text-white">€8,90</span>
