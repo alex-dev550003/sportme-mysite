@@ -19,10 +19,6 @@ export default function PlayerAccessModal({ onClose, playerWebUrl, playerPlaySto
       logoSrc="/logo-512.png"
       title="SportMe"
       subtitle={isEnglish ? "Choose how you want to open the app and manage your sports bookings." : "Alege cum vrei sa deschizi aplicatia si sa iti gestionezi rezervarile sportive."}
-      safetyTitle={isEnglish ? "Secure. Fast. No headaches." : "Sigur. Rapid. Fara batai de cap."}
-      safetyBody={isEnglish ? "Your data is safe with SportMe." : "Datele tale sunt in siguranta cu SportMe."}
-      loginLabel={isEnglish ? "Already have an account? Sign in" : "Ai deja cont? Intra in cont"}
-      loginUrl={playerWebUrl}
       sections={[
         {
           label: isEnglish ? "On desktop" : "Pe desktop",

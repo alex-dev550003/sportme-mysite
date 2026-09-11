@@ -19,10 +19,6 @@ export default function ManagerAccessModal({ onClose, adminUrl, managerPlayStore
       logoSrc="/logo-512admin.png"
       title="SportMe Manager"
       subtitle={isEnglish ? "Choose how you want to create your account and manage your sports venue." : "Alege cum vrei sa creezi contul si sa iti administrezi baza sportiva."}
-      safetyTitle={isEnglish ? "Secure. Fast. No headaches." : "Sigur. Rapid. Fara batai de cap."}
-      safetyBody={isEnglish ? "Your data is safe with SportMe." : "Datele tale sunt in siguranta cu SportMe."}
-      loginLabel={isEnglish ? "Already have an account? Sign in" : "Ai deja cont? Intra in cont"}
-      loginUrl={adminUrl}
       sections={[
         {
           label: isEnglish ? "On desktop" : "Pe desktop",

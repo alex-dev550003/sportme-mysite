@@ -25,10 +25,6 @@ type Props = {
   logoSrc: string;
   title: string;
   subtitle: string;
-  safetyTitle: string;
-  safetyBody: string;
-  loginLabel: string;
-  loginUrl: string;
   sections: Section[];
 };
 
@@ -74,14 +70,6 @@ function DeviceIcon({ type }: { type: Section["icon"] }) {
     <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="1.9">
       <rect x="8" y="3" width="8" height="18" rx="2" />
       <path d="M11 18h2" />
-    </svg>
-  );
-}
-
-function ShieldIcon() {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-[#1877f2]" fill="currentColor">
-      <path d="M12 2.4 5 5.1v5.5c0 4.7 2.9 8.9 7 10.6 4.1-1.7 7-5.9 7-10.6V5.1l-7-2.7Zm3.4 7.6-4.1 4.1-1.9-1.9 1.1-1.1.8.8 3-3 1.1 1.1Z" />
     </svg>
   );
 }
@@ -154,7 +142,7 @@ function ActionRow({ action }: { action: Action }) {
   );
 }
 
-export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, safetyTitle, safetyBody, loginLabel, loginUrl, sections }: Props) {
+export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, sections }: Props) {
   return (
     <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/78 px-4 py-4 font-sans backdrop-blur-[5px]" onClick={onClose} role="dialog" aria-modal="true">
       <div
@@ -197,19 +185,6 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
             </section>
           ))}
         </div>
-
-        <div className="mt-3.5 flex items-center gap-2.5 rounded-[13px] bg-[#dfeaf6] px-3.5 py-2.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
-          <ShieldIcon />
-          <p className="text-[11px] font-medium leading-snug text-[#374151] sm:text-[12px]">
-            <span className="block font-semibold text-[#2d3340]">{safetyTitle}</span>
-            {safetyBody}
-          </p>
-        </div>
-
-        <button type="button" onClick={() => void openExternal(loginUrl)} className="mx-auto mt-3.5 flex items-center justify-center gap-2 text-[12px] font-semibold text-[#6c7280]">
-          <span>{loginLabel}</span>
-          <ArrowIcon className="h-4 w-4" />
-        </button>
       </div>
     </div>
   );

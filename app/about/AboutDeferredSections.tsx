@@ -121,18 +121,18 @@ export default function AboutDeferredSections() {
           <button
             type="button"
             onClick={() => setShowPlayerAccessModal(true)}
-            className="modern-cta-button mt-6 flex w-full cursor-pointer items-center gap-3 rounded-full border p-3 pl-5 text-left transition sm:gap-4 sm:p-4 sm:pl-6 lg:max-w-[620px]"
+            className="modern-cta-button mt-5 flex w-full cursor-pointer items-center gap-3 rounded-full border p-2.5 pl-4 text-left transition sm:gap-4 sm:p-4 sm:pl-6 lg:mt-6 lg:max-w-[620px]"
           >
-            <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[9px] sm:h-14 sm:w-14" />
+            <img src="/logo-512.png" alt="" className="h-10 w-10 rounded-[9px] sm:h-14 sm:w-14" />
             <span className="min-w-0 flex-1">
-              <span className="block text-base font-bold leading-tight text-white sm:text-xl">
+              <span className="block text-sm font-semibold leading-tight text-white sm:text-xl">
                 {isEnglish ? "Open player app" : "Acceseaza aplicatia jucatorilor"}
               </span>
               <span className="mt-1 block text-xs leading-5 text-white/64 sm:text-sm">
                 {isEnglish ? "Book courts from mobile or web." : "Rezerva terenuri din mobil sau web."}
               </span>
             </span>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:h-12 sm:w-12 [&_svg]:h-6 [&_svg]:w-6">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:h-12 sm:w-12 [&_svg]:h-5 [&_svg]:w-5 sm:[&_svg]:h-6 sm:[&_svg]:w-6">
               <AccessArrowIcon />
             </span>
           </button>
@@ -182,22 +182,11 @@ export default function AboutDeferredSections() {
             </div>
           </div>
           <div id="preturi" className="order-1 mt-8 scroll-mt-8">
-            <div className="text-center">
-              <h3 className="modern-section-heading text-xl leading-tight">
-                {isEnglish ? "Simple pricing. No commissions. No risks." : "Pret simplu. Fara comisioane. Fara riscuri."}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-white/64">
-                {isEnglish
-                  ? "Up to 2 courts or sports zones: STARTER €8.90/month. More than 2: PRO €14.90/month."
-                  : "Pana la 2 terenuri sau zone sportive: STARTER 8,90 EUR/luna. Peste 2: PRO 14,90 EUR/luna."}
-              </p>
-            </div>
-
-            <div className="relative mt-10 flex snap-x snap-mandatory items-stretch gap-2 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
+            <div className="relative flex snap-x snap-mandatory items-stretch gap-2 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc((100% - 40px) / 3 - 12px)" }} />
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc(((100% - 40px) / 3) * 2 + 8px)" }} />
               <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-5 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
-                <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-6 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
+                <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-6 py-2 text-xs font-bold uppercase tracking-[0.08em] !text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
                   MOST POPULAR
                 </div>
                 <h4 className="text-xl font-bold text-white">Freemium</h4>
@@ -290,7 +279,7 @@ export default function AboutDeferredSections() {
             <button
               type="button"
               onClick={openManagerAccessModal}
-              className="modern-cta-button mx-auto mt-7 flex w-full max-w-[760px] cursor-pointer flex-col items-center justify-center rounded-full border px-6 py-4 text-center text-base font-bold leading-tight transition sm:py-5 sm:text-lg lg:mt-8 lg:max-w-[620px] lg:text-lg"
+              className="modern-cta-button mx-auto mt-6 flex w-full max-w-[760px] cursor-pointer flex-col items-center justify-center rounded-full border px-5 py-3 text-center text-sm font-semibold leading-tight transition sm:py-5 sm:text-lg lg:mt-8 lg:max-w-[620px] lg:text-lg"
             >
               <span>Deschide dashboard Manager</span>
               <span className="mt-0.5 font-normal text-white/78">(primele 90 zile gratuit)</span>

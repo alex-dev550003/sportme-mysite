@@ -330,7 +330,7 @@ export function AboutHero() {
   );
 
   return (
-    <section className="sportme-modern-home relative min-h-[850px] overflow-hidden md:min-h-screen">
+    <section className="sportme-modern-home relative min-h-[760px] overflow-hidden md:min-h-screen">
       {isDesktopHero ? (
         <Image src="/home/sportme-home-desktop-wide.avif" alt="" aria-hidden="true" fill quality={76} sizes="100vw" className="modern-hero-media absolute inset-0 h-full w-full object-cover object-center" />
       ) : (
@@ -359,7 +359,7 @@ export function AboutHero() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[850px] w-full max-w-[1540px] flex-col px-5 pb-9 pt-[calc(env(safe-area-inset-top)+22px)] sm:px-8 md:min-h-screen md:px-12 lg:px-16 xl:px-20">
+      <div className="relative z-10 mx-auto flex min-h-[760px] w-full max-w-[1540px] flex-col px-5 pb-8 pt-[calc(env(safe-area-inset-top)+18px)] sm:px-8 md:min-h-screen md:px-12 lg:px-16 xl:px-20">
         <div className="flex w-full min-w-0 items-center justify-between gap-3 pr-[104px] sm:pr-[120px]">
           <div className="relative flex items-center gap-3">
             <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[12px] shadow-[0_12px_30px_rgba(0,93,255,0.35)] sm:h-14 sm:w-14" />
@@ -401,122 +401,43 @@ export function AboutHero() {
           </nav>
         </div>
 
-        <div className="flex flex-1 items-start pb-0 pt-28 md:items-center md:pb-0 md:pt-0">
-          <div className="w-[min(390px,calc(100vw-40px))] min-w-0 sm:w-[min(780px,calc(100vw-64px))] lg:w-[780px]">
+        <div className="flex flex-1 items-start pb-0 pt-20 md:items-center md:pb-0 md:pt-0">
+          <div className="grid w-full min-w-0 gap-7 lg:grid-cols-2 lg:gap-12 xl:gap-16">
             <div
               className="pointer-events-none absolute left-1/2 top-[150px] hidden h-[650px] w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:block"
               aria-hidden="true"
             />
-            <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[13px] font-medium sm:text-base lg:text-[15px]">
-              {isEnglish ? "Are you a player?" : "esti JUCATOR?"}
-            </p>
-            <h1 className="max-w-full text-[36px] font-bold leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[470px] lg:text-[58px]">
-              {isEnglish ? "Book fast" : "Rezerva rapid"}
-              <br />
-              {isEnglish ? "with " : "prin "}
-              <span className="modern-accent">SportMe</span>
-            </h1>
-            <p className="modern-muted mt-4 max-w-full text-[15px] leading-6 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[455px] lg:text-[18px] lg:leading-7">
-              {isEnglish ? "Check availability and book sports courts in a few seconds." : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
-            </p>
 
-            <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
-
-            <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[114px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[114px]">
-              <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[13px] font-medium xl:text-[14px]">
+            <div className="min-w-0">
+              <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[13px] font-medium sm:text-base lg:text-[15px]">
                 {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
               </p>
-              <h2 className="max-w-[520px] text-[43px] font-bold leading-[1.04] tracking-normal text-[#182032] xl:max-w-[580px] xl:text-[48px] 2xl:text-[52px]">
-                {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
-                <br />
-                {isEnglish ? "with " : "prin "}
-                <span className="modern-accent">SportMe Manager</span>
-              </h2>
-              <p className="modern-muted mt-4 max-w-[520px] text-[18px] leading-7 xl:max-w-[560px]">
+              <h1 className="max-w-full text-[36px] font-medium leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[680px] lg:text-[52px] xl:text-[56px] 2xl:text-[58px]">
+                <span className="block lg:whitespace-nowrap">{isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}</span>
+                <span className="block lg:whitespace-nowrap">
+                  {isEnglish ? "with " : "prin "}
+                  <span className="modern-accent">SportMe Manager</span>
+                </span>
+              </h1>
+              <p className="modern-muted mt-4 max-w-full text-[15px] leading-6 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[560px] lg:text-[18px] lg:leading-7">
                 {isEnglish
                   ? "Help players and teams track schedules, bookings and changes in one place."
                   : "Ajuta jucatorii/echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc."}
               </p>
-              <ManagerTabletPreview className="absolute right-0 top-[246px] w-[400px] xl:top-[258px] xl:w-[440px] 2xl:w-[490px]" />
-            </div>
 
-            <div className="modern-feature-grid mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x text-center sm:mt-10 lg:mt-7 lg:max-w-[390px]">
-              {[
-                { id: "fast", icon: <CalendarCheckIcon />, ro: ["Rezervari", "rapide"], en: ["Fast", "bookings"] },
-                { id: "live", icon: <ClockIcon />, ro: ["Disponibilitate", "in timp real"], en: ["Real-time", "availability"] },
-                { id: "calls", icon: <PhoneArrowIcon />, ro: ["Fara apeluri,", "fara stres"], en: ["No calls,", "no stress"] },
-              ].map((benefit) => (
-                <div key={benefit.id} className="min-w-0 px-1.5 sm:px-5">
-                  <div className="modern-outline-icon mx-auto mb-2.5 flex h-[62px] w-[62px] items-center justify-center rounded-full border sm:mb-3 sm:h-[74px] sm:w-[74px] lg:h-[58px] lg:w-[58px] lg:[&_svg]:h-8 lg:[&_svg]:w-8">
-                    {benefit.icon}
-                  </div>
-                  <p className="text-[13px] font-normal leading-5 sm:text-xl sm:leading-6 lg:text-[16px] lg:leading-5">
-                    {(isEnglish ? benefit.en : benefit.ro).map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              ))}
-            </div>
+              <ManagerTabletPreview className="relative mt-5 w-full max-w-[560px] lg:mt-6 xl:max-w-[610px]" />
 
-            <div className="mt-7 hidden max-w-[670px] items-center justify-center gap-2 pr-24 text-xl font-medium text-[#182032]/82 sm:flex lg:max-w-[470px] lg:pr-0">
-              <span>{isEnglish ? "Download the app" : "Descarca aplicatia"}</span>
-              <DownloadArrowIcon />
-            </div>
-
-            <div className="mt-6 grid w-full gap-4 lg:w-[1420px] lg:grid-cols-[670px_700px] lg:items-start lg:gap-8">
-              <div className="w-full max-w-[670px] space-y-3 sm:space-y-4">
-                <a
-                  href="https://play.google.com/store/apps/details?id=ro.sportme.app"
-                  onClick={() => trackEvent("click_google_play")}
-                  className="modern-cta-button flex h-16 items-center justify-center gap-3 rounded-full border px-4 text-lg font-semibold sm:h-[78px] sm:gap-4 sm:text-2xl"
-                >
-                  <img src="/home/google-play-icon.png" alt="" className="h-7 w-7 object-contain" />
-                  <span>{isEnglish ? "Get it on Google Play Store" : "Descarca din Google Play Store"}</span>
-                </a>
-                <a
-                  href="https://www.sportme.ro/app"
-                  onClick={() => trackEvent("click_app_store")}
-                  className="modern-cta-button flex h-16 items-center justify-center gap-3 rounded-full border px-4 text-lg font-semibold sm:h-[78px] sm:gap-4 sm:text-2xl"
-                >
-                  <AppleIcon />
-                  <span className="inline-flex items-baseline gap-1.5">
-                    <span>{isEnglish ? "Download on the App Store" : "Descarca din App Store"}</span>
-                    <span className="text-[0.72em] font-normal text-[#182032]/58">{isEnglish ? "(soon, site only)" : "(curand, site only)"}</span>
-                  </span>
-                </a>
-              </div>
-
-              <div className="my-8 h-px w-full bg-[repeating-linear-gradient(to_right,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:hidden" aria-hidden="true" />
-
-              <div className="lg:hidden">
-                <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[12px] font-medium sm:text-sm">
-                  {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
-                </p>
-                <h2 className="text-[34px] font-bold leading-[1.04] tracking-normal text-[#182032] sm:text-[44px]">
-                  {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
-                  <br />
-                  {isEnglish ? "with " : "prin "}
-                  <span className="modern-accent">SportMe Manager</span>
-                </h2>
-                <p className="modern-muted mt-4 max-w-full text-[15px] leading-6 sm:text-xl sm:leading-8">
-                  {isEnglish
-                    ? "Help players and teams track schedules, bookings and changes in one place."
-                    : "Ajuta jucatorii/echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc."}
-                </p>
-                <ManagerTabletPreview className="relative mt-9 ml-0 mr-auto w-[min(430px,calc(100vw-64px))]" />
-              </div>
-
-              <a
-                href="#preturi"
-                onClick={() => trackEvent("click_sportme_manager_pricing")}
-                className="modern-cta-button flex w-full max-w-[670px] items-center gap-4 rounded-full border p-4 pl-6 backdrop-blur sm:gap-5 sm:p-5 sm:pl-8 lg:h-[118px] lg:max-w-none lg:translate-x-10 lg:translate-y-[54px] lg:gap-5 lg:px-6 lg:py-3 lg:pl-10"
+              <button
+                type="button"
+                onClick={() => {
+                  trackEvent("click_sportme_manager_access");
+                  setShowManagerAccessModal(true);
+                }}
+                className="modern-cta-button mt-4 flex w-full max-w-[670px] cursor-pointer items-center gap-3 rounded-full border p-3 pl-4 text-left backdrop-blur sm:gap-5 sm:p-5 sm:pl-8 lg:mt-5 lg:gap-5 lg:px-6 lg:py-3 lg:pl-10"
               >
-                <img src="/logo-512admin.png" alt="" className="h-14 w-14 rounded-[10px] sm:h-16 sm:w-16 lg:h-16 lg:w-16" />
+                <img src="/logo-512admin.png" alt="" className="h-12 w-12 rounded-[10px] sm:h-16 sm:w-16" />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-lg font-bold leading-tight sm:text-2xl lg:whitespace-nowrap lg:text-[22px] lg:leading-7">
+                  <span className="block text-base font-medium leading-tight sm:text-xl lg:whitespace-nowrap lg:text-[22px] lg:leading-7">
                     {isEnglish ? "Open " : "Acceseaza "}
                     <span className="modern-accent block text-[0.95em] sm:inline sm:pl-1">SportMe Manager</span>
                   </span>
@@ -539,7 +460,72 @@ export function AboutHero() {
                 <span className="modern-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-full sm:h-14 sm:w-14 lg:h-12 lg:w-12">
                   <ArrowIcon />
                 </span>
-              </a>
+              </button>
+            </div>
+
+            <div className="relative min-w-0 lg:pl-4">
+              <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[13px] font-medium sm:text-base lg:text-[15px]">
+                {isEnglish ? "Are you a player?" : "esti JUCATOR?"}
+              </p>
+              <h2 className="max-w-full text-[36px] font-medium leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[420px] lg:text-[52px]">
+                {isEnglish ? "Book fast" : "Rezerva rapid"}
+                <br />
+                {isEnglish ? "with " : "prin "}
+                <span className="modern-accent">SportMe</span>
+              </h2>
+              <p className="modern-muted mt-4 max-w-full text-[15px] leading-6 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[430px] lg:text-[18px] lg:leading-7">
+                {isEnglish ? "Check availability and book sports courts in a few seconds." : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
+              </p>
+
+              <AppHomePreview className="mt-5 flex justify-center lg:absolute lg:right-[22px] lg:top-[44px] lg:z-10 lg:mt-0" />
+
+              <div className="modern-feature-grid mt-6 grid w-full max-w-[670px] grid-cols-3 divide-x text-center sm:mt-8 lg:mt-8 lg:max-w-[390px]">
+                {[
+                  { id: "fast", icon: <CalendarCheckIcon />, ro: ["Rezervari", "rapide"], en: ["Fast", "bookings"] },
+                  { id: "live", icon: <ClockIcon />, ro: ["Disponibilitate", "in timp real"], en: ["Real-time", "availability"] },
+                  { id: "calls", icon: <PhoneArrowIcon />, ro: ["Fara apeluri,", "fara stres"], en: ["No calls,", "no stress"] },
+                ].map((benefit) => (
+                  <div key={benefit.id} className="min-w-0 px-1.5 sm:px-5">
+                    <div className="modern-outline-icon mx-auto mb-2.5 flex h-[62px] w-[62px] items-center justify-center rounded-full border sm:mb-3 sm:h-[74px] sm:w-[74px] lg:h-[58px] lg:w-[58px] lg:[&_svg]:h-8 lg:[&_svg]:w-8">
+                      {benefit.icon}
+                    </div>
+                    <p className="text-[13px] font-normal leading-5 sm:text-xl sm:leading-6 lg:text-[16px] lg:leading-5">
+                      {(isEnglish ? benefit.en : benefit.ro).map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 hidden max-w-[670px] items-center justify-center gap-2 pr-24 text-xl font-medium text-[#182032]/82 sm:flex lg:max-w-[470px] lg:pr-0">
+                <span>{isEnglish ? "Download the app" : "Descarca aplicatia"}</span>
+                <DownloadArrowIcon />
+              </div>
+
+              <div className="mt-4 w-full max-w-[670px] space-y-3 sm:space-y-4">
+                <a
+                  href="https://play.google.com/store/apps/details?id=ro.sportme.app"
+                  onClick={() => trackEvent("click_google_play")}
+                  className="modern-cta-button flex h-14 items-center justify-center gap-3 rounded-full border px-4 text-base font-semibold sm:h-[72px] sm:gap-4 sm:text-xl"
+                >
+                  <img src="/home/google-play-icon.png" alt="" className="h-7 w-7 object-contain" />
+                  <span>{isEnglish ? "Get it on Google Play Store" : "Descarca din Google Play Store"}</span>
+                </a>
+                <a
+                  href="https://www.sportme.ro/app"
+                  onClick={() => trackEvent("click_app_store")}
+                  className="modern-cta-button flex h-14 items-center justify-center gap-3 rounded-full border px-4 text-base font-semibold sm:h-[72px] sm:gap-4 sm:text-xl"
+                >
+                  <AppleIcon />
+                  <span className="inline-flex items-baseline gap-1.5">
+                    <span>{isEnglish ? "Download on the App Store" : "Descarca din App Store"}</span>
+                    <span className="text-[0.72em] font-normal text-[#182032]/58">{isEnglish ? "(soon, site only)" : "(curand, site only)"}</span>
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
