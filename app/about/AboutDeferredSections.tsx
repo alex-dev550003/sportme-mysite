@@ -9,7 +9,7 @@ const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"
 
 function AccessArrowIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden className="h-8 w-8">
+    <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5 !text-white">
       <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -132,7 +132,7 @@ export default function AboutDeferredSections() {
                 {isEnglish ? "Book courts from mobile or web." : "Rezerva terenuri din mobil sau web."}
               </span>
             </span>
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:h-12 sm:w-12 [&_svg]:h-5 [&_svg]:w-5 sm:[&_svg]:h-6 sm:[&_svg]:w-6">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:h-11 sm:w-11">
               <AccessArrowIcon />
             </span>
           </button>
@@ -279,10 +279,15 @@ export default function AboutDeferredSections() {
             <button
               type="button"
               onClick={openManagerAccessModal}
-              className="modern-cta-button mx-auto mt-6 flex w-full max-w-[760px] cursor-pointer flex-col items-center justify-center rounded-full border px-5 py-3 text-center text-sm font-semibold leading-tight transition sm:py-5 sm:text-lg lg:mt-8 lg:max-w-[620px] lg:text-lg"
+              className="modern-cta-button relative mx-auto mt-6 flex w-full max-w-[760px] cursor-pointer items-center justify-center rounded-full border px-14 py-3 text-center text-sm font-semibold leading-tight transition sm:py-5 sm:text-lg lg:mt-8 lg:max-w-[620px] lg:text-lg"
             >
-              <span>Deschide dashboard Manager</span>
-              <span className="mt-0.5 font-normal text-white/78">(primele 90 zile gratuit)</span>
+              <span>
+                <span className="block">Deschide dashboard Manager</span>
+                <span className="mt-0.5 block font-normal text-white/78">(primele 90 zile gratuit)</span>
+              </span>
+              <span className="absolute right-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:right-4 sm:h-11 sm:w-11">
+                <AccessArrowIcon />
+              </span>
             </button>
           </div>
         </div>

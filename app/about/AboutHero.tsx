@@ -70,7 +70,7 @@ function AppleIcon() {
 
 function ArrowIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden className="h-8 w-8">
+    <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5">
       <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -409,12 +409,12 @@ export function AboutHero() {
             />
 
             <div className="min-w-0">
-              <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[13px] font-medium sm:text-base lg:text-[15px]">
+              <p className="modern-kicker mb-4 inline-flex max-w-full whitespace-nowrap rounded-full border px-3 py-2 text-[clamp(8px,2.45vw,13px)] font-medium sm:px-4 sm:text-base lg:text-[15px]">
                 {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
               </p>
-              <h1 className="max-w-full text-[36px] font-medium leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[680px] lg:text-[52px] xl:text-[56px] 2xl:text-[58px]">
-                <span className="block lg:whitespace-nowrap">{isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}</span>
-                <span className="block lg:whitespace-nowrap">
+              <h1 className="max-w-full text-[clamp(30px,8.7vw,36px)] font-medium leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[680px] lg:text-[52px] xl:text-[56px] 2xl:text-[58px]">
+                <span className="block whitespace-nowrap">{isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}</span>
+                <span className="block whitespace-nowrap">
                   {isEnglish ? "with " : "prin "}
                   <span className="modern-accent">SportMe Manager</span>
                 </span>
@@ -425,7 +425,7 @@ export function AboutHero() {
                   : "Ajuta jucatorii/echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc."}
               </p>
 
-              <ManagerTabletPreview className="relative mt-5 w-full max-w-[560px] lg:mt-6 xl:max-w-[610px]" />
+              <ManagerTabletPreview className="relative mt-5 w-full max-w-[560px] lg:mt-6 lg:max-w-[510px] xl:max-w-[560px]" />
 
               <button
                 type="button"
@@ -457,29 +457,30 @@ export function AboutHero() {
                     )}
                   </span>
                 </span>
-                <span className="modern-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-full sm:h-14 sm:w-14 lg:h-12 lg:w-12">
+                <span className="modern-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-full sm:h-12 sm:w-12">
                   <ArrowIcon />
                 </span>
               </button>
             </div>
 
             <div className="relative min-w-0 lg:pl-4">
-              <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[13px] font-medium sm:text-base lg:text-[15px]">
-                {isEnglish ? "Are you a player?" : "esti JUCATOR?"}
+              <p className="modern-kicker mb-4 inline-flex max-w-full whitespace-nowrap rounded-full border px-3 py-2 text-[clamp(9px,2.8vw,13px)] font-medium sm:px-4 sm:text-base lg:text-[15px]">
+                {isEnglish ? "Are you a player looking for a venue?" : "esti JUCATOR si cauti o locatie?"}
               </p>
-              <h2 className="max-w-full text-[36px] font-medium leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[420px] lg:text-[52px]">
-                {isEnglish ? "Book fast" : "Rezerva rapid"}
-                <br />
-                {isEnglish ? "with " : "prin "}
-                <span className="modern-accent">SportMe</span>
+              <h2 className="max-w-full text-[clamp(30px,8.8vw,36px)] font-medium leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[420px] lg:text-[52px]">
+                <span className="block whitespace-nowrap">{isEnglish ? "Book fast" : "Rezerva rapid"}</span>
+                <span className="block whitespace-nowrap">
+                  {isEnglish ? "with " : "prin "}
+                  <span className="modern-accent">SportMe</span>
+                </span>
               </h2>
               <p className="modern-muted mt-4 max-w-full text-[15px] leading-6 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[430px] lg:text-[18px] lg:leading-7">
                 {isEnglish ? "Check availability and book sports courts in a few seconds." : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
               </p>
 
-              <AppHomePreview className="mt-5 flex justify-center lg:absolute lg:right-[22px] lg:top-[44px] lg:z-10 lg:mt-0" />
+              <AppHomePreview className="mt-5 flex justify-center lg:absolute lg:right-[22px] lg:top-[152px] lg:z-10 lg:mt-0" />
 
-              <div className="modern-feature-grid mt-6 grid w-full max-w-[670px] grid-cols-3 divide-x text-center sm:mt-8 lg:mt-8 lg:max-w-[390px]">
+              <div className="modern-feature-grid mt-6 grid w-full max-w-[670px] grid-cols-3 divide-x text-center sm:mt-8 lg:mt-20 lg:max-w-[390px]">
                 {[
                   { id: "fast", icon: <CalendarCheckIcon />, ro: ["Rezervari", "rapide"], en: ["Fast", "bookings"] },
                   { id: "live", icon: <ClockIcon />, ro: ["Disponibilitate", "in timp real"], en: ["Real-time", "availability"] },
@@ -505,7 +506,7 @@ export function AboutHero() {
                 <DownloadArrowIcon />
               </div>
 
-              <div className="mt-4 w-full max-w-[670px] space-y-3 sm:space-y-4">
+              <div className="mt-4 w-full max-w-[670px] space-y-3 sm:space-y-4 lg:mt-16">
                 <a
                   href="https://play.google.com/store/apps/details?id=ro.sportme.app"
                   onClick={() => trackEvent("click_google_play")}
