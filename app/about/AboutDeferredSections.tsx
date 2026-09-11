@@ -83,7 +83,7 @@ export default function AboutDeferredSections() {
   return (
     <div className="mx-auto w-full max-w-7xl space-y-8">
       <section id="pentru-jucatori" className="scroll-mt-8">
-        <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
+        <div className="about-section-shell px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-4">
             <p className="sportme-audience-badge px-4 py-2 text-xs sm:text-sm">{isEnglish ? "Are you a player?" : "esti JUCATOR?"}</p>
             <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
@@ -140,7 +140,7 @@ export default function AboutDeferredSections() {
       </section>
 
       <section id="pentru-administratori" className="scroll-mt-8">
-        <div className="about-glass-card flex flex-col rounded-[28px] p-6 lg:p-8">
+        <div className="about-section-shell flex flex-col px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-4">
             <p className="sportme-audience-badge px-4 py-2 text-xs sm:text-sm">
               {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
@@ -300,7 +300,7 @@ export default function AboutDeferredSections() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
+        <div className="about-section-shell px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-2">
             <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
               {isEnglish ? "Privacy and " : "Confidentialitate si "}
@@ -316,7 +316,7 @@ export default function AboutDeferredSections() {
           </div>
         </div>
 
-        <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
+        <div className="about-section-shell px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-3">
             <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
               <span className="accent">{t("about.platform.title")}</span>
