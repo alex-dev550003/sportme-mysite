@@ -78,7 +78,7 @@ function ArrowIcon() {
 
 function DownloadArrowIcon() {
   return (
-    <svg viewBox="0 0 80 36" aria-hidden className="h-9 w-20 text-white/82">
+    <svg viewBox="0 0 80 36" aria-hidden className="h-9 w-20 text-[#182032]/70">
       <path d="M4 18c20-10 43-8 58 8" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
       <path d="M58 18.5 63.6 27l-10.2.1" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -103,27 +103,27 @@ function AppHomePreview({ className = "" }: { className?: string }) {
       }}
     >
       <div
-        className="pointer-events-none absolute left-[24px] top-[24%] z-20 min-w-[82px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
+        className="modern-soft-card pointer-events-none absolute left-[24px] top-[24%] z-20 min-w-[82px] rounded-[8px] border px-2.5 py-1.5 text-left sm:left-[-72px] sm:min-w-[96px] lg:left-[-100px] lg:min-w-[112px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.2s ease-in-out infinite" }}
       >
-        <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Feature</span>
-        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Location Maps</span>
+        <span className="modern-muted block text-[7px] font-semibold uppercase tracking-normal sm:text-[8px] lg:text-[9px]">Feature</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-semibold text-[#182032] sm:text-[11px] lg:text-[13px]">Location Maps</span>
       </div>
       <div
-        className="pointer-events-none absolute right-[8px] top-[48%] z-20 min-w-[88px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-[-80px] sm:min-w-[104px] lg:right-[-106px] lg:min-w-[118px] lg:px-3 lg:py-2"
+        className="modern-soft-card pointer-events-none absolute right-[8px] top-[48%] z-20 min-w-[88px] rounded-[8px] border px-2.5 py-1.5 text-left sm:right-[-80px] sm:min-w-[104px] lg:right-[-106px] lg:min-w-[118px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 5.7s ease-in-out infinite" }}
       >
-        <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Reminder</span>
-        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">Your next event</span>
+        <span className="modern-muted block text-[7px] font-semibold uppercase tracking-normal sm:text-[8px] lg:text-[9px]">Reminder</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-semibold text-[#182032] sm:text-[11px] lg:text-[13px]">Your next event</span>
       </div>
       <div
-        className="pointer-events-none absolute left-[24px] top-[72%] z-20 min-w-[78px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-2.5 py-1.5 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
+        className="modern-soft-card pointer-events-none absolute left-[24px] top-[72%] z-20 min-w-[78px] rounded-[8px] border px-2.5 py-1.5 text-left sm:left-[-70px] sm:min-w-[94px] lg:left-[-96px] lg:min-w-[108px] lg:px-3 lg:py-2"
         style={{ animation: "appPreviewFloat 6.8s ease-in-out infinite" }}
       >
-        <span className="block text-[7px] font-semibold uppercase tracking-[0.14em] text-white/42 sm:text-[8px] lg:text-[9px]">Browse</span>
-        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-white sm:text-[11px] lg:text-[13px]">All Locations</span>
+        <span className="modern-muted block text-[7px] font-semibold uppercase tracking-normal sm:text-[8px] lg:text-[9px]">Browse</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-semibold text-[#182032] sm:text-[11px] lg:text-[13px]">All Locations</span>
       </div>
-      <div className="relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[34px] border border-white/18 bg-white/10 p-1.5 shadow-[0_34px_90px_rgba(0,0,0,0.48),0_0_42px_rgba(16,109,255,0.22)] backdrop-blur-sm sm:w-[238px] lg:w-[min(172px,11.5vw)] xl:w-[184px] 2xl:w-[196px]">
+      <div className="modern-device-frame relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[34px] border p-1.5 sm:w-[238px] lg:w-[min(172px,11.5vw)] xl:w-[184px] 2xl:w-[196px]">
         <div className="relative overflow-hidden rounded-[28px] bg-[#eef2f8]">
           <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
             {slides.map((slide) => (
@@ -145,7 +145,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
           type="button"
           onClick={showPrevious}
           aria-label="Previous player screenshot"
-          className="absolute left-3 top-1/2 z-30 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/22 bg-[#0b1728]/78 text-white shadow-[0_12px_28px_rgba(0,0,0,0.34)] backdrop-blur-md transition hover:bg-[#132843] sm:h-9 sm:w-9"
+          className="modern-outline-icon absolute left-3 top-1/2 z-30 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border transition sm:h-9 sm:w-9"
         >
           <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4 sm:h-5 sm:w-5">
             <path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -155,7 +155,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
           type="button"
           onClick={showNext}
           aria-label="Next player screenshot"
-          className="absolute right-3 top-1/2 z-30 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/22 bg-[#0b1728]/78 text-white shadow-[0_12px_28px_rgba(0,0,0,0.34)] backdrop-blur-md transition hover:bg-[#132843] sm:h-9 sm:w-9"
+          className="modern-outline-icon absolute right-3 top-1/2 z-30 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border transition sm:h-9 sm:w-9"
         >
           <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4 sm:h-5 sm:w-5">
             <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -181,20 +181,20 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
       style={{ animation: "appPreviewFloat 6.4s ease-in-out infinite" }}
     >
       <div
-        className="pointer-events-none absolute right-[-40px] top-[24%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-auto sm:left-[-86px]"
+        className="modern-soft-card pointer-events-none absolute right-[-40px] top-[24%] z-20 min-w-[122px] rounded-[8px] border px-3 py-2 text-left sm:right-auto sm:left-[-86px]"
         style={{ animation: "appPreviewFloat 6s ease-in-out infinite" }}
       >
-        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Dashboard</span>
-        <span className="mt-0.5 block whitespace-nowrap text-[13px] font-medium text-white">Bookings</span>
+        <span className="modern-muted block text-[9px] font-semibold uppercase tracking-normal">Dashboard</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[13px] font-semibold text-[#182032]">Bookings</span>
       </div>
       <div
-        className="pointer-events-none absolute right-[-40px] top-[66%] z-20 min-w-[122px] rounded-[8px] border border-white/24 bg-[#15263a]/88 px-3 py-2 text-left shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md sm:right-auto sm:left-[-86px]"
+        className="modern-soft-card pointer-events-none absolute right-[-40px] top-[66%] z-20 min-w-[122px] rounded-[8px] border px-3 py-2 text-left sm:right-auto sm:left-[-86px]"
         style={{ animation: "appPreviewFloat 6.7s ease-in-out infinite" }}
       >
-        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-white/42">Bookings</span>
-        <span className="mt-0.5 block whitespace-nowrap text-[13px] font-medium text-white">Statistics</span>
+        <span className="modern-muted block text-[9px] font-semibold uppercase tracking-normal">Bookings</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[13px] font-semibold text-[#182032]">Statistics</span>
       </div>
-      <div className="relative w-full overflow-hidden rounded-[28px] border border-white/16 bg-[#07111f] p-2 shadow-[0_30px_90px_rgba(0,0,0,0.5),0_0_44px_rgba(16,109,255,0.18)]">
+      <div className="modern-device-frame relative w-full overflow-hidden rounded-[28px] border p-2">
         <div className="absolute left-1/2 top-1 h-1 w-12 -translate-x-1/2 rounded-full bg-white/16" />
         <div className="overflow-hidden rounded-[20px] bg-[#e8eef6]">
           <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
@@ -217,7 +217,7 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
           type="button"
           onClick={showPrevious}
           aria-label="Previous manager screenshot"
-          className="absolute left-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/22 bg-[#0b1728]/78 text-white shadow-[0_12px_28px_rgba(0,0,0,0.34)] backdrop-blur-md transition hover:bg-[#132843]"
+          className="modern-outline-icon absolute left-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border transition"
         >
           <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5">
             <path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -227,7 +227,7 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
           type="button"
           onClick={showNext}
           aria-label="Next manager screenshot"
-          className="absolute right-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/22 bg-[#0b1728]/78 text-white shadow-[0_12px_28px_rgba(0,0,0,0.34)] backdrop-blur-md transition hover:bg-[#132843]"
+          className="modern-outline-icon absolute right-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border transition"
         >
           <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5">
             <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -320,9 +320,9 @@ export function AboutHero() {
   }, []);
 
   const renderMenu = () => (
-    <div className="absolute right-0 top-[calc(100%+12px)] z-30 w-64 overflow-hidden rounded-[22px] border border-white/14 bg-[#111b2b]/88 p-2 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+    <div className="modern-menu absolute right-0 top-[calc(100%+12px)] z-30 w-64 overflow-hidden rounded-[22px] border p-2 backdrop-blur-xl">
       {menuItems.map((item) => (
-        <a key={item.href} href={item.href} className="block rounded-2xl px-4 py-3 text-sm font-semibold text-white/82 transition hover:bg-white/10 hover:text-white">
+        <a key={item.href} href={item.href} className="block rounded-2xl px-4 py-3 text-sm font-semibold transition">
           {isEnglish ? item.en : item.ro}
         </a>
       ))}
@@ -330,9 +330,9 @@ export function AboutHero() {
   );
 
   return (
-    <section className="relative min-h-[850px] overflow-hidden text-white md:min-h-screen">
+    <section className="sportme-modern-home relative min-h-[850px] overflow-hidden md:min-h-screen">
       {isDesktopHero ? (
-        <Image src="/home/sportme-home-desktop-wide.avif" alt="" aria-hidden="true" fill quality={76} sizes="100vw" className="absolute inset-0 h-full w-full object-cover object-center" />
+        <Image src="/home/sportme-home-desktop-wide.avif" alt="" aria-hidden="true" fill quality={76} sizes="100vw" className="modern-hero-media absolute inset-0 h-full w-full object-cover object-center" />
       ) : (
         <Image
           src="/home/sportme-home-mobile-lcp.avif"
@@ -343,46 +343,43 @@ export function AboutHero() {
           fetchPriority="high"
           quality={72}
           sizes="100vw"
-          className="absolute inset-0 h-full w-full object-cover object-[60%_center]"
+          className="modern-hero-media absolute inset-0 h-full w-full object-cover object-[60%_center]"
         />
       )}
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,20,0.96)_0%,rgba(2,8,20,0.83)_40%,rgba(2,8,20,0.28)_72%,rgba(2,8,20,0.14)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,8,20,0.98)_0%,rgba(2,8,20,0.48)_31%,rgba(2,8,20,0.1)_62%,rgba(2,8,20,0.36)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,250,252,0.98)_0%,rgba(238,241,246,0.9)_48%,rgba(232,236,244,0.6)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_77%_18%,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0)_32%),linear-gradient(0deg,rgba(246,247,250,0.92)_0%,rgba(246,247,250,0.18)_58%,rgba(246,247,250,0.58)_100%)]" />
       <div className="absolute right-5 top-[calc(env(safe-area-inset-top)+18px)] z-20 flex flex-col items-end gap-3 sm:right-8 lg:right-12">
-        <div className="inline-flex rounded-full border border-white/18 bg-black/24 p-1 text-xs font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md" aria-label={t("about.languageToggleLabel")}>
-          <button type="button" onClick={() => switchLanguage("RO")} aria-pressed={language === "RO"} className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}>
+        <div className="modern-chip inline-flex rounded-full border p-1 text-xs font-semibold backdrop-blur-md" aria-label={t("about.languageToggleLabel")}>
+          <button type="button" onClick={() => switchLanguage("RO")} aria-pressed={language === "RO"} className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-[#182032] text-white" : "text-[#182032]/68 hover:bg-[#e8ecf3]"}`}>
             RO
           </button>
-          <button type="button" onClick={() => switchLanguage("EN")} aria-pressed={language === "EN"} className={`rounded-full px-3 py-1.5 transition ${language === "EN" ? "bg-white text-[#061224]" : "text-white/76 hover:bg-white/10"}`}>
+          <button type="button" onClick={() => switchLanguage("EN")} aria-pressed={language === "EN"} className={`rounded-full px-3 py-1.5 transition ${language === "EN" ? "bg-[#182032] text-white" : "text-[#182032]/68 hover:bg-[#e8ecf3]"}`}>
             EN
           </button>
-        </div>
-        <div className="relative md:hidden">
-          <button
-            type="button"
-            onClick={toggleHeroMenu}
-            aria-expanded={showHeroMenu}
-            className="inline-flex items-center gap-2 rounded-full border border-[#176fff]/50 bg-white/[0.06] px-4 py-2 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur"
-          >
-            <span className="flex h-5 w-5 flex-col justify-center gap-1">
-              <span className="block h-0.5 w-5 rounded-full bg-white" />
-              <span className="block h-0.5 w-3.5 rounded-full bg-white" />
-              <span className="block h-0.5 w-5 rounded-full bg-white" />
-            </span>
-            <span>{isEnglish ? "Menu" : "Meniu"}</span>
-          </button>
-          {showHeroMenu ? renderMenu() : null}
         </div>
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[850px] w-full max-w-[1540px] flex-col px-5 pb-9 pt-[calc(env(safe-area-inset-top)+22px)] sm:px-8 md:min-h-screen md:px-12 lg:px-16 xl:px-20">
         <div className="flex w-full min-w-0 items-center justify-between gap-3 pr-[104px] sm:pr-[120px]">
-          <div className="flex items-end gap-4">
+          <div className="relative flex items-center gap-3">
             <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[12px] shadow-[0_12px_30px_rgba(0,93,255,0.35)] sm:h-14 sm:w-14" />
-            <img src="/home/sportme-wordmark.png" alt="SportMe" className="h-[33px] w-auto object-contain sm:h-[47px]" />
+            <button
+              type="button"
+              onClick={toggleHeroMenu}
+              aria-expanded={showHeroMenu}
+              className="modern-chip inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium backdrop-blur transition sm:gap-3 sm:px-5 sm:py-3 sm:text-lg"
+            >
+              <span className="flex h-5 w-5 flex-col justify-center gap-1 sm:h-6 sm:w-6 sm:gap-1.5">
+                <span className="block h-0.5 w-5 rounded-full bg-[#182032] sm:w-6" />
+                <span className="block h-0.5 w-3.5 rounded-full bg-[#182032] sm:w-4" />
+                <span className="block h-0.5 w-5 rounded-full bg-[#182032] sm:w-6" />
+              </span>
+              <span>{isEnglish ? "Menu" : "Meniu"}</span>
+            </button>
+            {showHeroMenu ? renderMenu() : null}
           </div>
           <nav
-            className="fixed left-1/2 top-[calc(env(safe-area-inset-top)+var(--audience-nav-top))] z-50 flex items-center gap-1 rounded-full border border-white/10 bg-[#07111f]/86 p-1 text-xs font-semibold text-white/68 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition-[transform,top] duration-150 ease-out lg:top-[calc(env(safe-area-inset-top)+22px)] lg:text-sm"
+            className="modern-nav fixed left-1/2 top-[calc(env(safe-area-inset-top)+var(--audience-nav-top))] z-50 flex items-center gap-1 rounded-full border p-1 text-xs font-semibold transition-[transform,top] duration-150 ease-out lg:top-[calc(env(safe-area-inset-top)+22px)] lg:text-sm"
             style={{
               "--audience-nav-top": `${98 - headerScrollProgress * 76}px`,
               transform: `translateX(-50%) scale(${1 - headerScrollProgress * 0.08})`,
@@ -396,28 +393,12 @@ export function AboutHero() {
                 key={item.href}
                 href={item.href}
                 onClick={(event) => scrollToAudienceSection(event, item.href.slice(1))}
-                className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-white/10 hover:text-white lg:px-4 lg:py-2"
+                className="whitespace-nowrap rounded-full px-3 py-2 transition lg:px-4 lg:py-2"
               >
                 {isEnglish ? item.en : item.ro}
               </a>
             ))}
           </nav>
-          <div className="relative hidden md:block">
-            <button
-              type="button"
-              onClick={toggleHeroMenu}
-              aria-expanded={showHeroMenu}
-              className="inline-flex items-center gap-3 rounded-full border border-[#176fff]/55 bg-white/[0.06] px-5 py-3 text-lg font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur transition hover:bg-white/[0.1]"
-            >
-              <span className="flex h-6 w-6 flex-col justify-center gap-1.5">
-                <span className="block h-0.5 w-6 rounded-full bg-white" />
-                <span className="block h-0.5 w-4 rounded-full bg-white" />
-                <span className="block h-0.5 w-6 rounded-full bg-white" />
-              </span>
-              <span>{isEnglish ? "Menu" : "Meniu"}</span>
-            </button>
-            {showHeroMenu ? renderMenu() : null}
-          </div>
         </div>
 
         <div className="flex flex-1 items-start pb-0 pt-28 md:items-center md:pb-0 md:pt-0">
@@ -426,32 +407,32 @@ export function AboutHero() {
               className="pointer-events-none absolute left-1/2 top-[150px] hidden h-[650px] w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:block"
               aria-hidden="true"
             />
-            <p className="mb-4 inline-flex rounded-full border border-[#ff9d2e]/70 bg-[#ff8a00]/22 px-4 py-2 text-[13px] font-extrabold tracking-[0.2em] text-white shadow-[0_0_18px_rgba(255,138,0,0.5),0_0_42px_rgba(255,138,0,0.26),inset_0_1px_0_rgba(255,255,255,0.18)] sm:text-base lg:text-[15px]">
+            <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[13px] font-medium sm:text-base lg:text-[15px]">
               {isEnglish ? "Are you a player?" : "esti JUCATOR?"}
             </p>
-            <h1 className="max-w-full text-[36px] font-bold leading-[1.04] tracking-normal sm:text-[54px] sm:leading-[0.98] lg:max-w-[470px] lg:text-[58px]">
+            <h1 className="max-w-full text-[36px] font-bold leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[470px] lg:text-[58px]">
               {isEnglish ? "Book fast" : "Rezerva rapid"}
               <br />
               {isEnglish ? "with " : "prin "}
-              <span className="text-[#106dff]">SportMe</span>
+              <span className="modern-accent">SportMe</span>
             </h1>
-            <p className="mt-4 max-w-full text-[15px] leading-6 text-white/84 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[455px] lg:text-[18px] lg:leading-7">
+            <p className="modern-muted mt-4 max-w-full text-[15px] leading-6 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[455px] lg:text-[18px] lg:leading-7">
               {isEnglish ? "Check availability and book sports courts in a few seconds." : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
             </p>
 
             <AppHomePreview className="mt-7 flex justify-center lg:absolute lg:left-[545px] lg:top-[184px] lg:z-10 lg:mt-0 xl:left-[545px] xl:top-[176px] 2xl:left-[545px]" />
 
             <div className="hidden lg:absolute lg:left-[calc(50%+58px)] lg:top-[114px] lg:block lg:h-[430px] lg:w-[min(680px,43vw)] xl:top-[114px]">
-              <p className="mb-4 inline-flex rounded-full border border-[#ff9d2e]/70 bg-[#ff8a00]/22 px-4 py-2 text-[13px] font-extrabold tracking-[0.2em] text-white shadow-[0_0_18px_rgba(255,138,0,0.5),0_0_42px_rgba(255,138,0,0.26),inset_0_1px_0_rgba(255,255,255,0.18)] xl:text-[14px]">
+              <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[13px] font-medium xl:text-[14px]">
                 {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
               </p>
-              <h2 className="max-w-[520px] text-[43px] font-bold leading-[1.04] tracking-normal xl:max-w-[580px] xl:text-[48px] 2xl:text-[52px]">
+              <h2 className="max-w-[520px] text-[43px] font-bold leading-[1.04] tracking-normal text-[#182032] xl:max-w-[580px] xl:text-[48px] 2xl:text-[52px]">
                 {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
                 <br />
                 {isEnglish ? "with " : "prin "}
-                <span className="text-[#106dff]">SportMe Manager</span>
+                <span className="modern-accent">SportMe Manager</span>
               </h2>
-              <p className="mt-4 max-w-[520px] text-[18px] leading-7 text-white/84 xl:max-w-[560px]">
+              <p className="modern-muted mt-4 max-w-[520px] text-[18px] leading-7 xl:max-w-[560px]">
                 {isEnglish
                   ? "Help players and teams track schedules, bookings and changes in one place."
                   : "Ajuta jucatorii/echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc."}
@@ -459,14 +440,14 @@ export function AboutHero() {
               <ManagerTabletPreview className="absolute right-0 top-[246px] w-[400px] xl:top-[258px] xl:w-[440px] 2xl:w-[490px]" />
             </div>
 
-            <div className="mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x divide-white/20 text-center sm:mt-10 lg:mt-7 lg:max-w-[390px]">
+            <div className="modern-feature-grid mt-8 grid w-full max-w-[670px] grid-cols-3 divide-x text-center sm:mt-10 lg:mt-7 lg:max-w-[390px]">
               {[
                 { id: "fast", icon: <CalendarCheckIcon />, ro: ["Rezervari", "rapide"], en: ["Fast", "bookings"] },
                 { id: "live", icon: <ClockIcon />, ro: ["Disponibilitate", "in timp real"], en: ["Real-time", "availability"] },
                 { id: "calls", icon: <PhoneArrowIcon />, ro: ["Fara apeluri,", "fara stres"], en: ["No calls,", "no stress"] },
               ].map((benefit) => (
                 <div key={benefit.id} className="min-w-0 px-1.5 sm:px-5">
-                  <div className="mx-auto mb-2.5 flex h-[62px] w-[62px] items-center justify-center rounded-full border border-[#0d67ff] bg-black/24 text-white shadow-[0_0_22px_rgba(0,93,255,0.34),inset_0_0_20px_rgba(255,255,255,0.04)] sm:mb-3 sm:h-[74px] sm:w-[74px] lg:h-[58px] lg:w-[58px] lg:[&_svg]:h-8 lg:[&_svg]:w-8">
+                  <div className="modern-outline-icon mx-auto mb-2.5 flex h-[62px] w-[62px] items-center justify-center rounded-full border sm:mb-3 sm:h-[74px] sm:w-[74px] lg:h-[58px] lg:w-[58px] lg:[&_svg]:h-8 lg:[&_svg]:w-8">
                     {benefit.icon}
                   </div>
                   <p className="text-[13px] font-normal leading-5 sm:text-xl sm:leading-6 lg:text-[16px] lg:leading-5">
@@ -480,7 +461,7 @@ export function AboutHero() {
               ))}
             </div>
 
-            <div className="mt-7 hidden max-w-[670px] items-center justify-center gap-2 pr-24 text-xl font-medium text-white/90 sm:flex lg:max-w-[470px] lg:pr-0">
+            <div className="mt-7 hidden max-w-[670px] items-center justify-center gap-2 pr-24 text-xl font-medium text-[#182032]/82 sm:flex lg:max-w-[470px] lg:pr-0">
               <span>{isEnglish ? "Download the app" : "Descarca aplicatia"}</span>
               <DownloadArrowIcon />
             </div>
@@ -490,7 +471,7 @@ export function AboutHero() {
                 <a
                   href="https://play.google.com/store/apps/details?id=ro.sportme.app"
                   onClick={() => trackEvent("click_google_play")}
-                  className="flex h-16 items-center justify-center gap-3 rounded-full bg-[#0564ff] px-4 text-lg font-normal shadow-[0_20px_48px_rgba(0,93,255,0.42)] hover:bg-[#1472ff] sm:h-[78px] sm:gap-4 sm:text-2xl"
+                  className="modern-cta-button flex h-16 items-center justify-center gap-3 rounded-full border px-4 text-lg font-semibold sm:h-[78px] sm:gap-4 sm:text-2xl"
                 >
                   <img src="/home/google-play-icon.png" alt="" className="h-7 w-7 object-contain" />
                   <span>{isEnglish ? "Get it on Google Play Store" : "Descarca din Google Play Store"}</span>
@@ -498,12 +479,12 @@ export function AboutHero() {
                 <a
                   href="https://www.sportme.ro/app"
                   onClick={() => trackEvent("click_app_store")}
-                  className="flex h-16 items-center justify-center gap-3 rounded-full border border-white/38 bg-black/20 px-4 text-lg font-normal hover:border-white/58 hover:bg-white/8 sm:h-[78px] sm:gap-4 sm:text-2xl"
+                  className="modern-cta-button flex h-16 items-center justify-center gap-3 rounded-full border px-4 text-lg font-semibold sm:h-[78px] sm:gap-4 sm:text-2xl"
                 >
                   <AppleIcon />
                   <span className="inline-flex items-baseline gap-1.5">
                     <span>{isEnglish ? "Download on the App Store" : "Descarca din App Store"}</span>
-                    <span className="text-[0.72em] font-normal text-white/72">{isEnglish ? "(soon, site only)" : "(curand, site only)"}</span>
+                    <span className="text-[0.72em] font-normal text-[#182032]/58">{isEnglish ? "(soon, site only)" : "(curand, site only)"}</span>
                   </span>
                 </a>
               </div>
@@ -511,16 +492,16 @@ export function AboutHero() {
               <div className="my-8 h-px w-full bg-[repeating-linear-gradient(to_right,rgba(255,255,255,0.42)_0_3px,transparent_3px_10px)] lg:hidden" aria-hidden="true" />
 
               <div className="lg:hidden">
-                <p className="mb-4 inline-flex rounded-full border border-[#ff9d2e]/70 bg-[#ff8a00]/22 px-4 py-2 text-[12px] font-extrabold tracking-[0.16em] text-white shadow-[0_0_18px_rgba(255,138,0,0.5),0_0_42px_rgba(255,138,0,0.26),inset_0_1px_0_rgba(255,255,255,0.18)] sm:text-sm">
+                <p className="modern-kicker mb-4 inline-flex rounded-full border px-4 py-2 text-[12px] font-medium sm:text-sm">
                   {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
                 </p>
-                <h2 className="text-[34px] font-bold leading-[1.04] tracking-normal sm:text-[44px]">
+                <h2 className="text-[34px] font-bold leading-[1.04] tracking-normal text-[#182032] sm:text-[44px]">
                   {isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}
                   <br />
                   {isEnglish ? "with " : "prin "}
-                  <span className="text-[#106dff]">SportMe Manager</span>
+                  <span className="modern-accent">SportMe Manager</span>
                 </h2>
-                <p className="mt-4 max-w-full text-[15px] leading-6 text-white/84 sm:text-xl sm:leading-8">
+                <p className="modern-muted mt-4 max-w-full text-[15px] leading-6 sm:text-xl sm:leading-8">
                   {isEnglish
                     ? "Help players and teams track schedules, bookings and changes in one place."
                     : "Ajuta jucatorii/echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc."}
@@ -531,15 +512,15 @@ export function AboutHero() {
               <a
                 href="#preturi"
                 onClick={() => trackEvent("click_sportme_manager_pricing")}
-                className="flex w-full max-w-[670px] items-center gap-4 rounded-full border border-white/12 bg-white/[0.08] p-4 pl-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur hover:bg-white/[0.11] sm:gap-5 sm:p-5 sm:pl-8 lg:h-[118px] lg:max-w-none lg:translate-x-10 lg:translate-y-[54px] lg:gap-5 lg:px-6 lg:py-3 lg:pl-10"
+                className="modern-cta-button flex w-full max-w-[670px] items-center gap-4 rounded-full border p-4 pl-6 backdrop-blur sm:gap-5 sm:p-5 sm:pl-8 lg:h-[118px] lg:max-w-none lg:translate-x-10 lg:translate-y-[54px] lg:gap-5 lg:px-6 lg:py-3 lg:pl-10"
               >
                 <img src="/logo-512admin.png" alt="" className="h-14 w-14 rounded-[10px] sm:h-16 sm:w-16 lg:h-16 lg:w-16" />
                 <span className="min-w-0 flex-1">
                   <span className="block text-lg font-bold leading-tight sm:text-2xl lg:whitespace-nowrap lg:text-[22px] lg:leading-7">
                     {isEnglish ? "Open " : "Acceseaza "}
-                    <span className="block text-[#106dff] text-[0.95em] sm:inline sm:pl-1">SportMe Manager</span>
+                    <span className="modern-accent block text-[0.95em] sm:inline sm:pl-1">SportMe Manager</span>
                   </span>
-                  <span className="mt-2 hidden max-w-[430px] text-base leading-6 text-white/72 sm:block lg:text-sm lg:leading-5">
+                  <span className="modern-muted mt-2 hidden max-w-[430px] text-base leading-6 sm:block lg:text-sm lg:leading-5">
                     {isEnglish ? (
                       <>
                         The complete platform for bookings,
@@ -555,7 +536,7 @@ export function AboutHero() {
                     )}
                   </span>
                 </span>
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0b62df] sm:h-14 sm:w-14 lg:h-12 lg:w-12">
+                <span className="modern-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-full sm:h-14 sm:w-14 lg:h-12 lg:w-12">
                   <ArrowIcon />
                 </span>
               </a>

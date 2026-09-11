@@ -58,14 +58,14 @@ export function SeoContentPage({
           <header className="rounded-[28px] border border-[#d8d1bf] bg-white/80 px-6 py-8 shadow-[0_24px_60px_-40px_rgba(32,33,31,0.7)] backdrop-blur lg:px-8 lg:py-10">
             <div className="max-w-3xl space-y-4">
               <p className="text-xs uppercase tracking-[0.3em] text-[#7a7566]">{eyebrow}</p>
-              <h1 className="text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl">{title}</h1>
+              <h1 className="modern-section-heading text-3xl leading-tight sm:text-4xl md:text-5xl">{title}</h1>
               <p className="text-base leading-7 text-[#5b564b] sm:text-lg">{description}</p>
               {(primaryCta || secondaryCta) ? (
                 <div className="flex flex-col gap-3 pt-2 sm:flex-row">
                   {primaryCta ? (
                     <a
                       href={primaryCta.href}
-                      className="inline-flex items-center justify-center rounded-full border border-[#1877F2] bg-[#1877F2] px-6 py-3 text-sm font-semibold text-white shadow-md shadow-blue-500/20 transition hover:-translate-y-0.5 hover:bg-[#0f6de5]"
+                      className="modern-cta-button inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
                     >
                       {primaryCta.label}
                     </a>
@@ -73,7 +73,7 @@ export function SeoContentPage({
                   {secondaryCta ? (
                     <a
                       href={secondaryCta.href}
-                      className="inline-flex items-center justify-center rounded-full border border-[#d8d1bf] bg-white px-6 py-3 text-sm font-semibold text-[#1f211f] transition hover:-translate-y-0.5"
+                      className="modern-cta-button inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
                     >
                       {secondaryCta.label}
                     </a>
@@ -87,13 +87,13 @@ export function SeoContentPage({
             <section className="grid gap-4 md:grid-cols-2">
               <a
                 href="https://play.google.com/store/apps/details?id=ro.sportme.app"
-                className="rounded-[24px] border border-[#d8d1bf] bg-white p-5 text-center text-base font-semibold text-[#1f211f] shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)] transition hover:-translate-y-0.5"
+                className="modern-cta-button rounded-[24px] border p-5 text-center text-base font-semibold transition hover:-translate-y-0.5"
               >
                 Descarcă aplicația din Google Play
               </a>
               <a
                 href="https://www.sportme.ro/app"
-                className="rounded-[24px] border border-[#d8d1bf] bg-white p-5 text-center text-base font-semibold text-[#1f211f] shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)] transition hover:-translate-y-0.5"
+                className="modern-cta-button rounded-[24px] border p-5 text-center text-base font-semibold transition hover:-translate-y-0.5"
               >
                 Descarcă aplicația din App Store
               </a>
@@ -104,7 +104,7 @@ export function SeoContentPage({
             {sections.map((section) => (
               <article key={section.title} className="rounded-[28px] border border-[#d8d1bf] bg-white p-6 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)]">
                 {section.eyebrow ? <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">{section.eyebrow}</p> : null}
-                <h2 className="mt-2 text-2xl font-semibold text-[#1f211f]">{section.title}</h2>
+                <h2 className="modern-section-heading mt-2 text-2xl">{section.title}</h2>
                 {section.body ? <p className="mt-3 text-sm leading-6 text-[#5b564b]">{section.body}</p> : null}
                 {section.items ? (
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -134,7 +134,7 @@ export function SeoContentPage({
             <div className="mt-5 grid gap-6 lg:grid-cols-2">
               {faqGroups.map((group) => (
                 <div key={group.title}>
-                  <h2 className="text-xl font-semibold text-[#1f211f]">{group.title}</h2>
+                  <h2 className="modern-section-heading text-xl">{group.title}</h2>
                   <div className="mt-4 space-y-3">
                     {group.items.map((item) => (
                       <details key={item.question} className="rounded-2xl border border-[#e6e0d2] bg-[#f1f2f4] p-4">
@@ -152,7 +152,7 @@ export function SeoContentPage({
             <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">Linkuri utile</p>
             <div className="mt-4 flex flex-wrap gap-3">
               {links.map((link) => (
-                <a key={link.href} href={link.href} className="rounded-full border border-[#d8d1bf] bg-white px-4 py-2 text-sm font-semibold text-[#1d5f63] underline transition hover:-translate-y-0.5">
+                <a key={link.href} href={link.href} className="rounded-full border border-[#d7dfe9] bg-white/70 px-4 py-2 text-sm font-medium text-[#0d64d8] underline shadow-[0_10px_22px_rgba(44,55,76,0.08)] transition hover:-translate-y-0.5">
                   {link.label}
                 </a>
               ))}

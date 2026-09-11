@@ -1,35 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
 
 const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"), { ssr: false });
-
-const cdnBase = "https://app.sportme.ro";
-const appShots = [
-  "/about/user-1.jpg",
-  "/about/user-2.jpg",
-  "/about/user-3.jpg",
-  "/about/manager-1.png",
-  "/about/manager-2.png",
-  "/about/manager-3.png",
-];
-const banners = [
-  `${cdnBase}/01banner_football-1.png`,
-  `${cdnBase}/02banner_tennis-1.png`,
-  `${cdnBase}/03banner_basketball-1.png`,
-  `${cdnBase}/04banner_pingpong-1.png`,
-  `${cdnBase}/05banner_badminton-1.png`,
-  `${cdnBase}/06banner_billiard-1.png`,
-  `${cdnBase}/07banner_darts-1.png`,
-  `${cdnBase}/08banner_handball-1.png`,
-  `${cdnBase}/09banner_padel-1.png`,
-  `${cdnBase}/10banner_pickleball-1.png`,
-  `${cdnBase}/11banner_squash-1.png`,
-  `${cdnBase}/12banner_volleyball-1.png`,
-];
 
 function AccessArrowIcon() {
   return (
@@ -53,32 +29,10 @@ function PricingStepArrow({ className = "", style }: { className?: string; style
   );
 }
 
-function getScreenshots() {
-  const interleaved: string[] = [];
-  const maxItems = Math.max(banners.length, appShots.length);
-  for (let index = 0; index < maxItems; index += 1) {
-    const bannerIndex = index * 2;
-    if (banners[bannerIndex]) {
-      interleaved.push(banners[bannerIndex]);
-    }
-    if (banners[bannerIndex + 1]) {
-      interleaved.push(banners[bannerIndex + 1]);
-    }
-    if (appShots[index]) {
-      interleaved.push(appShots[index]);
-    }
-  }
-  return interleaved;
-}
-
 export default function AboutDeferredSections() {
   const { t, language } = useI18n();
   const isEnglish = language === "EN";
-  const screenshotsTrackRef = useRef<HTMLDivElement | null>(null);
-  const [activeScreenshot, setActiveScreenshot] = useState<string | null>(null);
   const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
-  const screenshots = useMemo(getScreenshots, []);
-  const loopedScreenshots = useMemo(() => [...screenshots, ...screenshots], [screenshots]);
   const playerWebUrl = "https://app.sportme.ro/app";
   const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
   const periodLabel = isEnglish ? "month" : "luna";
@@ -126,85 +80,13 @@ export default function AboutDeferredSections() {
     window.dispatchEvent(new Event("sportme:open-manager-access"));
   };
 
-  useEffect(() => {
-    const track = screenshotsTrackRef.current;
-    if (!track) {
-      return undefined;
-    }
-
-    const measureStep = () => {
-      const innerTrack = track.firstElementChild as HTMLElement | null;
-      const firstCard = innerTrack?.firstElementChild as HTMLElement | null;
-      const gapValue = Number.parseFloat(window.getComputedStyle(innerTrack ?? track).columnGap || "0");
-      const gap = Number.isNaN(gapValue) ? 0 : gapValue;
-      return (firstCard?.offsetWidth || 0) + gap;
-    };
-
-    let stepSize = measureStep();
-
-    const intervalId = window.setInterval(() => {
-      stepSize = stepSize || measureStep();
-      if (!stepSize) {
-        return;
-      }
-
-      const maxScroll = track.scrollWidth / 2;
-      if (track.scrollLeft >= maxScroll - stepSize) {
-        track.scrollTo({ left: 0, behavior: "auto" });
-      }
-      track.scrollBy({ left: stepSize, behavior: "smooth" });
-    }, 2000);
-
-    return () => window.clearInterval(intervalId);
-  }, []);
-
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-10">
-      <section className="about-glass-card rounded-[28px] p-6 lg:p-8">
-        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-          <h2 className="about-section-title text-2xl lg:text-3xl">
-            {isEnglish ? "Product " : "Capturi "}
-            <span className="accent">{isEnglish ? "screenshots" : "de ecran"}</span>
-          </h2>
-          <p className="about-section-kicker text-xs">{t("about.screenshots.subtitle")}</p>
-        </div>
-        <div ref={screenshotsTrackRef} className="mt-5 overflow-hidden pb-2" aria-label="Product screenshots">
-          <div className="flex w-max gap-2.5 sm:gap-3">
-            {loopedScreenshots.map((src, index) => (
-              <div key={`${src}-${index}`} className="shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setActiveScreenshot(src)}
-                  className="block overflow-hidden transition hover:-translate-y-0.5"
-                  style={{
-                    animation: "floaty 6s ease-in-out infinite",
-                    animationDelay: `${index * 0.5}s`,
-                  }}
-                >
-                  <img src={src} alt="SportMe screenshot" className="h-72 w-48 object-contain" loading="lazy" decoding="async" fetchPriority="low" />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {activeScreenshot ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4" onClick={() => setActiveScreenshot(null)} role="dialog" aria-modal="true">
-          <div className="relative max-h-[90vh] w-full max-w-4xl rounded-2xl border border-white/20 bg-white/90 p-4 shadow-2xl backdrop-blur" onClick={(event) => event.stopPropagation()}>
-            <button type="button" onClick={() => setActiveScreenshot(null)} className="absolute right-3 top-3 rounded-full border border-[#d8d1bf] bg-white px-2.5 py-1 text-xs font-semibold text-[#1f211f] hover:bg-[#f3f1e8]">
-              Close
-            </button>
-            <img src={activeScreenshot} alt="SportMe screenshot" className="mx-auto max-h-[80vh] w-full object-contain" />
-          </div>
-        </div>
-      ) : null}
-
+    <div className="mx-auto w-full max-w-7xl space-y-8">
       <section id="pentru-jucatori" className="scroll-mt-8">
         <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
           <div className="space-y-4">
-            <p className="about-section-kicker text-xs">{isEnglish ? "Players" : "Jucatori"}</p>
-            <h2 className="about-section-title text-2xl lg:text-3xl">
+            <p className="sportme-audience-badge px-4 py-2 text-xs sm:text-sm">{isEnglish ? "Are you a player?" : "esti JUCATOR?"}</p>
+            <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
               {isEnglish ? "Book your sport, " : "Rezerva sportul tau, "}
               <span className="accent">{isEnglish ? "hassle free" : "fara batai de cap"}</span>
             </h2>
@@ -236,34 +118,10 @@ export default function AboutDeferredSections() {
               <p>{isEnglish ? "- start with a free account" : "- pornesti cu un cont gratuit"}</p>
             </div>
           </div>
-          <div className="mt-5 grid gap-5 md:grid-cols-2">
-            <div className="about-glass-tile rounded-2xl p-6">
-              <p className="about-section-kicker text-xs">{isEnglish ? "Availability" : "Disponibilitate"}</p>
-              <h3 className="mt-3 text-2xl font-bold leading-tight text-white">
-                {isEnglish ? "See the right intervals before calling the sports venue" : "Vezi intervalele potrivite inainte sa suni la baza sportiva"}
-              </h3>
-              <p className="mt-4 text-sm leading-6 text-white/72">
-                {isEnglish
-                  ? "SportMe reduces uncertainty in the booking process. When a venue manages its schedule in the platform, you can quickly see what slots are free and make an informed decision."
-                  : "SportMe reduce incertitudinea din procesul de rezervare. Cand o locatie isi gestioneaza programul in platforma, vezi mai usor ce intervale sunt libere si poti lua o decizie informata."}
-              </p>
-            </div>
-            <div className="about-glass-tile rounded-2xl p-6">
-              <p className="about-section-kicker text-xs">{isEnglish ? "Benefits" : "Beneficii"}</p>
-              <h3 className="mt-3 text-2xl font-bold leading-tight text-white">
-                {isEnglish ? "Fewer messages, more play" : "Mai putine mesaje, mai multa miscare"}
-              </h3>
-              <p className="mt-4 text-sm leading-6 text-white/72">
-                {isEnglish
-                  ? "The app keeps bookings in one place, sends useful notifications and helps player groups organize more clearly for the next match."
-                  : "Aplicatia pastreaza rezervarile intr-un singur loc, trimite notificari utile si ajuta grupurile de jucatori sa se organizeze mai clar pentru urmatorul meci."}
-              </p>
-            </div>
-          </div>
           <button
             type="button"
             onClick={() => setShowPlayerAccessModal(true)}
-            className="mt-6 flex w-full cursor-pointer items-center gap-3 rounded-full border border-white/12 bg-white/[0.08] p-3 pl-5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition hover:bg-white/[0.11] sm:gap-4 sm:p-4 sm:pl-6 lg:max-w-[620px]"
+            className="modern-cta-button mt-6 flex w-full cursor-pointer items-center gap-3 rounded-full border p-3 pl-5 text-left transition sm:gap-4 sm:p-4 sm:pl-6 lg:max-w-[620px]"
           >
             <img src="/logo-512.png" alt="" className="h-12 w-12 rounded-[9px] sm:h-14 sm:w-14" />
             <span className="min-w-0 flex-1">
@@ -284,10 +142,10 @@ export default function AboutDeferredSections() {
       <section id="pentru-administratori" className="scroll-mt-8">
         <div className="about-glass-card flex flex-col rounded-[28px] p-6 lg:p-8">
           <div className="space-y-4">
-            <p className="about-section-kicker text-xs">
-              {isEnglish ? "Managers" : "Manageri"}
+            <p className="sportme-audience-badge px-4 py-2 text-xs sm:text-sm">
+              {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
             </p>
-            <h2 className="about-section-title text-2xl lg:text-3xl">
+            <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
               {isEnglish ? "Manage your sports venue, " : "Administreaza baza sportiva, "}
               <span className="accent">{isEnglish ? "faster and clearer" : "mai rapid si mai clar"}</span>
             </h2>
@@ -323,33 +181,9 @@ export default function AboutDeferredSections() {
               <p>{isEnglish ? "- suitable for multisport venues" : "- potrivit pentru baze multisport"}</p>
             </div>
           </div>
-          <div className="order-4 mt-5 grid gap-5 md:grid-cols-2">
-            <div className="about-glass-tile rounded-2xl p-6">
-              <p className="about-section-kicker text-xs">{isEnglish ? "Operations" : "Operare"}</p>
-              <h3 className="mt-3 text-2xl font-bold leading-tight text-white">
-                {isEnglish ? "Clearer operations for every court" : "Operare mai clara pentru fiecare teren"}
-              </h3>
-              <p className="mt-4 text-sm leading-6 text-white/72">
-                {isEnglish
-                  ? "The platform helps teams follow schedules, bookings and changes in one place, with fewer manual checks and less back-and-forth communication."
-                  : "Platforma ajuta echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc, cu mai putine verificari manuale si mai putine discutii repetitive."}
-              </p>
-            </div>
-            <div className="about-glass-tile rounded-2xl p-6">
-              <p className="about-section-kicker text-xs">{isEnglish ? "Growth" : "Vizibilitate"}</p>
-              <h3 className="mt-3 text-2xl font-bold leading-tight text-white">
-                {isEnglish ? "List your venue and start receiving bookings online" : "Inscrie locatia si incepe sa primesti rezervari online"}
-              </h3>
-              <p className="mt-4 text-sm leading-6 text-white/72">
-                {isEnglish
-                  ? "In a few minutes you can add your sports venue, organize available slots and offer players a simpler way to book."
-                  : "In cateva minute iti inscrii locatia, organizezi intervalele disponibile si oferi jucatorilor o metoda mai simpla de rezervare."}
-              </p>
-            </div>
-          </div>
           <div id="preturi" className="order-1 mt-8 scroll-mt-8">
             <div className="text-center">
-              <h3 className="text-xl font-bold leading-tight text-white">
+              <h3 className="modern-section-heading text-xl leading-tight">
                 {isEnglish ? "Simple pricing. No commissions. No risks." : "Pret simplu. Fara comisioane. Fara riscuri."}
               </h3>
               <p className="mt-3 text-sm leading-6 text-white/64">
@@ -456,7 +290,7 @@ export default function AboutDeferredSections() {
             <button
               type="button"
               onClick={openManagerAccessModal}
-              className="mx-auto mt-7 flex w-full max-w-[760px] cursor-pointer flex-col items-center justify-center rounded-full border border-[#0564ff] bg-[#0564ff] px-6 py-4 text-center text-base font-bold leading-tight text-white shadow-[0_18px_42px_rgba(5,100,255,0.34)] transition hover:bg-[#1472ff] sm:py-5 sm:text-lg lg:mt-8 lg:max-w-[620px] lg:text-lg"
+              className="modern-cta-button mx-auto mt-7 flex w-full max-w-[760px] cursor-pointer flex-col items-center justify-center rounded-full border px-6 py-4 text-center text-base font-bold leading-tight transition sm:py-5 sm:text-lg lg:mt-8 lg:max-w-[620px] lg:text-lg"
             >
               <span>Deschide dashboard Manager</span>
               <span className="mt-0.5 font-normal text-white/78">(primele 90 zile gratuit)</span>
@@ -468,7 +302,7 @@ export default function AboutDeferredSections() {
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
           <div className="space-y-2">
-            <h2 className="about-section-title text-2xl lg:text-3xl">
+            <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
               {isEnglish ? "Privacy and " : "Confidentialitate si "}
               <span className="accent">{isEnglish ? "security" : "securitate"}</span>
             </h2>
@@ -484,7 +318,7 @@ export default function AboutDeferredSections() {
 
         <div className="about-glass-card rounded-[28px] p-6 lg:p-8">
           <div className="space-y-3">
-            <h2 className="about-section-title text-2xl lg:text-3xl">
+            <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
               <span className="accent">{t("about.platform.title")}</span>
             </h2>
             <ul className="space-y-2 text-base leading-7 text-white/72">

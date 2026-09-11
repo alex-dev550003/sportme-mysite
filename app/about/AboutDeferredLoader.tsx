@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 const AboutDeferredSections = dynamic(() => import("./AboutDeferredSections"), {
   ssr: false,
-  loading: () => <div className="mx-auto h-[360px] w-full max-w-7xl rounded-[28px] border border-white/10 bg-white/[0.035]" aria-hidden="true" />,
+  loading: () => <div className="mx-auto h-[180px] w-full max-w-7xl" aria-hidden="true" />,
 });
 
 export function AboutDeferredLoader() {
@@ -46,7 +46,7 @@ export function AboutDeferredLoader() {
 
   return (
     <div ref={rootRef} className="about-dark-section w-full px-5 py-12 lg:py-16">
-      {shouldLoad ? <AboutDeferredSections /> : <div className="mx-auto h-[360px] w-full max-w-7xl rounded-[28px] border border-white/10 bg-white/[0.035]" aria-hidden="true" />}
+      {shouldLoad ? <AboutDeferredSections /> : <div className="mx-auto h-[180px] w-full max-w-7xl" aria-hidden="true" />}
     </div>
   );
 }

@@ -1,25 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Oswald, Poppins } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Providers } from "./providers";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
 
-const geistSans = Inter({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const poppins = Poppins({
-  variable: "--font-poppins",
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const oswald = Oswald({
-  variable: "--font-oswald",
-  weight: ["500", "600"],
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
+  weight: ["300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -77,7 +65,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const bodyClassName = `${geistSans.variable} ${poppins.variable} ${oswald.variable} antialiased`;
+  const bodyClassName = `${plusJakartaSans.className} ${plusJakartaSans.variable} antialiased`;
 
   return (
     <html lang="ro">
@@ -103,7 +91,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={bodyClassName}>
+      <body className={bodyClassName} style={{ fontFamily: '"Plus Jakarta Sans", var(--font-plus-jakarta-sans), system-ui, sans-serif' }}>
         <GoogleAnalytics />
         <Providers>
           <main className="min-h-screen">{children}</main>

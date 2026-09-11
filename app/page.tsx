@@ -114,53 +114,112 @@ export default function RootPage() {
         }
         .about-dark-section {
           background:
-            linear-gradient(180deg, #020814 0%, #030b18 46%, #06101f 100%);
+            radial-gradient(circle at 13% 8%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0) 30%),
+            linear-gradient(180deg, #e9edf3 0%, #dfe5ec 48%, #ebeff4 100%);
+          color: #182032;
+          font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), system-ui, sans-serif;
+        }
+        .about-dark-section * {
+          font-family: inherit;
         }
         .about-glass-card {
-          border: 1px solid rgba(255, 255, 255, 0.14);
-          background: rgba(255, 255, 255, 0.075);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.24);
+          border: 1px solid rgba(215, 220, 228, 0.92);
+          background: rgba(255, 255, 255, 0.78);
+          box-shadow: 0 22px 54px rgba(44, 55, 76, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.92);
           backdrop-filter: blur(18px);
           -webkit-backdrop-filter: blur(18px);
         }
         .about-glass-tile {
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          background: rgba(255, 255, 255, 0.055);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(215, 220, 228, 0.86);
+          background: rgba(255, 255, 255, 0.7);
+          box-shadow: 0 14px 32px rgba(44, 55, 76, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.88);
         }
         .about-glass-tile p {
-          color: rgba(255, 255, 255, 0.78) !important;
+          color: rgba(24, 32, 50, 0.64) !important;
         }
         .about-glass-tile p.font-semibold {
-          color: rgba(255, 255, 255, 0.94) !important;
+          color: rgba(24, 32, 50, 0.96) !important;
+        }
+        .about-no-card {
+          border: 0 !important;
+          border-radius: 0 !important;
+          background: transparent !important;
+          box-shadow: none !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+        }
+        .about-no-card p {
+          color: rgba(24, 32, 50, 0.64) !important;
+        }
+        .about-no-card h2,
+        .about-no-card h3 {
+          color: #182032 !important;
         }
         .about-section-kicker {
-          color: rgba(255, 255, 255, 0.58);
-          letter-spacing: 0.28em;
+          color: rgba(24, 32, 50, 0.52);
+          letter-spacing: 0;
           text-transform: uppercase;
-        }
-        .about-section-title {
-          color: rgba(255, 255, 255, 0.96);
           font-weight: 700;
         }
+        .about-section-title {
+          color: #182032;
+          font-weight: 500;
+        }
         .about-section-title .accent {
-          color: #106dff;
+          color: #0d64d8;
         }
         .about-dark-section .bg-white,
         .about-dark-section .bg-\\[\\#f1f2f4\\],
         .about-dark-section .bg-\\[\\#f4f7ff\\] {
-          background: rgba(255, 255, 255, 0.075) !important;
-          border-color: rgba(255, 255, 255, 0.14) !important;
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.22) !important;
+          background: rgba(255, 255, 255, 0.74) !important;
+          border-color: rgba(215, 220, 228, 0.9) !important;
+          box-shadow: 0 18px 44px rgba(44, 55, 76, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
           backdrop-filter: blur(18px);
+        }
+        .about-dark-section .text-white,
+        .about-dark-section .text-white\\/96,
+        .about-dark-section .text-white\\/90,
+        .about-dark-section .text-white\\/86 {
+          color: #182032 !important;
+        }
+        .about-dark-section .text-white\\/78,
+        .about-dark-section .text-white\\/72,
+        .about-dark-section .text-white\\/64,
+        .about-dark-section .text-white\\/48,
+        .about-dark-section .text-white\\/42 {
+          color: rgba(24, 32, 50, 0.62) !important;
         }
         .about-dark-section .text-\\[\\#1f211f\\],
         .about-dark-section .text-\\[\\#2a2d33\\] {
-          color: rgba(255, 255, 255, 0.96) !important;
+          color: #182032 !important;
         }
         .about-dark-section .text-\\[\\#5b564b\\],
         .about-dark-section .text-\\[\\#7a7566\\] {
-          color: rgba(255, 255, 255, 0.68) !important;
+          color: rgba(24, 32, 50, 0.62) !important;
+        }
+        .about-dark-section .bg-\\[\\#111c25\\] {
+          background: rgba(255, 255, 255, 0.82) !important;
+          border-color: rgba(215, 220, 228, 0.94) !important;
+          box-shadow: 0 20px 48px rgba(44, 55, 76, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+        }
+        .about-dark-section .border-white\\/12,
+        .about-dark-section .border-white\\/10,
+        .about-dark-section .border-white\\/20 {
+          border-color: rgba(24, 32, 50, 0.1) !important;
+        }
+        .about-dark-section .bg-white\\/\\[0\\.08\\],
+        .about-dark-section .bg-white\\/\\[0\\.085\\],
+        .about-dark-section .hover\\:bg-white\\/\\[0\\.11\\]:hover {
+          background: rgba(255, 255, 255, 0.66) !important;
+        }
+        .about-dark-section .bg-\\[\\#06245a\\]\\/88 {
+          background: #182032 !important;
+          color: #ffffff !important;
+          border-color: rgba(24, 32, 50, 0.2) !important;
+          box-shadow: 0 14px 30px rgba(24, 32, 50, 0.18) !important;
+        }
+        .about-dark-section .text-\\[\\#72b4ff\\] {
+          color: #ffffff !important;
         }
         .about-dark-section .manager-access-modal {
           color: #1f211f !important;
@@ -199,18 +258,18 @@ export default function RootPage() {
           color: #a63b3b !important;
         }
         .about-dark-section footer {
-          border-color: rgba(255, 255, 255, 0.14) !important;
-          background: rgba(255, 255, 255, 0.075) !important;
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.24) !important;
+          border-color: rgba(215, 220, 228, 0.92) !important;
+          background: rgba(255, 255, 255, 0.74) !important;
+          box-shadow: 0 22px 54px rgba(44, 55, 76, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
           backdrop-filter: blur(18px);
           -webkit-backdrop-filter: blur(18px);
         }
         .about-dark-section .border-\\[\\#d8d1bf\\],
         .about-dark-section .border-\\[\\#e6e0d2\\] {
-          border-color: rgba(255, 255, 255, 0.14) !important;
+          border-color: rgba(215, 220, 228, 0.92) !important;
         }
         .about-dark-section .shadow-\\[0_25px_50px_-40px_rgba\\(32\\,33\\,31\\,0\\.6\\)\\] {
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.24) !important;
+          box-shadow: 0 22px 54px rgba(44, 55, 76, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
         }
       `,
         }}

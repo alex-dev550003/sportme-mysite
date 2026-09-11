@@ -22,7 +22,7 @@ export function PublicTopControls({ showBack = false, homeHref = "/", hideLangua
     <div className="flex flex-col items-end gap-3">
       {!hideLanguage ? (
         <div
-          className="inline-flex rounded-full border border-[#d8d1bf] bg-white/80 p-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#4b4a43] shadow-[0_12px_24px_-18px_rgba(32,33,31,0.7)]"
+          className="inline-flex rounded-full border border-[#d7dfe9] bg-white/75 p-1 text-xs font-semibold uppercase tracking-normal text-[#182032]/70 shadow-[0_14px_34px_rgba(44,55,76,0.11)] backdrop-blur-md"
           aria-label={t("about.languageToggleLabel")}
         >
           <button
@@ -30,7 +30,7 @@ export function PublicTopControls({ showBack = false, homeHref = "/", hideLangua
             onClick={() => switchLanguage("RO")}
             aria-pressed={language === "RO"}
             className={`rounded-full px-3 py-1 transition ${
-              language === "RO" ? "bg-[#1f211f] text-white" : "text-[#4b4a43] hover:bg-white"
+              language === "RO" ? "bg-[#182032] text-white" : "text-[#182032]/68 hover:bg-white"
             }`}
           >
             RO
@@ -40,7 +40,7 @@ export function PublicTopControls({ showBack = false, homeHref = "/", hideLangua
             onClick={() => switchLanguage("EN")}
             aria-pressed={language === "EN"}
             className={`rounded-full px-3 py-1 transition ${
-              language === "EN" ? "bg-[#1f211f] text-white" : "text-[#4b4a43] hover:bg-white"
+              language === "EN" ? "bg-[#182032] text-white" : "text-[#182032]/68 hover:bg-white"
             }`}
           >
             EN
@@ -49,7 +49,7 @@ export function PublicTopControls({ showBack = false, homeHref = "/", hideLangua
       ) : null}
       {showBack ? (
         <a
-          className="rounded-full border border-[#d8d1bf]/70 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-[#4b4a43] shadow-[0_10px_20px_-18px_rgba(32,33,31,0.6)] transition hover:bg-white/80"
+          className="rounded-full border border-[#d7dfe9] bg-white/65 px-3 py-1.5 text-[11px] font-medium text-[#182032]/70 shadow-[0_10px_22px_rgba(44,55,76,0.1)] transition hover:bg-white/85"
           href={homeHref}
         >
           {backLabel ?? t("public.backHome")}

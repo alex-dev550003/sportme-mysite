@@ -1,10 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 /* stylelint-disable at-rule-no-unknown */
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  --font-sans: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, Segoe UI, Roboto, Arial, sans-serif;
   --app-safe-top: env(safe-area-inset-top);
   --app-safe-bottom: env(safe-area-inset-bottom);
   --sport-pattern: url("https://app.sportme.ro/patterns/pattern-sportmev3.svg");
@@ -50,7 +51,7 @@
   --fw-medium: 500;
   --fw-semibold: 600;
   --fw-bold: 700;
-  --ls-tight: -0.02em;
+  --ls-tight: 0;
   --ls-normal: 0;
   --ls-wide: 0.02em;
 }
@@ -75,13 +76,30 @@ html {
 body {
   color: var(--text);
   background: #f7f8fa;
-  font-family: var(--font-sans);
+  font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), var(--font-sans) !important;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), var(--font-sans) !important;
+}
+
+body * {
+  font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), var(--font-sans) !important;
+}
+
+.font-sans,
+.manager-access-modal,
+.manager-access-modal * {
+  font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), var(--font-sans) !important;
 }
 
 
@@ -136,8 +154,203 @@ body {
   border-radius: 9999px;
 }
 
-.card-title-oswald {
-  font-family: var(--font-oswald), var(--font-sans);
+.sportme-modern-home {
+  background:
+    radial-gradient(circle at 78% 5%, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0) 31%),
+    linear-gradient(135deg, #9ea9bc 0%, #e4e7ec 18%, #dfe3ea 52%, #f0f2f5 100%);
+  color: #182032;
+  font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), system-ui, sans-serif;
+}
+
+.sportme-modern-home * {
+  font-family: inherit;
+}
+
+.sportme-modern-home::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 24px;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.32)),
+    rgba(226, 230, 237, 0.72);
+  box-shadow: 0 26px 70px rgba(33, 43, 61, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.sportme-modern-home .modern-hero-media {
+  opacity: 0.13;
+  filter: saturate(0.88) contrast(0.92);
+  mix-blend-mode: multiply;
+}
+
+.sportme-modern-home .modern-soft-card {
+  border-color: rgba(215, 220, 228, 0.86) !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  color: #182032 !important;
+  box-shadow: 0 18px 44px rgba(44, 55, 76, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.sportme-modern-home .modern-device-frame {
+  border-color: rgba(20, 27, 39, 0.92) !important;
+  background: linear-gradient(180deg, #252b35 0%, #111720 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 28px 70px rgba(17, 24, 39, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+.sportme-modern-home .modern-muted,
+.sportme-modern-home .modern-muted * {
+  color: rgba(24, 32, 50, 0.62) !important;
+}
+
+.sportme-modern-home .modern-chip {
+  border-color: rgba(220, 225, 233, 0.92) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: #182032 !important;
+  box-shadow: 0 10px 24px rgba(44, 55, 76, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.sportme-modern-home .modern-kicker {
+  border-color: rgba(13, 100, 216, 0.18) !important;
+  background: #0d64d8 !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 26px rgba(13, 100, 216, 0.24) !important;
+  letter-spacing: 0 !important;
+  font-weight: 500 !important;
+}
+
+.sportme-modern-home .modern-accent {
+  color: #0d64d8 !important;
+}
+
+.sportme-modern-home .modern-primary {
+  background: #0d64d8 !important;
+  color: #ffffff !important;
+  box-shadow: 0 18px 44px rgba(13, 100, 216, 0.24) !important;
+}
+
+.sportme-modern-home .modern-secondary {
+  border-color: rgba(215, 220, 228, 0.94) !important;
+  background: rgba(255, 255, 255, 0.66) !important;
+  color: #182032 !important;
+  box-shadow: 0 14px 32px rgba(44, 55, 76, 0.1) !important;
+}
+
+.sportme-modern-home .modern-secondary svg,
+.sportme-modern-home .modern-secondary span {
+  color: #182032 !important;
+}
+
+.modern-cta-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: rgba(203, 212, 224, 0.78) !important;
+  background:
+    radial-gradient(circle at 86% 22%, rgba(255, 255, 255, 0.64) 0 1.8px, transparent 2px),
+    radial-gradient(circle at 92% 32%, rgba(255, 255, 255, 0.42) 0 1.5px, transparent 1.8px),
+    linear-gradient(135deg, rgba(238, 244, 250, 0.98) 0%, rgba(218, 228, 239, 0.94) 62%, rgba(200, 213, 228, 0.9) 100%) !important;
+  background-size: auto, auto, auto;
+  color: #182032 !important;
+  font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), system-ui, sans-serif !important;
+  box-shadow: 0 18px 42px rgba(44, 55, 76, 0.17), inset 0 1px 0 rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.sportme-audience-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border: 1px solid rgba(13, 100, 216, 0.18);
+  border-radius: 999px;
+  background: #0d64d8;
+  color: #ffffff;
+  box-shadow: 0 12px 26px rgba(13, 100, 216, 0.24);
+  font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.modern-section-heading {
+  font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), system-ui, sans-serif;
+  font-weight: 500 !important;
+  letter-spacing: 0;
+  color: #182032;
+}
+
+.modern-section-heading .accent {
+  color: #0d64d8;
+}
+
+.modern-cta-button::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: min(34%, 180px);
+  opacity: 0.42;
+  background-image: radial-gradient(circle, rgba(126, 146, 168, 0.32) 1.2px, transparent 1.6px);
+  background-size: 9px 9px;
+  mask-image: radial-gradient(circle at 70% 55%, #000 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(circle at 70% 55%, #000 0%, transparent 72%);
+}
+
+.modern-cta-button span,
+.modern-cta-button svg {
+  color: inherit !important;
+  font-family: inherit !important;
+}
+
+.modern-cta-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 22px 48px rgba(44, 55, 76, 0.17), inset 0 1px 0 rgba(255, 255, 255, 0.96) !important;
+}
+
+.sportme-modern-home .modern-outline-icon {
+  border-color: rgba(215, 220, 228, 0.9) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  color: #182032 !important;
+  box-shadow: 0 12px 26px rgba(44, 55, 76, 0.1) !important;
+}
+
+.sportme-modern-home .modern-nav {
+  border-color: rgba(215, 220, 228, 0.9) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  color: rgba(24, 32, 50, 0.66) !important;
+  box-shadow: 0 14px 34px rgba(44, 55, 76, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+.sportme-modern-home .modern-nav a:hover {
+  background: rgba(232, 236, 243, 0.86) !important;
+  color: #182032 !important;
+}
+
+.sportme-modern-home .modern-feature-grid {
+  color: #182032 !important;
+  border-color: rgba(24, 32, 50, 0.1) !important;
+}
+
+.sportme-modern-home .modern-feature-grid > div {
+  border-color: rgba(24, 32, 50, 0.1) !important;
+}
+
+.sportme-modern-home .modern-menu {
+  border-color: rgba(215, 220, 228, 0.92) !important;
+  background: rgba(255, 255, 255, 0.86) !important;
+  color: #182032 !important;
+  box-shadow: 0 24px 60px rgba(44, 55, 76, 0.16) !important;
+}
+
+.sportme-modern-home .modern-menu a {
+  color: rgba(24, 32, 50, 0.72) !important;
+}
+
+.sportme-modern-home .modern-menu a:hover {
+  background: rgba(232, 236, 243, 0.9) !important;
+  color: #182032 !important;
 }
 
 .page {
@@ -600,9 +813,10 @@ body {
 
 .public-dark {
   background:
-    radial-gradient(circle at 78% 0%, rgba(20, 109, 255, 0.14), transparent 34%),
-    linear-gradient(180deg, #081221 0%, #07101d 42%, #020812 100%) !important;
-  color: #f8fafc !important;
+    radial-gradient(circle at 78% 5%, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0) 31%),
+    linear-gradient(135deg, #9ea9bc 0%, #e4e7ec 18%, #dfe3ea 52%, #f0f2f5 100%) !important;
+  color: #182032 !important;
+  font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), var(--font-sans) !important;
 }
 
 .public-dark .bg-white,
@@ -612,12 +826,22 @@ body {
 .public-dark .bg-white\/80,
 .public-dark .bg-\[\#f1f2f4\],
 .public-dark .bg-\[\#eef6ff\],
-.public-dark .bg-\[\#f3ecff\] {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.055)) !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.24) !important;
+.public-dark .bg-\[\#f3ecff\],
+.public-dark .bg-\[\#07101d\],
+.public-dark .bg-\[\#081221\],
+.public-dark .bg-\[\#111c25\] {
+  background: rgba(255, 255, 255, 0.74) !important;
+  border-color: rgba(215, 220, 228, 0.92) !important;
+  box-shadow: 0 22px 54px rgba(44, 55, 76, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+}
+
+.public-dark .bg-\[\#106dff\]\/12,
+.public-dark .bg-\[\#106dff\]\/18,
+.public-dark .bg-\[\#06245a\]\/88 {
+  background: rgba(13, 100, 216, 0.12) !important;
+  color: #182032 !important;
 }
 
 .public-dark .border,
@@ -626,58 +850,77 @@ body {
 .public-dark .border-\[\#cfe6ff\],
 .public-dark .border-\[\#d4c4f0\],
 .public-dark .border-\[\#1f211f\] {
-  border-color: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(215, 220, 228, 0.92) !important;
 }
 
 .public-dark .divide-\[\#e6e0d2\] > :not([hidden]) ~ :not([hidden]) {
-  border-color: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(24, 32, 50, 0.1) !important;
 }
 
 .public-dark .text-\[\#1f211f\],
 .public-dark .text-\[\#2a2d33\] {
-  color: #f8fafc !important;
+  color: #182032 !important;
+}
+
+.public-dark .text-white,
+.public-dark .text-white\/96,
+.public-dark .text-white\/90,
+.public-dark .text-white\/86 {
+  color: #182032 !important;
+}
+
+.public-dark .text-white\/78,
+.public-dark .text-white\/72,
+.public-dark .text-white\/64,
+.public-dark .text-white\/48,
+.public-dark .text-white\/42 {
+  color: rgba(24, 32, 50, 0.62) !important;
 }
 
 .public-dark .text-\[\#5b564b\],
 .public-dark .text-\[\#7a7566\],
 .public-dark .text-\[\#4b5563\],
 .public-dark .text-\[\#4b4a43\] {
-  color: rgba(248, 250, 252, 0.72) !important;
+  color: rgba(24, 32, 50, 0.62) !important;
 }
 
 .public-dark .text-\[\#1d5f63\],
 .public-dark .text-\[\#144a86\],
-.public-dark .text-\[\#5e3c9b\] {
-  color: #2f82ff !important;
+.public-dark .text-\[\#5e3c9b\],
+.public-dark .text-\[\#6aa7ff\],
+.public-dark .text-\[\#72b4ff\] {
+  color: #0d64d8 !important;
 }
 
 .public-dark h1,
 .public-dark h2,
 .public-dark h3 {
   letter-spacing: 0;
+  font-weight: 500;
+  color: #182032 !important;
 }
 
 .public-dark header h1,
 .public-dark section h3,
 .public-dark section h2 {
-  color: #f8fafc;
+  color: #182032;
 }
 
 .public-dark header p,
 .public-dark section p,
 .public-dark section li {
-  color: rgba(248, 250, 252, 0.72);
+  color: rgba(24, 32, 50, 0.62);
 }
 
 .public-dark .rounded-\[28px\],
 .public-dark .rounded-\[24px\],
 .public-dark .rounded-2xl {
-  border-color: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(215, 220, 228, 0.92) !important;
 }
 
 .public-dark footer {
-  border-color: rgba(255, 255, 255, 0.14) !important;
-  color: rgba(248, 250, 252, 0.72) !important;
+  border-color: rgba(215, 220, 228, 0.92) !important;
+  color: rgba(24, 32, 50, 0.62) !important;
 }
 
 /* Keep manager access modal readable in public-dark pages */

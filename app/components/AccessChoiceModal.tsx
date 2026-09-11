@@ -111,11 +111,11 @@ function ActionIcon({ icon }: { icon: Action["icon"] }) {
 function StatusPill({ status }: { status: NonNullable<Action["status"]> }) {
   const toneClass =
     status.tone === "live"
-      ? "bg-[#dff1ff] text-[#087f49] before:bg-[#16a34a]"
-      : "bg-[#fff0e8] text-[#b95017] before:bg-[#f97316]";
+      ? "bg-[#dbeee9] text-[#087f49] before:bg-[#16a34a]"
+      : "bg-[#eef2f6] text-[#7b8493] before:bg-[#9aa6b5]";
 
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] ${toneClass} before:h-1.5 before:w-1.5 before:rounded-full`}>
+    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] ${toneClass} before:h-1.5 before:w-1.5 before:rounded-full`}>
       {status.label}
     </span>
   );
@@ -128,9 +128,9 @@ function ActionRow({ action }: { action: Action }) {
         <ActionIcon icon={action.icon} />
       </span>
       <span className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-left leading-tight">
-        <span className="text-[10px] font-medium tracking-[0.08em] text-[#6d7280]">{action.eyebrow}</span>
+        <span className="text-[10px] font-medium tracking-[0.08em] text-[#7a8392]">{action.eyebrow}</span>
         <span className="flex min-w-0 flex-wrap items-center gap-2">
-          <span className="text-[17px] font-extrabold tracking-normal text-[#171b26] sm:text-[19px]">{action.title}</span>
+          <span className="text-[17px] font-semibold tracking-normal text-[#182032] sm:text-[19px]">{action.title}</span>
           {action.status ? <StatusPill status={action.status} /> : null}
         </span>
       </span>
@@ -141,7 +141,7 @@ function ActionRow({ action }: { action: Action }) {
   );
 
   const className =
-    "group flex min-h-[60px] w-full items-center gap-3 rounded-[15px] border border-[#c9d9ee] bg-white px-3 py-2.5 text-[#171b26] shadow-[0_14px_34px_rgba(24,119,242,0.1),inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 hover:border-[#94c4ff] hover:shadow-[0_18px_44px_rgba(24,119,242,0.16)]";
+    "group flex min-h-[60px] w-full items-center gap-3 rounded-[15px] border border-[#c9d5e4] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(232,240,249,0.9))] px-3 py-2.5 text-[#182032] shadow-[0_14px_34px_rgba(44,55,76,0.12),inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 hover:border-[#9eb9dc] hover:shadow-[0_18px_44px_rgba(44,55,76,0.16)]";
 
   if (action.disabled || !action.href) {
     return <div className={`${className} cursor-not-allowed opacity-70`}>{content}</div>;
@@ -156,16 +156,16 @@ function ActionRow({ action }: { action: Action }) {
 
 export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, safetyTitle, safetyBody, loginLabel, loginUrl, sections }: Props) {
   return (
-    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/82 px-4 py-4 backdrop-blur-[5px]" onClick={onClose} role="dialog" aria-modal="true">
+    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/78 px-4 py-4 font-sans backdrop-blur-[5px]" onClick={onClose} role="dialog" aria-modal="true">
       <div
-        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-white/80 bg-[radial-gradient(circle_at_20%_0%,_#ffffff_0%,_#f7f9fc_50%,_#edf3fb_100%)] px-3.5 py-3.5 text-[#171b26] shadow-[0_24px_68px_rgba(0,0,0,0.36)] sm:rounded-[22px] sm:px-6 sm:py-5"
+        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-white/80 bg-[radial-gradient(circle_at_20%_0%,_#ffffff_0%,_#f2f6fb_50%,_#e3edf8_100%)] px-3.5 py-3.5 text-[#182032] shadow-[0_24px_68px_rgba(0,0,0,0.34)] sm:rounded-[22px] sm:px-6 sm:py-5"
         onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#d9dee7] bg-white/55 text-[#171b26] shadow-sm transition hover:bg-white sm:right-5 sm:top-5"
+          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#d0dae7] bg-white/70 text-[#182032] shadow-sm transition hover:bg-white sm:right-5 sm:top-5"
         >
           <CloseIcon />
         </button>
@@ -175,8 +175,8 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
             <img src={logoSrc} alt="" className="h-full w-full object-cover" />
           </span>
           <div>
-            <p className="text-[20px] font-extrabold leading-none tracking-normal text-[#171b26] sm:text-[24px]">{title}</p>
-            <p className="mt-1 max-w-[292px] text-[12px] font-medium leading-[1.3] text-[#6a7080] sm:text-[13px]">{subtitle}</p>
+            <p className="text-[20px] font-semibold leading-none tracking-normal text-[#182032] sm:text-[24px]">{title}</p>
+            <p className="mt-1 max-w-[292px] text-[12px] font-normal leading-[1.3] text-[#667184] sm:text-[13px]">{subtitle}</p>
           </div>
         </div>
 
@@ -187,7 +187,7 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e6f2ff]">
                   <DeviceIcon type={section.icon} />
                 </span>
-                <p className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#242936]">{section.label}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#242936]">{section.label}</p>
               </div>
               <div className="space-y-2">
                 {section.actions.map((action) => (
@@ -198,10 +198,10 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
           ))}
         </div>
 
-        <div className="mt-3.5 flex items-center gap-2.5 rounded-[13px] bg-[#e8f3ff] px-3.5 py-2.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+        <div className="mt-3.5 flex items-center gap-2.5 rounded-[13px] bg-[#dfeaf6] px-3.5 py-2.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
           <ShieldIcon />
           <p className="text-[11px] font-medium leading-snug text-[#374151] sm:text-[12px]">
-            <span className="block font-extrabold text-[#2d3340]">{safetyTitle}</span>
+            <span className="block font-semibold text-[#2d3340]">{safetyTitle}</span>
             {safetyBody}
           </p>
         </div>
