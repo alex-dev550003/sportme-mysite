@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Geist, Roboto } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Providers } from "./providers";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
-  weight: ["300", "400", "500", "600", "700", "800"],
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  weight: "variable",
   subsets: ["latin"],
   display: "swap",
 });
@@ -65,7 +71,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const bodyClassName = `${plusJakartaSans.className} ${plusJakartaSans.variable} antialiased`;
+  const bodyClassName = `${geist.className} ${geist.variable} ${roboto.variable} antialiased`;
 
   return (
     <html lang="ro">
@@ -91,7 +97,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={bodyClassName} style={{ fontFamily: '"Plus Jakarta Sans", var(--font-plus-jakarta-sans), system-ui, sans-serif' }}>
+      <body className={bodyClassName} style={{ fontFamily: '"Geist Variable", var(--font-geist), ui-sans-serif, system-ui, sans-serif' }}>
         <GoogleAnalytics />
         <Providers>
           <main className="min-h-screen">{children}</main>

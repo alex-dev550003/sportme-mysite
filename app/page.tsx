@@ -117,7 +117,7 @@ export default function RootPage() {
             radial-gradient(circle at 13% 8%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0) 30%),
             linear-gradient(180deg, #e9edf3 0%, #dfe5ec 48%, #ebeff4 100%);
           color: #182032;
-          font-family: "Plus Jakarta Sans", var(--font-plus-jakarta-sans), system-ui, sans-serif;
+          font-family: "Geist Variable", var(--font-geist), ui-sans-serif, system-ui, sans-serif;
         }
         .about-dark-section * {
           font-family: inherit;
