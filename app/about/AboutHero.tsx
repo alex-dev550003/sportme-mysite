@@ -7,6 +7,8 @@ import { useI18n } from "../app/i18n";
 import { trackEvent } from "../utils/analytics";
 
 const ManagerAccessModal = dynamic(() => import("../components/ManagerAccessModal"), { ssr: false });
+const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"), { ssr: false });
+const ProductChoiceModal = dynamic(() => import("../components/ProductChoiceModal"), { ssr: false });
 
 function CalendarCheckIcon() {
   return (
@@ -256,10 +258,14 @@ export function AboutHero() {
   const [headerScrollProgress, setHeaderScrollProgress] = useState(0);
   const [showHeroMenu, setShowHeroMenu] = useState(false);
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
+  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
+  const [showProductChoiceModal, setShowProductChoiceModal] = useState(false);
   const [splitPosition, setSplitPosition] = useState(50);
   const [blurredSide, setBlurredSide] = useState<"manager" | "player" | null>(null);
   const adminUrl = "https://admin.sportme.ro/auth";
   const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
+  const playerWebUrl = "https://app.sportme.ro/app";
+  const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
 
   const updateSplitPosition = (clientX: number, element: HTMLElement) => {
     const bounds = element.getBoundingClientRect();
@@ -407,19 +413,18 @@ export function AboutHero() {
             </button>
             {showHeroMenu ? renderMenu() : null}
           </div>
-          <nav className={`modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5`} aria-label="Navigare principală">
-            <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-semibold tracking-[0.01em] text-[#182032] sm:px-3 sm:text-[18px]">
+          <nav className={`quickstart-nav modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5`} aria-label="Navigare principală">
+            <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-[575] tracking-[0.01em] text-[#182032] sm:px-3 sm:text-[18px]">
               <img src="/logo-512.png" alt="" className="h-7 w-7 rounded-[8px] sm:h-8 sm:w-8" />
               <span>SportMe app</span>
             </a>
             <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
-              <a href="#sectiunea-2" onClick={(event) => scrollToAudienceSection(event, "sectiunea-2")} className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{isEnglish ? "Venue software / Players" : "Software baze sportive / Jucători"}</a>
-              <a href="/manager/quick-start" className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{isEnglish ? "Quickstart" : "Quickstart"}</a>
-              <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{isEnglish ? "Pricing" : "Prețuri"}</a>
+              <a href="#sectiunea-2" onClick={(event) => scrollToAudienceSection(event, "sectiunea-2")} className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{isEnglish ? "Venue software / Players" : "Software baze sportive / Jucători"}</a>
+              <a href="/manager/quick-start" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{isEnglish ? "Quickstart" : "Quickstart"}</a>
+              <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{isEnglish ? "Pricing" : "Prețuri"}</a>
             </div>
             <div className="ml-0 flex shrink-0 items-center gap-1.5">
-              <a href={adminUrl} className="inline-flex h-7 items-center rounded-[8px] border border-[#cbd3de] px-2.5 py-0 text-[13px] font-normal leading-[19.5px] text-[#182032] transition hover:bg-[#e8ecf3]">{t("about.nav.login")}</a>
-              <a href={adminUrl} className="modern-primary inline-flex h-7 items-center rounded-[8px] px-2.5 py-0 text-[13px] font-normal leading-[19.5px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{isEnglish ? "Start for free" : "Începe gratuit"}</a>
+              <button type="button" onClick={() => setShowProductChoiceModal(true)} className="modern-primary inline-flex h-7 items-center rounded-[8px] px-2.5 py-0 text-[13px] font-normal leading-[19.5px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{isEnglish ? "Start for free" : "Începe gratuit"}</button>
             </div>
             <button
               type="button"
@@ -598,11 +603,28 @@ export function AboutHero() {
         </div>
       </div>
 
+      {showProductChoiceModal ? (
+        <ProductChoiceModal
+          onClose={() => setShowProductChoiceModal(false)}
+          onSelect={(product) => {
+            setShowProductChoiceModal(false);
+            if (product === "manager") setShowManagerAccessModal(true);
+            else setShowPlayerAccessModal(true);
+          }}
+        />
+      ) : null}
       {showManagerAccessModal ? (
         <ManagerAccessModal
           onClose={() => setShowManagerAccessModal(false)}
           adminUrl={adminUrl}
           managerPlayStoreUrl={managerPlayStoreUrl}
+        />
+      ) : null}
+      {showPlayerAccessModal ? (
+        <PlayerAccessModal
+          onClose={() => setShowPlayerAccessModal(false)}
+          playerWebUrl={playerWebUrl}
+          playerPlayStoreUrl={playerPlayStoreUrl}
         />
       ) : null}
     </section>

@@ -129,7 +129,7 @@ function ActionRow({ action }: { action: Action }) {
   );
 
   const className =
-    "group flex min-h-[60px] w-full items-center gap-3 rounded-[15px] border border-[#c9d5e4] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(232,240,249,0.9))] px-3 py-2.5 text-[#182032] shadow-[0_14px_34px_rgba(44,55,76,0.12),inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 hover:border-[#9eb9dc] hover:shadow-[0_18px_44px_rgba(44,55,76,0.16)]";
+    "group flex min-h-[60px] w-full items-center gap-3 rounded-[15px] border border-[#c9d8e9] bg-white/80 px-3 py-2.5 text-[#182032] shadow-[0_5px_14px_rgba(44,55,76,0.06)] transition hover:-translate-y-0.5 hover:border-[#8fb5e7] hover:shadow-[0_10px_22px_rgba(44,55,76,0.1)]";
 
   if (action.disabled || !action.href) {
     return <div className={`${className} cursor-not-allowed opacity-70`}>{content}</div>;
@@ -144,16 +144,16 @@ function ActionRow({ action }: { action: Action }) {
 
 export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, sections }: Props) {
   return (
-    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/78 px-4 py-4 font-sans backdrop-blur-[5px]" onClick={onClose} role="dialog" aria-modal="true">
+    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-[#111827]/78 px-4 py-4 font-sans backdrop-blur-[4px]" onClick={onClose} role="dialog" aria-modal="true">
       <div
-        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-white/80 bg-[radial-gradient(circle_at_20%_0%,_#ffffff_0%,_#f2f6fb_50%,_#e3edf8_100%)] px-3.5 py-3.5 text-[#182032] shadow-[0_24px_68px_rgba(0,0,0,0.34)] sm:rounded-[22px] sm:px-6 sm:py-5"
+        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-[#d9e2ee] bg-[#f4f8fd] px-4 py-5 text-[#182032] shadow-[0_22px_60px_rgba(0,0,0,0.28)] sm:px-6 sm:py-6"
         onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#d0dae7] bg-white/70 text-[#182032] shadow-sm transition hover:bg-white sm:right-5 sm:top-5"
+          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#d2dce9] bg-white text-[#182032] shadow-[0_2px_6px_rgba(24,32,50,0.08)] transition hover:bg-[#f8fbff] sm:right-5 sm:top-5"
         >
           <CloseIcon />
         </button>
@@ -163,7 +163,7 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
             <img src={logoSrc} alt="" className="h-full w-full object-cover" />
           </span>
           <div>
-            <p className="text-[20px] font-semibold leading-none tracking-normal text-[#182032] sm:text-[24px]">{title}</p>
+            <p className="text-[21px] font-semibold leading-tight tracking-[-0.02em] text-[#182032] sm:text-[25px]">{title}</p>
             <p className="mt-1 max-w-[292px] text-[12px] font-normal leading-[1.3] text-[#667184] sm:text-[13px]">{subtitle}</p>
           </div>
         </div>

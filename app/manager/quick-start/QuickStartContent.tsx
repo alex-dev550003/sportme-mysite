@@ -1,15 +1,23 @@
 "use client";
 
-import { useMemo } from "react";
+import dynamic from "next/dynamic";
+import { useMemo, useState } from "react";
 import { useI18n } from "../../app/i18n";
 import type { LanguageKey } from "../../app/translations";
 import { PublicTopControls } from "../../components/PublicTopControls";
 import { SiteFooter } from "../../components/SiteFooter";
 import { LightboxImage } from "./LightboxImage";
 
+const ManagerAccessModal = dynamic(() => import("../../components/ManagerAccessModal"), { ssr: false });
+const PlayerAccessModal = dynamic(() => import("../../components/PlayerAccessModal"), { ssr: false });
+const ProductChoiceModal = dynamic(() => import("../../components/ProductChoiceModal"), { ssr: false });
+
 const description = "Ghid rapid pentru configurarea bazei sportive și gestionarea rezervărilor în SportMe Manager.";
 const canonical = "https://www.sportme.ro/manager/quick-start";
 const managerUrl = "https://admin.sportme.ro/auth";
+const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
+const playerWebUrl = "https://app.sportme.ro/app";
+const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
 const pricingHref = "/#preturi";
 
 type Note = {
@@ -710,6 +718,9 @@ function SectionHeader({ id, eyebrow, title }: { id: string; eyebrow: string; ti
 
 export function QuickStartContent() {
   const { language } = useI18n();
+  const [showProductChoiceModal, setShowProductChoiceModal] = useState(false);
+  const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
+  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const text = copy[language];
   const structuredData = useMemo(
     () => ({
@@ -734,7 +745,7 @@ export function QuickStartContent() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="mx-auto w-full max-w-[1440px] px-4 pb-12 pt-24 sm:px-5 md:px-8 lg:pb-16 lg:pt-28">
         <nav className="quickstart-nav modern-desktop-nav fixed left-1/2 top-[20px] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border border-transparent bg-transparent px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5" aria-label="Navigare principală">
-          <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-semibold tracking-[0.01em] text-[#182032] sm:px-3 sm:text-[18px]">
+          <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-[575] tracking-[0.01em] text-[#182032] sm:px-3 sm:text-[18px]">
             <img src="/logo-512.png" alt="" className="h-7 w-7 rounded-[8px] sm:h-8 sm:w-8" />
             <span>SportMe app</span>
           </a>
@@ -744,8 +755,7 @@ export function QuickStartContent() {
             <a href="/#preturi" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">Prețuri</a>
           </div>
           <div className="ml-0 flex shrink-0 items-center gap-1.5">
-            <a href="https://admin.sportme.ro/auth" className="inline-flex h-7 items-center rounded-[8px] border border-[#cbd3de] px-2.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">Conectare</a>
-            <a href="https://admin.sportme.ro/auth" className="quickstart-primary-nav-button inline-flex h-7 items-center rounded-[8px] bg-[#0d64d8] px-2.5 text-[13px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">Începe gratuit</a>
+            <button type="button" onClick={() => setShowProductChoiceModal(true)} className="quickstart-primary-nav-button modern-primary inline-flex h-7 items-center rounded-[8px] bg-[#0d64d8] px-2.5 text-[13px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">Începe gratuit</button>
           </div>
         </nav>
         <div className="quickstart-language fixed right-6 top-[20px] z-[60] hidden lg:block">
@@ -794,6 +804,18 @@ export function QuickStartContent() {
           <SiteFooter />
         </div>
       </div>
+      {showProductChoiceModal ? (
+        <ProductChoiceModal
+          onClose={() => setShowProductChoiceModal(false)}
+          onSelect={(product) => {
+            setShowProductChoiceModal(false);
+            if (product === "manager") setShowManagerAccessModal(true);
+            else setShowPlayerAccessModal(true);
+          }}
+        />
+      ) : null}
+      {showManagerAccessModal ? <ManagerAccessModal onClose={() => setShowManagerAccessModal(false)} adminUrl={managerUrl} managerPlayStoreUrl={managerPlayStoreUrl} /> : null}
+      {showPlayerAccessModal ? <PlayerAccessModal onClose={() => setShowPlayerAccessModal(false)} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
     </main>
   );
 }
