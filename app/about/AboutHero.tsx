@@ -271,7 +271,10 @@ export function AboutHero() {
     const bounds = element.getBoundingClientRect();
     const nextPosition = ((clientX - bounds.left) / bounds.width) * 100;
     setBlurredSide(nextPosition > 50 ? "player" : nextPosition < 50 ? "manager" : null);
-    setSplitPosition(Math.min(78, Math.max(22, nextPosition)));
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+    const minPosition = isMobile ? 10 : 22;
+    const maxPosition = isMobile ? 90 : 78;
+    setSplitPosition(Math.min(maxPosition, Math.max(minPosition, nextPosition)));
   };
 
   const handleSplitPointerDown = (event: PointerEvent<HTMLDivElement>) => {
@@ -383,8 +386,8 @@ export function AboutHero() {
       )}
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(238,241,245,0.98)_0%,rgba(232,236,242,0.9)_48%,rgba(226,231,239,0.64)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_77%_18%,rgba(255,255,255,0.48)_0%,rgba(255,255,255,0)_32%),linear-gradient(0deg,rgba(238,241,245,0.92)_0%,rgba(238,241,245,0.18)_58%,rgba(238,241,245,0.58)_100%)]" />
-      <div className="absolute right-5 top-[calc(env(safe-area-inset-top)+90px)] z-20 flex flex-col items-end gap-3 sm:right-8 lg:right-12 lg:top-[calc(env(safe-area-inset-top)+18px)]">
-        <div className="modern-chip inline-flex rounded-full border p-1 text-xs font-semibold backdrop-blur-md" aria-label={t("about.languageToggleLabel")}>
+      <div className="sportme-language-control absolute right-5 top-[calc(env(safe-area-inset-top)+90px)] z-20 flex flex-col items-end gap-3 sm:right-8 lg:right-12 lg:top-[calc(env(safe-area-inset-top)+18px)]">
+        <div className="sportme-language-toggle modern-chip inline-flex rounded-full border p-1 text-xs font-semibold backdrop-blur-md" aria-label={t("about.languageToggleLabel")}>
           <button type="button" onClick={() => switchLanguage("RO")} aria-pressed={language === "RO"} className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-[#182032] text-white" : "text-[#182032]/68 hover:bg-[#e8ecf3]"}`}>
             RO
           </button>
@@ -423,7 +426,7 @@ export function AboutHero() {
               <a href="/manager/quick-start" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{isEnglish ? "Quickstart" : "Quickstart"}</a>
               <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{isEnglish ? "Pricing" : "Prețuri"}</a>
             </div>
-            <div className="ml-0 flex shrink-0 items-center gap-1.5">
+            <div className="ml-auto flex shrink-0 items-center gap-1.5 lg:ml-0">
               <button type="button" onClick={() => setShowProductChoiceModal(true)} className="modern-primary inline-flex h-7 items-center rounded-[8px] px-2.5 py-0 text-[13px] font-normal leading-[19.5px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{isEnglish ? "Start for free" : "Începe gratuit"}</button>
             </div>
             <button
@@ -444,7 +447,15 @@ export function AboutHero() {
         </div>
 
         <div className="flex flex-1 items-start pb-0 pt-20 md:items-center md:pb-0 md:pt-0">
-          <div className="sportme-split-stage relative grid w-full min-w-0 gap-7 lg:grid-cols-1 lg:gap-0" style={{ "--split-position": `${splitPosition}%` } as CSSProperties}>
+          <div
+            className="sportme-split-stage relative grid w-full min-w-0 gap-7 lg:grid-cols-1 lg:gap-0"
+            style={{
+              "--split-position": `${splitPosition}%`,
+              "--mobile-manager-reveal": `${Math.min(100, splitPosition * 2)}%`,
+              "--mobile-player-offset": `${Math.max(0, (splitPosition - 50) * 2)}%`,
+              "--mobile-grid-columns": `${splitPosition}% ${100 - splitPosition}%`,
+            } as CSSProperties}
+          >
             <div
               className="sportme-split-divider pointer-events-auto absolute -bottom-10 -top-10 z-40 hidden w-11 -translate-x-1/2 cursor-col-resize items-center justify-center lg:flex"
               style={{ left: `${splitPosition}%` }}
@@ -454,8 +465,8 @@ export function AboutHero() {
               onPointerCancel={handleSplitPointerUp}
               role="separator"
               aria-label="Redimensionează zonele Manager și Jucători"
-              aria-valuemin={22}
-              aria-valuemax={78}
+              aria-valuemin={isDesktopHero ? 22 : 10}
+              aria-valuemax={isDesktopHero ? 78 : 90}
               aria-valuenow={Math.round(splitPosition)}
             >
               <span className="sportme-split-line absolute inset-y-0 left-1/2 w-px -translate-x-1/2" />
