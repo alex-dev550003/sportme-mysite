@@ -15,9 +15,6 @@ function CalendarCheckIcon() {
     <svg viewBox="0 0 36 36" aria-hidden className="h-10 w-10">
       <path d="M10.5 4.7v6.2M25.5 4.7v6.2M6.8 13.2h22.4" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
       <rect x="6.8" y="8.1" width="22.4" height="21.1" rx="3.7" fill="none" stroke="currentColor" strokeWidth="2.4" />
-      <path d="m12.1 22.1 4 4 8.4-9.2" fill="none" stroke="#1476ff" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M24.7 26.2a6 6 0 1 0-7.1-5.9" fill="none" stroke="#1476ff" strokeWidth="2.6" strokeLinecap="round" />
-      <path d="m26.5 25.7-2.9.4.5-2.9" fill="none" stroke="#1476ff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

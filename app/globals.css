@@ -301,6 +301,10 @@ body * {
   -webkit-backdrop-filter: none !important;
 }
 
+.mobile-manager-badge-label {
+  display: none;
+}
+
 .about-player-cta,
 .about-manager-description-shell > button,
 .about-pricing-section > button {
@@ -712,9 +716,18 @@ body * {
 }
 
 @media (max-width: 1023px) {
+  .desktop-manager-badge-label { display: none; }
+  .mobile-manager-badge-label { display: inline; }
+
+  .about-deferred-layout .about-player-description-shell > div:first-child {
+    text-align: right;
+  }
+
   .about-deferred-layout {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 20px;
+    row-gap: 28px;
   }
 
   .about-deferred-layout .about-audience-section-heading {
@@ -725,10 +738,19 @@ body * {
     letter-spacing: -0.035em !important;
   }
 
-  .about-deferred-layout > #pentru-administratori { order: 1; }
-  .about-deferred-layout > #pentru-jucatori { order: 2; }
-  .about-deferred-layout > .about-final-section { order: 3; }
-  .about-deferred-layout > footer { order: 4; }
+  .about-deferred-layout > #pentru-administratori,
+  .about-deferred-layout > #pentru-jucatori,
+  .about-deferred-layout .about-player-description-shell,
+  .about-deferred-layout .about-manager-description-shell { display: contents; }
+
+  .about-deferred-layout .about-manager-description-shell > div:first-child { grid-column: 1; grid-row: 1; }
+  .about-deferred-layout .about-player-description-shell > div:first-child { grid-column: 2; grid-row: 1; }
+  .about-deferred-layout .about-manager-detail-cards,
+  .about-deferred-layout .about-player-detail-cards,
+  .about-deferred-layout .about-player-cta { display: none !important; }
+  .about-deferred-layout .about-pricing-section { grid-column: 1 / -1; grid-row: 2; }
+  .about-deferred-layout > .about-final-section { grid-column: 1 / -1; grid-row: 3; }
+  .about-deferred-layout > footer { grid-column: 1 / -1; grid-row: 4; }
 
   .sportme-modern-home,
   .sportme-modern-home > .relative {
@@ -751,6 +773,7 @@ body * {
 
   .quickstart-nav > a:first-child {
     transform: translateX(-8px);
+    font-size: 15px !important;
   }
 
   .sportme-language-toggle button {
@@ -762,6 +785,7 @@ body * {
     min-height: 420px;
     overflow: hidden;
     transform: translateY(24px);
+    --mobile-device-height: clamp(220px, 53.75vw, 280px);
   }
 
   .sportme-split-panel {
@@ -842,9 +866,10 @@ body * {
   .sportme-split-panel .sportme-manager-preview,
   .sportme-split-panel .sportme-player-preview {
     position: absolute !important;
-    top: 92px;
+    top: 116px;
+    bottom: auto;
     left: 0;
-    margin-top: 22px !important;
+    margin-top: 0 !important;
     width: 100% !important;
     max-width: none !important;
     transform: none !important;
@@ -852,16 +877,116 @@ body * {
 
   .sportme-split-panel .sportme-player-preview {
     justify-content: center !important;
-    transform: translateX(-45px) scale(0.58) !important;
+    transform: translateX(-30px) scale(clamp(0.46, 10.6vw, 0.53)) !important;
     transform-origin: top right;
+  }
+
+  /* Keep both black device edges on the same top and bottom anchors. */
+  .sportme-split-panel .modern-device-frame {
+    box-sizing: border-box !important;
+    height: var(--mobile-device-height) !important;
+  }
+
+  .sportme-split-panel .modern-device-frame > div:nth-child(2),
+  .sportme-split-panel .modern-device-frame > div:nth-child(2) > div,
+  .sportme-split-panel .modern-device-frame > div:nth-child(2) img {
+    height: 100% !important;
+  }
+
+  .sportme-split-panel .sportme-player-preview .modern-device-frame > div:nth-child(2),
+  .sportme-split-panel .sportme-player-preview .modern-device-frame > div:nth-child(2) > div,
+  .sportme-split-panel .sportme-player-preview .modern-device-frame > div:nth-child(2) img {
+    box-sizing: border-box !important;
+    object-fit: fill !important;
+  }
+
+  .sportme-split-panel .sportme-player-preview .modern-device-frame > div:nth-child(2) {
+    height: calc(var(--mobile-device-height) - 12px) !important;
+  }
+
+  .sportme-split-panel .sportme-player-preview .modern-device-frame > div:nth-child(2) > div {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .sportme-split-panel .sportme-player-preview .modern-device-frame > div:nth-child(2) > div > img {
+    display: block !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  /* The phone image is inside the first child of its device frame. */
+  .sportme-split-panel .sportme-player-preview .modern-device-frame > div:first-child {
+    position: absolute !important;
+    inset: 6px !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .sportme-split-panel .sportme-player-preview .modern-device-frame > div:first-child > div:first-child {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .sportme-split-panel .sportme-player-preview .modern-device-frame > div:first-child img {
+    display: block !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    object-fit: fill !important;
+    flex: 0 0 100% !important;
+  }
+
+  .sportme-split-panel .sportme-player-preview .modern-device-frame {
+    width: calc(var(--mobile-device-height) / 2.167) !important;
+    flex: 0 0 auto;
+    left: 18px !important;
   }
 
   .sportme-split-panel .modern-soft-card {
     display: none !important;
   }
 
+  .sportme-split-player .sportme-player-features {
+    position: absolute !important;
+    top: 132px;
+    right: 12px;
+    z-index: 6;
+    display: flex !important;
+    width: 86px !important;
+    max-width: 86px !important;
+    margin: 0 !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border: 0 !important;
+  }
+
+  .sportme-split-player .sportme-player-features > div {
+    width: 100%;
+    padding: 0 !important;
+  }
+
+  .sportme-split-player .sportme-player-features .modern-outline-icon {
+    width: 42px !important;
+    height: 42px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .sportme-split-player .sportme-player-features p {
+    color: rgba(24, 32, 50, 0.62) !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+
   .sportme-split-divider {
-    top: -18px !important;
+    top: 6px !important;
     bottom: 80px !important;
     display: flex !important;
   }

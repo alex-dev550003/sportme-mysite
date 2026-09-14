@@ -47,23 +47,23 @@ export default function AboutDeferredSections() {
     ...adminCommonPlanFeatures,
     isEnglish ? "Player bookings - phone only" : "Rezervari jucatori - doar telefonic",
     adminScheduleControlFeature,
-    isEnglish ? "Locations / sports zones count - MAX 1" : "Numar locatii sportive - MAXIM 1",
+    isEnglish ? "Locations / sports zones count - MAX 1" : "Nr. locatii sportive - MAXIM 1",
   ];
   const adminStarterFeatures = [
     ...adminCommonPlanFeatures,
     isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
     adminScheduleControlFeature,
-    isEnglish ? "Locations / sports zones count - MAX 2*" : "Numar locatii sportive - MAXIM 2*",
+    isEnglish ? "Locations / sports zones count - MAX 2*" : "Nr. locatii sportive - MAXIM 2*",
     ...adminAdvancedPlanFeatures,
   ];
   const adminProFeatures = [
     ...adminCommonPlanFeatures,
     isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
     adminScheduleControlFeature,
-    isEnglish ? "Locations / sports zones count - UNLIMITED*" : "Numar locatii sportive - NELIMITAT*",
+    isEnglish ? "Locations / sports zones count - UNLIMITED*" : "Nr. locatii sportive - NELIMITAT*",
     ...adminAdvancedPlanFeatures,
   ];
-  const isLocationLimitFeature = (item: string) => item.includes("Locations / sports zones count") || item.includes("Numar locatii sportive");
+  const isLocationLimitFeature = (item: string) => item.includes("Locations / sports zones count") || item.includes("Nr. locatii sportive");
   const isHighlightedPricingFeature = (item: string) => isLocationLimitFeature(item);
   const highlightedPricingFeatureClass = "-ml-1 rounded-lg border border-[#2b8cff]/34 bg-white/[0.085] px-2 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]";
   const PricingCheck = () => (
@@ -143,7 +143,8 @@ export default function AboutDeferredSections() {
         <div className="about-section-shell about-manager-description-shell flex flex-col px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-4">
             <p className="sportme-audience-badge about-section-badge px-3 py-1.5 text-xs">
-              {isEnglish ? "Are you a venue or academy manager?" : "esti MANAGER DE BAZA SPORTIVA sau ACADEMIE?"}
+              <span className="mobile-manager-badge-label">{isEnglish ? "Are you a manager?" : "esti MANAGER?"}</span>
+              <span className="desktop-manager-badge-label">{isEnglish ? "Are you a venue or academy manager?" : "esti MANAGER DE BAZA SPORTIVA sau ACADEMIE?"}</span>
             </p>
             <h2 className="sportme-audience-title about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
               <span className="sportme-title-subline block">{isEnglish ? "Manage your sports venue," : "Administreaza baza sportiva,"}</span>
@@ -201,7 +202,7 @@ export default function AboutDeferredSections() {
                 </div>
                 <h4 className="text-xl font-bold text-white">Freemium</h4>
                 <div className="mt-8 flex items-end gap-1">
-                  <span className="text-4xl font-bold leading-none text-white">€0</span>
+                  <span className="pricing-value text-3xl font-semibold leading-none text-white">€0</span>
                   <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
                 </div>
                 <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
@@ -238,7 +239,7 @@ export default function AboutDeferredSections() {
               <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <h4 className="text-xl font-bold text-white">Premium - STARTER</h4>
                 <div className="mt-8 flex items-end gap-1">
-                  <span className="text-4xl font-bold leading-none text-white">€8,90</span>
+                  <span className="pricing-value text-3xl font-semibold leading-none text-white">€8,90</span>
                   <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
                 </div>
                 <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
@@ -264,7 +265,7 @@ export default function AboutDeferredSections() {
               <div className="relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <h4 className="text-xl font-bold text-white">Premium - PRO</h4>
                 <div className="mt-8 flex items-end gap-1">
-                  <span className="text-4xl font-bold leading-none text-white">€14,90</span>
+                  <span className="pricing-value text-3xl font-semibold leading-none text-white">€14,90</span>
                   <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
                 </div>
                 <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
