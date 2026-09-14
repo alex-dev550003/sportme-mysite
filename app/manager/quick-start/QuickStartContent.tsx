@@ -732,41 +732,27 @@ export function QuickStartContent() {
   return (
     <main className="public-site public-dark min-h-screen text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <div className="mx-auto w-full max-w-[1440px] px-4 pb-12 pt-4 sm:px-5 md:px-8 lg:pb-16 lg:pt-5">
-        <div className="flex justify-end">
-          <PublicTopControls showBack backLabel="← sportme.ro" />
+      <div className="mx-auto w-full max-w-[1440px] px-4 pb-12 pt-24 sm:px-5 md:px-8 lg:pb-16 lg:pt-28">
+        <nav className="quickstart-nav modern-desktop-nav fixed left-1/2 top-[20px] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border border-transparent bg-transparent px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5" aria-label="Navigare principală">
+          <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-semibold tracking-[0.01em] text-[#182032] sm:px-3 sm:text-[18px]">
+            <img src="/logo-512.png" alt="" className="h-7 w-7 rounded-[8px] sm:h-8 sm:w-8" />
+            <span>SportMe app</span>
+          </a>
+          <div className="ml-auto hidden items-center gap-1.5 lg:flex">
+            <a href="/#pentru-administratori" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">Software baze sportive / Jucători</a>
+            <a href="/manager/quick-start" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">Quickstart</a>
+            <a href="/#preturi" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">Prețuri</a>
+          </div>
+          <div className="ml-0 flex shrink-0 items-center gap-1.5">
+            <a href="https://admin.sportme.ro/auth" className="inline-flex h-7 items-center rounded-[8px] border border-[#cbd3de] px-2.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">Conectare</a>
+            <a href="https://admin.sportme.ro/auth" className="quickstart-primary-nav-button inline-flex h-7 items-center rounded-[8px] bg-[#0d64d8] px-2.5 text-[13px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">Începe gratuit</a>
+          </div>
+        </nav>
+        <div className="quickstart-language fixed right-6 top-[20px] z-[60] hidden lg:block">
+          <PublicTopControls hideLanguage={false} />
         </div>
 
-        <header className="pt-6 md:pt-8">
-          <div className="grid gap-6 lg:grid-cols-[0.9fr_0.94fr] lg:items-end">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#6aa7ff]">{text.hero.eyebrow}</p>
-              <h1 className="mt-4 max-w-3xl text-3xl font-semibold leading-[1.05] text-white md:text-5xl">{text.hero.title}</h1>
-              <p className="mt-4 max-w-2xl text-lg leading-7 text-white/82 md:text-xl md:leading-8">{text.hero.subtitle}</p>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-white/64">{text.hero.body}</p>
-            </div>
-            <div className="justify-self-end rounded-[24px] border border-white/12 bg-white/[0.06] p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] lg:max-w-[640px]">
-              <Screenshot fileName="07-dashboard.png" alt={text.hero.dashboardAlt} priority />
-            </div>
-          </div>
-        </header>
-
-        <nav className="sticky top-3 z-40 mt-7 flex flex-wrap gap-2 rounded-[20px] border border-white/10 bg-[#07101d]/82 p-2 shadow-[0_18px_42px_rgba(0,0,0,0.2)] backdrop-blur-xl" aria-label={text.aria.navigation}>
-          {text.navigation.map((item) => (
-            <a key={item.href} href={item.href} className="rounded-full border border-white/10 bg-white/[0.06] px-3.5 py-2 text-xs font-semibold text-white/78 transition hover:border-[#2f82ff]/70 hover:bg-[#106dff]/18 hover:text-white sm:text-sm">
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <section className="mt-8 rounded-[24px] border border-white/12 bg-white/[0.06] px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:px-6 md:py-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-white/46">{text.intro.eyebrow}</p>
-          <h2 className="mt-2 text-2xl font-semibold text-white md:text-3xl">{text.intro.title}</h2>
-          <p className="mt-4 max-w-4xl text-base leading-7 text-white/72">{text.intro.body}</p>
-          <div className="mt-4 rounded-[18px] border border-[#2f82ff]/30 bg-[#106dff]/12 px-5 py-3 text-base font-semibold text-white">{text.intro.callout}</div>
-        </section>
-
-        <section className="mt-24 space-y-14">
+        <section className="mt-8 space-y-14">
           <SectionHeader id="configurare-initiala" eyebrow={text.sections.setupEyebrow} title={text.sections.setupTitle} />
           {text.setupSteps.map((step, index) => (
             <SetupStepCard key={step.image} step={step} reverse={index % 2 === 1} text={text} />

@@ -307,6 +307,23 @@ body * {
   display: none !important;
 }
 
+.public-dark .quickstart-primary-nav-button,
+.public-dark .quickstart-primary-nav-button:hover {
+  color: #ffffff !important;
+}
+
+.public-dark .quickstart-language button[aria-pressed="true"] {
+  color: #ffffff !important;
+}
+
+.public-dark nav.quickstart-nav .quickstart-primary-nav-button {
+  color: #ffffff !important;
+}
+
+.public-dark .quickstart-language button[aria-pressed="true"] {
+  color: #ffffff !important;
+}
+
 .modern-cta-button::after {
   content: "";
   position: absolute;
@@ -1259,11 +1276,17 @@ body * {
 }
 
 .public-dark {
-  background:
-    radial-gradient(circle at 78% 5%, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0) 31%),
-    linear-gradient(135deg, #9ea9bc 0%, #e4e7ec 18%, #dfe3ea 52%, #f0f2f5 100%) !important;
+  background: #eef1f5 !important;
   color: #182032 !important;
   font-family: "Geist Variable", var(--font-geist), var(--font-sans) !important;
+}
+
+.public-dark .quickstart-nav {
+  border-color: rgba(215, 220, 228, 0.92) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  box-shadow: 0 14px 34px rgba(44, 55, 76, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .public-dark .bg-white,
