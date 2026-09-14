@@ -118,7 +118,7 @@ function ActionRow({ action }: { action: Action }) {
       <span className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-left leading-tight">
         <span className="text-[10px] font-medium tracking-[0.08em] text-[#7a8392]">{action.eyebrow}</span>
         <span className="flex min-w-0 flex-wrap items-center gap-2">
-          <span className="text-[17px] font-semibold tracking-normal text-[#182032] sm:text-[19px]">{action.title}</span>
+          <span className="text-[17px] font-medium tracking-normal text-[#182032] sm:text-[19px]">{action.title}</span>
           {action.status ? <StatusPill status={action.status} /> : null}
         </span>
       </span>
@@ -129,7 +129,7 @@ function ActionRow({ action }: { action: Action }) {
   );
 
   const className =
-    "group flex min-h-[60px] w-full items-center gap-3 rounded-[15px] border border-[#c9d8e9] bg-white/80 px-3 py-2.5 text-[#182032] shadow-[0_5px_14px_rgba(44,55,76,0.06)] transition hover:-translate-y-0.5 hover:border-[#8fb5e7] hover:shadow-[0_10px_22px_rgba(44,55,76,0.1)]";
+    "group flex min-h-[60px] w-full items-center gap-3 rounded-[18px] border border-[#c9d8e9] bg-white/80 px-3 py-2.5 text-[#182032] shadow-[0_5px_14px_rgba(44,55,76,0.06)] transition hover:-translate-y-0.5 hover:border-[#8fb5e7] hover:shadow-[0_10px_22px_rgba(44,55,76,0.1)]";
 
   if (action.disabled || !action.href) {
     return <div className={`${className} cursor-not-allowed opacity-70`}>{content}</div>;
@@ -146,7 +146,7 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
   return (
     <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-[#111827]/78 px-4 py-4 font-sans backdrop-blur-[4px]" onClick={onClose} role="dialog" aria-modal="true">
       <div
-        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-[#d9e2ee] bg-[#f4f8fd] px-4 py-5 text-[#182032] shadow-[0_22px_60px_rgba(0,0,0,0.28)] sm:px-6 sm:py-6"
+        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-[#e1e3e7] bg-[#e5e7eb] px-4 py-5 text-[#182032] shadow-[0_22px_60px_rgba(0,0,0,0.28)] sm:px-6 sm:py-6"
         onClick={(event) => event.stopPropagation()}
       >
         <button
@@ -158,13 +158,13 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
           <CloseIcon />
         </button>
 
-        <div className="flex items-start gap-3 pr-9 sm:gap-3.5">
+        <div className="flex flex-col items-center gap-2 text-center">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[11px] bg-white shadow-[0_10px_24px_rgba(24,119,242,0.18)] sm:h-12 sm:w-12">
             <img src={logoSrc} alt="" className="h-full w-full object-cover" />
           </span>
           <div>
-            <p className="text-[21px] font-semibold leading-tight tracking-[-0.02em] text-[#182032] sm:text-[25px]">{title}</p>
-            <p className="mt-1 max-w-[292px] text-[12px] font-normal leading-[1.3] text-[#667184] sm:text-[13px]">{subtitle}</p>
+            <p className="text-[21px] font-medium leading-tight tracking-[-0.02em] text-[#182032] sm:text-[25px]">{title}</p>
+            <p className="mx-auto mt-1 max-w-[292px] text-[12px] font-normal leading-[1.3] text-[#667184] sm:text-[13px]">{subtitle}</p>
           </div>
         </div>
 
@@ -175,7 +175,7 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, s
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e6f2ff]">
                   <DeviceIcon type={section.icon} />
                 </span>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#242936]">{section.label}</p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#242936]">{section.label}</p>
               </div>
               <div className="space-y-2">
                 {section.actions.map((action) => (

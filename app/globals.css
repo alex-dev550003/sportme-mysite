@@ -518,12 +518,16 @@ body * {
     grid-column: 1;
     grid-row: 2;
     margin-top: 0;
+    width: calc(100% - 28px);
+    justify-self: start;
   }
 
   .about-deferred-layout .about-player-detail-cards {
     grid-column: 2;
     grid-row: 2;
     margin-top: 0;
+    width: calc(100% - 28px);
+    justify-self: end;
   }
 
   .about-deferred-layout .about-player-cta {

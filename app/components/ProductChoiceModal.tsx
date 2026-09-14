@@ -29,15 +29,15 @@ export default function ProductChoiceModal({ onClose, onSelect }: Props) {
 
   return (
     <div className="fixed inset-0 isolate z-[999] flex items-center justify-center bg-[#111827]/78 px-4 py-4 font-sans backdrop-blur-[4px]" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-[#d9e2ee] bg-[#f4f8fd] px-5 py-6 text-[#182032] shadow-[0_22px_60px_rgba(0,0,0,0.28)] sm:px-7" onClick={(event) => event.stopPropagation()}>
+      <div className="relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-[#e1e3e7] bg-[#e5e7eb] px-5 py-6 text-[#182032] shadow-[0_22px_60px_rgba(0,0,0,0.28)] sm:px-7" onClick={(event) => event.stopPropagation()}>
         <button type="button" onClick={onClose} aria-label="Close" className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full border border-[#d2dce9] bg-white text-[#182032] shadow-[0_2px_6px_rgba(24,32,50,0.08)] transition hover:bg-[#f8fbff]"><CloseIcon /></button>
-        <h2 className="pr-10 text-[25px] font-semibold leading-tight tracking-[-0.02em]">{isEnglish ? "Start for free" : "Începe gratuit"}</h2>
-        <p className="mt-2 text-[15px] leading-5 text-[#68758a]">{isEnglish ? "Are you a manager or a player?" : "Ești Manager sau Jucător?"}</p>
+        <h2 className="text-center text-[25px] font-medium leading-tight tracking-[-0.02em]">{isEnglish ? "Start for free" : "Începe gratuit"}</h2>
+        <p className="mt-2 text-center text-[15px] leading-5 text-[#68758a]">{isEnglish ? "Are you a manager or a player?" : "Ești Manager sau Jucător?"}</p>
         <div className="mt-5 space-y-3">
           {choices.map((choice) => (
-            <button key={choice.product} type="button" onClick={() => onSelect(choice.product)} className="group flex w-full items-center gap-3 rounded-[15px] border border-[#c9d8e9] bg-white/80 px-4 py-3 text-left shadow-[0_5px_14px_rgba(44,55,76,0.06)] transition hover:-translate-y-0.5 hover:border-[#8fb5e7]">
+            <button key={choice.product} type="button" onClick={() => onSelect(choice.product)} className="group flex w-full items-center gap-3 rounded-[18px] border border-[#c9d8e9] bg-white/80 px-4 py-3 text-left shadow-[0_5px_14px_rgba(44,55,76,0.06)] transition hover:-translate-y-0.5 hover:border-[#8fb5e7]">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#edf5ff]"><ProductIcon product={choice.product} /></span>
-              <span className="flex min-w-0 flex-1 flex-col"><span className="text-[17px] font-semibold tracking-[-0.01em]">{choice.title}</span><span className="mt-0.5 text-[12px] text-[#667184]">{choice.subtitle}</span></span>
+              <span className="flex min-w-0 flex-1 flex-col"><span className="text-[17px] font-medium tracking-[-0.01em]">{choice.title}</span><span className="mt-0.5 text-[12px] text-[#667184]">{choice.subtitle}</span></span>
               <span className="text-[25px] leading-none text-[#1877f2] transition group-hover:translate-x-0.5">›</span>
             </button>
           ))}
