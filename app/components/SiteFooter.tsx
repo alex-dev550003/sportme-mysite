@@ -11,23 +11,23 @@ export function SiteFooter() {
       <div className="flex flex-col gap-4 text-sm text-[#5b564b] md:flex-row md:items-center md:justify-between">
         <div className="text-xs uppercase tracking-[0.3em] text-[#7a7566]">SportMe</div>
         <div className="flex flex-wrap items-center gap-4">
-          <a className="font-semibold text-[#1d5f63] underline" href="/terms">
+          <a className="font-semibold text-[#0564ff] underline" href="/terms">
             {t("footer.terms")}
           </a>
-          <a className="font-semibold text-[#1d5f63] underline" href="/cookies">
+          <a className="font-semibold text-[#0564ff] underline" href="/cookies">
             {t("footer.cookies")}
           </a>
           <button
             type="button"
-            className="font-semibold text-[#1d5f63] underline"
+            className="font-semibold text-[#0564ff] underline"
             onClick={openCookieSettings}
           >
             {t("footer.cookieSettings")}
           </button>
-          <a className="font-semibold text-[#1d5f63] underline" href="/privacy-policy">
+          <a className="font-semibold text-[#0564ff] underline" href="/privacy-policy">
             {t("privacy.title")}
           </a>
-          <a className="font-semibold text-[#1d5f63] underline" href="mailto:office@sportme.ro">
+          <a className="font-semibold text-[#0564ff] underline" href="mailto:office@sportme.ro">
             office@sportme.ro
           </a>
         </div>

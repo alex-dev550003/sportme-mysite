@@ -800,24 +800,8 @@ export function QuickStartContent() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <a href={pricingHref} className="mt-6 inline-flex rounded-full border border-white/14 bg-white/[0.08] px-5 py-3 text-sm font-semibold text-white transition hover:border-[#2f82ff]/70 hover:bg-[#106dff]/18">
-              {text.sections.subscriptionCta}
-            </a>
           </div>
           <Screenshot fileName="18-abonament.png" alt={text.aria.subscriptionAlt} />
-        </section>
-
-        <section className="mt-24 rounded-[24px] border border-white/12 bg-white/[0.06] p-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-8">
-          <h2 className="text-3xl font-semibold text-white">{text.finalCta.title}</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-white/72">{text.finalCta.body}</p>
-          <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-            <a href={managerUrl} className="inline-flex items-center justify-center rounded-full border border-[#106dff] bg-[#106dff] px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_42px_rgba(16,109,255,0.3)] transition hover:bg-[#2f82ff]">
-              {text.finalCta.manager}
-            </a>
-            <a href={pricingHref} className="inline-flex items-center justify-center rounded-full border border-white/14 bg-white/[0.08] px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.12]">
-              {text.finalCta.pricing}
-            </a>
-          </div>
         </section>
 
         <div className="mt-12">
