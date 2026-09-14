@@ -47,23 +47,23 @@ export default function AboutDeferredSections() {
     ...adminCommonPlanFeatures,
     isEnglish ? "Player bookings - phone only" : "Rezervari jucatori - doar telefonic",
     adminScheduleControlFeature,
-    isEnglish ? "Locations / sports zones count - MAX 1" : "Numar locatii/zone sportive - MAXIM 1",
+    isEnglish ? "Locations / sports zones count - MAX 1" : "Numar locatii sportive - MAXIM 1",
   ];
   const adminStarterFeatures = [
     ...adminCommonPlanFeatures,
     isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
     adminScheduleControlFeature,
-    isEnglish ? "Locations / sports zones count - MAX 2*" : "Numar locatii/zone sportive - MAXIM 2*",
+    isEnglish ? "Locations / sports zones count - MAX 2*" : "Numar locatii sportive - MAXIM 2*",
     ...adminAdvancedPlanFeatures,
   ];
   const adminProFeatures = [
     ...adminCommonPlanFeatures,
     isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
     adminScheduleControlFeature,
-    isEnglish ? "Locations / sports zones count - UNLIMITED*" : "Numar locatii/zone sportive - NELIMITAT*",
+    isEnglish ? "Locations / sports zones count - UNLIMITED*" : "Numar locatii sportive - NELIMITAT*",
     ...adminAdvancedPlanFeatures,
   ];
-  const isLocationLimitFeature = (item: string) => item.includes("Locations / sports zones count") || item.includes("Numar locatii/zone sportive");
+  const isLocationLimitFeature = (item: string) => item.includes("Locations / sports zones count") || item.includes("Numar locatii sportive");
   const isHighlightedPricingFeature = (item: string) => isLocationLimitFeature(item);
   const highlightedPricingFeatureClass = "-ml-1 rounded-lg border border-[#2b8cff]/34 bg-white/[0.085] px-2 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]";
   const PricingCheck = () => (

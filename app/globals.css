@@ -717,6 +717,14 @@ body * {
     flex-direction: column;
   }
 
+  .about-deferred-layout .about-audience-section-heading {
+    font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 28px !important;
+    font-weight: 600 !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.035em !important;
+  }
+
   .about-deferred-layout > #pentru-administratori { order: 1; }
   .about-deferred-layout > #pentru-jucatori { order: 2; }
   .about-deferred-layout > .about-final-section { order: 3; }
@@ -739,6 +747,10 @@ body * {
 
   .sportme-modern-home .quickstart-nav {
     z-index: 50 !important;
+  }
+
+  .quickstart-nav > a:first-child {
+    transform: translateX(-8px);
   }
 
   .sportme-language-toggle button {
@@ -782,12 +794,12 @@ body * {
 
   .sportme-split-panel .sportme-audience-title {
     position: absolute;
-    top: 0;
+    top: 8px;
     z-index: 5;
     max-width: 100% !important;
     margin-top: 0;
     font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
-    font-size: 32px !important;
+    font-size: clamp(15px, 4.5vw, 26px) !important;
     font-weight: 600 !important;
     line-height: 1.08 !important;
     letter-spacing: 0 !important;
