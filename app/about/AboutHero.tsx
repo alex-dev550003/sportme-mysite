@@ -359,11 +359,15 @@ export function AboutHero() {
 
   const renderMenu = () => (
     <div className="modern-menu absolute right-0 top-[calc(100%+12px)] z-30 w-64 overflow-hidden rounded-[22px] border p-2 backdrop-blur-xl">
-      {menuItems.map((item) => (
-        <a key={item.href} href={item.href} className="block rounded-2xl px-4 py-3 text-sm font-semibold transition">
-          {isEnglish ? item.en : item.ro}
-        </a>
-      ))}
+      <a href="#sectiunea-2" onClick={(event) => scrollToAudienceSection(event, "sectiunea-2")} className="block rounded-2xl px-4 py-3 text-sm font-semibold transition">
+        {isEnglish ? "Venue software / Players" : "Software baze sportive / Jucători"}
+      </a>
+      <a href="/manager/quick-start" className="block rounded-2xl px-4 py-3 text-sm font-semibold transition">
+        Quickstart
+      </a>
+      <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="block rounded-2xl px-4 py-3 text-sm font-semibold transition">
+        {isEnglish ? "Pricing" : "Prețuri"}
+      </a>
     </div>
   );
 
@@ -417,7 +421,7 @@ export function AboutHero() {
             {showHeroMenu ? renderMenu() : null}
           </div>
           <nav className={`quickstart-nav modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5`} aria-label="Navigare principală">
-            <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-[575] tracking-[0.01em] text-[#182032] sm:px-3 sm:text-[18px]">
+            <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-medium tracking-normal text-[#182032] sm:px-3 sm:text-[18px]">
               <img src="/logo-512.png" alt="" className="h-7 w-7 rounded-[8px] sm:h-8 sm:w-8" />
               <span>SportMe app</span>
             </a>

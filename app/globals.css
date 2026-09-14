@@ -701,6 +701,16 @@ body * {
 }
 
 @media (max-width: 1023px) {
+  .about-deferred-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-deferred-layout > #pentru-administratori { order: 1; }
+  .about-deferred-layout > #pentru-jucatori { order: 2; }
+  .about-deferred-layout > .about-final-section { order: 3; }
+  .about-deferred-layout > footer { order: 4; }
+
   .sportme-modern-home,
   .sportme-modern-home > .relative {
     min-height: 520px !important;
@@ -765,8 +775,11 @@ body * {
     z-index: 5;
     max-width: 100% !important;
     margin-top: 0;
-    font-size: clamp(17px, 4vw, 24px) !important;
-    line-height: 1.05 !important;
+    font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 32px !important;
+    font-weight: 600 !important;
+    line-height: 1.08 !important;
+    letter-spacing: 0 !important;
     text-align: center;
   }
 
