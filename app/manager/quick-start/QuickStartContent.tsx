@@ -745,7 +745,7 @@ export function QuickStartContent() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="mx-auto w-full max-w-[1440px] px-4 pb-12 pt-24 sm:px-5 md:px-8 lg:pb-16 lg:pt-28">
         <nav className="quickstart-nav modern-desktop-nav fixed left-1/2 top-[20px] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border border-transparent bg-transparent px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5" aria-label="Navigare principală">
-          <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-[575] tracking-[0.01em] text-[#182032] sm:px-3 sm:text-[18px]">
+          <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-medium tracking-normal text-[#182032] sm:px-3 sm:text-[18px]">
             <img src="/logo-512.png" alt="" className="h-7 w-7 rounded-[8px] sm:h-8 sm:w-8" />
             <span>SportMe app</span>
           </a>
