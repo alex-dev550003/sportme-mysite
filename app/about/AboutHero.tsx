@@ -123,7 +123,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
         <span className="modern-muted block text-[7px] font-semibold uppercase tracking-normal sm:text-[8px] lg:text-[9px]">Browse</span>
         <span className="mt-0.5 block whitespace-nowrap text-[10px] font-semibold text-[#182032] sm:text-[11px] lg:text-[13px]">All Locations</span>
       </div>
-      <div className="modern-device-frame relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[34px] border p-1.5 sm:w-[238px] lg:w-[min(172px,11.5vw)] xl:w-[184px] 2xl:w-[196px]">
+      <div className="modern-device-frame relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[34px] border p-1.5 sm:w-[238px] lg:w-[min(120px,8vw)] xl:w-[130px] 2xl:w-[140px]">
         <div className="relative overflow-hidden rounded-[28px] bg-[#eef2f8]">
           <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
             {slides.map((slide) => (
@@ -182,14 +182,14 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
       style={{ animation: "appPreviewFloat 6.4s ease-in-out infinite" }}
     >
       <div
-        className="modern-soft-card pointer-events-none absolute right-[-40px] top-[24%] z-20 min-w-[122px] rounded-[8px] border px-3 py-2 text-left sm:right-auto sm:left-[-86px]"
+        className="modern-soft-card pointer-events-none absolute right-[-40px] top-[28%] z-20 min-w-[122px] rounded-[8px] border px-3 py-2 text-left sm:right-auto sm:left-[-86px]"
         style={{ animation: "appPreviewFloat 6s ease-in-out infinite" }}
       >
         <span className="modern-muted block text-[9px] font-semibold uppercase tracking-normal">Dashboard</span>
         <span className="mt-0.5 block whitespace-nowrap text-[13px] font-semibold text-[#182032]">Bookings</span>
       </div>
       <div
-        className="modern-soft-card pointer-events-none absolute right-[-40px] top-[66%] z-20 min-w-[122px] rounded-[8px] border px-3 py-2 text-left sm:right-auto sm:left-[-86px]"
+        className="modern-soft-card pointer-events-none absolute right-[-40px] top-[60%] z-20 min-w-[122px] rounded-[8px] border px-3 py-2 text-left sm:right-auto sm:left-[-86px]"
         style={{ animation: "appPreviewFloat 6.7s ease-in-out infinite" }}
       >
         <span className="modern-muted block text-[9px] font-semibold uppercase tracking-normal">Bookings</span>
@@ -257,12 +257,14 @@ export function AboutHero() {
   const [showHeroMenu, setShowHeroMenu] = useState(false);
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const [splitPosition, setSplitPosition] = useState(50);
+  const [blurredSide, setBlurredSide] = useState<"manager" | "player" | null>(null);
   const adminUrl = "https://admin.sportme.ro/auth";
   const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
 
   const updateSplitPosition = (clientX: number, element: HTMLElement) => {
     const bounds = element.getBoundingClientRect();
     const nextPosition = ((clientX - bounds.left) / bounds.width) * 100;
+    setBlurredSide(nextPosition > 50 ? "player" : nextPosition < 50 ? "manager" : null);
     setSplitPosition(Math.min(78, Math.max(22, nextPosition)));
   };
 
@@ -275,6 +277,11 @@ export function AboutHero() {
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       updateSplitPosition(event.clientX, event.currentTarget.parentElement as HTMLElement);
     }
+  };
+
+  const handleSplitPointerUp = (event: PointerEvent<HTMLDivElement>) => {
+    event.currentTarget.releasePointerCapture(event.pointerId);
+    setBlurredSide(null);
   };
 
   const switchLanguage = (nextLanguage: "RO" | "EN") => {
@@ -300,14 +307,16 @@ export function AboutHero() {
 
     let attempts = 0;
     const scrollWhenReady = () => {
-      const target = document.getElementById(targetId);
+      const target = targetId === "pentru-administratori"
+        ? document.querySelector<HTMLElement>(".about-manager-description-shell")
+        : document.getElementById(targetId);
       if (target) {
         target.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
 
       attempts += 1;
-      if (attempts < 20) {
+      if (attempts < 60) {
         window.setTimeout(scrollWhenReady, 100);
       }
     };
@@ -366,8 +375,8 @@ export function AboutHero() {
           className="modern-hero-media absolute inset-0 h-full w-full object-cover object-[60%_center]"
         />
       )}
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,250,252,0.98)_0%,rgba(238,241,246,0.9)_48%,rgba(232,236,244,0.6)_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_77%_18%,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0)_32%),linear-gradient(0deg,rgba(246,247,250,0.92)_0%,rgba(246,247,250,0.18)_58%,rgba(246,247,250,0.58)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(238,241,245,0.98)_0%,rgba(232,236,242,0.9)_48%,rgba(226,231,239,0.64)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_77%_18%,rgba(255,255,255,0.48)_0%,rgba(255,255,255,0)_32%),linear-gradient(0deg,rgba(238,241,245,0.92)_0%,rgba(238,241,245,0.18)_58%,rgba(238,241,245,0.58)_100%)]" />
       <div className="absolute right-5 top-[calc(env(safe-area-inset-top)+90px)] z-20 flex flex-col items-end gap-3 sm:right-8 lg:right-12 lg:top-[calc(env(safe-area-inset-top)+18px)]">
         <div className="modern-chip inline-flex rounded-full border p-1 text-xs font-semibold backdrop-blur-md" aria-label={t("about.languageToggleLabel")}>
           <button type="button" onClick={() => switchLanguage("RO")} aria-pressed={language === "RO"} className={`rounded-full px-3 py-1.5 transition ${language === "RO" ? "bg-[#182032] text-white" : "text-[#182032]/68 hover:bg-[#e8ecf3]"}`}>
@@ -398,22 +407,19 @@ export function AboutHero() {
             </button>
             {showHeroMenu ? renderMenu() : null}
           </div>
-          <nav className="modern-desktop-nav fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border px-3 py-3 sm:w-[min(1180px,calc(100vw-32px))] sm:px-4" aria-label="Navigare principală">
-            <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[19px] font-bold tracking-[-0.04em] text-[#182032] sm:gap-2.5 sm:px-3 sm:text-[20px]">
+          <nav className={`modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5`} aria-label="Navigare principală">
+            <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-semibold tracking-[0.01em] text-[#182032] sm:px-3 sm:text-[18px]">
               <img src="/logo-512.png" alt="" className="h-7 w-7 rounded-[8px] sm:h-8 sm:w-8" />
-              <span className="sportme-wordmark" aria-label="SportMe">
-                <span>Spor<span className="sportme-wordmark-t">t</span></span><span className="sportme-wordmark-me">m<span className="sportme-wordmark-e">e</span></span>
-              </span>
+              <span>SportMe app</span>
             </a>
             <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
-              <a href="/software-management-baze-sportive" className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{t("about.nav.venues")}</a>
-              <a href="/pricing" className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{t("about.nav.pricing")}</a>
-              <a href="#pentru-jucatori" onClick={(event) => scrollToAudienceSection(event, "pentru-jucatori")} className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{t("about.nav.players")}</a>
-              <a href="/manager/quick-start" className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{t("about.nav.quickstart")}</a>
+              <a href="#sectiunea-2" onClick={(event) => scrollToAudienceSection(event, "sectiunea-2")} className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{isEnglish ? "Venue software / Players" : "Software baze sportive / Jucători"}</a>
+              <a href="/manager/quick-start" className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{isEnglish ? "Quickstart" : "Quickstart"}</a>
+              <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-2.5 py-1.5 text-[13px] transition hover:bg-[#e8ecf3]">{isEnglish ? "Pricing" : "Prețuri"}</a>
             </div>
-            <div className="ml-auto flex shrink-0 items-center gap-1.5 lg:ml-2">
-              <a href={adminUrl} className="inline-flex h-7 items-center rounded-[8px] px-2.5 py-0 text-[13px] font-normal leading-[19.5px] text-[#182032] transition hover:bg-[#e8ecf3]">{t("about.nav.login")}</a>
-              <a href={adminUrl} className="modern-primary inline-flex h-7 items-center rounded-[8px] px-2.5 py-0 text-[13px] font-normal leading-[19.5px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{t("about.nav.start")}</a>
+            <div className="ml-0 flex shrink-0 items-center gap-1.5">
+              <a href={adminUrl} className="inline-flex h-7 items-center rounded-[8px] border border-[#cbd3de] px-2.5 py-0 text-[13px] font-normal leading-[19.5px] text-[#182032] transition hover:bg-[#e8ecf3]">{t("about.nav.login")}</a>
+              <a href={adminUrl} className="modern-primary inline-flex h-7 items-center rounded-[8px] px-2.5 py-0 text-[13px] font-normal leading-[19.5px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{isEnglish ? "Start for free" : "Începe gratuit"}</a>
             </div>
             <button
               type="button"
@@ -435,10 +441,12 @@ export function AboutHero() {
         <div className="flex flex-1 items-start pb-0 pt-20 md:items-center md:pb-0 md:pt-0">
           <div className="sportme-split-stage relative grid w-full min-w-0 gap-7 lg:grid-cols-1 lg:gap-0" style={{ "--split-position": `${splitPosition}%` } as CSSProperties}>
             <div
-              className="sportme-split-divider pointer-events-auto absolute bottom-0 top-0 z-40 hidden w-11 -translate-x-1/2 cursor-col-resize items-center justify-center lg:flex"
+              className="sportme-split-divider pointer-events-auto absolute -bottom-10 -top-10 z-40 hidden w-11 -translate-x-1/2 cursor-col-resize items-center justify-center lg:flex"
               style={{ left: `${splitPosition}%` }}
               onPointerDown={handleSplitPointerDown}
               onPointerMove={handleSplitPointerMove}
+              onPointerUp={handleSplitPointerUp}
+              onPointerCancel={handleSplitPointerUp}
               role="separator"
               aria-label="Redimensionează zonele Manager și Jucători"
               aria-valuemin={22}
@@ -446,9 +454,13 @@ export function AboutHero() {
               aria-valuenow={Math.round(splitPosition)}
             >
               <span className="sportme-split-line absolute inset-y-0 left-1/2 w-px -translate-x-1/2" />
-              <span className="sportme-split-controls relative z-10 flex items-center rounded-full border p-1 shadow-lg">
-                <button type="button" aria-label="Mai mult spațiu pentru manageri" onClick={() => setSplitPosition((value) => Math.min(78, value + 8))} className="sportme-split-arrow">←</button>
-                <button type="button" aria-label="Mai mult spațiu pentru jucători" onClick={() => setSplitPosition((value) => Math.max(22, value - 8))} className="sportme-split-arrow">→</button>
+              <span className="sportme-split-controls relative z-10 flex items-center rounded-full border p-1 shadow-lg" aria-hidden="true">
+                <span className="sportme-split-arrow">
+                  <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </span>
+                <span className="sportme-split-arrow">
+                  <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5"><path d="m10 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </span>
               </span>
             </div>
             <div
@@ -456,16 +468,13 @@ export function AboutHero() {
               aria-hidden="true"
             />
 
-            <div className="sportme-split-panel sportme-split-manager min-w-0">
+            <div className={`sportme-split-panel sportme-split-manager min-w-0 ${blurredSide === "manager" ? "is-split-blurred" : ""}`}>
               <p className="sportme-hero-kicker modern-kicker mb-4 inline-flex max-w-full whitespace-nowrap rounded-full border px-3 py-2 text-[clamp(8px,2.45vw,13px)] font-medium sm:px-4 sm:text-base lg:text-[15px]">
                 {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
               </p>
               <h1 className="sportme-audience-title sportme-manager-title max-w-full text-[clamp(30px,8.7vw,36px)] font-medium leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[680px] lg:text-[48px] xl:text-[48px] 2xl:text-[48px]">
-                <span className="block whitespace-nowrap">{isEnglish ? "Manage bookings" : "Gestioneaza rezervarile"}</span>
-                <span className="block whitespace-nowrap">
-                  {isEnglish ? "with " : "prin "}
-                  <span className="modern-accent">SportMe Manager</span>
-                </span>
+                <span className="sportme-title-subline block whitespace-nowrap">{isEnglish ? "Manage bookings with" : "Gestioneaza rezervarile prin"}</span>
+                <span className="block whitespace-nowrap"><span className="modern-accent">SportMe Manager</span></span>
               </h1>
               <p className="sportme-manager-description modern-muted mt-4 max-w-full text-[15px] leading-6 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[560px] lg:text-[18px] lg:leading-7">
                 {isEnglish
@@ -517,16 +526,13 @@ export function AboutHero() {
               </button>
             </div>
 
-            <div className="sportme-split-panel sportme-split-player min-w-0 lg:pl-4">
+            <div className={`sportme-split-panel sportme-split-player min-w-0 lg:pl-4 ${blurredSide === "player" ? "is-split-blurred" : ""}`}>
               <p className="sportme-hero-kicker modern-kicker mb-4 inline-flex max-w-full whitespace-nowrap rounded-full border px-3 py-2 text-[clamp(9px,2.8vw,13px)] font-medium sm:px-4 sm:text-base lg:text-[15px]">
                 {isEnglish ? "Are you a player looking for a venue?" : "esti JUCATOR si cauti o locatie?"}
               </p>
               <h2 className="sportme-audience-title sportme-player-title max-w-full text-[clamp(30px,8.8vw,36px)] font-medium leading-[1.04] tracking-normal text-[#182032] sm:text-[54px] sm:leading-[0.98] lg:max-w-[420px] lg:text-[48px] xl:text-[48px]">
-                <span className="block whitespace-nowrap">{isEnglish ? "Find and book fast" : "Gaseste si Rezerva rapid"}</span>
-                <span className="block whitespace-nowrap">
-                  {isEnglish ? "with " : "prin "}
-                  <span className="modern-accent">SportMe Player</span>
-                </span>
+                <span className="sportme-title-subline block whitespace-nowrap">{isEnglish ? "Find and book fast with" : "Gaseste si Rezerva rapid prin"}</span>
+                <span className="block whitespace-nowrap"><span className="modern-accent">{isEnglish ? "SportMe Player" : "SportMe Jucator"}</span></span>
               </h2>
               <p className="sportme-player-description modern-muted mt-4 max-w-full text-[15px] leading-6 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[430px] lg:text-[18px] lg:leading-7">
                 {isEnglish ? "Check availability and book sports courts in a few seconds." : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}

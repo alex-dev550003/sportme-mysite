@@ -45,7 +45,7 @@ export function AboutDeferredLoader() {
   }, []);
 
   return (
-    <div ref={rootRef} className="about-dark-section w-full px-5 py-12 lg:py-16">
+    <div id="sectiunea-2" ref={rootRef} className="about-dark-section w-full px-5 py-12 lg:pb-16 lg:pt-8">
       {shouldLoad ? <AboutDeferredSections /> : <div className="mx-auto h-[180px] w-full max-w-7xl" aria-hidden="true" />}
     </div>
   );

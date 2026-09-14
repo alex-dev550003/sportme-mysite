@@ -81,18 +81,18 @@ export default function AboutDeferredSections() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-8">
+    <div className="about-deferred-layout mx-auto w-full max-w-7xl space-y-0">
       <section id="pentru-jucatori" className="scroll-mt-8">
-        <div className="about-section-shell px-2 py-4 lg:px-4 lg:py-6">
+        <div className="about-section-shell about-player-description-shell about-player-column px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-4">
-            <p className="sportme-audience-badge px-4 py-2 text-xs sm:text-sm">{isEnglish ? "Are you a player?" : "esti JUCATOR?"}</p>
-            <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
-              {isEnglish ? "Book your sport, " : "Rezerva sportul tau, "}
-              <span className="accent">{isEnglish ? "hassle free" : "fara batai de cap"}</span>
+            <p className="sportme-audience-badge about-section-badge px-3 py-1.5 text-xs">{isEnglish ? "Are you a player?" : "esti JUCATOR?"}</p>
+            <h2 className="sportme-audience-title about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
+              <span className="sportme-title-subline block">{isEnglish ? "Book your sport," : "Rezerva sportul tau,"}</span>
+              <span className="modern-accent block">{isEnglish ? "hassle free" : "fara batai de cap"}</span>
             </h2>
             <p className="max-w-4xl text-base leading-7 text-white/72">{t("about.users.intro")}</p>
           </div>
-          <div className="mt-7 hidden gap-5 text-sm leading-6 text-[#5b564b] md:grid md:grid-cols-2 xl:grid-cols-4">
+          <div className="about-player-detail-cards mt-7 hidden gap-5 text-sm leading-6 text-[#5b564b] md:grid md:grid-cols-2">
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
               <p className="font-semibold text-[#1f211f]">{t("about.users.findTitle")}</p>
               <p>{t("about.users.findItem1")}</p>
@@ -121,7 +121,7 @@ export default function AboutDeferredSections() {
           <button
             type="button"
             onClick={() => setShowPlayerAccessModal(true)}
-            className="modern-cta-button mt-5 flex w-full cursor-pointer items-center gap-3 rounded-full border p-2.5 pl-4 text-left transition sm:gap-4 sm:p-4 sm:pl-6 lg:mt-6 lg:max-w-[620px]"
+            className="about-player-cta modern-cta-button mt-5 flex w-full cursor-pointer items-center gap-3 rounded-full border p-2.5 pl-4 text-left transition sm:gap-4 sm:p-4 sm:pl-6 lg:mt-6 lg:max-w-[620px]"
           >
             <img src="/logo-512.png" alt="" className="h-10 w-10 rounded-[9px] sm:h-14 sm:w-14" />
             <span className="min-w-0 flex-1">
@@ -140,14 +140,14 @@ export default function AboutDeferredSections() {
       </section>
 
       <section id="pentru-administratori" className="scroll-mt-8">
-        <div className="about-section-shell flex flex-col px-2 py-4 lg:px-4 lg:py-6">
+        <div className="about-section-shell about-manager-description-shell flex flex-col px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-4">
-            <p className="sportme-audience-badge px-4 py-2 text-xs sm:text-sm">
-              {isEnglish ? "Are you a venue or academy admin?" : "esti ADMINISTRATOR DE BAZA SPORTIVA sau ACADEMIE?"}
+            <p className="sportme-audience-badge about-section-badge px-3 py-1.5 text-xs">
+              {isEnglish ? "Are you a venue or academy manager?" : "esti MANAGER DE BAZA SPORTIVA sau ACADEMIE?"}
             </p>
-            <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
-              {isEnglish ? "Manage your sports venue, " : "Administreaza baza sportiva, "}
-              <span className="accent">{isEnglish ? "faster and clearer" : "mai rapid si mai clar"}</span>
+            <h2 className="sportme-audience-title about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
+              <span className="sportme-title-subline block">{isEnglish ? "Manage your sports venue," : "Administreaza baza sportiva,"}</span>
+              <span className="modern-accent block">{isEnglish ? "faster and clearer" : "mai rapid si mai clar"}</span>
             </h2>
             <p className="max-w-4xl text-base leading-7 text-white/72">
               {isEnglish
@@ -155,7 +155,7 @@ export default function AboutDeferredSections() {
                 : "SportMe Manager centralizeaza rezervarile, disponibilitatea terenurilor si activitatea echipei intr-o platforma clara pentru operatorii de baze sportive."}
             </p>
           </div>
-          <div className="order-3 mt-7 grid gap-5 text-sm leading-6 text-[#5b564b] md:grid-cols-2 xl:grid-cols-4">
+          <div className="about-manager-detail-cards order-3 mt-7 grid gap-5 text-sm leading-6 text-[#5b564b] md:grid-cols-2">
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
               <p className="font-semibold text-[#1f211f]">{isEnglish ? "Bookings calendar" : "Calendar rezervari"}</p>
               <p>{isEnglish ? "- online bookings in one place" : "- rezervari online intr-un singur loc"}</p>
@@ -181,7 +181,17 @@ export default function AboutDeferredSections() {
               <p>{isEnglish ? "- suitable for multisport venues" : "- potrivit pentru baze multisport"}</p>
             </div>
           </div>
-          <div id="preturi" className="order-1 mt-8 scroll-mt-8">
+          <div id="preturi" className="about-pricing-section order-1 mt-8 scroll-mt-8">
+            <div className="about-pricing-intro mb-6 space-y-2">
+              <h2 className="about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
+                <span className="modern-accent block">{isEnglish ? "Pricing" : "Preturi"}</span>
+              </h2>
+              <p className="max-w-3xl text-base leading-7 text-[#5b6678]">
+                {isEnglish
+                  ? "You can test all features free for 90 days and see if the platform fits your sports venue. Afterwards, it can be used free of charge with no time limit for one location."
+                  : "Puteți testa gratuit toate funcțiile timp de 90 de zile și vedea dacă platforma se potrivește bazei dvs. sportive. Ulterior, poate fi folosită gratuit, fără limită de timp pentru o singură locație."}
+              </p>
+            </div>
             <div className="relative flex snap-x snap-mandatory items-stretch gap-2 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc((100% - 40px) / 3 - 12px)" }} />
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc(((100% - 40px) / 3) * 2 + 8px)" }} />
@@ -293,12 +303,12 @@ export default function AboutDeferredSections() {
         </div>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+      <section className="about-final-section grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="about-section-shell px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-2">
-            <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
-              {isEnglish ? "Privacy and " : "Confidentialitate si "}
-              <span className="accent">{isEnglish ? "security" : "securitate"}</span>
+            <h2 className="about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
+              <span className="sportme-title-subline block">{isEnglish ? "Privacy and" : "Confidentialitate si"}</span>
+              <span className="modern-accent block">{isEnglish ? "security" : "securitate"}</span>
             </h2>
             <p className="text-base leading-7 text-white/72">{t("about.privacy.body1")}</p>
             <p className="text-base leading-7 text-white/72">
@@ -312,8 +322,8 @@ export default function AboutDeferredSections() {
 
         <div className="about-section-shell px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-3">
-            <h2 className="modern-section-heading text-3xl leading-tight lg:text-[40px]">
-              <span className="accent">{t("about.platform.title")}</span>
+            <h2 className="about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
+              <span className="modern-accent block">{t("about.platform.title")}</span>
             </h2>
             <ul className="space-y-2 text-base leading-7 text-white/72">
               {[t("about.platform.item1"), t("about.platform.item2"), t("about.platform.item3")]

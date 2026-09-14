@@ -75,7 +75,7 @@ html {
 
 body {
   color: var(--text);
-  background: #f7f8fa;
+  background: #eef1f5;
   font-family: "Geist Variable", var(--font-geist), var(--font-sans) !important;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
@@ -301,6 +301,12 @@ body * {
   -webkit-backdrop-filter: none !important;
 }
 
+.about-player-cta,
+.about-manager-description-shell > button,
+.about-pricing-section > button {
+  display: none !important;
+}
+
 .modern-cta-button::after {
   content: "";
   position: absolute;
@@ -340,9 +346,18 @@ body * {
 }
 
 .sportme-modern-home .modern-desktop-nav {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: rgba(24, 32, 50, 0.78) !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, backdrop-filter 180ms ease;
+}
+
+.sportme-modern-home .modern-desktop-nav.is-scrolled {
   border-color: rgba(215, 220, 228, 0.92) !important;
   background: rgba(255, 255, 255, 0.42) !important;
-  color: rgba(24, 32, 50, 0.78) !important;
   box-shadow: 0 18px 42px rgba(44, 55, 76, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.94) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -425,12 +440,118 @@ body * {
 }
 
 @media (min-width: 1024px) {
+  .sportme-modern-home,
+  .sportme-modern-home > .relative {
+    min-height: calc(100vh - 128px) !important;
+  }
+
+  .about-deferred-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 32px;
+    row-gap: 32px;
+  }
+
+  .about-deferred-layout > #pentru-jucatori,
+  .about-deferred-layout > #pentru-administratori {
+    display: contents;
+  }
+
+  .about-deferred-layout .about-player-description-shell,
+  .about-deferred-layout .about-manager-description-shell {
+    display: contents;
+  }
+
+  .about-deferred-layout .about-manager-description-shell > div:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .about-audience-section-heading {
+    font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 32px !important;
+    font-weight: 600 !important;
+    line-height: 1.08 !important;
+    letter-spacing: 0 !important;
+  }
+
+  .about-audience-section-heading > .accent {
+    display: inline;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    letter-spacing: inherit !important;
+  }
+
+  .about-deferred-layout .about-player-description-shell > div:first-child {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .about-deferred-layout .about-player-column {
+    text-align: right;
+  }
+
+  .about-deferred-layout .about-player-column .about-player-detail-cards {
+    text-align: right;
+  }
+
+  .about-deferred-layout .about-manager-detail-cards {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 0;
+  }
+
+  .about-deferred-layout .about-player-detail-cards {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0;
+  }
+
+  .about-deferred-layout .about-player-cta {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .about-deferred-layout .about-pricing-section {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin-top: 0;
+  }
+
+  .about-deferred-layout .about-manager-description-shell > button {
+    grid-column: 1 / -1;
+    grid-row: 5;
+  }
+
+  .about-deferred-layout > .about-final-section {
+    grid-column: 1 / -1;
+    grid-row: 6;
+  }
+
+  .about-deferred-layout > footer {
+    grid-column: 1 / -1;
+    grid-row: 7;
+    width: 100%;
+  }
+
   .sportme-audience-title {
     font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
-    font-size: 38px !important;
+    font-size: 36px !important;
     font-weight: 600 !important;
     line-height: 41.8px !important;
     letter-spacing: 0 !important;
+  }
+
+  .sportme-title-subline {
+    font-size: 32px !important;
+    line-height: 1.08 !important;
+  }
+
+  .sportme-audience-title > span:last-child {
+    font-size: 32px !important;
+    line-height: 1.08 !important;
   }
 
   .sportme-manager-title {
@@ -455,7 +576,7 @@ body * {
     z-index: 2;
     width: min(235px, 20%);
     margin-top: 0;
-    font-size: 15px !important;
+    font-size: 14px !important;
     line-height: 1.45 !important;
   }
 
@@ -474,7 +595,7 @@ body * {
     padding: 0;
     list-style: none;
     text-align: left;
-    font-size: 15px;
+    font-size: 14px;
     height: 260px;
     display: grid;
     grid-template-rows: repeat(6, 1fr);
@@ -501,7 +622,7 @@ body * {
     padding: 0;
     list-style: none;
     text-align: right;
-    font-size: 15px;
+    font-size: 14px;
     height: 260px;
     display: grid;
     grid-template-rows: repeat(6, 1fr);
@@ -515,8 +636,8 @@ body * {
 
   .sportme-modern-home .sportme-player-features {
     position: absolute;
-    top: 190px;
-    left: calc(50% + 220px);
+    top: 125px;
+    left: calc(50% + 235px);
     z-index: 4;
     display: grid !important;
     width: 150px;
@@ -535,10 +656,27 @@ body * {
     border-top: 1px solid rgba(24, 32, 50, 0.1) !important;
     padding-top: 12px !important;
   }
+
+  .sportme-player-features p {
+    font-size: 14px !important;
+    line-height: 1.25 !important;
+  }
 }
 
 .sportme-split-line {
-  background: linear-gradient(to bottom, transparent, rgba(24, 32, 50, 0.18) 12%, rgba(24, 32, 50, 0.18) 88%, transparent);
+  bottom: -40px !important;
+  width: 2px !important;
+  background: linear-gradient(to bottom, transparent, rgba(13, 100, 216, 0.58) 12%, rgba(24, 32, 50, 0.55) 50%, rgba(13, 100, 216, 0.58) 88%, transparent);
+  box-shadow: 0 0 14px rgba(13, 100, 216, 0.22);
+}
+
+.sportme-split-panel {
+  transition: filter 180ms ease, opacity 180ms ease;
+}
+
+.sportme-split-panel.is-split-blurred {
+  filter: blur(4px);
+  opacity: 0.58;
 }
 
 @media (min-width: 1024px) {
@@ -571,7 +709,7 @@ body * {
     max-width: none !important;
     margin-inline: auto;
     animation: none !important;
-    transform: translateY(-28px) scale(1.1) !important;
+    transform: translate(20px, -13px) scale(1.1) !important;
     transform-origin: top left;
   }
 
@@ -580,17 +718,17 @@ body * {
   }
 
   .sportme-player-preview {
-    width: 380px;
-    left: 50% !important;
+    width: 217px;
+    left: calc(50% + 45px) !important;
     right: auto !important;
-    margin-left: -190px !important;
+    margin-left: -108.5px !important;
     top: 108px !important;
     animation: none !important;
     transform: translateY(-28px) !important;
   }
 
   .sportme-player-preview .modern-device-frame {
-    width: 380px !important;
+    width: 217px !important;
   }
 
   .sportme-player-preview .modern-soft-card {
@@ -600,12 +738,17 @@ body * {
 }
 
 .sportme-split-controls {
+  pointer-events: none;
+  transform: translateY(44px);
   border-color: rgba(215, 220, 228, 0.95);
   background: rgba(255, 255, 255, 0.82);
+  border-width: 2px;
+  box-shadow: 0 10px 26px rgba(24, 32, 50, 0.2), 0 0 0 4px rgba(255, 255, 255, 0.48);
   backdrop-filter: blur(12px);
 }
 
 .sportme-split-arrow {
+  pointer-events: none;
   display: flex;
   height: 30px;
   width: 30px;
@@ -616,6 +759,10 @@ body * {
   font-size: 18px;
   line-height: 1;
   transition: background 150ms ease, color 150ms ease;
+}
+
+.sportme-split-divider {
+  touch-action: none;
 }
 
 .sportme-split-arrow:hover {

@@ -74,7 +74,7 @@ const structuredData = [
 
 export default function RootPage() {
   return (
-    <main className="min-h-screen bg-[#f6f1e7] text-[#1f211f]">
+    <main className="min-h-screen bg-[#eef1f5] text-[#1f211f]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <style
         dangerouslySetInnerHTML={{
