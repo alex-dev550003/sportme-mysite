@@ -118,7 +118,7 @@ function ActionRow({ action }: { action: Action }) {
       <span className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-left leading-tight">
         <span className="text-[10px] font-medium tracking-[0.08em] text-[#7a8392]">{action.eyebrow}</span>
         <span className="flex min-w-0 flex-wrap items-center gap-2">
-          <span className="text-[17px] font-medium tracking-normal text-[#182032] sm:text-[19px]">{action.title}</span>
+          <span className="text-[13px] font-medium tracking-normal text-[#182032] sm:text-[19px]">{action.title}</span>
           {action.status ? <StatusPill status={action.status} /> : null}
         </span>
       </span>

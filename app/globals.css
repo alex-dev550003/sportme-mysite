@@ -490,10 +490,15 @@ body * {
 
   .about-audience-section-heading {
     font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
-    font-size: 32px !important;
+    font-size: 36px !important;
     font-weight: 600 !important;
-    line-height: 1.08 !important;
+    line-height: 41.8px !important;
     letter-spacing: 0 !important;
+  }
+
+  .about-audience-section-heading > span {
+    font-size: 32px !important;
+    line-height: 1.08 !important;
   }
 
   .about-audience-section-heading > .accent {
@@ -719,6 +724,21 @@ body * {
   .desktop-manager-badge-label { display: none; }
   .mobile-manager-badge-label { display: inline; }
 
+  .sportme-modern-home::before {
+    inset: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .sportme-modern-home .sportme-manager-title .modern-accent,
+  .sportme-modern-home .sportme-player-title .modern-accent {
+    color: #000000 !important;
+  }
+
+  .sportme-modern-home .sportme-player-features svg [stroke="currentColor"] {
+    stroke-width: 1.8px !important;
+  }
+
   .about-deferred-layout .about-player-description-shell > div:first-child {
     text-align: right;
   }
@@ -732,10 +752,33 @@ body * {
 
   .about-deferred-layout .about-audience-section-heading {
     font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
-    font-size: 28px !important;
+    font-size: clamp(15px, 4.5vw, 26px) !important;
     font-weight: 600 !important;
     line-height: 1.08 !important;
-    letter-spacing: -0.035em !important;
+    letter-spacing: 0 !important;
+  }
+
+  .about-deferred-layout .about-audience-section-heading > span {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  .about-deferred-layout .about-audience-section-heading + p {
+    margin-top: 12px !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+  }
+
+  .about-deferred-layout .about-section-badge {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+  }
+
+  .about-deferred-layout .about-platform-items,
+  .about-deferred-layout .about-platform-published-value {
+    font-size: 13px !important;
+    line-height: 1.35 !important;
   }
 
   .about-deferred-layout > #pentru-administratori,
@@ -764,7 +807,7 @@ body * {
 
   .sportme-language-control {
     z-index: 40 !important;
-    top: calc(env(safe-area-inset-top) + 94px) !important;
+    top: calc(env(safe-area-inset-top) + 82px) !important;
   }
 
   .sportme-modern-home .quickstart-nav {
@@ -818,7 +861,7 @@ body * {
 
   .sportme-split-panel .sportme-audience-title {
     position: absolute;
-    top: 8px;
+    top: 14px;
     z-index: 5;
     max-width: 100% !important;
     margin-top: 0;
@@ -849,7 +892,7 @@ body * {
     z-index: 5;
     width: 50%;
     max-width: none !important;
-    font-size: clamp(9px, 2.35vw, 13px) !important;
+    font-size: 13px !important;
     line-height: 1.35 !important;
   }
 
@@ -882,9 +925,10 @@ body * {
   }
 
   /* Keep both black device edges on the same top and bottom anchors. */
-  .sportme-split-panel .modern-device-frame {
+  .sportme-modern-home .sportme-split-panel .modern-device-frame {
     box-sizing: border-box !important;
     height: var(--mobile-device-height) !important;
+    padding: 3px !important;
   }
 
   .sportme-split-panel .modern-device-frame > div:nth-child(2),
@@ -922,15 +966,21 @@ body * {
   /* The phone image is inside the first child of its device frame. */
   .sportme-split-panel .sportme-player-preview .modern-device-frame > div:first-child {
     position: absolute !important;
-    inset: 6px !important;
+    inset: 3px !important;
     width: auto !important;
     height: auto !important;
+    border-radius: 31px !important;
   }
 
   .sportme-split-panel .sportme-player-preview .modern-device-frame > div:first-child > div:first-child {
     display: flex !important;
     width: 100% !important;
     height: 100% !important;
+    border-radius: 28px !important;
+  }
+
+  .sportme-split-panel .sportme-manager-preview .modern-device-frame > div:nth-child(2) {
+    border-radius: 24px !important;
   }
 
   .sportme-split-panel .sportme-player-preview .modern-device-frame > div:first-child img {
@@ -953,10 +1003,23 @@ body * {
     display: none !important;
   }
 
+  .sportme-split-panel .sportme-preview-arrow {
+    width: 28px !important;
+    height: 28px !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    border-color: rgba(215, 220, 228, 0.9) !important;
+    box-shadow: 0 8px 18px rgba(44, 55, 76, 0.1) !important;
+  }
+
+  .sportme-split-panel .sportme-preview-arrow svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
   .sportme-split-player .sportme-player-features {
     position: absolute !important;
-    top: 132px;
-    right: 12px;
+    top: 116px;
+    right: 5px;
     z-index: 6;
     display: flex !important;
     width: 86px !important;
@@ -974,9 +1037,14 @@ body * {
   }
 
   .sportme-split-player .sportme-player-features .modern-outline-icon {
-    width: 42px !important;
-    height: 42px !important;
+    width: 38px !important;
+    height: 38px !important;
     margin-bottom: 4px !important;
+  }
+
+  .sportme-split-player .sportme-player-features .modern-outline-icon svg {
+    width: 30px !important;
+    height: 30px !important;
   }
 
   .sportme-split-player .sportme-player-features p {
@@ -992,7 +1060,30 @@ body * {
   }
 
   .sportme-split-controls {
-    transform: translateY(-55px);
+    transform: translateY(-65px);
+  }
+
+  .sportme-split-hint {
+    display: block !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .sportme-modern-home .quickstart-nav,
+  .sportme-modern-home .quickstart-nav.is-scrolled {
+    border-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .sportme-modern-home .quickstart-nav.is-scrolled {
+    border-color: rgba(215, 220, 228, 0.92) !important;
+    background: rgba(255, 255, 255, 0.42) !important;
+    box-shadow: 0 18px 42px rgba(44, 55, 76, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
   }
 }
 
@@ -1781,5 +1872,92 @@ body * {
 
 .card-shadow {
   box-shadow: 0 16px 34px rgba(15, 23, 42, 0.24);
+}
+
+.about-pricing-section .pricing-card-title {
+  font-weight: 500 !important;
+}
+
+.about-pricing-section .pricing-card-price {
+  font-size: 1.35rem !important;
+  font-weight: 400 !important;
+}
+
+.about-pricing-section .pricing-card > div.mt-5 {
+  margin-top: 1rem !important;
+}
+
+.about-pricing-section .pricing-highlighted-feature {
+  margin-left: -0.25rem !important;
+  padding-left: 0.25rem !important;
+}
+
+.about-pricing-section .pricing-popular-badge {
+  left: 0 !important;
+  right: 0 !important;
+  width: max-content !important;
+  margin-inline: auto !important;
+  translate: 0 !important;
+  transform: translateY(-50%) !important;
+  padding: 0.25rem 0.75rem !important;
+  font-size: 10px !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  white-space: nowrap;
+}
+
+@media (max-width: 1023px) {
+  .about-pricing-section .pricing-card-row {
+    padding-top: 0.75rem !important;
+    margin-top: -0.75rem !important;
+  }
+
+  .about-pricing-section .pricing-card:has(.pricing-popular-badge) {
+    padding-top: 1.25rem !important;
+  }
+
+  .about-pricing-section .pricing-popular-badge {
+    top: 0 !important;
+    translate: 0 !important;
+    transform: translateY(-50%) !important;
+  }
+}
+
+.public-dark .sportme-site-footer,
+.about-dark-section .sportme-site-footer {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+@media (max-width: 1023px) {
+  /* Keep the mobile floating bar clear until the page actually scrolls. */
+  .sportme-modern-home .quickstart-nav,
+  .sportme-modern-home .quickstart-nav.is-scrolled {
+    border-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .sportme-modern-home .quickstart-nav.is-scrolled {
+    border-color: rgba(215, 220, 228, 0.92) !important;
+    background: rgba(255, 255, 255, 0.42) !important;
+    box-shadow: 0 18px 42px rgba(44, 55, 76, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+  }
+
+  .sportme-modern-home .sportme-language-control {
+    top: calc(env(safe-area-inset-top) + 82px) !important;
+    z-index: 40 !important;
+  }
+
+  .sportme-modern-home .sportme-language-toggle {
+    transform: none !important;
+  }
 }
 

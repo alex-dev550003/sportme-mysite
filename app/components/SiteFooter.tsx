@@ -7,10 +7,10 @@ export function SiteFooter() {
   const { t } = useI18n();
 
   return (
-    <footer className="rounded-[28px] border border-[#d8d1bf] bg-white px-6 py-5 shadow-[0_24px_60px_-40px_rgba(32,33,31,0.6)]">
-      <div className="flex flex-col gap-4 text-sm text-[#5b564b] md:flex-row md:items-center md:justify-between">
+    <footer className="sportme-site-footer rounded-[28px] border border-transparent bg-transparent px-4 py-4 shadow-none md:px-5 md:py-4">
+      <div className="flex flex-col gap-2 text-sm text-[#5b564b] md:flex-row md:items-center md:justify-between">
         <div className="text-xs uppercase tracking-[0.3em] text-[#7a7566]">SportMe</div>
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
           <a className="font-normal text-[#0564ff] no-underline" href="/terms">
             {t("footer.terms")}
           </a>
@@ -32,14 +32,14 @@ export function SiteFooter() {
           </a>
         </div>
       </div>
-      <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[#7a7566] md:mt-5">
+      <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-[#7a7566] md:mt-3">
         <a
           className="inline-flex items-center rounded-lg border border-[#d8d1bf] bg-white px-2 py-1 shadow-sm transition hover:shadow-md"
           href="https://reclamatiisal.anpc.ro/"
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/anpc-sal.png" alt="ANPC SAL" className="h-9 w-auto" />
+          <img src="/anpc-sal.png" alt="ANPC SAL" className="h-8 w-auto" />
         </a>
         <a
           className="inline-flex items-center rounded-lg border border-[#d8d1bf] bg-white px-2 py-1 shadow-sm transition hover:shadow-md"
@@ -47,7 +47,7 @@ export function SiteFooter() {
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/anpc-sol.png" alt="ANPC SOL" className="h-9 w-auto" />
+          <img src="/anpc-sol.png" alt="ANPC SOL" className="h-8 w-auto" />
         </a>
       </div>
     </footer>

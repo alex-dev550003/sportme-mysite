@@ -145,7 +145,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
           type="button"
           onClick={showPrevious}
           aria-label="Previous player screenshot"
-          className="modern-outline-icon absolute left-3 top-1/2 z-30 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border transition sm:h-9 sm:w-9"
+          className="sportme-preview-arrow modern-outline-icon absolute left-3 top-1/2 z-30 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border transition sm:h-9 sm:w-9"
         >
           <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4 sm:h-5 sm:w-5">
             <path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -155,7 +155,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
           type="button"
           onClick={showNext}
           aria-label="Next player screenshot"
-          className="modern-outline-icon absolute right-3 top-1/2 z-30 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border transition sm:h-9 sm:w-9"
+          className="sportme-preview-arrow modern-outline-icon absolute right-3 top-1/2 z-30 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border transition sm:h-9 sm:w-9"
         >
           <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4 sm:h-5 sm:w-5">
             <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -218,7 +218,7 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
           type="button"
           onClick={showPrevious}
           aria-label="Previous manager screenshot"
-          className="modern-outline-icon absolute left-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border transition"
+          className="sportme-preview-arrow modern-outline-icon absolute left-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border transition"
         >
           <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5">
             <path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -228,7 +228,7 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
           type="button"
           onClick={showNext}
           aria-label="Next manager screenshot"
-          className="modern-outline-icon absolute right-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border transition"
+          className="sportme-preview-arrow modern-outline-icon absolute right-4 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border transition"
         >
           <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5">
             <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -471,13 +471,16 @@ export function AboutHero() {
               aria-valuenow={Math.round(splitPosition)}
             >
               <span className="sportme-split-line absolute inset-y-0 left-1/2 w-px -translate-x-1/2" />
-              <span className="sportme-split-controls relative z-10 flex items-center rounded-full border p-1 shadow-lg" aria-hidden="true">
-                <span className="sportme-split-arrow">
-                  <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              <span className="sportme-split-controls relative z-10 flex flex-col items-center rounded-full border p-1 shadow-lg" aria-hidden="true">
+                <span className="flex items-center">
+                  <span className="sportme-split-arrow">
+                    <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </span>
+                  <span className="sportme-split-arrow">
+                    <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5"><path d="m10 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </span>
                 </span>
-                <span className="sportme-split-arrow">
-                  <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5"><path d="m10 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                </span>
+                <span className="sportme-split-hint hidden text-center text-[11px] font-medium leading-[1.05] text-[#182032]/68">Slide</span>
               </span>
             </div>
             <div
@@ -496,7 +499,7 @@ export function AboutHero() {
               <p className="sportme-manager-description modern-muted mt-4 max-w-full text-[15px] leading-6 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[560px] lg:text-[18px] lg:leading-7">
                 {isEnglish
                   ? "Help players and teams track schedules, bookings and changes in one place."
-                : "Ajuta jucatorii/echipele sa urmareasca programul, rezervarile si modificarile intr-un singur loc."}
+                : "Aplicatie administrare baze/locatii sportive"}
               </p>
               <ul className="sportme-manager-benefits modern-muted" aria-label={isEnglish ? "Manager benefits" : "Beneficii pentru manageri"}>
                 {(isEnglish
@@ -552,7 +555,7 @@ export function AboutHero() {
                 <span className="block whitespace-nowrap"><span className="modern-accent">{isEnglish ? "SportMe Player" : "SportMe Jucator"}</span></span>
               </h2>
               <p className="sportme-player-description modern-muted mt-4 max-w-full text-[15px] leading-6 sm:mt-5 sm:max-w-[640px] sm:text-xl sm:leading-8 lg:max-w-[430px] lg:text-[18px] lg:leading-7">
-                {isEnglish ? "Check availability and book sports courts in a few seconds." : "Verifica disponibilitatea si rezerva terenuri sportive in cateva secunde."}
+                {isEnglish ? "Check availability and book sports courts in a few seconds." : "Aplicatie jucatori rezervare online a locatiilor sportive"}
               </p>
               <ul className="sportme-player-benefits modern-muted" aria-label={isEnglish ? "Player benefits" : "Beneficii pentru jucatori"}>
                 {(isEnglish
