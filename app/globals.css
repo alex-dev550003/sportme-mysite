@@ -1906,6 +1906,39 @@ body * {
   white-space: nowrap;
 }
 
+/* Match the manager sign-out modal surface without changing access-modal content. */
+.about-dark-section .manager-access-modal {
+  border: 1px solid rgba(215, 218, 223, 0.55) !important;
+  border-radius: 24px !important;
+  background: #e6e8eb !important;
+  box-shadow: 0 22px 54px rgba(17, 24, 39, 0.12) !important;
+}
+
+.manager-access-modal {
+  border: 1px solid rgba(215, 218, 223, 0.55) !important;
+  border-radius: 24px !important;
+  background: #e6e8eb !important;
+  box-shadow: 0 22px 54px rgba(17, 24, 39, 0.12) !important;
+}
+
+.about-dark-section .manager-access-modal .manager-access-action {
+  border-color: #d8d5c8 !important;
+  border-radius: 1rem !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.about-dark-section .manager-access-modal .manager-access-action:hover {
+  background: #f8fafc !important;
+}
+
+.about-dark-section .manager-access-modal .manager-access-close {
+  border-color: #d8d5c8 !important;
+  background: #ffffff !important;
+  color: #111827 !important;
+  box-shadow: 0 2px 6px rgba(24, 32, 50, 0.08) !important;
+}
+
 @media (max-width: 1023px) {
   .about-pricing-section .pricing-card-row {
     padding-top: 0.75rem !important;

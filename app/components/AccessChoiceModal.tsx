@@ -129,7 +129,7 @@ function ActionRow({ action }: { action: Action }) {
   );
 
   const className =
-    "group flex min-h-[60px] w-full items-center gap-3 rounded-[18px] border border-[#c9d8e9] bg-white/80 px-3 py-2.5 text-[#182032] shadow-[0_5px_14px_rgba(44,55,76,0.06)] transition hover:-translate-y-0.5 hover:border-[#8fb5e7] hover:shadow-[0_10px_22px_rgba(44,55,76,0.1)]";
+    "manager-access-action group flex min-h-[60px] w-full items-center gap-3 rounded-2xl border border-[#d8d5c8] bg-white px-3 py-2.5 text-[#182032] shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md";
 
   if (action.disabled || !action.href) {
     return <div className={`${className} cursor-not-allowed opacity-70`}>{content}</div>;
@@ -144,16 +144,16 @@ function ActionRow({ action }: { action: Action }) {
 
 export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, sections }: Props) {
   return (
-    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-[#111827]/78 px-4 py-4 font-sans backdrop-blur-[4px]" onClick={onClose} role="dialog" aria-modal="true">
+    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/35 px-4 py-4 font-sans backdrop-blur-[2px]" onClick={onClose} role="dialog" aria-modal="true">
       <div
-        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-[20px] border border-[#e1e3e7] bg-[#e5e7eb] px-4 py-5 text-[#182032] shadow-[0_22px_60px_rgba(0,0,0,0.28)] sm:px-6 sm:py-6"
+        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-2xl bg-white p-6 text-[#182032] shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#d2dce9] bg-white text-[#182032] shadow-[0_2px_6px_rgba(24,32,50,0.08)] transition hover:bg-[#f8fbff] sm:right-5 sm:top-5"
+          className="manager-access-close absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#d8d5c8] bg-white text-[#111827] shadow-sm transition hover:bg-slate-50 sm:right-5 sm:top-5"
         >
           <CloseIcon />
         </button>
