@@ -428,7 +428,7 @@ export function AboutHero() {
               <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{isEnglish ? "Pricing" : "Prețuri"}</a>
             </div>
             <div className="ml-auto flex shrink-0 items-center gap-1.5 lg:ml-0">
-              <button type="button" onClick={() => setShowProductChoiceModal(true)} className="modern-primary inline-flex h-7 items-center rounded-[8px] px-2.5 py-0 text-[13px] font-normal leading-[19.5px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{isEnglish ? "Start for free" : "Începe gratuit"}</button>
+              <button type="button" onClick={() => setShowProductChoiceModal(true)} className="modern-primary inline-flex h-8 items-center rounded-full px-3.5 py-0 text-[13px] font-normal leading-[19.5px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{isEnglish ? "Start for free" : "Creaza cont gratuit"}</button>
             </div>
             <button
               type="button"
