@@ -1,11 +1,92 @@
 @import "tailwindcss";
 /* stylelint-disable at-rule-no-unknown */
 
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-ext-300-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-300-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-ext-500-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-ext-600-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-600-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-ext-700-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-700-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-geist: "Geist";
-  --font-sans: "Geist Variable", var(--font-geist), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-urbanist: "Urbanist";
+  --font-sans: var(--font-urbanist), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --app-safe-top: env(safe-area-inset-top);
   --app-safe-bottom: env(safe-area-inset-bottom);
   --sport-pattern: url("https://app.sportme.ro/patterns/pattern-sportmev3.svg");
@@ -76,7 +157,7 @@ html {
 body {
   color: var(--text);
   background: #eef1f5;
-  font-family: "Geist Variable", var(--font-geist), var(--font-sans) !important;
+  font-family: var(--font-urbanist), var(--font-sans) !important;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   font-size: 13px;
@@ -89,17 +170,17 @@ button,
 input,
 textarea,
 select {
-  font-family: "Geist Variable", var(--font-geist), var(--font-sans) !important;
+  font-family: var(--font-urbanist), var(--font-sans) !important;
 }
 
 body * {
-  font-family: "Geist Variable", var(--font-geist), var(--font-sans) !important;
+  font-family: var(--font-urbanist), var(--font-sans) !important;
 }
 
 .font-sans,
 .manager-access-modal,
 .manager-access-modal * {
-  font-family: "Geist Variable", var(--font-geist), var(--font-sans) !important;
+  font-family: var(--font-urbanist), var(--font-sans) !important;
 }
 
 
@@ -159,7 +240,7 @@ body * {
     radial-gradient(circle at 78% 5%, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0) 31%),
     linear-gradient(135deg, #9ea9bc 0%, #e4e7ec 18%, #dfe3ea 52%, #f0f2f5 100%);
   color: #182032;
-  font-family: "Geist Variable", var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
   overflow: visible !important;
 }
 
@@ -261,7 +342,7 @@ body * {
     linear-gradient(135deg, rgba(238, 244, 250, 0.98) 0%, rgba(218, 228, 239, 0.94) 62%, rgba(200, 213, 228, 0.9) 100%) !important;
   background-size: auto, auto, auto;
   color: #182032 !important;
-  font-family: "Geist Variable", var(--font-geist), ui-sans-serif, system-ui, sans-serif !important;
+  font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif !important;
   box-shadow: 0 18px 42px rgba(44, 55, 76, 0.17), inset 0 1px 0 rgba(255, 255, 255, 0.88) !important;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -276,13 +357,13 @@ body * {
   background: #0d64d8;
   color: #ffffff;
   box-shadow: 0 12px 26px rgba(13, 100, 216, 0.24);
-  font-family: "Geist Variable", var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
   font-weight: 550;
   letter-spacing: 0;
 }
 
 .modern-section-heading {
-  font-family: "Geist Variable", var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
   font-weight: 500 !important;
   letter-spacing: 0;
   color: #182032;
@@ -417,6 +498,26 @@ body * {
   color: #182032 !important;
 }
 
+.sportme-sidebar-brand {
+  gap: 6px !important;
+}
+
+.sportme-sidebar-wordmark {
+  display: inline;
+  color: #4b4f58;
+  font-family: var(--font-roboto), Roboto, Arial, sans-serif !important;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.sportme-sidebar-wordmark-me {
+  color: #1464ea;
+  font-size: 1.07em;
+}
+
 .sportme-wordmark {
   display: inline-flex;
   align-items: center;
@@ -490,7 +591,7 @@ body * {
   }
 
   .about-audience-section-heading {
-    font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
+    font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif !important;
     font-size: 36px !important;
     font-weight: 600 !important;
     line-height: 41.8px !important;
@@ -579,7 +680,7 @@ body * {
   }
 
   .sportme-audience-title {
-    font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
+    font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif !important;
     font-size: 36px !important;
     font-weight: 600 !important;
     line-height: 41.8px !important;
@@ -752,7 +853,7 @@ body * {
   }
 
   .about-deferred-layout .about-audience-section-heading {
-    font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
+    font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif !important;
     font-size: clamp(15px, 4.5vw, 26px) !important;
     font-weight: 600 !important;
     line-height: 1.08 !important;
@@ -866,7 +967,7 @@ body * {
     z-index: 5;
     max-width: 100% !important;
     margin-top: 0;
-    font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif !important;
+    font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif !important;
     font-size: clamp(15px, 4.5vw, 26px) !important;
     font-weight: 600 !important;
     line-height: 1.08 !important;
@@ -970,18 +1071,18 @@ body * {
     inset: 3px !important;
     width: auto !important;
     height: auto !important;
-    border-radius: 31px !important;
+    border-radius: 25px !important;
   }
 
   .sportme-split-panel .sportme-player-preview .modern-device-frame > div:first-child > div:first-child {
     display: flex !important;
     width: 100% !important;
     height: 100% !important;
-    border-radius: 28px !important;
+    border-radius: 22px !important;
   }
 
   .sportme-split-panel .sportme-manager-preview .modern-device-frame > div:nth-child(2) {
-    border-radius: 24px !important;
+    border-radius: 18px !important;
   }
 
   .sportme-split-panel .sportme-player-preview .modern-device-frame > div:first-child img {
@@ -1100,6 +1201,10 @@ body * {
   .sportme-split-stage {
     max-width: 1200px;
     margin-inline: auto;
+    container-type: inline-size;
+    /* Match the phone frame to the scaled tablet frame at every stage width. */
+    --tablet-frame-width: min(760px, 63cqw);
+    --phone-frame-width: calc(10.384px + var(--tablet-frame-width) * 0.304407);
   }
 
   .sportme-split-stage {
@@ -1122,7 +1227,7 @@ body * {
   }
 
   .sportme-manager-preview {
-    width: min(760px, 63%);
+    width: var(--tablet-frame-width);
     max-width: none !important;
     margin-inline: auto;
     animation: none !important;
@@ -1135,17 +1240,17 @@ body * {
   }
 
   .sportme-player-preview {
-    width: 217px;
+    width: var(--phone-frame-width);
     left: calc(50% + 45px) !important;
     right: auto !important;
-    margin-left: -108.5px !important;
+    margin-left: calc(var(--phone-frame-width) / -2) !important;
     top: 108px !important;
     animation: none !important;
     transform: translateY(-28px) !important;
   }
 
   .sportme-player-preview .modern-device-frame {
-    width: 217px !important;
+    width: var(--phone-frame-width) !important;
   }
 
   .sportme-player-preview .modern-soft-card {
@@ -1678,7 +1783,7 @@ body * {
 .public-dark {
   background: #eef1f5 !important;
   color: #182032 !important;
-  font-family: "Geist Variable", var(--font-geist), var(--font-sans) !important;
+  font-family: var(--font-urbanist), var(--font-sans) !important;
 }
 
 .public-dark .quickstart-nav {

@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Providers } from "./providers";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
-
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -71,7 +65,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const bodyClassName = `${geist.className} ${geist.variable} ${roboto.variable} antialiased`;
+  const bodyClassName = `${roboto.variable} antialiased`;
 
   return (
     <html lang="ro">
@@ -97,7 +91,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={bodyClassName} style={{ fontFamily: '"Geist Variable", var(--font-geist), ui-sans-serif, system-ui, sans-serif' }}>
+      <body className={bodyClassName} style={{ fontFamily: 'var(--font-urbanist), ui-sans-serif, system-ui, sans-serif' }}>
         <GoogleAnalytics />
         <Providers>
           <main className="min-h-screen">{children}</main>

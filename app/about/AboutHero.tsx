@@ -122,8 +122,8 @@ function AppHomePreview({ className = "" }: { className?: string }) {
         <span className="modern-muted block text-[7px] font-semibold uppercase tracking-normal sm:text-[8px] lg:text-[9px]">Browse</span>
         <span className="mt-0.5 block whitespace-nowrap text-[10px] font-semibold text-[#182032] sm:text-[11px] lg:text-[13px]">All Locations</span>
       </div>
-      <div className="modern-device-frame relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[34px] border p-1.5 sm:w-[238px] lg:w-[min(120px,8vw)] xl:w-[130px] 2xl:w-[140px]">
-        <div className="relative overflow-hidden rounded-[28px] bg-[#eef2f8]">
+      <div className="modern-device-frame relative mx-auto w-[min(215px,48vw)] overflow-hidden rounded-[28px] border p-1.5 sm:w-[238px] lg:w-[min(120px,8vw)] xl:w-[130px] 2xl:w-[140px]">
+        <div className="relative overflow-hidden rounded-[22px] bg-[#eef2f8]">
           <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
             {slides.map((slide) => (
               <Image
@@ -139,7 +139,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
               />
             ))}
           </div>
-          <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/18" />
+          <div className="pointer-events-none absolute inset-0 rounded-[22px] ring-1 ring-inset ring-white/18" />
         </div>
         <button
           type="button"
@@ -168,7 +168,7 @@ function AppHomePreview({ className = "" }: { className?: string }) {
 
 function ManagerTabletPreview({ className = "" }: { className?: string }) {
   const slides = [
-    "/home/sportme-manager-tablet-preview.png",
+    "/manager-dashboard.png",
     "/home/sportme-manager-bookings-preview.png",
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -194,9 +194,9 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
         <span className="modern-muted block text-[9px] font-semibold uppercase tracking-normal">Bookings</span>
         <span className="mt-0.5 block whitespace-nowrap text-[13px] font-semibold text-[#182032]">Statistics</span>
       </div>
-      <div className="modern-device-frame relative w-full overflow-hidden rounded-[28px] border p-2">
+      <div className="modern-device-frame relative w-full overflow-hidden rounded-[22px] border p-2">
         <div className="absolute left-1/2 top-1 h-1 w-12 -translate-x-1/2 rounded-full bg-white/16" />
-        <div className="overflow-hidden rounded-[20px] bg-[#e8eef6]">
+        <div className="overflow-hidden rounded-[16px] bg-[#e8eef6]">
           <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
             {slides.map((slide) => (
               <Image
@@ -213,7 +213,7 @@ function ManagerTabletPreview({ className = "" }: { className?: string }) {
             ))}
           </div>
         </div>
-        <div className="pointer-events-none absolute inset-2 rounded-[20px] ring-1 ring-inset ring-white/12" />
+        <div className="pointer-events-none absolute inset-2 rounded-[16px] ring-1 ring-inset ring-white/12" />
         <button
           type="button"
           onClick={showPrevious}
@@ -418,9 +418,9 @@ export function AboutHero() {
             {showHeroMenu ? renderMenu() : null}
           </div>
           <nav className={`quickstart-nav modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5`} aria-label="Navigare principală">
-            <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-medium tracking-normal text-[#182032] sm:px-3 sm:text-[18px]">
-              <img src="/logo-512.png" alt="" className="h-7 w-7 rounded-[8px] sm:h-8 sm:w-8" />
-              <span>SportMe app</span>
+            <a href="/" className="sportme-sidebar-brand flex shrink-0 items-center gap-1.5 rounded-[10px] px-2 py-1.5 sm:px-3" aria-label="SportMe">
+              <img src="/logo-512.png" alt="" className="h-[22px] w-[22px] rounded-[6px]" />
+              <span className="sportme-sidebar-wordmark"><span>sport</span><span className="sportme-sidebar-wordmark-me">me</span></span>
             </a>
             <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
               <a href="#sectiunea-2" onClick={(event) => scrollToAudienceSection(event, "sectiunea-2")} className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{isEnglish ? "Venue software / Players" : "Software baze sportive / Jucători"}</a>
