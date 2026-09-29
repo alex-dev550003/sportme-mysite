@@ -57,7 +57,7 @@ Manageri/baze sportive:
 - Premium STARTER costa 8,90 EUR/luna si este potrivit pentru baze mici.
 - Premium PRO costa 14,90 EUR/luna si este potrivit pentru baze cu mai multe zone sportive.
 - Pentru pana la 2 terenuri sau zone sportive se aplica abonamentul Premium STARTER (8,90 EUR/luna); pentru mai mult de 2 terenuri sau zone sportive se aplica Premium PRO (14,90 EUR/luna).
-- Exista trial gratuit de 90 zile pentru Premium, daca eligibilitatea contului permite.
+- Exista trial gratuit de 30 zile pentru Premium, daca eligibilitatea contului permite.
 
 Canale si contact:
 - Utilizatorul poate intreba despre Facebook, Instagram, WhatsApp sau chat-ul de pe site.

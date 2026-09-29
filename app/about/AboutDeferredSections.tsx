@@ -189,8 +189,8 @@ export default function AboutDeferredSections() {
               </h2>
               <p className="max-w-3xl text-base leading-7 text-[#5b6678]">
                 {isEnglish
-                  ? "You can test all features free for 90 days and see if the platform fits your sports venue. Afterwards, it can be used free of charge with no time limit for one location."
-                  : <>90 de zile gratuite pentru testare dacă platforma se potrivește bazei dvs. sportive.<br />Ulterior, poate fi folosită gratuit, fără limită de timp pentru o singură locație.</>}
+                  ? "You can test all features free for 30 days and see if the platform fits your sports venue. Afterwards, it can be used free of charge with no time limit for one location."
+                  : <>30 de zile gratuite pentru testare dacă platforma se potrivește bazei dvs. sportive.<br />Ulterior, poate fi folosită gratuit, fără limită de timp pentru o singură locație.</>}
               </p>
             </div>
             <div className="pricing-card-row relative flex snap-x snap-mandatory items-stretch gap-2 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
@@ -294,7 +294,7 @@ export default function AboutDeferredSections() {
             >
               <span>
                 <span className="block">Deschide dashboard Manager</span>
-                <span className="mt-0.5 block font-normal text-white/78">(primele 90 zile gratuit)</span>
+                <span className="mt-0.5 block font-normal text-white/78">(primele 30 zile gratuit)</span>
               </span>
               <span className="absolute right-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:right-4 sm:h-11 sm:w-11">
                 <AccessArrowIcon />
