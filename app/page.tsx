@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { AboutDeferredLoader } from "./about/AboutDeferredLoader";
 import { AboutHero } from "./about/AboutHero";
 
@@ -72,7 +74,25 @@ const structuredData = [
   },
 ];
 
+const showcaseImagePaths = [
+  "/app-showcase/manager/01-dashboard.jpg",
+  "/app-showcase/manager/02-rezervari.jpg",
+  "/app-showcase/manager/03-terenuri.jpg",
+  "/app-showcase/manager/04-rezervarenoua.jpg",
+  "/app-showcase/manager/05-rezervareasteptare.jpg",
+  "/app-showcase/manager/06-angajati.jpg",
+  "/app-showcase/manager/06-notificari.jpg",
+  "/app-showcase/player/01-home.jpg",
+  "/app-showcase/player/02-locatii.jpg",
+  "/app-showcase/player/03-rezervare.jpg",
+  "/app-showcase/player/04-harta.jpg",
+];
+
 export default function RootPage() {
+  const availableShowcaseImages = showcaseImagePaths.filter((imagePath) =>
+    existsSync(join(process.cwd(), "public", imagePath.slice(1)))
+  );
+
   return (
     <main className="min-h-screen bg-[#eef1f5] text-[#1f211f]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
@@ -114,8 +134,9 @@ export default function RootPage() {
         }
         .about-dark-section {
           background:
-            radial-gradient(circle at 13% 8%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0) 30%),
-            linear-gradient(180deg, #e9edf3 0%, #dfe5ec 48%, #ebeff4 100%);
+            radial-gradient(circle at 84% 10%, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 28%),
+            radial-gradient(circle at 7% 42%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 26%),
+            linear-gradient(180deg, #f5f6f8 0%, #eceff3 48%, #f3f4f6 100%);
           color: #182032;
           font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
         }
@@ -275,7 +296,7 @@ export default function RootPage() {
         }}
       />
       <div className="relative overflow-hidden">
-        <AboutHero />
+        <AboutHero availableShowcaseImages={availableShowcaseImages} />
         <AboutDeferredLoader />
       </div>
     </main>

@@ -4,6 +4,10 @@ import { NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  if (pathname.startsWith("/app-showcase/")) {
+    return NextResponse.next();
+  }
+
   if (pathname.startsWith("/app")) {
     return NextResponse.redirect(new URL(pathname, "https://app.sportme.ro"));
   }
