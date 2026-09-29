@@ -19,7 +19,16 @@ function ShowcaseImage({ slide, label, priority, available }: { slide: Slide; la
           <small>{slide.src.split("/").pop()}</small>
         </div>
       ) : (
-        <Image src={slide.src} alt={slide.alt} fill sizes="(max-width: 767px) 84vw, 430px" priority={priority} className="object-contain" onError={() => setFailed(true)} />
+        <Image
+          src={slide.src}
+          alt={slide.alt}
+          fill
+          sizes="(max-width: 405px) 51vw, (max-width: 767px) 207px, 320px"
+          quality={95}
+          priority={priority}
+          className="object-contain"
+          onError={() => setFailed(true)}
+        />
       )}
     </div>
   );
