@@ -197,7 +197,7 @@ export default function AboutDeferredSections() {
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc((100% - 40px) / 3 - 12px)" }} />
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc(((100% - 40px) / 3) * 2 + 8px)" }} />
               <div className="pricing-card relative flex min-w-[270px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-5 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
-                <div className="pricing-popular-badge absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full bg-[#0564ff] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.06em] !text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
+                <div className="pricing-popular-badge absolute left-1/2 top-0 inline-flex items-center rounded-full bg-[#0564ff] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.06em] !text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
                   MOST POPULAR
                 </div>
                 <h4 className="pricing-card-title text-xl font-medium text-white">Freemium</h4>
