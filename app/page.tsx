@@ -84,8 +84,10 @@ const showcaseImagePaths = [
   "/app-showcase/manager/06-notificari.jpg",
   "/app-showcase/player/01-home.jpg",
   "/app-showcase/player/02-locatii.jpg",
-  "/app-showcase/player/03-rezervare.jpg",
-  "/app-showcase/player/04-harta.jpg",
+  "/app-showcase/player/03-rezervari.jpg",
+  "/app-showcase/player/04-notificari.jpg",
+  "/app-showcase/player/05-harta.jpg",
+  "/app-showcase/player/06-profile.jpg",
 ];
 
 export default function RootPage() {
@@ -133,10 +135,7 @@ export default function RootPage() {
           }
         }
         .about-dark-section {
-          background:
-            radial-gradient(circle at 84% 10%, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 28%),
-            radial-gradient(circle at 7% 42%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 26%),
-            linear-gradient(180deg, #f5f6f8 0%, #eceff3 48%, #f3f4f6 100%);
+          background: transparent;
           color: #182032;
           font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
         }
@@ -295,7 +294,7 @@ export default function RootPage() {
       `,
         }}
       />
-      <div className="relative overflow-hidden">
+      <div className="sportme-home-backdrop relative overflow-hidden">
         <AboutHero availableShowcaseImages={availableShowcaseImages} />
         <AboutDeferredLoader />
       </div>

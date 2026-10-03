@@ -2142,23 +2142,27 @@ body * {
 }
 
 /* Homepage app showcase */
+.sportme-home-backdrop {
+  background:
+    linear-gradient(132deg, transparent 0 23%, rgba(255, 255, 255, 0.38) 23% 35%, transparent 35% 67%, rgba(255, 255, 255, 0.32) 67% 79%, transparent 79%),
+    radial-gradient(ellipse at 12% 29%, rgba(219, 223, 230, 0.46) 0 12%, transparent 12.4%),
+    radial-gradient(ellipse at 88% 20%, rgba(255, 255, 255, 0.52) 0 15%, transparent 15.4%),
+    radial-gradient(circle at 84% 5%, rgba(255, 255, 255, 0.88), transparent 27%),
+    radial-gradient(circle at 4% 20%, rgba(255, 255, 255, 0.58), transparent 25%),
+    linear-gradient(145deg, #f3f4f6 0%, #eceff3 53%, #f5f6f8 100%);
+}
+
 .sportme-modern-home.app-showcase-hero {
   min-height: auto !important;
   overflow: hidden !important;
-  background:
-    radial-gradient(circle at 84% 9%, rgba(255, 255, 255, 0.88), transparent 27%),
-    radial-gradient(circle at 4% 39%, rgba(255, 255, 255, 0.58), transparent 25%),
-    linear-gradient(145deg, #f3f4f6 0%, #eceff3 53%, #f5f6f8 100%);
+  background: transparent;
 }
 
 .sportme-modern-home.app-showcase-hero::before {
   inset: 0;
   border: 0;
   border-radius: 0;
-  background:
-    linear-gradient(132deg, transparent 0 66%, rgba(255, 255, 255, 0.38) 66% 78%, transparent 78%),
-    radial-gradient(ellipse at 12% 72%, rgba(219, 223, 230, 0.46) 0 12%, transparent 12.4%),
-    radial-gradient(ellipse at 88% 48%, rgba(255, 255, 255, 0.52) 0 15%, transparent 15.4%);
+  background: none;
   box-shadow: none;
   pointer-events: none;
 }

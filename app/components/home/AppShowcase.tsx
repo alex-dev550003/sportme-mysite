@@ -32,8 +32,10 @@ const showcase = {
     slides: [
       { src: "/app-showcase/player/01-home.jpg", alt: "Pagina principală SportMe Jucător" },
       { src: "/app-showcase/player/02-locatii.jpg", alt: "Locații în SportMe Jucător" },
-      { src: "/app-showcase/player/03-rezervare.jpg", alt: "Rezervare în SportMe Jucător" },
-      { src: "/app-showcase/player/04-harta.jpg", alt: "Harta locațiilor în SportMe Jucător" },
+      { src: "/app-showcase/player/03-rezervari.jpg", alt: "Rezervări în SportMe Jucător" },
+      { src: "/app-showcase/player/04-notificari.jpg", alt: "Notificări în SportMe Jucător" },
+      { src: "/app-showcase/player/05-harta.jpg", alt: "Harta locațiilor în SportMe Jucător" },
+      { src: "/app-showcase/player/06-profile.jpg", alt: "Profil în SportMe Jucător" },
     ],
   },
 } satisfies Record<ShowcaseMode, { eyebrow: Record<Language, string>; title: Record<Language, string[]>; subtitle: Record<Language, string>; cta: Record<Language, string>; slides: { src: string; alt: string }[] }>;
