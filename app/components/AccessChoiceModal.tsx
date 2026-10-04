@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { openExternal } from "../utils/openExternal";
 
 type Action = {
@@ -16,6 +17,7 @@ type Action = {
 
 type Section = {
   label: string;
+  description: string;
   icon: "desktop" | "mobile";
   actions: Action[];
 };
@@ -25,12 +27,13 @@ type Props = {
   logoSrc: string;
   title: string;
   subtitle: string;
+  closeLabel: string;
   sections: Section[];
 };
 
 function WebIcon({ className = "h-7 w-7" }: { className?: string }) {
   return (
-    <svg aria-hidden viewBox="0 0 24 24" className={`${className} shrink-0 text-[#1877f2]`} fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg aria-hidden viewBox="0 0 24 24" className={`${className} shrink-0 text-[#ff5000]`} fill="none" stroke="currentColor" strokeWidth="1.8">
       <circle cx="12" cy="12" r="9" />
       <path d="M3.6 9h16.8M3.6 15h16.8M12 3c2.2 2.4 3.2 5.4 3.2 9S14.2 18.6 12 21M12 3C9.8 5.4 8.8 8.4 8.8 12s1 6.6 3.2 9" />
     </svg>
@@ -59,7 +62,7 @@ function AppleStoreIcon() {
 function DeviceIcon({ type }: { type: Section["icon"] }) {
   if (type === "desktop") {
     return (
-      <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="1.9">
+      <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 text-[#ff5000]" fill="none" stroke="currentColor" strokeWidth="1.9">
         <rect x="4" y="5" width="16" height="11" rx="1.7" />
         <path d="M9 20h6M12 16v4" />
       </svg>
@@ -67,7 +70,7 @@ function DeviceIcon({ type }: { type: Section["icon"] }) {
   }
 
   return (
-    <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="1.9">
+    <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="1.9">
       <rect x="8" y="3" width="8" height="18" rx="2" />
       <path d="M11 18h2" />
     </svg>
@@ -76,7 +79,7 @@ function DeviceIcon({ type }: { type: Section["icon"] }) {
 
 function ArrowIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
-    <svg aria-hidden viewBox="0 0 24 24" className={`${className} shrink-0 text-[#1877f2]`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden viewBox="0 0 24 24" className={`${className} shrink-0`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M5 12h14M13 5l7 7-7 7" />
     </svg>
   );
@@ -112,24 +115,24 @@ function StatusPill({ status }: { status: NonNullable<Action["status"]> }) {
 function ActionRow({ action }: { action: Action }) {
   const content = (
     <>
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#eef6ff]">
+      <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[13px] ${action.icon === "web" ? "bg-[#fff0e7]" : "bg-[#eef4fb]"}`}>
         <ActionIcon icon={action.icon} />
       </span>
       <span className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-left leading-tight">
-        <span className="text-[10px] font-medium tracking-[0.08em] text-[#7a8392]">{action.eyebrow}</span>
+        <span className="text-[11px] font-normal text-[#7a8392]">{action.eyebrow}</span>
         <span className="flex min-w-0 flex-wrap items-center gap-2">
-          <span className="text-[13px] font-medium tracking-normal text-[#182032] sm:text-[19px]">{action.title}</span>
+          <span className="text-[16px] font-medium tracking-normal text-[#182032] sm:text-[18px]">{action.title}</span>
           {action.status ? <StatusPill status={action.status} /> : null}
         </span>
       </span>
-      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#eef6ff] transition group-hover:bg-[#dbeeff]">
+      <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition ${action.disabled ? "bg-[#eef1f5] text-[#9aa4b2]" : "bg-[#fff0e7] text-[#ff5000] group-hover:bg-[#ff5000] group-hover:text-white"}`}>
         <ArrowIcon />
       </span>
     </>
   );
 
   const className =
-    "manager-access-action group flex min-h-[60px] w-full items-center gap-3 rounded-2xl border border-[#d8d5c8] bg-white px-3 py-2.5 text-[#182032] shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md";
+    "manager-access-action group flex min-h-[68px] w-full items-center gap-3 rounded-[17px] border border-[#dce2e9] bg-white px-3 py-2.5 text-[#182032] shadow-[0_5px_14px_rgba(39,51,71,0.07)] transition hover:-translate-y-0.5 hover:border-[#ffb99a] hover:shadow-[0_9px_20px_rgba(255,80,0,0.1)]";
 
   if (action.disabled || !action.href) {
     return <div className={`${className} cursor-not-allowed opacity-70`}>{content}</div>;
@@ -142,42 +145,47 @@ function ActionRow({ action }: { action: Action }) {
   );
 }
 
-export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, sections }: Props) {
+export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, closeLabel, sections }: Props) {
   return (
-    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/35 px-4 py-4 font-sans backdrop-blur-[2px]" onClick={onClose} role="dialog" aria-modal="true">
+    <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-[#111827]/70 px-4 py-4 font-sans backdrop-blur-[6px]" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="access-choice-title">
       <div
-        className="manager-access-modal relative z-[1000] w-full max-w-[452px] rounded-2xl bg-white p-6 text-[#182032] shadow-2xl"
+        className="manager-access-modal sportme-access-modal relative z-[1000] max-h-[calc(100dvh-24px)] w-full max-w-[480px] overflow-y-auto rounded-[28px] p-5 text-[#182032] shadow-[0_30px_80px_rgba(12,22,39,0.28)] sm:p-6"
         onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close"
-          className="manager-access-close absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#d8d5c8] bg-white text-[#111827] shadow-sm transition hover:bg-slate-50 sm:right-5 sm:top-5"
+          aria-label={closeLabel}
+          className="manager-access-close absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d5dce6] bg-white text-[#182032] shadow-sm transition hover:bg-[#fff3ec] sm:right-5 sm:top-5"
         >
           <CloseIcon />
         </button>
 
-        <div className="flex flex-col items-center gap-2 text-center">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[11px] bg-white shadow-[0_10px_24px_rgba(24,119,242,0.18)] sm:h-12 sm:w-12">
-            <img src={logoSrc} alt="" className="h-full w-full object-cover" />
+        <div className="flex flex-col items-center text-center">
+          <span className="flex h-13 w-13 shrink-0 items-center justify-center overflow-hidden rounded-[15px] bg-white p-1 shadow-[0_10px_24px_rgba(44,55,76,0.16)] sm:h-14 sm:w-14">
+            <Image src={logoSrc} alt="" width={48} height={48} className="h-full w-full rounded-[11px] object-cover" />
           </span>
-          <div>
-            <p className="text-[21px] font-medium leading-tight tracking-[-0.02em] text-[#182032] sm:text-[25px]">{title}</p>
-            <p className="mx-auto mt-1 max-w-[292px] text-[12px] font-normal leading-[1.3] text-[#667184] sm:text-[13px]">{subtitle}</p>
+          <div className="mt-2.5">
+            <p className="sportme-access-eyebrow text-[10px] font-semibold uppercase tracking-[0.2em] text-[#ff5000]">SportMe</p>
+            <h2 id="access-choice-title" className="mt-1 text-[25px] font-normal leading-tight tracking-[-0.025em] text-[#182032] sm:text-[28px]">{title}</h2>
+            <p className="sportme-access-muted mx-auto mt-1.5 max-w-[330px] text-[13px] font-normal leading-[1.35] text-[#667184] sm:text-[14px]">{subtitle}</p>
           </div>
         </div>
 
-        <div className="mt-4 space-y-3.5">
+        <div className="mt-5 space-y-3">
           {sections.map((section, index) => (
-            <section key={section.label} className={index > 0 ? "border-t border-[#dce1e9] pt-3.5" : ""}>
-              <div className="mb-2 flex items-center gap-2.5">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e6f2ff]">
+            <section key={section.label} className={`rounded-[21px] border p-3.5 sm:p-4 ${section.icon === "desktop" ? "border-[#ffd4bf] bg-[#fff5ee]" : "border-[#d9e1eb] bg-[#f1f4f8]"}`}>
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] bg-white shadow-[0_2px_7px_rgba(24,32,50,0.06)]">
                   <DeviceIcon type={section.icon} />
                 </span>
-                <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#242936]">{section.label}</p>
+                <div className="min-w-0 flex-1 text-left">
+                  <h3 className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#242936]">{section.label}</h3>
+                  <p className="sportme-access-muted mt-0.5 text-[11px] leading-[1.2] text-[#68758a] sm:text-[12px]">{section.description}</p>
+                </div>
+                <span className="text-[11px] font-medium text-[#a4adba]">0{index + 1}</span>
               </div>
-              <div className="space-y-2">
+              <div className="mt-3 space-y-2">
                 {section.actions.map((action) => (
                   <ActionRow key={`${section.label}-${action.title}`} action={action} />
                 ))}

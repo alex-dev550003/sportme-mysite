@@ -2050,6 +2050,14 @@ body * {
   box-shadow: 0 22px 54px rgba(17, 24, 39, 0.12) !important;
 }
 
+.manager-access-modal.sportme-access-modal,
+.about-dark-section .manager-access-modal.sportme-access-modal {
+  border-color: rgba(255, 255, 255, 0.82) !important;
+  border-radius: 28px !important;
+  background: linear-gradient(155deg, #f3f5f8 0%, #e5e9ef 100%) !important;
+  box-shadow: 0 30px 80px rgba(12, 22, 39, 0.28) !important;
+}
+
 .about-dark-section .manager-access-modal .manager-access-action {
   border-color: #d8d5c8 !important;
   border-radius: 1rem !important;
@@ -2066,6 +2074,25 @@ body * {
   background: #ffffff !important;
   color: #111827 !important;
   box-shadow: 0 2px 6px rgba(24, 32, 50, 0.08) !important;
+}
+
+.about-dark-section .manager-access-modal.sportme-access-modal .sportme-access-eyebrow {
+  color: #ff5000 !important;
+}
+
+.about-dark-section .manager-access-modal.sportme-access-modal .sportme-access-muted {
+  color: #667184 !important;
+}
+
+.about-dark-section .manager-access-modal.sportme-access-modal .manager-access-action {
+  border-color: #dce2e9 !important;
+  border-radius: 17px !important;
+  box-shadow: 0 5px 14px rgba(39, 51, 71, 0.07) !important;
+}
+
+.about-dark-section .manager-access-modal.sportme-access-modal .manager-access-action:hover {
+  border-color: #ffb99a !important;
+  box-shadow: 0 9px 20px rgba(255, 80, 0, 0.1) !important;
 }
 
 @media (max-width: 1023px) {

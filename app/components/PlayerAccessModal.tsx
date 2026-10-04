@@ -17,16 +17,18 @@ export default function PlayerAccessModal({ onClose, playerWebUrl, playerPlaySto
     <AccessChoiceModal
       onClose={onClose}
       logoSrc="/logo-512.png"
-      title="SportMe"
-      subtitle={isEnglish ? "Choose how you want to open the app and manage your sports bookings." : "Alege cum vrei sa deschizi aplicatia si sa iti gestionezi rezervarile sportive."}
+      title={isEnglish ? "SportMe Player" : "SportMe Jucător"}
+      subtitle={isEnglish ? "Choose where to open the app and manage your sports bookings." : "Alege unde vrei să deschizi aplicația și să îți gestionezi rezervările sportive."}
+      closeLabel={isEnglish ? "Close" : "Închide"}
       sections={[
         {
           label: isEnglish ? "On desktop" : "Pe desktop",
+          description: isEnglish ? "Continue in your computer's browser" : "Continuă în browserul de pe calculator",
           icon: "desktop",
           actions: [
             {
               title: "Web Browser",
-              eyebrow: isEnglish ? "Open in" : "Deschide in",
+              eyebrow: isEnglish ? "Open in" : "Deschide în",
               icon: "web",
               href: playerWebUrl,
             },
@@ -34,6 +36,7 @@ export default function PlayerAccessModal({ onClose, playerWebUrl, playerPlaySto
         },
         {
           label: isEnglish ? "On mobile" : "Pe mobil",
+          description: isEnglish ? "Install the app on your phone" : "Instalează aplicația pe telefon",
           icon: "mobile",
           actions: [
             {
@@ -45,7 +48,7 @@ export default function PlayerAccessModal({ onClose, playerWebUrl, playerPlaySto
             },
             {
               title: "App Store",
-              eyebrow: isEnglish ? "Download on the" : "Descarca din",
+              eyebrow: isEnglish ? "Download on the" : "Descarcă din",
               icon: "appStore",
               status: { label: t("about.cta.soon"), tone: "soon" },
               disabled: true,
