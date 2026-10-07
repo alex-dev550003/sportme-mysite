@@ -11,10 +11,10 @@ type LightboxImageProps = {
 };
 
 export function LightboxImage({ src, alt, priority = false }: LightboxImageProps) {
-  const { language } = useI18n();
+  const { text } = useI18n();
   const [open, setOpen] = useState(false);
-  const enlargeLabel = language === "EN" ? "Enlarge screenshot" : "Mărește captura";
-  const closeLabel = language === "EN" ? "Close screenshot" : "Închide captura";
+  const enlargeLabel = text("Enlarge screenshot", "Mărește captura");
+  const closeLabel = text("Close screenshot", "Închide captura");
 
   useEffect(() => {
     if (!open) return undefined;

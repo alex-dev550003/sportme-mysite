@@ -1,8 +1,11 @@
+import type { LanguageKey } from "../../app/languages";
+import { translateText } from "../../app/public-locales";
+
 type ShowcaseMode = "manager" | "player";
 
 type Props = {
   activeMode: ShowcaseMode;
-  language: "RO" | "EN";
+  language: LanguageKey;
   onChange: (mode: ShowcaseMode) => void;
 };
 
@@ -15,12 +18,11 @@ function PlayerIcon() {
 }
 
 export function AppShowcaseTabs({ activeMode, language, onChange }: Props) {
-  const labels = language === "EN"
-    ? { manager: ["Manager", "Free + PRO plans"], player: ["Player", "Free"] }
-    : { manager: ["Manager", "Gratuit + planuri PRO"], player: ["Jucător", "Gratuit"] };
+  const text = (english: string, romanian?: string) => translateText(language, english, romanian);
+  const labels = { manager: [text("Manager", "Manager"), text("Free + PRO plans", "Gratuit + planuri PRO")], player: [text("Player", "Jucător"), text("Free", "Gratuit")] };
 
   return (
-    <div className="app-showcase-tabs" role="tablist" aria-label={language === "EN" ? "Choose SportMe experience" : "Alege experiența SportMe"}>
+    <div className="app-showcase-tabs" role="tablist" aria-label={text("Choose SportMe experience", "Alege experiența SportMe")}>
       {(["manager", "player"] as const).map((mode) => {
         const active = activeMode === mode;
         return (

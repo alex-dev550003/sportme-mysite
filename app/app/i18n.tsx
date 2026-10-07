@@ -2,21 +2,19 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { translations, type TranslationKey, type LanguageKey } from "./translations";
+import { isLanguageKey, languages } from "./languages";
+import { translateText } from "./public-locales";
 
 type I18nContextValue = {
   language: LanguageKey;
   locale: string;
   setLanguage: (lang: LanguageKey) => void;
   t: (key: TranslationKey, params?: Record<string, string | number>) => string;
+  text: (english: string, romanian?: string) => string;
 };
 
 const LANGUAGE_STORAGE_KEY = "appLanguage";
 const I18nContext = createContext<I18nContextValue | null>(null);
-
-const localeByLanguage: Record<LanguageKey, string> = {
-  EN: "en-GB",
-  RO: "ro-RO",
-};
 
 function formatMessage(template: string, params?: Record<string, string | number>) {
   if (!params) return template;
@@ -28,20 +26,17 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
-    if (stored === "EN" || stored === "RO") {
-      setLanguageState(stored);
-      return;
-    }
-    setLanguageState("RO");
-    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, "RO");
+    try {
+      const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+      if (isLanguageKey(stored)) setLanguageState(stored);
+    } catch { /* Language switching remains usable when storage is blocked. */ }
   }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const onStorage = (event: StorageEvent) => {
       if (event.key !== LANGUAGE_STORAGE_KEY) return;
-      if (event.newValue === "EN" || event.newValue === "RO") {
+      if (isLanguageKey(event.newValue)) {
         setLanguageState(event.newValue);
       }
     };
@@ -52,26 +47,30 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = useCallback((lang: LanguageKey) => {
     setLanguageState(lang);
     if (typeof window !== "undefined") {
-      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+      try { window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang); } catch { /* Optional persistence. */ }
     }
   }, []);
 
   const t = useCallback(
     (key: TranslationKey, params?: Record<string, string | number>) => {
-      const template = translations[language][key] ?? translations.EN[key] ?? key;
+      const template = translateText(language, translations.EN[key] ?? key, translations.RO[key] ?? translations.EN[key] ?? key);
       return formatMessage(template, params);
     },
     [language]
   );
 
+  const text = useCallback((english: string, romanian?: string) => translateText(language, english, romanian), [language]);
+  useEffect(() => { document.documentElement.lang = language.toLowerCase(); }, [language]);
+
   const value = useMemo<I18nContextValue>(
     () => ({
       language,
-      locale: localeByLanguage[language],
+      locale: languages.find((item) => item.code === language)!.locale,
       setLanguage,
       t,
+      text,
     }),
-    [language, setLanguage, t]
+    [language, setLanguage, t, text]
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

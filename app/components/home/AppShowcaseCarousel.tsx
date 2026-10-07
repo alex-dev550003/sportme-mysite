@@ -4,9 +4,11 @@ import Image from "next/image";
 import { createPortal } from "react-dom";
 import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { ShowcaseMode } from "./AppShowcaseTabs";
+import type { LanguageKey } from "../../app/languages";
+import { translateText } from "../../app/public-locales";
 
 type Slide = { src: string; alt: string };
-type Props = { mode: ShowcaseMode; slides: Slide[]; language: "RO" | "EN"; availableImages: string[] };
+type Props = { mode: ShowcaseMode; slides: Slide[]; language: LanguageKey; availableImages: string[] };
 
 function ShowcaseImage({ slide, label, priority, available, enlarged = false }: { slide: Slide; label: string; priority: boolean; available: boolean; enlarged?: boolean }) {
   const [failed, setFailed] = useState(!available);
@@ -37,11 +39,12 @@ function ShowcaseImage({ slide, label, priority, available, enlarged = false }: 
 }
 
 function ShowcaseLightbox({ slide, index, total, title, language, available, onClose, onPrevious, onNext }: {
-  slide: Slide; index: number; total: number; title: string; language: "RO" | "EN"; available: boolean;
+  slide: Slide; index: number; total: number; title: string; language: LanguageKey; available: boolean;
   onClose: () => void; onPrevious: () => void; onNext: () => void;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const backdropStart = useRef(false);
+  const text = (english: string, romanian?: string) => translateText(language, english, romanian);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -59,7 +62,7 @@ function ShowcaseLightbox({ slide, index, total, title, language, available, onC
     <dialog
       ref={dialogRef}
       className="showcase-lightbox"
-      aria-label={language === "EN" ? `${title} — image preview` : `${title} — previzualizare imagine`}
+      aria-label={`${title} — ${text("image preview", "previzualizare imagine")}`}
       onCancel={(event) => { event.preventDefault(); onClose(); }}
       onPointerDown={(event) => { backdropStart.current = event.target === event.currentTarget; }}
       onClick={(event) => { if (event.target === event.currentTarget && backdropStart.current) onClose(); }}
@@ -78,15 +81,15 @@ function ShowcaseLightbox({ slide, index, total, title, language, available, onC
       <div className="showcase-lightbox-panel">
         <header className="showcase-lightbox-header">
           <span>{title}</span>
-          <button type="button" className="showcase-lightbox-control" onClick={onClose} aria-label={language === "EN" ? "Close preview" : "Închide previzualizarea"} autoFocus>×</button>
+          <button type="button" className="showcase-lightbox-control" onClick={onClose} aria-label={text("Close preview", "Închide previzualizarea")} autoFocus>×</button>
         </header>
         <div className="showcase-lightbox-image">
           <ShowcaseImage key={slide.src} slide={slide} label={title} priority={false} available={available} enlarged />
         </div>
         <footer className="showcase-lightbox-footer">
-          <button type="button" className="showcase-lightbox-control" onClick={onPrevious} disabled={total < 2} aria-label={language === "EN" ? "Previous screenshot" : "Captura anterioară"}>‹</button>
+          <button type="button" className="showcase-lightbox-control" onClick={onPrevious} disabled={total < 2} aria-label={text("Previous screenshot", "Captura anterioară")}>‹</button>
           <span aria-live="polite" aria-atomic="true"><span className="sr-only">{slide.alt}. </span>{index + 1} / {total}</span>
-          <button type="button" className="showcase-lightbox-control" onClick={onNext} disabled={total < 2} aria-label={language === "EN" ? "Next screenshot" : "Captura următoare"}>›</button>
+          <button type="button" className="showcase-lightbox-control" onClick={onNext} disabled={total < 2} aria-label={text("Next screenshot", "Captura următoare")}>›</button>
         </footer>
       </div>
     </dialog>,
@@ -95,6 +98,7 @@ function ShowcaseLightbox({ slide, index, total, title, language, available, onC
 }
 
 export function AppShowcaseCarousel({ mode, slides, language, availableImages }: Props) {
+  const text = (english: string, romanian?: string) => translateText(language, english, romanian);
   const [activeIndex, setActiveIndex] = useState(0);
   const [previewOpen, setPreviewOpen] = useState(false);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
@@ -104,7 +108,7 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
   useEffect(() => { setActiveIndex(0); setPreviewOpen(false); }, [mode]);
   const previous = () => setActiveIndex((index) => (index - 1 + slides.length) % slides.length);
   const next = () => setActiveIndex((index) => (index + 1) % slides.length);
-  const placeholderLabel = mode === "manager" ? "Screenshot Manager" : language === "EN" ? "Player Screenshot" : "Screenshot Jucător";
+  const placeholderLabel = mode === "manager" ? "Screenshot Manager" : text("Player Screenshot", "Screenshot Jucător");
 
   const getPosition = (index: number) => {
     if (index === activeIndex) return "is-active";
@@ -142,7 +146,7 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
         className="app-showcase-carousel"
         role="region"
         aria-roledescription="carousel"
-        aria-label={language === "EN" ? `${mode} app screenshots` : `Capturi aplicație ${mode === "manager" ? "Manager" : "Jucător"}`}
+        aria-label={`${mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")} — ${text("app screenshots", "Capturi aplicație")}`}
         tabIndex={0}
         onKeyDown={handleKeyDown}
         onPointerDown={handlePointerDown}
@@ -158,7 +162,7 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
             aria-hidden={index !== activeIndex}
             tabIndex={index === activeIndex ? 0 : -1}
             aria-haspopup="dialog"
-            aria-label={`${language === "EN" ? "Enlarge image" : "Mărește imaginea"}: ${slide.alt}`}
+            aria-label={`${text("Enlarge image", "Mărește imaginea")}: ${slide.alt}`}
             onClick={(event) => {
               if (event.detail > 0 && suppressClick.current) return;
               setActiveIndex(index);
@@ -168,16 +172,16 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
             <ShowcaseImage slide={slide} label={placeholderLabel} priority={mode === "manager" && index === 0} available={availableImages.includes(slide.src)} />
           </button>
         ))}
-        <button type="button" className="app-showcase-arrow is-left" onClick={previous} aria-label={language === "EN" ? "Previous screenshot" : "Captura anterioară"}>‹</button>
-        <button type="button" className="app-showcase-arrow is-right" onClick={next} aria-label={language === "EN" ? "Next screenshot" : "Captura următoare"}>›</button>
+        <button type="button" className="app-showcase-arrow is-left" onClick={previous} aria-label={text("Previous screenshot", "Captura anterioară")}>‹</button>
+        <button type="button" className="app-showcase-arrow is-right" onClick={next} aria-label={text("Next screenshot", "Captura următoare")}>›</button>
       </div>
-      <div className="app-showcase-dots" role="group" aria-label={language === "EN" ? "Choose screenshot" : "Alege captura"}>
-        {slides.map((slide, index) => <button key={slide.src} type="button" className={index === activeIndex ? "is-active" : ""} onClick={() => setActiveIndex(index)} aria-label={`${language === "EN" ? "Screenshot" : "Captura"} ${index + 1}`} aria-current={index === activeIndex ? "true" : undefined} />)}
+      <div className="app-showcase-dots" role="group" aria-label={text("Choose screenshot", "Alege captura")}>
+        {slides.map((slide, index) => <button key={slide.src} type="button" className={index === activeIndex ? "is-active" : ""} onClick={() => setActiveIndex(index)} aria-label={`${text("Screenshot", "Captura")} ${index + 1}`} aria-current={index === activeIndex ? "true" : undefined} />)}
       </div>
       {previewOpen && slides[activeIndex] ? (
         <ShowcaseLightbox
           slide={slides[activeIndex]} index={activeIndex} total={slides.length}
-          title={mode === "manager" ? "SportMe Manager" : language === "EN" ? "SportMe Player" : "SportMe Jucător"}
+          title={mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")}
           language={language} available={availableImages.includes(slides[activeIndex].src)}
           onPrevious={previous} onNext={next}
           onClose={() => {

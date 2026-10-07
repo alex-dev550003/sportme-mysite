@@ -10,45 +10,44 @@ type Props = {
 };
 
 export default function ManagerAccessModal({ onClose, adminUrl, managerPlayStoreUrl }: Props) {
-  const { t, language } = useI18n();
-  const isEnglish = language === "EN";
+  const { t, text } = useI18n();
 
   return (
     <AccessChoiceModal
       onClose={onClose}
       logoSrc="/logo-512admin.png"
       title="SportMe Manager"
-      subtitle={isEnglish ? "Choose where to create your account and manage your sports venue." : "Alege unde vrei să creezi contul și să îți administrezi baza sportivă."}
-      closeLabel={isEnglish ? "Close" : "Închide"}
+      subtitle={text("Choose where to create your account and manage your sports venue.", "Alege unde vrei să creezi contul și să îți administrezi baza sportivă.")}
+      closeLabel={text("Close", "Închide")}
       sections={[
         {
-          label: isEnglish ? "On desktop" : "Pe desktop",
-          description: isEnglish ? "Continue in your computer's browser" : "Continuă în browserul de pe calculator",
+          label: text("On desktop", "Pe desktop"),
+          description: text("Continue in your computer's browser", "Continuă în browserul de pe calculator"),
           icon: "desktop",
           actions: [
             {
-              title: "Web Browser",
-              eyebrow: isEnglish ? "Open in" : "Deschide în",
+              title: text("Web Browser", "Web Browser"),
+              eyebrow: text("Open in", "Deschide în"),
               icon: "web",
               href: adminUrl,
             },
           ],
         },
         {
-          label: isEnglish ? "On mobile" : "Pe mobil",
-          description: isEnglish ? "Install the app on your phone" : "Instalează aplicația pe telefon",
+          label: text("On mobile", "Pe mobil"),
+          description: text("Install the app on your phone", "Instalează aplicația pe telefon"),
           icon: "mobile",
           actions: [
             {
               title: "Google Play",
-              eyebrow: isEnglish ? "Available on" : "Disponibil pe",
+              eyebrow: text("Available on", "Disponibil pe"),
               icon: "googlePlay",
               href: managerPlayStoreUrl,
               status: { label: t("about.cta.live"), tone: "live" },
             },
             {
               title: "App Store",
-              eyebrow: isEnglish ? "Download on the" : "Descarcă din",
+              eyebrow: text("Download on the", "Descarcă din"),
               icon: "appStore",
               status: { label: t("about.cta.soon"), tone: "soon" },
               disabled: true,

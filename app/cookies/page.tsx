@@ -1,22 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { I18nProvider, useI18n } from "../app/i18n";
+import { useI18n } from "../app/i18n";
 import { cookiesPolicy } from "../app/translations";
+import { localizeContent } from "../app/content-locales";
 import { PublicTopControls } from "../components/PublicTopControls";
 import { SiteFooter } from "../components/SiteFooter";
 
 export default function CookiesPage() {
-  return (
-    <I18nProvider>
-      <CookiesContent />
-    </I18nProvider>
-  );
+  return <CookiesContent />;
 }
 
 function CookiesContent() {
   const { t, language } = useI18n();
-  const policy = cookiesPolicy[language];
+  const policy = localizeContent(cookiesPolicy[language === "RO" ? "RO" : "EN"], language);
 
   return (
     <main className="public-site public-dark min-h-screen text-white">

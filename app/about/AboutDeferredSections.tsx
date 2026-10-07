@@ -30,40 +30,35 @@ function PricingStepArrow({ className = "", style }: { className?: string; style
 }
 
 export default function AboutDeferredSections() {
-  const { t, language } = useI18n();
-  const isEnglish = language === "EN";
+  const { t, text } = useI18n();
   const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const playerWebUrl = "https://app.sportme.ro/app";
   const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
-  const periodLabel = isEnglish ? "month" : "luna";
-  const adminCommonPlanFeatures = isEnglish
-    ? ["Online venue listing", "Visible public calendar", "Manager bookings"]
-    : ["Listare locatie online", "Calendar public vizibil", "Rezervari manageri"];
-  const adminScheduleControlFeature = isEnglish ? "Full schedule and pricing control" : "Control complet program si tarife";
-  const adminAdvancedPlanFeatures = isEnglish
-    ? ["Instant confirmations", "Automatic notifications", "Booking statistics", "Priority support", "Venue employee dashboard"]
-    : ["Confirmari instant", "Notificari automate", "Statistici rezervari", "Suport prioritar", "Dashboard angajati locatie"];
+  const periodLabel = text("month", "luna");
+  const adminCommonPlanFeatures = [text("Online venue listing", "Listare locatie online"), text("Visible public calendar", "Calendar public vizibil"), text("Manager bookings", "Rezervari manageri")];
+  const adminScheduleControlFeature = text("Full schedule and pricing control", "Control complet program si tarife");
+  const adminAdvancedPlanFeatures = [text("Instant confirmations", "Confirmari instant"), text("Automatic notifications", "Notificari automate"), text("Booking statistics", "Statistici rezervari"), text("Priority support", "Suport prioritar"), text("Venue employee dashboard", "Dashboard angajati locatie")];
   const adminFreemiumFeatures = [
     ...adminCommonPlanFeatures,
-    isEnglish ? "Player bookings - phone only" : "Rezervari jucatori - doar telefonic",
+    text("Player bookings - phone only", "Rezervari jucatori - doar telefonic"),
     adminScheduleControlFeature,
-    isEnglish ? "Locations / sports zones count - MAX 1" : "Nr. locatii sportive - MAXIM 1",
+    text("Locations / sports zones count - MAX 1", "Nr. locatii sportive - MAXIM 1"),
   ];
   const adminStarterFeatures = [
     ...adminCommonPlanFeatures,
-    isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
+    text("Player bookings - online", "Rezervari jucatori - online"),
     adminScheduleControlFeature,
-    isEnglish ? "Locations / sports zones count - MAX 2*" : "Nr. locatii sportive - MAXIM 2*",
+    text("Locations / sports zones count - MAX 2*", "Nr. locatii sportive - MAXIM 2*"),
     ...adminAdvancedPlanFeatures,
   ];
   const adminProFeatures = [
     ...adminCommonPlanFeatures,
-    isEnglish ? "Player bookings - online" : "Rezervari jucatori - online",
+    text("Player bookings - online", "Rezervari jucatori - online"),
     adminScheduleControlFeature,
-    isEnglish ? "Locations / sports zones count - UNLIMITED*" : "Nr. locatii sportive - NELIMITAT*",
+    text("Locations / sports zones count - UNLIMITED*", "Nr. locatii sportive - NELIMITAT*"),
     ...adminAdvancedPlanFeatures,
   ];
-  const isLocationLimitFeature = (item: string) => item.includes("Locations / sports zones count") || item.includes("Nr. locatii sportive");
+  const isLocationLimitFeature = (item: string) => [adminFreemiumFeatures[5], adminStarterFeatures[5], adminProFeatures[5]].includes(item);
   const isHighlightedPricingFeature = (item: string) => isLocationLimitFeature(item);
   const highlightedPricingFeatureClass = "-ml-1 rounded-lg border border-[#2b8cff]/34 bg-white/[0.085] px-2 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]";
   const PricingCheck = () => (
@@ -85,10 +80,10 @@ export default function AboutDeferredSections() {
       <section id="pentru-jucatori" className="scroll-mt-8">
         <div className="about-section-shell about-player-description-shell about-player-column px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-4">
-            <p className="sportme-audience-badge about-section-badge px-3 py-1.5 text-xs">{isEnglish ? "Are you a player?" : "esti JUCATOR?"}</p>
+            <p className="sportme-audience-badge about-section-badge px-3 py-1.5 text-xs">{text("Are you a player?", "esti JUCATOR?")}</p>
             <h2 className="sportme-audience-title about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
-              <span className="sportme-title-subline block">{isEnglish ? "Book your sport," : "Rezerva sportul tau,"}</span>
-              <span className="modern-accent block">{isEnglish ? "hassle free" : "fara batai de cap"}</span>
+              <span className="sportme-title-subline block">{text("Book your sport,", "Rezerva sportul tau,")}</span>
+              <span className="modern-accent block">{text("hassle free", "fara batai de cap")}</span>
             </h2>
             <p className="max-w-4xl text-base leading-7 text-white/72">{t("about.users.intro")}</p>
           </div>
@@ -97,25 +92,25 @@ export default function AboutDeferredSections() {
               <p className="font-semibold text-[#1f211f]">{t("about.users.findTitle")}</p>
               <p>{t("about.users.findItem1")}</p>
               <p>{t("about.users.findItem2")}</p>
-              <p>{isEnglish ? "- clear venue details" : "- detalii clare despre locatie"}</p>
+              <p>{text("- clear venue details", "- detalii clare despre locatie")}</p>
             </div>
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
               <p className="font-semibold text-[#1f211f]">{t("about.users.bookTitle")}</p>
               <p>{t("about.users.bookItem1")}</p>
               <p>{t("about.users.bookItem2")}</p>
-              <p>{isEnglish ? "- no calls or delayed confirmations" : "- fara apeluri sau confirmari intarziate"}</p>
+              <p>{text("- no calls or delayed confirmations", "- fara apeluri sau confirmari intarziate")}</p>
             </div>
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Notifications and account" : "Notificari si cont"}</p>
+              <p className="font-semibold text-[#1f211f]">{text("Notifications and account", "Notificari si cont")}</p>
               <p>{t("about.users.notifyItem1")}</p>
               <p>{t("about.users.notifyItem2")}</p>
-              <p>{isEnglish ? "- active bookings in one account" : "- rezervari active intr-un singur cont"}</p>
+              <p>{text("- active bookings in one account", "- rezervari active intr-un singur cont")}</p>
             </div>
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Nearby sport, ready to book" : "Sport aproape, gata de rezervat"}</p>
-              <p>{isEnglish ? "- optional location access" : "- acces optional la locatie"}</p>
-              <p>{isEnglish ? "- save time with updated info" : "- economisesti timp cu informatii actualizate"}</p>
-              <p>{isEnglish ? "- start with a free account" : "- pornesti cu un cont gratuit"}</p>
+              <p className="font-semibold text-[#1f211f]">{text("Nearby sport, ready to book", "Sport aproape, gata de rezervat")}</p>
+              <p>{text("- optional location access", "- acces optional la locatie")}</p>
+              <p>{text("- save time with updated info", "- economisesti timp cu informatii actualizate")}</p>
+              <p>{text("- start with a free account", "- pornesti cu un cont gratuit")}</p>
             </div>
           </div>
           <button
@@ -126,10 +121,10 @@ export default function AboutDeferredSections() {
             <img src="/logo-512.png" alt="" className="h-10 w-10 rounded-[9px] sm:h-14 sm:w-14" />
             <span className="min-w-0 flex-1">
               <span className="block text-sm font-semibold leading-tight text-white sm:text-xl">
-                {isEnglish ? "Open player app" : "Acceseaza aplicatia jucatorilor"}
+                {text("Open player app", "Acceseaza aplicatia jucatorilor")}
               </span>
               <span className="mt-1 block text-xs leading-5 text-white/64 sm:text-sm">
-                {isEnglish ? "Book courts from mobile or web." : "Rezerva terenuri din mobil sau web."}
+                {text("Book courts from mobile or web.", "Rezerva terenuri din mobil sau web.")}
               </span>
             </span>
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:h-11 sm:w-11">
@@ -143,55 +138,52 @@ export default function AboutDeferredSections() {
         <div className="about-section-shell about-manager-description-shell flex flex-col px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-4">
             <p className="sportme-audience-badge about-section-badge px-3 py-1.5 text-xs">
-              <span className="mobile-manager-badge-label">{isEnglish ? "Are you a manager?" : "esti MANAGER?"}</span>
-              <span className="desktop-manager-badge-label">{isEnglish ? "Are you a venue or academy manager?" : "esti MANAGER DE BAZA SPORTIVA sau ACADEMIE?"}</span>
+              <span className="mobile-manager-badge-label">{text("Are you a manager?", "esti MANAGER?")}</span>
+              <span className="desktop-manager-badge-label">{text("Are you a venue or academy manager?", "esti MANAGER DE BAZA SPORTIVA sau ACADEMIE?")}</span>
             </p>
             <h2 className="sportme-audience-title about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
-              <span className="sportme-title-subline block">{isEnglish ? "Manage your sports venue," : "Administreaza baza sportiva,"}</span>
-              <span className="modern-accent block">{isEnglish ? "faster and clearer" : "mai rapid si mai clar"}</span>
+              <span className="sportme-title-subline block">{text("Manage your sports venue,", "Administreaza baza sportiva,")}</span>
+              <span className="modern-accent block">{text("faster and clearer", "mai rapid si mai clar")}</span>
             </h2>
             <p className="max-w-4xl text-base leading-7 text-white/72">
-              {isEnglish
-                ? "SportMe Manager centralizes bookings, court availability and team activity in a clear platform for sports venue operators."
-                : "SportMe Manager centralizeaza rezervarile, disponibilitatea terenurilor si activitatea echipei intr-o platforma clara pentru operatorii de baze sportive."}
+              {text("SportMe Manager centralizes bookings, court availability and team activity in a clear platform for sports venue operators.", "SportMe Manager centralizeaza rezervarile, disponibilitatea terenurilor si activitatea echipei intr-o platforma clara pentru operatorii de baze sportive.")}
             </p>
           </div>
           <div className="about-manager-detail-cards order-3 mt-7 grid gap-5 text-sm leading-6 text-[#5b564b] md:grid-cols-2">
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Bookings calendar" : "Calendar rezervari"}</p>
-              <p>{isEnglish ? "- online bookings in one place" : "- rezervari online intr-un singur loc"}</p>
-              <p>{isEnglish ? "- visible availability by court" : "- disponibilitate vizibila pe teren"}</p>
-              <p>{isEnglish ? "- fewer manual checks" : "- mai putine verificari manuale"}</p>
+              <p className="font-semibold text-[#1f211f]">{text("Bookings calendar", "Calendar rezervari")}</p>
+              <p>{text("- online bookings in one place", "- rezervari online intr-un singur loc")}</p>
+              <p>{text("- visible availability by court", "- disponibilitate vizibila pe teren")}</p>
+              <p>{text("- fewer manual checks", "- mai putine verificari manuale")}</p>
             </div>
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Instant confirmations" : "Confirmari instant"}</p>
-              <p>{isEnglish ? "- automatic booking flow" : "- flux automat pentru rezervari"}</p>
-              <p>{isEnglish ? "- useful player notifications" : "- notificari utile pentru jucatori"}</p>
-              <p>{isEnglish ? "- clearer operational updates" : "- actualizari operationale mai clare"}</p>
+              <p className="font-semibold text-[#1f211f]">{text("Instant confirmations", "Confirmari instant")}</p>
+              <p>{text("- automatic booking flow", "- flux automat pentru rezervari")}</p>
+              <p>{text("- useful player notifications", "- notificari utile pentru jucatori")}</p>
+              <p>{text("- clearer operational updates", "- actualizari operationale mai clare")}</p>
             </div>
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Team access" : "Acces pentru echipa"}</p>
-              <p>{isEnglish ? "- employee dashboard" : "- dashboard pentru angajati"}</p>
-              <p>{isEnglish ? "- easier daily activity tracking" : "- evidenta zilnica mai simpla"}</p>
-              <p>{isEnglish ? "- fewer scattered messages" : "- mai putine mesaje imprastiate"}</p>
+              <p className="font-semibold text-[#1f211f]">{text("Team access", "Acces pentru echipa")}</p>
+              <p>{text("- employee dashboard", "- dashboard pentru angajati")}</p>
+              <p>{text("- easier daily activity tracking", "- evidenta zilnica mai simpla")}</p>
+              <p>{text("- fewer scattered messages", "- mai putine mesaje imprastiate")}</p>
             </div>
             <div className="about-glass-tile space-y-1 rounded-2xl p-4">
-              <p className="font-semibold text-[#1f211f]">{isEnglish ? "Schedule control" : "Control program si tarife"}</p>
-              <p>{isEnglish ? "- manage opening hours" : "- gestionezi programul"}</p>
-              <p>{isEnglish ? "- configure prices and rules" : "- configurezi tarife si reguli"}</p>
-              <p>{isEnglish ? "- suitable for multisport venues" : "- potrivit pentru baze multisport"}</p>
+              <p className="font-semibold text-[#1f211f]">{text("Schedule control", "Control program si tarife")}</p>
+              <p>{text("- manage opening hours", "- gestionezi programul")}</p>
+              <p>{text("- configure prices and rules", "- configurezi tarife si reguli")}</p>
+              <p>{text("- suitable for multisport venues", "- potrivit pentru baze multisport")}</p>
             </div>
           </div>
           <div id="preturi" className="about-pricing-section order-1 mt-8 scroll-mt-8">
             <div className="about-pricing-intro mb-6 space-y-2">
               <h2 className="about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
-                <span className="modern-accent block">{isEnglish ? "SportMe Manager pricing" : "Prețuri SportMe Manager"}</span>
+                <span className="modern-accent block">{text("SportMe Manager pricing", "Prețuri SportMe Manager")}</span>
               </h2>
-              <p className="text-base leading-7 text-[#5b6678]">{isEnglish ? "Free for players." : "Pentru jucători este gratuit."}</p>
+              <p className="text-base leading-7 text-[#5b6678]">{text("Free for players.", "Pentru jucători este gratuit.")}</p>
               <p className="max-w-3xl text-base leading-7 text-[#5b6678]">
-                {isEnglish
-                  ? "You can test all features free for 30 days and see if the platform fits your sports venue. Afterwards, it can be used free of charge with no time limit for one location."
-                  : <>30 de zile gratuite pentru testare dacă platforma se potrivește bazei dvs. sportive.<br />Ulterior, poate fi folosită gratuit, fără limită de timp pentru o singură locație.</>}
+                {text("You can test all features free for 30 days and see if the platform fits your sports venue.", "30 de zile gratuite pentru testare dacă platforma se potrivește bazei dvs. sportive.")}<br />
+                {text("Afterwards, it can be used free of charge with no time limit for one location.", "Ulterior, poate fi folosită gratuit, fără limită de timp pentru o singură locație.")}
               </p>
             </div>
             <div className="pricing-card-row relative flex snap-x snap-mandatory items-stretch gap-2 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
@@ -199,7 +191,7 @@ export default function AboutDeferredSections() {
               <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc(((100% - 40px) / 3) * 2 + 8px)" }} />
               <div className="pricing-card relative flex min-w-[270px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-5 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
                 <div className="pricing-popular-badge absolute left-1/2 top-0 inline-flex items-center rounded-full bg-[#0564ff] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.06em] !text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
-                  MOST POPULAR
+                  {text("MOST POPULAR", "MOST POPULAR")}
                 </div>
                 <h4 className="pricing-card-title text-xl font-medium text-white">Freemium</h4>
                 <div className="mt-4 flex items-end gap-1">
@@ -231,7 +223,7 @@ export default function AboutDeferredSections() {
                   ))}
                 </div>
                 <div className="mt-auto pt-6">
-                  <p className="text-xs text-white/48">* {isEnglish ? "Upgrade is available anytime" : "Upgrade oricand"}</p>
+                  <p className="text-xs text-white/48">* {text("Upgrade is available anytime", "Upgrade oricand")}</p>
                 </div>
               </div>
 
@@ -257,7 +249,7 @@ export default function AboutDeferredSections() {
                   ))}
                 </div>
                 <div className="mt-auto pt-6">
-                  <p className="text-xs text-white/48">* {isEnglish ? "Upgrade/downgrade is available anytime" : "Upgrade/downgrade oricand"}</p>
+                  <p className="text-xs text-white/48">* {text("Upgrade/downgrade is available anytime", "Upgrade/downgrade oricand")}</p>
                 </div>
               </div>
 
@@ -283,7 +275,7 @@ export default function AboutDeferredSections() {
                   ))}
                 </div>
                 <div className="mt-auto pt-6">
-                  <p className="text-xs text-white/48">* {isEnglish ? "Downgrade is available anytime" : "Downgrade oricand"}</p>
+                  <p className="text-xs text-white/48">* {text("Downgrade is available anytime", "Downgrade oricand")}</p>
                 </div>
               </div>
             </div>
@@ -294,8 +286,8 @@ export default function AboutDeferredSections() {
               className="modern-cta-button relative mx-auto mt-6 flex w-full max-w-[760px] cursor-pointer items-center justify-center rounded-full border px-14 py-3 text-center text-sm font-semibold leading-tight transition sm:py-5 sm:text-lg lg:mt-8 lg:max-w-[620px] lg:text-lg"
             >
               <span>
-                <span className="block">Deschide dashboard Manager</span>
-                <span className="mt-0.5 block font-normal text-white/78">(primele 30 zile gratuit)</span>
+                <span className="block">{text("Open Manager dashboard", "Deschide dashboard Manager")}</span>
+                <span className="mt-0.5 block font-normal text-white/78">{text("(first 30 days free)", "(primele 30 zile gratuit)")}</span>
               </span>
               <span className="absolute right-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:right-4 sm:h-11 sm:w-11">
                 <AccessArrowIcon />
@@ -309,8 +301,8 @@ export default function AboutDeferredSections() {
         <div className="about-section-shell px-2 py-4 lg:px-4 lg:py-6">
           <div className="space-y-2">
             <h2 className="about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
-              <span className="sportme-title-subline block">{isEnglish ? "Privacy and" : "Confidentialitate si"}</span>
-              <span className="modern-accent block">{isEnglish ? "security" : "securitate"}</span>
+              <span className="sportme-title-subline block">{text("Privacy and", "Confidentialitate si")}</span>
+              <span className="modern-accent block">{text("security", "securitate")}</span>
             </h2>
             <p className="text-base leading-7 text-white/72">{t("about.privacy.body1")}</p>
             <p className="text-base leading-7 text-white/72">

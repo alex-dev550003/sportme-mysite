@@ -40,21 +40,20 @@ function ArrowIcon() {
 }
 
 export default function ProductChoiceModal({ onClose, onSelect }: Props) {
-  const { language } = useI18n();
-  const isEnglish = language === "EN";
+  const { text } = useI18n();
   const choices = [
-    { product: "manager" as const, logo: "/logo-512admin.png", title: "SportMe Manager", subtitle: isEnglish ? "For sports venue managers" : "Pentru managerii bazelor sportive" },
-    { product: "player" as const, logo: "/logo-512.png", title: isEnglish ? "SportMe Player" : "SportMe Jucător", subtitle: isEnglish ? "For players and teams" : "Pentru jucători și echipe" },
+    { product: "manager" as const, logo: "/logo-512admin.png", title: "SportMe Manager", subtitle: text("For sports venue managers", "Pentru managerii bazelor sportive") },
+    { product: "player" as const, logo: "/logo-512.png", title: text("SportMe Player", "SportMe Jucător"), subtitle: text("For players and teams", "Pentru jucători și echipe") },
   ];
 
   return (
     <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-[#111827]/70 px-4 py-4 font-sans backdrop-blur-[6px]" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="product-choice-title">
       <div className="relative z-[1000] max-h-[calc(100dvh-24px)] w-full max-w-[480px] overflow-y-auto rounded-[28px] border border-white/80 bg-[linear-gradient(155deg,#f3f5f8_0%,#e5e9ef_100%)] px-5 pb-6 pt-5 text-[#182032] shadow-[0_30px_80px_rgba(12,22,39,0.28)] sm:px-7" onClick={(event) => event.stopPropagation()}>
-        <button type="button" onClick={onClose} aria-label={isEnglish ? "Close" : "Închide"} className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d5dce6] bg-white text-[#182032] shadow-[0_2px_8px_rgba(24,32,50,0.08)] transition hover:bg-[#fff3ec] sm:right-5 sm:top-5"><CloseIcon /></button>
+        <button type="button" onClick={onClose} aria-label={text("Close", "Închide")} className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d5dce6] bg-white text-[#182032] shadow-[0_2px_8px_rgba(24,32,50,0.08)] transition hover:bg-[#fff3ec] sm:right-5 sm:top-5"><CloseIcon /></button>
         <div className="flex justify-center"><DeviceArtwork /></div>
         <p className="mt-1 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-[#ff5000]">SportMe</p>
-        <h2 id="product-choice-title" className="mt-1 text-center text-[27px] font-normal leading-tight tracking-[-0.025em] sm:text-[30px]">{isEnglish ? "Start for free" : "Începe gratuit"}</h2>
-        <p className="mx-auto mt-1.5 max-w-[310px] text-center text-[14px] leading-5 text-[#667184]">{isEnglish ? "Choose the app that suits you." : "Alege aplicația potrivită pentru tine."}</p>
+        <h2 id="product-choice-title" className="mt-1 text-center text-[27px] font-normal leading-tight tracking-[-0.025em] sm:text-[30px]">{text("Start for free", "Începe gratuit")}</h2>
+        <p className="mx-auto mt-1.5 max-w-[310px] text-center text-[14px] leading-5 text-[#667184]">{text("Choose the app that suits you.", "Alege aplicația potrivită pentru tine.")}</p>
         <div className="mt-5 space-y-3">
           {choices.map((choice) => (
             <button key={choice.product} type="button" onClick={() => onSelect(choice.product)} className="group flex min-h-[82px] w-full items-center gap-3 rounded-[20px] border border-[#d5dce5] bg-white px-3.5 py-3 text-left shadow-[0_8px_22px_rgba(44,55,76,0.08)] transition hover:-translate-y-0.5 hover:border-[#ffae8b] hover:shadow-[0_12px_26px_rgba(255,80,0,0.12)] sm:px-4">

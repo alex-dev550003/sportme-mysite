@@ -1,22 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { I18nProvider, useI18n } from "../app/i18n";
+import { useI18n } from "../app/i18n";
 import { privacyPolicy } from "../app/translations";
+import { localizeContent } from "../app/content-locales";
 import { PublicTopControls } from "../components/PublicTopControls";
 import { SiteFooter } from "../components/SiteFooter";
 
 export default function PrivacyPolicyPage() {
-  return (
-    <I18nProvider>
-      <PrivacyPolicyContent />
-    </I18nProvider>
-  );
+  return <PrivacyPolicyContent />;
 }
 
 function PrivacyPolicyContent() {
   const { t, language } = useI18n();
-  const policy = privacyPolicy[language];
+  const policy = localizeContent(privacyPolicy[language === "RO" ? "RO" : "EN"], language);
   return (
     <main className="public-site public-dark min-h-screen text-white">
       <div className="relative overflow-hidden">

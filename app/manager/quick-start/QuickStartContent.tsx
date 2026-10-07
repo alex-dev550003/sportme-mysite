@@ -3,7 +3,8 @@
 import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
 import { useI18n } from "../../app/i18n";
-import type { LanguageKey } from "../../app/translations";
+import type { BaseLanguageKey } from "../../app/languages";
+import { localizeContent, translateDocumentText } from "../../app/content-locales";
 import { PublicTopControls } from "../../components/PublicTopControls";
 import { SiteFooter } from "../../components/SiteFooter";
 import { LightboxImage } from "./LightboxImage";
@@ -12,7 +13,6 @@ const ManagerAccessModal = dynamic(() => import("../../components/ManagerAccessM
 const PlayerAccessModal = dynamic(() => import("../../components/PlayerAccessModal"), { ssr: false });
 const ProductChoiceModal = dynamic(() => import("../../components/ProductChoiceModal"), { ssr: false });
 
-const description = "Ghid rapid pentru configurarea bazei sportive și gestionarea rezervărilor în SportMe Manager.";
 const canonical = "https://www.sportme.ro/manager/quick-start";
 const managerUrl = "https://admin.sportme.ro/auth";
 const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
@@ -21,7 +21,7 @@ const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.spo
 const pricingHref = "/#preturi";
 
 type Note = {
-  title: "Pont" | "Important" | "Exemplu" | "Explicație" | "Tip" | "Example" | "Explanation";
+  title: string;
   body: string;
 };
 
@@ -71,7 +71,7 @@ type QuickStartCopy = {
   closeSlot: { title: string; body: string; examples: string };
 };
 
-const copy: Record<LanguageKey, QuickStartCopy> = {
+const copy: Record<BaseLanguageKey, QuickStartCopy> = {
   RO: {
     navigation: [
       { label: "Configurare inițială", href: "#configurare-initiala" },
@@ -537,10 +537,11 @@ function Screenshot({ fileName, alt, priority = false }: { fileName: string; alt
 }
 
 function NoteCard({ note }: { note: Note }) {
+  const { language } = useI18n();
   const tone =
-    note.title === "Important"
+    note.title === translateDocumentText("Important", language)
       ? "border-amber-300/28 bg-amber-300/[0.08] text-amber-100"
-      : note.title === "Pont" || note.title === "Tip"
+      : note.title === "Pont" || note.title === translateDocumentText("Tip", language)
         ? "border-sky-300/24 bg-sky-300/[0.08] text-sky-100"
         : "border-white/14 bg-white/[0.06] text-white/84";
 
@@ -717,18 +718,18 @@ function SectionHeader({ id, eyebrow, title }: { id: string; eyebrow: string; ti
 }
 
 export function QuickStartContent() {
-  const { language } = useI18n();
+  const { language, locale } = useI18n();
   const [showProductChoiceModal, setShowProductChoiceModal] = useState(false);
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
-  const text = copy[language];
+  const text = useMemo(() => localizeContent(copy[language === "RO" ? "RO" : "EN"], language), [language]);
   const structuredData = useMemo(
     () => ({
       "@context": "https://schema.org",
       "@type": "HowTo",
       name: text.hero.title,
-      description,
-      inLanguage: language === "EN" ? "en-GB" : "ro-RO",
+      description: text.hero.subtitle,
+      inLanguage: locale,
       url: canonical,
       step: text.setupSteps.map((step) => ({
         "@type": "HowToStep",
@@ -737,14 +738,14 @@ export function QuickStartContent() {
         image: `https://www.sportme.ro${imageSrc(step.image)}`,
       })),
     }),
-    [language, text]
+    [locale, text]
   );
 
   return (
     <main className="public-site public-dark min-h-screen text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="mx-auto w-full max-w-[1440px] px-4 pb-12 pt-24 sm:px-5 md:px-8 lg:pb-16 lg:pt-28">
-        <nav className="quickstart-nav modern-desktop-nav fixed left-1/2 top-[20px] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border border-transparent bg-transparent px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5" aria-label="Navigare principală">
+        <nav className="quickstart-nav modern-desktop-nav fixed left-1/2 top-[20px] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border border-transparent bg-transparent px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5" aria-label={language === "RO" ? "Navigare principală" : translateDocumentText("Main navigation", language)}>
           <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-medium tracking-normal text-[#182032] sm:px-3 sm:text-[18px]">
             <img src="/logo-512.png" alt="" className="h-7 w-7 rounded-[8px] sm:h-8 sm:w-8" />
             <span>SportMe app</span>

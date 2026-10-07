@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import type { ShowcaseMode } from "./AppShowcaseTabs";
+import type { LanguageKey } from "../../app/languages";
+import { translateText } from "../../app/public-locales";
 
 function CalendarIcon() { return <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="7" width="22" height="20" rx="4" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M10 4v6M22 4v6M5 13h22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>; }
 function ClockIcon() { return <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M16 9v7l5 3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>; }
@@ -23,13 +25,13 @@ const features: Record<ShowcaseMode, Feature[]> = {
   ],
 };
 
-export function AppShowcaseFeatures({ mode, language }: { mode: ShowcaseMode; language: "RO" | "EN" }) {
+export function AppShowcaseFeatures({ mode, language }: { mode: ShowcaseMode; language: LanguageKey }) {
   return (
     <div className="app-showcase-features">
       {features[mode].map((feature) => (
         <div className="app-showcase-feature" key={feature.ro.join("-")}>
           <span className="app-showcase-feature-icon">{feature.icon}</span>
-          <span>{(language === "EN" ? feature.en : feature.ro).map((line) => <span key={line}>{line}</span>)}</span>
+          <span>{feature.en.map((line, index) => <span key={line}>{translateText(language, line, feature.ro[index])}</span>)}</span>
         </div>
       ))}
     </div>

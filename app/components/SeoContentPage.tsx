@@ -1,3 +1,7 @@
+"use client";
+
+import { useI18n } from "../app/i18n";
+import { localizeContent, translateDocumentText } from "../app/content-locales";
 import { PublicTopControls } from "./PublicTopControls";
 import { SiteFooter } from "./SiteFooter";
 
@@ -36,17 +40,19 @@ type SeoContentPageProps = {
   showStoreCta?: boolean;
 };
 
-export function SeoContentPage({
-  eyebrow,
-  title,
-  description,
-  primaryCta,
-  secondaryCta,
-  sections,
-  faqGroups,
-  links,
-  showStoreCta = false,
-}: SeoContentPageProps) {
+export function SeoContentPage(props: SeoContentPageProps) {
+  const { language, text } = useI18n();
+  const {
+    eyebrow,
+    title,
+    description,
+    primaryCta,
+    secondaryCta,
+    sections,
+    faqGroups,
+    links,
+    showStoreCta = false,
+  } = localizeContent(props, language, "romanian");
   return (
     <main className="public-site public-dark min-h-screen text-white">
       <div className="relative overflow-hidden">
@@ -89,13 +95,13 @@ export function SeoContentPage({
                 href="https://play.google.com/store/apps/details?id=ro.sportme.app"
                 className="modern-cta-button rounded-[24px] border p-5 text-center text-base font-semibold transition hover:-translate-y-0.5"
               >
-                Descarcă aplicația din Google Play
+                {translateDocumentText("Descarcă aplicația din Google Play", language, "romanian")}
               </a>
               <a
                 href="https://www.sportme.ro/app"
                 className="modern-cta-button rounded-[24px] border p-5 text-center text-base font-semibold transition hover:-translate-y-0.5"
               >
-                Descarcă aplicația din App Store
+                {translateDocumentText("Descarcă aplicația din App Store", language, "romanian")}
               </a>
             </section>
           ) : null}
@@ -130,7 +136,7 @@ export function SeoContentPage({
           </section>
 
           <section className="rounded-[28px] border border-[#d8d1bf] bg-white p-6 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)] lg:p-8">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">Întrebări frecvente</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">{translateDocumentText("Întrebări frecvente", language, "romanian")}</p>
             <div className="mt-5 grid gap-6 lg:grid-cols-2">
               {faqGroups.map((group) => (
                 <div key={group.title}>
@@ -149,7 +155,7 @@ export function SeoContentPage({
           </section>
 
           <section className="rounded-[28px] border border-[#d8d1bf] bg-white p-6 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)]">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">Linkuri utile</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">{text("Useful links", "Linkuri utile")}</p>
             <div className="mt-4 flex flex-wrap gap-3">
               {links.map((link) => (
                 <a key={link.href} href={link.href} className="rounded-full border border-[#d7dfe9] bg-white/70 px-4 py-2 text-sm font-medium text-[#0d64d8] underline shadow-[0_10px_22px_rgba(44,55,76,0.08)] transition hover:-translate-y-0.5">

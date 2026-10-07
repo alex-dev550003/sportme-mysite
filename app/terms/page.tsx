@@ -1,22 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { I18nProvider, useI18n } from "../app/i18n";
+import { useI18n } from "../app/i18n";
 import { termsPolicy } from "../app/translations";
+import { localizeContent } from "../app/content-locales";
 import { PublicTopControls } from "../components/PublicTopControls";
 import { SiteFooter } from "../components/SiteFooter";
 
 export default function TermsPage() {
-  return (
-    <I18nProvider>
-      <TermsContent />
-    </I18nProvider>
-  );
+  return <TermsContent />;
 }
 
 function TermsContent() {
   const { t, language } = useI18n();
-  const policy = termsPolicy[language];
+  const policy = localizeContent(termsPolicy[language === "RO" ? "RO" : "EN"], language);
 
   return (
     <main className="public-site public-dark min-h-screen text-white">

@@ -1,4 +1,5 @@
-export type LanguageKey = "EN" | "RO";
+type LanguageKey = "EN" | "RO";
+export type { LanguageKey } from "./languages";
 
 export const translations = {
   EN: {
@@ -459,7 +460,7 @@ export const privacyPolicy = {
         title: "2. What data is processed",
         body: [
           "When you access the public website, technical data needed to deliver and secure the website may be processed, such as IP address, user agent, browser and device information, technical request information, date and time of access, and other technical information needed to serve the website.",
-          "The public website uses localStorage key appLanguage to remember your RO/EN language preference. This is not used for advertising or analytics.",
+          "The public website uses localStorage key appLanguage to remember your language preference. This is not used for advertising or analytics.",
           "The public website uses localStorage key sportme_public_cookie_consent to remember your Analytics choice so the website can respect your privacy preference. This is not used for advertising.",
           "The public website itself does not process user accounts, passwords, bookings, payments, card data, GPS location, or push notifications.",
         ],
@@ -559,7 +560,7 @@ export const privacyPolicy = {
         title: "2. Ce date sunt prelucrate",
         body: [
           "Cand accesezi site-ul public, pot fi prelucrate date tehnice necesare livrarii si securitatii site-ului, precum adresa IP, user agent, informatii despre browser si dispozitiv, informatii tehnice despre request, data si ora accesului si alte informatii tehnice necesare livrarii site-ului.",
-          "Site-ul public foloseste cheia localStorage appLanguage pentru memorarea preferintei de limba RO/EN. Aceasta nu este folosita pentru advertising sau analytics.",
+          "Site-ul public foloseste cheia localStorage appLanguage pentru memorarea preferintei de limba. Aceasta nu este folosita pentru advertising sau analytics.",
           "Site-ul public foloseste cheia localStorage sportme_public_cookie_consent pentru memorarea alegerii privind Analytics, astfel incat site-ul sa respecte preferinta ta de confidentialitate. Aceasta nu este folosita pentru advertising.",
           "Site-ul public, prin propriile functionalitati, nu proceseaza conturi de utilizator, parole, rezervari, plati, date de card, locatie GPS sau push notifications.",
         ],
@@ -806,7 +807,7 @@ export const cookiesPolicy = {
               "appLanguage",
               "localStorage",
               "SportMe Booking SRL",
-              "Remembers the RO/EN language preference.",
+              "Remembers the language preference.",
               "Necessary/preference",
               "Always active",
               "Until browser storage is cleared or the preference is changed.",
@@ -912,7 +913,7 @@ export const cookiesPolicy = {
               "appLanguage",
               "localStorage",
               "SportMe Booking SRL",
-              "Memorarea limbii RO/EN.",
+              "Memorarea limbii preferate.",
               "Necesar/preferinta",
               "Activ permanent",
               "Pana la stergerea storage-ului sau schimbarea preferintei.",
