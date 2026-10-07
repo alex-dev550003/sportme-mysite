@@ -185,8 +185,9 @@ export default function AboutDeferredSections() {
           <div id="preturi" className="about-pricing-section order-1 mt-8 scroll-mt-8">
             <div className="about-pricing-intro mb-6 space-y-2">
               <h2 className="about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
-                <span className="modern-accent block">{isEnglish ? "Pricing" : "Preturi"}</span>
+                <span className="modern-accent block">{isEnglish ? "SportMe Manager pricing" : "Prețuri SportMe Manager"}</span>
               </h2>
+              <p className="text-base leading-7 text-[#5b6678]">{isEnglish ? "Free for players." : "Pentru jucători este gratuit."}</p>
               <p className="max-w-3xl text-base leading-7 text-[#5b6678]">
                 {isEnglish
                   ? "You can test all features free for 30 days and see if the platform fits your sports venue. Afterwards, it can be used free of charge with no time limit for one location."

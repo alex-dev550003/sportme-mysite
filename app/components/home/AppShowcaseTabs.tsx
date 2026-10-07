@@ -16,8 +16,8 @@ function PlayerIcon() {
 
 export function AppShowcaseTabs({ activeMode, language, onChange }: Props) {
   const labels = language === "EN"
-    ? { manager: ["Manager", "Run your sports venue"], player: ["Player", "Book courts online"] }
-    : { manager: ["Manager", "Administrează baza sportivă"], player: ["Jucător", "Rezervă terenuri online"] };
+    ? { manager: ["Manager", "Free + PRO plans"], player: ["Player", "Free"] }
+    : { manager: ["Manager", "Gratuit + planuri PRO"], player: ["Jucător", "Gratuit"] };
 
   return (
     <div className="app-showcase-tabs" role="tablist" aria-label={language === "EN" ? "Choose SportMe experience" : "Alege experiența SportMe"}>

@@ -2293,7 +2293,7 @@ body * {
 .app-showcase-tab-icon svg { width: 25px; height: 25px; }
 .app-showcase-tab-copy { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; text-align: left; }
 .app-showcase-tab-copy strong { font-size: 15px; font-weight: 700; line-height: 1.02; }
-.app-showcase-tab-copy small { margin-top: 3px; font-size: 9px; font-weight: 500; line-height: 1.08; white-space: normal; text-wrap: balance; opacity: 0.7; }
+.app-showcase-tab-copy small { margin-top: 3px; font-size: 11px; font-weight: 500; line-height: 1.08; white-space: normal; text-wrap: balance; opacity: 0.7; }
 .app-showcase-tab.is-active .app-showcase-tab-copy small { opacity: 0.9; }
 
 .app-showcase-carousel-wrap { margin-top: 18px; }
@@ -2442,7 +2442,7 @@ body * {
   .app-showcase-tab-icon { width: 23px; height: 23px; flex-basis: 23px; }
   .app-showcase-tab-icon svg { width: 22px; height: 22px; }
   .app-showcase-tab-copy strong { font-size: 14px; }
-  .app-showcase-tab-copy small { font-size: 8px; }
+  .app-showcase-tab-copy small { font-size: 10px; }
   .app-showcase-feature { flex-direction: column; text-align: center; }
   .app-showcase-feature-icon { width: 43px; height: 43px; flex-basis: 43px; }
   .app-showcase-feature > span:last-child { font-size: 11px; }
@@ -2458,7 +2458,7 @@ body * {
   .app-showcase-tab-icon { width: 32px; height: 32px; flex-basis: 32px; }
   .app-showcase-tab-icon svg { width: 29px; height: 29px; }
   .app-showcase-tab-copy strong { font-size: 17px; }
-  .app-showcase-tab-copy small { font-size: 11px; white-space: nowrap; }
+  .app-showcase-tab-copy small { font-size: 13px; white-space: nowrap; }
   .app-showcase-carousel { height: 700px; }
   .app-showcase-slide { width: 320px; }
   .app-showcase-arrow.is-left { left: calc(50% - 218px); }
