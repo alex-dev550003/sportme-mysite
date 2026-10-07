@@ -2322,7 +2322,7 @@ body * {
   transform-origin: center center;
 }
 
-.app-showcase-slide.is-active { z-index: 3; opacity: 1; transform: translateX(-50%) scale(1); cursor: default; }
+.app-showcase-slide.is-active { z-index: 3; opacity: 1; transform: translateX(-50%) scale(1); cursor: zoom-in; }
 .app-showcase-slide.is-previous { z-index: 2; opacity: 0.43; transform: translateX(-100%) scale(0.82); }
 .app-showcase-slide.is-next { z-index: 2; opacity: 0.43; transform: translateX(0) scale(0.82); }
 .app-showcase-slide.is-hidden { z-index: 1; opacity: 0; pointer-events: none; transform: translateX(-50%) scale(0.7); }
@@ -2339,6 +2339,33 @@ body * {
 }
 
 .app-showcase-image-frame img { object-fit: contain !important; }
+
+.showcase-lightbox {
+  position: fixed;
+  inset: 0;
+  width: fit-content;
+  max-width: calc(100vw - 32px);
+  max-height: 88dvh;
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+  color: #182032;
+  background: #edf0f4;
+  box-shadow: 0 24px 80px rgba(12, 22, 39, 0.35);
+}
+.showcase-lightbox::backdrop { background: rgba(17, 24, 39, 0.68); backdrop-filter: blur(5px); }
+.showcase-lightbox-panel { padding: 8px 12px; }
+.showcase-lightbox-header, .showcase-lightbox-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; }
+.showcase-lightbox-header { font-size: 14px; font-weight: 500; }
+.showcase-lightbox-footer { font-size: 13px; font-variant-numeric: tabular-nums; }
+.showcase-lightbox-image { width: min(calc(100vw - 58px), calc((88dvh - 114px) * 9 / 19.5)); }
+.showcase-lightbox-image .app-showcase-image-frame { border-radius: 16px; box-shadow: none; background: #fff; }
+.showcase-lightbox-control { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 1px solid #dce1e8; border-radius: 50%; background: #fff; color: #182032; font-size: 28px; line-height: 1; cursor: pointer; }
+.showcase-lightbox-control:hover { background: #fff0e7; color: #ff5000; }
+.showcase-lightbox-control:focus-visible, .app-showcase-slide:focus-visible { outline: 2px solid #ff5000; outline-offset: 3px; }
+.showcase-lightbox-control:disabled { opacity: 0.4; cursor: default; }
 
 .app-showcase-placeholder {
   position: absolute;
