@@ -64,6 +64,15 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
     return () => window.removeEventListener("sportme:open-manager-access", openManagerAccess);
   }, []);
 
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("openManagerAccess") !== "1") return;
+
+    setShowManagerAccessModal(true);
+    url.searchParams.delete("openManagerAccess");
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+  }, []);
+
   const renderMenu = () => (
     <div className="modern-menu absolute right-0 top-[calc(100%+12px)] z-30 w-64 overflow-hidden rounded-[22px] border p-2 backdrop-blur-xl">
       <a href="#sectiunea-2" onClick={(event) => scrollToAudienceSection(event, "sectiunea-2")} className="block rounded-2xl px-4 py-3 text-sm font-semibold transition">
