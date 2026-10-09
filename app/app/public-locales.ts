@@ -82,6 +82,7 @@ const messages: Record<string, readonly [string, string, string, string, string]
   "Web Browser": ["Navigateur web", "Webbrowser", "Browser web", "Navegador web", "Navegador web"],
   "Open in": ["Ouvrir dans", "Öffnen im", "Apri nel", "Abrir en", "Abrir no"],
   "Available on": ["Disponible sur", "Verfügbar bei", "Disponibile su", "Disponible en", "Disponível no"],
+  "Any device": ["Tout appareil", "Jedes Gerät", "Qualsiasi dispositivo", "Cualquier dispositivo", "Qualquer dispositivo"],
   "Download on the": ["Télécharger sur", "Herunterladen im", "Scarica su", "Descargar en", "Descarregar na"],
   "LIVE": ["DISPONIBLE", "VERFÜGBAR", "DISPONIBILE", "DISPONIBLE", "DISPONÍVEL"],
   "Soon": ["Bientôt", "Demnächst", "A breve", "Próximamente", "Em breve"],

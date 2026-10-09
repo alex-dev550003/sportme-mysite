@@ -29,6 +29,7 @@ type Props = {
   subtitle: string;
   closeLabel: string;
   sections: Section[];
+  compact?: boolean;
 };
 
 function WebIcon({ className = "h-7 w-7" }: { className?: string }) {
@@ -145,7 +146,7 @@ function ActionRow({ action }: { action: Action }) {
   );
 }
 
-export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, closeLabel, sections }: Props) {
+export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, closeLabel, sections, compact = false }: Props) {
   return (
     <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-[#111827]/70 px-4 py-4 font-sans backdrop-blur-[6px]" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="access-choice-title">
       <div
@@ -166,24 +167,24 @@ export default function AccessChoiceModal({ onClose, logoSrc, title, subtitle, c
             <Image src={logoSrc} alt="" width={48} height={48} className="h-full w-full rounded-[11px] object-cover" />
           </span>
           <div className="mt-2.5">
-            <p className="sportme-access-eyebrow text-[10px] font-semibold uppercase tracking-[0.2em] text-[#ff5000]">SportMe</p>
+            {compact ? null : <p className="sportme-access-eyebrow text-[10px] font-semibold uppercase tracking-[0.2em] text-[#ff5000]">SportMe</p>}
             <h2 id="access-choice-title" className="mt-1 text-[25px] font-normal leading-tight tracking-[-0.025em] text-[#182032] sm:text-[28px]">{title}</h2>
-            <p className="sportme-access-muted mx-auto mt-1.5 max-w-[330px] text-[13px] font-normal leading-[1.35] text-[#667184] sm:text-[14px]">{subtitle}</p>
+            {compact ? null : <p className="sportme-access-muted mx-auto mt-1.5 max-w-[330px] text-[13px] font-normal leading-[1.35] text-[#667184] sm:text-[14px]">{subtitle}</p>}
           </div>
         </div>
 
         <div className="mt-5 space-y-3">
           {sections.map((section, index) => (
-            <section key={section.label} className={`rounded-[21px] border p-3.5 sm:p-4 ${section.icon === "desktop" ? "border-[#ffd4bf] bg-[#fff5ee]" : "border-[#d9e1eb] bg-[#f1f4f8]"}`}>
+            <section key={section.label} className="rounded-[21px] p-3.5 sm:p-4">
               <div className="flex items-center gap-2.5">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] bg-white shadow-[0_2px_7px_rgba(24,32,50,0.06)]">
                   <DeviceIcon type={section.icon} />
                 </span>
                 <div className="min-w-0 flex-1 text-left">
                   <h3 className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#242936]">{section.label}</h3>
-                  <p className="sportme-access-muted mt-0.5 text-[11px] leading-[1.2] text-[#68758a] sm:text-[12px]">{section.description}</p>
+                  {compact ? null : <p className="sportme-access-muted mt-0.5 text-[11px] leading-[1.2] text-[#68758a] sm:text-[12px]">{section.description}</p>}
                 </div>
-                <span className="text-[11px] font-medium text-[#a4adba]">0{index + 1}</span>
+                {compact ? null : <span className="text-[11px] font-medium text-[#a4adba]">0{index + 1}</span>}
               </div>
               <div className="mt-3 space-y-2">
                 {section.actions.map((action) => (
