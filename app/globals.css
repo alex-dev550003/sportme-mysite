@@ -2366,29 +2366,57 @@ body * {
 .showcase-lightbox {
   position: fixed;
   inset: 0;
-  width: fit-content;
-  max-width: calc(100vw - 32px);
-  max-height: 88dvh;
-  margin: auto;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
   padding: 0;
-  overflow: auto;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 24px;
-  color: #182032;
-  background: #edf0f4;
-  box-shadow: 0 24px 80px rgba(12, 22, 39, 0.35);
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  color: #fff;
+  background: transparent;
+  box-shadow: none;
 }
 .showcase-lightbox::backdrop { background: rgba(17, 24, 39, 0.68); backdrop-filter: blur(5px); }
-.showcase-lightbox-panel { padding: 8px 12px; }
-.showcase-lightbox-header, .showcase-lightbox-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; }
-.showcase-lightbox-header { font-size: 14px; font-weight: 500; }
-.showcase-lightbox-footer { font-size: 13px; font-variant-numeric: tabular-nums; }
-.showcase-lightbox-image { width: min(calc(100vw - 58px), calc((88dvh - 114px) * 9 / 19.5)); }
-.showcase-lightbox-image .app-showcase-image-frame { border-radius: 16px; box-shadow: none; background: #fff; }
+.showcase-lightbox-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 12px;
+  width: min(100vw, 560px);
+  height: 100%;
+  max-height: 100dvh;
+  padding: 16px 12px;
+}
+.showcase-lightbox-image {
+  width: min(100%, calc((100dvh - 32px) * 9 / 19.5));
+  aspect-ratio: 9 / 19.5;
+  justify-self: center;
+}
+.showcase-lightbox-image .app-showcase-image-frame { width: 100%; height: 100%; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
 .showcase-lightbox-control { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 1px solid #dce1e8; border-radius: 50%; background: #fff; color: #182032; font-size: 28px; line-height: 1; cursor: pointer; }
+.showcase-lightbox-control.is-previous { grid-column: 1; grid-row: 1; }
+.showcase-lightbox-control.is-next { grid-column: 3; grid-row: 1; }
 .showcase-lightbox-control:hover { background: #fff0e7; color: #ff5000; }
 .showcase-lightbox-control:focus-visible, .app-showcase-slide:focus-visible { outline: 2px solid #ff5000; outline-offset: 3px; }
 .showcase-lightbox-control:disabled { opacity: 0.4; cursor: default; }
+
+@media (max-width: 767px) {
+  .showcase-lightbox-panel {
+    grid-template-columns: 20px minmax(0, 1fr) 20px;
+    gap: 4px;
+    width: 100vw;
+    padding: max(12px, env(safe-area-inset-top)) 8px max(12px, env(safe-area-inset-bottom));
+  }
+  .showcase-lightbox-image { width: min(100%, calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * 9 / 19.5)); }
+  .showcase-lightbox-control.is-previous { transform: translateX(10px); }
+  .showcase-lightbox-control.is-next { transform: translateX(-10px); }
+}
 
 .app-showcase-placeholder {
   position: absolute;

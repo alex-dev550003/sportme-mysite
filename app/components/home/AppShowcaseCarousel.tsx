@@ -79,18 +79,13 @@ function ShowcaseLightbox({ slide, index, total, title, language, available, onC
       }}
     >
       <div className="showcase-lightbox-panel">
-        <header className="showcase-lightbox-header">
-          <span>{title}</span>
-          <button type="button" className="showcase-lightbox-control" onClick={onClose} aria-label={text("Close preview", "Închide previzualizarea")} autoFocus>×</button>
-        </header>
+        <button type="button" className="showcase-lightbox-control is-previous" onClick={onPrevious} disabled={total < 2} aria-label={text("Previous screenshot", "Captura anterioară")} autoFocus>‹</button>
         <div className="showcase-lightbox-image">
           <ShowcaseImage key={slide.src} slide={slide} label={title} priority={false} available={available} enlarged />
         </div>
-        <footer className="showcase-lightbox-footer">
-          <button type="button" className="showcase-lightbox-control" onClick={onPrevious} disabled={total < 2} aria-label={text("Previous screenshot", "Captura anterioară")}>‹</button>
-          <span aria-live="polite" aria-atomic="true"><span className="sr-only">{slide.alt}. </span>{index + 1} / {total}</span>
-          <button type="button" className="showcase-lightbox-control" onClick={onNext} disabled={total < 2} aria-label={text("Next screenshot", "Captura următoare")}>›</button>
-        </footer>
+        <button type="button" className="showcase-lightbox-control is-next" onClick={onNext} disabled={total < 2} aria-label={text("Next screenshot", "Captura următoare")}>
+          <span className="sr-only" aria-live="polite" aria-atomic="true">{slide.alt} — {index + 1} / {total}</span>›
+        </button>
       </div>
     </dialog>,
     document.body,
