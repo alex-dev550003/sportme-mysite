@@ -101,7 +101,8 @@ function ShowcaseLightbox({ slide, slides, index, total, title, language, availa
           .map((neighbor) => <ShowcaseImagePreload key={neighbor.src} slide={neighbor} />)}
       </div>
       <div className="showcase-lightbox-panel">
-        <button type="button" className="showcase-lightbox-control is-previous" onClick={onPrevious} disabled={total < 2} aria-label={text("Previous screenshot", "Captura anterioară")} autoFocus>‹</button>
+        <button type="button" className="showcase-lightbox-control is-close" onClick={onClose} aria-label={text("Close image", "Închide imaginea")} autoFocus>×</button>
+        <button type="button" className="showcase-lightbox-control is-previous" onClick={onPrevious} disabled={total < 2} aria-label={text("Previous screenshot", "Captura anterioară")}>‹</button>
         <div className="showcase-lightbox-image">
           <ShowcaseImage key={slide.src} slide={slide} label={title} priority available={available} enlarged />
         </div>
