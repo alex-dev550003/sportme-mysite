@@ -2322,9 +2322,11 @@ body * {
 }
 
 .app-showcase-carousel {
+  --showcase-slide-width: min(51vw, 207px);
+  --showcase-slide-height: min(103.23vw, 419px);
   position: relative;
   width: min(100vw, 1120px);
-  height: clamp(395px, 111vw, 455px);
+  height: var(--showcase-slide-height);
   margin-left: 50%;
   overflow: hidden;
   touch-action: pan-y;
@@ -2336,7 +2338,7 @@ body * {
   position: absolute;
   top: 0;
   left: 50%;
-  width: min(51vw, 207px);
+  width: var(--showcase-slide-width);
   padding: 0;
   border: 0;
   background: transparent;
@@ -2353,7 +2355,7 @@ body * {
 .app-showcase-image-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 9 / 19.5;
+  aspect-ratio: 1080 / 2186;
   overflow: hidden;
   border: 1px solid rgba(20, 25, 35, 0.07);
   border-radius: 28px;
@@ -2394,8 +2396,8 @@ body * {
   padding: 16px 12px;
 }
 .showcase-lightbox-image {
-  width: min(100%, calc((100dvh - 32px) * 9 / 19.5));
-  aspect-ratio: 9 / 19.5;
+  width: min(100%, calc((100dvh - 32px) * 1080 / 2186));
+  aspect-ratio: 1080 / 2186;
   justify-self: center;
 }
 .showcase-lightbox-image .app-showcase-image-frame { width: 100%; height: 100%; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
@@ -2405,6 +2407,8 @@ body * {
 .showcase-lightbox-control:hover { background: #fff0e7; color: #ff5000; }
 .showcase-lightbox-control:focus-visible, .app-showcase-slide:focus-visible { outline: 2px solid #ff5000; outline-offset: 3px; }
 .showcase-lightbox-control:disabled { opacity: 0.4; cursor: default; }
+.showcase-lightbox-preloads { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.showcase-image-preload { position: absolute; width: 1px; height: 1px; opacity: 0; }
 
 @media (max-width: 767px) {
   .showcase-lightbox-panel {
@@ -2413,7 +2417,7 @@ body * {
     width: 100vw;
     padding: max(12px, env(safe-area-inset-top)) 8px max(12px, env(safe-area-inset-bottom));
   }
-  .showcase-lightbox-image { width: min(100%, calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * 9 / 19.5)); }
+  .showcase-lightbox-image { width: min(100%, calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * 1080 / 2186)); }
   .showcase-lightbox-control.is-previous { transform: translateX(10px); }
   .showcase-lightbox-control.is-next { transform: translateX(-10px); }
 }
@@ -2537,8 +2541,8 @@ body * {
   .app-showcase-tab-icon svg { width: 29px; height: 29px; }
   .app-showcase-tab-copy strong { font-size: 17px; }
   .app-showcase-tab-copy small { font-size: 13px; white-space: nowrap; }
-  .app-showcase-carousel { height: 700px; }
-  .app-showcase-slide { width: 320px; }
+  .app-showcase-carousel { --showcase-slide-width: 320px; --showcase-slide-height: 647.7px; }
+  .app-showcase-slide { width: var(--showcase-slide-width); }
   .app-showcase-arrow.is-left { left: calc(50% - 218px); }
   .app-showcase-arrow.is-right { right: calc(50% - 218px); }
   .app-showcase-feature > span:last-child { font-size: 16px; }
@@ -2554,8 +2558,8 @@ body * {
   .app-showcase-subtitle { max-width: 570px; font-size: 18px; }
   .app-showcase-tabs { margin-top: 24px; }
   .app-showcase-carousel-wrap { margin-top: 18px; }
-  .app-showcase-carousel { height: 715px; overflow: visible; }
-  .app-showcase-slide { width: 320px; }
+  .app-showcase-carousel { overflow: visible; }
+  .app-showcase-slide { width: var(--showcase-slide-width); }
   .app-showcase-slide.is-previous { transform: translateX(-100%) scale(0.84); }
   .app-showcase-slide.is-next { transform: translateX(0) scale(0.84); }
   .app-showcase-arrow.is-left { left: calc(50% - 218px); }

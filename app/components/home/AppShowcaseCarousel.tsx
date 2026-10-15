@@ -10,6 +10,23 @@ import { translateText } from "../../app/public-locales";
 type Slide = { src: string; alt: string };
 type Props = { mode: ShowcaseMode; slides: Slide[]; language: LanguageKey; availableImages: string[] };
 
+function ShowcaseImagePreload({ slide }: { slide: Slide }) {
+  return (
+    <Image
+      src={slide.src}
+      alt=""
+      width={1080}
+      height={2186}
+      sizes="(max-width: 767px) 85vw, 600px"
+      quality={95}
+      loading="eager"
+      fetchPriority="low"
+      aria-hidden="true"
+      className="showcase-image-preload"
+    />
+  );
+}
+
 function ShowcaseImage({ slide, label, priority, available, enlarged = false }: { slide: Slide; label: string; priority: boolean; available: boolean; enlarged?: boolean }) {
   const [failed, setFailed] = useState(!available);
   useEffect(() => setFailed(!available), [available, slide.src]);
@@ -38,8 +55,8 @@ function ShowcaseImage({ slide, label, priority, available, enlarged = false }: 
   );
 }
 
-function ShowcaseLightbox({ slide, index, total, title, language, available, onClose, onPrevious, onNext }: {
-  slide: Slide; index: number; total: number; title: string; language: LanguageKey; available: boolean;
+function ShowcaseLightbox({ slide, slides, index, total, title, language, available, onClose, onPrevious, onNext }: {
+  slide: Slide; slides: Slide[]; index: number; total: number; title: string; language: LanguageKey; available: boolean;
   onClose: () => void; onPrevious: () => void; onNext: () => void;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -78,10 +95,15 @@ function ShowcaseLightbox({ slide, index, total, title, language, available, onC
         }
       }}
     >
+      <div className="showcase-lightbox-preloads" aria-hidden="true">
+        {[slides[(index - 1 + total) % total], slides[(index + 1) % total]]
+          .filter((neighbor, neighborIndex, neighbors) => neighbor && neighbors.findIndex((item) => item.src === neighbor.src) === neighborIndex)
+          .map((neighbor) => <ShowcaseImagePreload key={neighbor.src} slide={neighbor} />)}
+      </div>
       <div className="showcase-lightbox-panel">
         <button type="button" className="showcase-lightbox-control is-previous" onClick={onPrevious} disabled={total < 2} aria-label={text("Previous screenshot", "Captura anterioară")} autoFocus>‹</button>
         <div className="showcase-lightbox-image">
-          <ShowcaseImage key={slide.src} slide={slide} label={title} priority={false} available={available} enlarged />
+          <ShowcaseImage key={slide.src} slide={slide} label={title} priority available={available} enlarged />
         </div>
         <button type="button" className="showcase-lightbox-control is-next" onClick={onNext} disabled={total < 2} aria-label={text("Next screenshot", "Captura următoare")}>
           <span className="sr-only" aria-live="polite" aria-atomic="true">{slide.alt} — {index + 1} / {total}</span>›
@@ -175,7 +197,7 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
       </div>
       {previewOpen && slides[activeIndex] ? (
         <ShowcaseLightbox
-          slide={slides[activeIndex]} index={activeIndex} total={slides.length}
+          slide={slides[activeIndex]} slides={slides} index={activeIndex} total={slides.length}
           title={mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")}
           language={language} available={availableImages.includes(slides[activeIndex].src)}
           onPrevious={previous} onNext={next}
