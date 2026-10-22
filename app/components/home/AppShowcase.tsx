@@ -16,8 +16,8 @@ const showcase = {
     title: { RO: ["Administrează mai simplu.", "Crește mai mult."], EN: ["Manage more simply.", "Grow with clarity."] },
     subtitle: { RO: "Tot ce ai nevoie pentru rezervări, clienți și terenuri, într-o singură aplicație.", EN: "Everything you need for bookings, customers and courts, in one app." },
     slides: [
-      { src: "/app-showcase/manager/01-dashboarddesktop.png", alt: "Dashboard SportMe Manager pe desktop", label: "Desktop dashboard", format: "desktop" },
-      { src: "/app-showcase/manager/01-dashboard.jpg", alt: "Dashboard SportMe Manager", label: "Dashboard" },
+      { src: "/app-showcase/manager/01-dashboarddesktop.png", width: 1595, height: 925, internationalSrc: "/app-showcase/manager/01-dashboarddesktop-en.png", internationalWidth: 1609, internationalHeight: 925, alt: "Dashboard SportMe Manager pe desktop", label: "Desktop dashboard", format: "desktop" },
+      { src: "/app-showcase/manager/01-dashboard.jpg", width: 1080, height: 2186, internationalSrc: "/app-showcase/manager/01-dashboard-en.png", internationalWidth: 1080, internationalHeight: 2340, alt: "Dashboard SportMe Manager", label: "Dashboard" },
     ],
   },
   player: {
@@ -34,12 +34,20 @@ const showcase = {
       { src: "/app-showcase/player/06-profile.jpg", alt: "Profil în SportMe Jucător", label: "Profile" },
     ],
   },
-} satisfies Record<ShowcaseMode, { eyebrow: Record<Language, string>; title: Record<Language, string[]>; subtitle: Record<Language, string>; cta?: Record<Language, string>; slides: { src: string; alt: string; label: string; format?: "desktop" }[] }>;
+} satisfies Record<ShowcaseMode, { eyebrow: Record<Language, string>; title: Record<Language, string[]>; subtitle: Record<Language, string>; cta?: Record<Language, string>; slides: { src: string; width?: number; height?: number; internationalSrc?: string; internationalWidth?: number; internationalHeight?: number; alt: string; label: string; format?: "desktop" }[] }>;
 
 export function AppShowcase({ language, availableImages, onOpenPlayer }: Props) {
   const [mode, setMode] = useState<ShowcaseMode>("manager");
   const content = showcase[mode];
   const text = (english: string, romanian?: string) => translateText(language, english, romanian);
+  const selectedSlides = mode === "manager"
+    ? showcase.manager.slides.map((slide) => ({
+        ...slide,
+        src: language === "RO" ? slide.src : slide.internationalSrc,
+        width: language === "RO" ? slide.width : slide.internationalWidth,
+        height: language === "RO" ? slide.height : slide.internationalHeight,
+      }))
+    : showcase.player.slides;
 
   return (
     <div className="app-showcase-shell" id="app-showcase-panel" role="tabpanel">
@@ -53,7 +61,10 @@ export function AppShowcase({ language, availableImages, onOpenPlayer }: Props) 
       </header>
 
       <AppShowcaseTabs activeMode={mode} language={language} onChange={setMode} />
-      <AppShowcaseCarousel mode={mode} slides={content.slides.map((slide) => ({ ...slide, alt: language === "RO" ? slide.alt : `${text(slide.label)} — ${mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")}` }))} language={language} availableImages={availableImages} />
+      <AppShowcaseCarousel mode={mode} slides={selectedSlides.map((slide) => ({
+        ...slide,
+        alt: language === "RO" ? slide.alt : `${text(slide.label)} — ${mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")}`,
+      }))} language={language} availableImages={availableImages} />
       <AppShowcaseFeatures mode={mode} language={language} />
       {mode === "player" ? (
         <button type="button" className="app-showcase-cta" onClick={onOpenPlayer}>

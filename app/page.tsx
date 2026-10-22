@@ -77,6 +77,8 @@ const structuredData = [
 const showcaseImagePaths = [
   "/app-showcase/manager/01-dashboarddesktop.png",
   "/app-showcase/manager/01-dashboard.jpg",
+  "/app-showcase/manager/01-dashboarddesktop-en.png",
+  "/app-showcase/manager/01-dashboard-en.png",
   "/app-showcase/player/01-home.jpg",
   "/app-showcase/player/02-locatii.jpg",
   "/app-showcase/player/03-rezervari.jpg",

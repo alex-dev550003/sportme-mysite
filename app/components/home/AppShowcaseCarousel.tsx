@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { createPortal } from "react-dom";
-import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
 import type { ShowcaseMode } from "./AppShowcaseTabs";
 import type { LanguageKey } from "../../app/languages";
 import { translateText } from "../../app/public-locales";
 
-type Slide = { src: string; alt: string; format?: "desktop" };
+type Slide = { src: string; alt: string; format?: "desktop"; width?: number; height?: number };
 type Props = { mode: ShowcaseMode; slides: Slide[]; language: LanguageKey; availableImages: string[] };
 
 function ShowcaseImagePreload({ slide }: { slide: Slide }) {
@@ -15,8 +15,8 @@ function ShowcaseImagePreload({ slide }: { slide: Slide }) {
     <Image
       src={slide.src}
       alt=""
-      width={slide.format === "desktop" ? 1595 : 1080}
-      height={slide.format === "desktop" ? 925 : 2186}
+      width={slide.width ?? (slide.format === "desktop" ? 1595 : 1080)}
+      height={slide.height ?? (slide.format === "desktop" ? 925 : 2186)}
       sizes={slide.format === "desktop" ? "(max-width: 767px) 100vw, 1400px" : "(max-width: 767px) 85vw, 600px"}
       quality={95}
       loading="eager"
@@ -32,7 +32,7 @@ function ShowcaseImage({ slide, label, priority, available, enlarged = false, co
   useEffect(() => setFailed(!available), [available, slide.src]);
 
   return (
-    <div className={`app-showcase-image-frame${slide.format === "desktop" ? " is-desktop" : ""}`}>
+    <div className={`app-showcase-image-frame${slide.format === "desktop" ? " is-desktop" : ""}`} style={slide.width && slide.height ? { aspectRatio: `${slide.width} / ${slide.height}` } : undefined}>
       {failed ? (
         <div className="app-showcase-placeholder" role="img" aria-label={slide.alt}>
           <span>{label}</span>
@@ -102,7 +102,7 @@ function ShowcaseLightbox({ slide, slides, index, total, title, language, availa
           .filter((neighbor, neighborIndex, neighbors) => neighbor && neighbors.findIndex((item) => item.src === neighbor.src) === neighborIndex)
           .map((neighbor) => <ShowcaseImagePreload key={neighbor.src} slide={neighbor} />)}
       </div>
-      <div className={`showcase-lightbox-panel${slide.format === "desktop" ? " is-desktop" : ""}`}>
+      <div className={`showcase-lightbox-panel${slide.format === "desktop" ? " is-desktop" : ""}`} style={slide.width && slide.height ? { "--showcase-lightbox-image-ratio": slide.width / slide.height } as CSSProperties : undefined}>
         <button type="button" className="showcase-lightbox-control is-close" onClick={onClose} aria-label={text("Close image", "Închide imaginea")} autoFocus>×</button>
         <button type="button" className="showcase-lightbox-control is-previous" onClick={onPrevious} disabled={total < 2} aria-label={text("Previous screenshot", "Captura anterioară")}>‹</button>
         <div className="showcase-lightbox-image">

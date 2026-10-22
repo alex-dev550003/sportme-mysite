@@ -2541,7 +2541,8 @@ body * {
 }
 .showcase-lightbox::backdrop { background: rgba(17, 24, 39, 0.68); backdrop-filter: blur(5px); }
 .showcase-lightbox-panel {
-  --showcase-lightbox-image-width: min(calc(100vw - 48px), calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * 1080 / 2186), 488px);
+  --showcase-lightbox-image-ratio: calc(1080 / 2186);
+  --showcase-lightbox-image-width: min(calc(100vw - 48px), calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * var(--showcase-lightbox-image-ratio)), 488px);
   position: relative;
   display: grid;
   place-items: center;
@@ -2552,12 +2553,11 @@ body * {
 }
 .showcase-lightbox-image {
   width: var(--showcase-lightbox-image-width);
-  aspect-ratio: 1080 / 2186;
+  aspect-ratio: var(--showcase-lightbox-image-ratio);
   justify-self: center;
 }
 .showcase-lightbox-image .app-showcase-image-frame { width: 100%; height: 100%; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
-.showcase-lightbox-panel.is-desktop { --showcase-lightbox-image-width: min(calc(100vw - 48px), calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * 1595 / 925), 1400px); }
-.showcase-lightbox-panel.is-desktop .showcase-lightbox-image { aspect-ratio: 1595 / 925; }
+.showcase-lightbox-panel.is-desktop { --showcase-lightbox-image-width: min(calc(100vw - 48px), calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * var(--showcase-lightbox-image-ratio)), 1400px); }
 .showcase-lightbox-control { position: absolute; z-index: 2; top: 50%; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #dce1e8; border-radius: 50%; background: #fff; color: #182032; font-size: 28px; line-height: 1; cursor: pointer; transform: translateY(-50%); }
 .showcase-lightbox-control.is-previous { left: max(8px, calc(50% - var(--showcase-lightbox-image-width) / 2 - 44px)); }
 .showcase-lightbox-control.is-next { right: max(8px, calc(50% - var(--showcase-lightbox-image-width) / 2 - 44px)); }
@@ -2569,8 +2569,8 @@ body * {
 .showcase-image-preload { position: absolute; width: 1px; height: 1px; opacity: 0; }
 
 @media (max-width: 767px) {
-  .showcase-lightbox-panel { --showcase-lightbox-image-width: min(calc(100vw - 48px), calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * 1080 / 2186)); }
-  .showcase-lightbox-panel.is-desktop { --showcase-lightbox-image-width: min(calc(100vw - 32px), calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * 1595 / 925)); }
+  .showcase-lightbox-panel { --showcase-lightbox-image-width: min(calc(100vw - 48px), calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * var(--showcase-lightbox-image-ratio))); }
+  .showcase-lightbox-panel.is-desktop { --showcase-lightbox-image-width: min(calc(100vw - 32px), calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px) * var(--showcase-lightbox-image-ratio))); }
 }
 
 .app-showcase-placeholder {
