@@ -508,7 +508,11 @@ body * {
 
 .sportme-modern-home .modern-desktop-links a {
   border-radius: 7px;
-  font-size: 15px;
+  font-size: 16px;
+}
+
+.sportme-modern-home .modern-desktop-links button {
+  font-size: 16px;
 }
 
 .sportme-modern-home .modern-desktop-nav a:hover {
@@ -533,6 +537,21 @@ body * {
 .sportme-sidebar-wordmark-me {
   color: #1464ea;
   font-size: 1.07em;
+}
+
+.sportme-modern-home .sportme-sidebar-wordmark {
+  font-size: 18px;
+}
+
+.sportme-modern-home .modern-signup {
+  background: transparent;
+  border-color: rgba(24, 32, 50, 0.28);
+  color: #182032;
+  white-space: nowrap;
+}
+
+.sportme-modern-home .modern-signup:hover {
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .sportme-wordmark {
@@ -1337,6 +1356,20 @@ body * {
 .sportme-modern-home .modern-menu a:hover {
   background: rgba(232, 236, 243, 0.9) !important;
   color: #182032 !important;
+}
+
+.sportme-modern-home .modern-menu button {
+  color: rgba(24, 32, 50, 0.72);
+}
+
+.sportme-modern-home .modern-menu button:hover {
+  color: #182032;
+}
+
+@media (min-width: 640px) {
+  .sportme-modern-home .sportme-sidebar-wordmark {
+    font-size: 21px;
+  }
 }
 
 .page {

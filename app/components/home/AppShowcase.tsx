@@ -15,7 +15,7 @@ const showcase = {
     eyebrow: { RO: "APLICAȚIA PENTRU BAZE SPORTIVE", EN: "THE APP FOR SPORTS VENUES" },
     title: { RO: ["Administrează mai simplu.", "Crește mai mult."], EN: ["Manage more simply.", "Grow with clarity."] },
     subtitle: { RO: "Tot ce ai nevoie pentru rezervări, clienți și terenuri, într-o singură aplicație.", EN: "Everything you need for bookings, customers and courts, in one app." },
-    cta: { RO: "Vezi SportMe Manager", EN: "Explore SportMe Manager" },
+    cta: { RO: "Testeaza SportMe Manager", EN: "Explore SportMe Manager" },
     slides: [
       { src: "/app-showcase/manager/01-dashboard.jpg", alt: "Dashboard SportMe Manager", label: "Dashboard" },
       { src: "/app-showcase/manager/02-rezervari.jpg", alt: "Calendarul de rezervări SportMe Manager", label: "Booking calendar" },

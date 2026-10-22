@@ -10,14 +10,17 @@ import { LanguageSelector } from "../components/LanguageSelector";
 const ManagerAccessModal = dynamic(() => import("../components/ManagerAccessModal"), { ssr: false });
 const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"), { ssr: false });
 const ProductChoiceModal = dynamic(() => import("../components/ProductChoiceModal"), { ssr: false });
+const PlatformDownloadModal = dynamic(() => import("../components/PlatformDownloadModal"), { ssr: false });
 
 export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages: string[] }) {
   const { t, language, text } = useI18n();
   const [headerScrollProgress, setHeaderScrollProgress] = useState(0);
   const [showHeroMenu, setShowHeroMenu] = useState(false);
+  const [openNavPanel, setOpenNavPanel] = useState<"resources" | "sign-in" | null>(null);
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const [showProductChoiceModal, setShowProductChoiceModal] = useState(false);
+  const [showPlatformDownloadModal, setShowPlatformDownloadModal] = useState(false);
   const adminUrl = "https://admin.sportme.ro/auth";
   const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
   const playerWebUrl = "https://app.sportme.ro/app";
@@ -73,14 +76,37 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
     window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
   }, []);
 
+  const closeNavPanels = () => {
+    setShowHeroMenu(false);
+    setOpenNavPanel(null);
+  };
+
+  const openPlatformDownload = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    closeNavPanels();
+    setShowPlatformDownloadModal(true);
+  };
+
   const renderMenu = () => (
-    <div className="modern-menu absolute right-0 top-[calc(100%+12px)] z-30 w-64 overflow-hidden rounded-[22px] border p-2 backdrop-blur-xl">
-      <a href="#sectiunea-2" onClick={(event) => scrollToAudienceSection(event, "sectiunea-2")} className="block rounded-2xl px-4 py-3 text-sm font-semibold transition">
-        {text("Venue software / Players", "Software baze sportive / Jucători")}
-      </a>
-      <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="block rounded-2xl px-4 py-3 text-sm font-semibold transition">
-        {text("Pricing", "Prețuri")}
-      </a>
+    <div className="modern-menu absolute right-0 top-[calc(100%+12px)] z-30 w-[min(360px,calc(100vw-32px))] overflow-hidden rounded-[22px] border p-2 backdrop-blur-xl">
+      <a href="#download" onClick={openPlatformDownload} className="block rounded-2xl px-4 py-3 text-base font-medium transition">Descarcă</a>
+      <a href="#preturi" onClick={(event) => { scrollToAudienceSection(event, "preturi"); closeNavPanels(); }} className="block rounded-2xl px-4 py-3 text-base font-medium transition">Prețuri</a>
+      <div className="my-1 border-t border-[#d9dee7]" />
+      <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">Resurse <span aria-hidden="true">{openNavPanel === "resources" ? "−" : "+"}</span></button>
+      {openNavPanel === "resources" ? (
+        <div className="mb-1 ml-3 border-l border-[#d9dee7] pl-2">
+          <a href="#pentru-administratori" onClick={(event) => { scrollToAudienceSection(event, "pentru-administratori"); closeNavPanels(); }} className="block rounded-2xl px-4 py-2.5 text-sm transition">Pentru baze sportive</a>
+          <a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-2xl px-4 py-2.5 text-sm transition">Pentru jucători</a>
+        </div>
+      ) : null}
+      <button type="button" aria-expanded={openNavPanel === "sign-in"} onClick={() => setOpenNavPanel(openNavPanel === "sign-in" ? null : "sign-in")} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">Autentificare <span aria-hidden="true">{openNavPanel === "sign-in" ? "−" : "+"}</span></button>
+      {openNavPanel === "sign-in" ? (
+        <div className="mb-1 ml-3 border-l border-[#d9dee7] pl-2">
+          <a href={adminUrl} className="block rounded-2xl px-4 py-2.5 text-sm transition">SportMe Manager</a>
+          <a href={playerWebUrl} className="block rounded-2xl px-4 py-2.5 text-sm transition">SportMe Player</a>
+        </div>
+      ) : null}
+      <button type="button" onClick={() => { closeNavPanels(); setShowProductChoiceModal(true); }} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">Testează platforma gratuit</button>
     </div>
   );
 
@@ -92,19 +118,27 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
 
       <div className="relative z-10 mx-auto w-full max-w-[1540px] px-5 pt-[calc(env(safe-area-inset-top)+18px)] sm:px-8 md:px-12 lg:px-16 xl:px-20">
         <div className="relative flex w-full min-w-0 items-center justify-between gap-3">
-          <nav className={`quickstart-nav modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5`} aria-label={text("Main navigation", "Navigare principală")}>
-            <a href="/" className="sportme-sidebar-brand flex shrink-0 items-center gap-1.5 rounded-[10px] px-2 py-1.5 sm:px-3" aria-label="SportMe">
-              <img src="/logo-512.png" alt="" className="h-[22px] w-[22px] rounded-[6px]" />
+          <nav className={`quickstart-nav modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1240px,calc(100vw-24px))] -translate-x-1/2 items-center gap-1 rounded-[18px] border px-2 py-2 sm:w-[min(1240px,calc(100vw-32px))] sm:gap-2 sm:px-5`} aria-label="Main navigation">
+            <a href="/" className="sportme-sidebar-brand flex shrink-0 items-center gap-1.5 rounded-[10px] px-1.5 py-1.5 sm:gap-2 sm:px-3" aria-label="SportMe">
+              <img src="/logo-512.png" alt="" className="h-6 w-6 rounded-[6px] sm:h-7 sm:w-7 sm:rounded-[7px]" />
               <span className="sportme-sidebar-wordmark"><span>sport</span><span className="sportme-sidebar-wordmark-me">me</span></span>
             </a>
             <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
-              <a href="#sectiunea-2" onClick={(event) => scrollToAudienceSection(event, "sectiunea-2")} className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{text("Venue software / Players", "Software baze sportive / Jucători")}</a>
-              <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{text("Pricing", "Prețuri")}</a>
+              <a href="#download" onClick={openPlatformDownload} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">Descarcă</a>
+              <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">Prețuri</a>
+              <div className="relative">
+                <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex items-center gap-1 rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">Resurse <span aria-hidden="true" className="text-xs">⌄</span></button>
+                {openNavPanel === "resources" ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href="#pentru-administratori" onClick={(event) => { scrollToAudienceSection(event, "pentru-administratori"); closeNavPanels(); }} className="block rounded-xl px-4 py-3 text-sm transition">Pentru baze sportive</a><a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-xl px-4 py-3 text-sm transition">Pentru jucători</a></div> : null}
+              </div>
+              <div className="relative">
+                <button type="button" aria-expanded={openNavPanel === "sign-in"} onClick={() => setOpenNavPanel(openNavPanel === "sign-in" ? null : "sign-in")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">Autentificare</button>
+                {openNavPanel === "sign-in" ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href={adminUrl} className="block rounded-xl px-4 py-3 text-sm transition">SportMe Manager</a><a href={playerWebUrl} className="block rounded-xl px-4 py-3 text-sm transition">SportMe Player</a></div> : null}
+              </div>
             </div>
             <div className="ml-auto flex shrink-0 items-center gap-1.5 lg:ml-0">
-              <button type="button" onClick={() => setShowProductChoiceModal(true)} className="modern-primary inline-flex h-8 items-center rounded-full px-3.5 py-0 text-[13px] font-normal leading-[19.5px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{text("Start for free", "Creaza cont gratuit")}</button>
+              <button type="button" onClick={() => setShowProductChoiceModal(true)} className="modern-signup inline-flex h-9 items-center justify-center rounded-full border border-[#b8c0c9] bg-white/20 px-2.5 text-[11px] font-normal leading-5 text-[#182032] transition hover:bg-white/70 sm:h-10 sm:px-4 sm:text-base sm:leading-6">Testează platforma gratuit</button>
             </div>
-            <button type="button" onClick={toggleHeroMenu} aria-label={t("about.nav.openMenu")} aria-expanded={showHeroMenu} className="modern-mobile-menu ml-0 flex h-9 w-9 shrink-0 items-center justify-center rounded-[7px] transition lg:hidden">
+            <button type="button" onClick={toggleHeroMenu} aria-label={t("about.nav.openMenu")} aria-expanded={showHeroMenu} className="modern-mobile-menu ml-0 flex h-9 w-8 shrink-0 items-center justify-center rounded-[7px] transition lg:hidden">
               <span className="flex w-4 flex-col gap-1"><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /></span>
             </button>
             {showHeroMenu ? renderMenu() : null}
@@ -134,6 +168,7 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
       ) : null}
       {showManagerAccessModal ? <ManagerAccessModal onClose={() => setShowManagerAccessModal(false)} adminUrl={adminUrl} managerPlayStoreUrl={managerPlayStoreUrl} /> : null}
       {showPlayerAccessModal ? <PlayerAccessModal onClose={() => setShowPlayerAccessModal(false)} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
+      {showPlatformDownloadModal ? <PlatformDownloadModal onClose={() => setShowPlatformDownloadModal(false)} adminUrl={adminUrl} managerPlayStoreUrl={managerPlayStoreUrl} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
     </section>
   );
 }
