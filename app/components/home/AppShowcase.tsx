@@ -8,22 +8,16 @@ import { translateText } from "../../app/public-locales";
 import type { LanguageKey } from "../../app/languages";
 
 type Language = "RO" | "EN";
-type Props = { language: LanguageKey; availableImages: string[]; onOpenManager: () => void; onOpenPlayer: () => void };
+type Props = { language: LanguageKey; availableImages: string[]; onOpenPlayer: () => void };
 
 const showcase = {
   manager: {
     eyebrow: { RO: "APLICAȚIA PENTRU BAZE SPORTIVE", EN: "THE APP FOR SPORTS VENUES" },
     title: { RO: ["Administrează mai simplu.", "Crește mai mult."], EN: ["Manage more simply.", "Grow with clarity."] },
     subtitle: { RO: "Tot ce ai nevoie pentru rezervări, clienți și terenuri, într-o singură aplicație.", EN: "Everything you need for bookings, customers and courts, in one app." },
-    cta: { RO: "Testeaza SportMe Manager", EN: "Explore SportMe Manager" },
     slides: [
+      { src: "/app-showcase/manager/01-dashboarddesktop.png", alt: "Dashboard SportMe Manager pe desktop", label: "Desktop dashboard", format: "desktop" },
       { src: "/app-showcase/manager/01-dashboard.jpg", alt: "Dashboard SportMe Manager", label: "Dashboard" },
-      { src: "/app-showcase/manager/02-rezervari.jpg", alt: "Calendarul de rezervări SportMe Manager", label: "Booking calendar" },
-      { src: "/app-showcase/manager/03-terenuri.jpg", alt: "Terenuri în SportMe Manager", label: "Sports courts" },
-      { src: "/app-showcase/manager/04-rezervarenoua.jpg", alt: "Crearea unei rezervări în SportMe Manager", label: "New booking" },
-      { src: "/app-showcase/manager/05-rezervareasteptare.jpg", alt: "Rezervări în așteptare în SportMe Manager", label: "Pending bookings" },
-      { src: "/app-showcase/manager/06-angajati.jpg", alt: "Administrarea angajaților în SportMe Manager", label: "Staff management" },
-      { src: "/app-showcase/manager/06-notificari.jpg", alt: "Notificări în SportMe Manager", label: "Notifications" },
     ],
   },
   player: {
@@ -40,9 +34,9 @@ const showcase = {
       { src: "/app-showcase/player/06-profile.jpg", alt: "Profil în SportMe Jucător", label: "Profile" },
     ],
   },
-} satisfies Record<ShowcaseMode, { eyebrow: Record<Language, string>; title: Record<Language, string[]>; subtitle: Record<Language, string>; cta: Record<Language, string>; slides: { src: string; alt: string; label: string }[] }>;
+} satisfies Record<ShowcaseMode, { eyebrow: Record<Language, string>; title: Record<Language, string[]>; subtitle: Record<Language, string>; cta?: Record<Language, string>; slides: { src: string; alt: string; label: string; format?: "desktop" }[] }>;
 
-export function AppShowcase({ language, availableImages, onOpenManager, onOpenPlayer }: Props) {
+export function AppShowcase({ language, availableImages, onOpenPlayer }: Props) {
   const [mode, setMode] = useState<ShowcaseMode>("manager");
   const content = showcase[mode];
   const text = (english: string, romanian?: string) => translateText(language, english, romanian);
@@ -61,9 +55,11 @@ export function AppShowcase({ language, availableImages, onOpenManager, onOpenPl
       <AppShowcaseTabs activeMode={mode} language={language} onChange={setMode} />
       <AppShowcaseCarousel mode={mode} slides={content.slides.map((slide) => ({ ...slide, alt: language === "RO" ? slide.alt : `${text(slide.label)} — ${mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")}` }))} language={language} availableImages={availableImages} />
       <AppShowcaseFeatures mode={mode} language={language} />
-      <button type="button" className="app-showcase-cta" onClick={mode === "manager" ? onOpenManager : onOpenPlayer}>
-        <span>{text(content.cta.EN, content.cta.RO)}</span><span aria-hidden="true">→</span>
-      </button>
+      {mode === "player" ? (
+        <button type="button" className="app-showcase-cta" onClick={onOpenPlayer}>
+          <span>{text(showcase.player.cta.EN, showcase.player.cta.RO)}</span><span aria-hidden="true">→</span>
+        </button>
+      ) : null}
     </div>
   );
 }

@@ -32,7 +32,7 @@ export function AboutDeferredLoader() {
   useEffect(() => {
     const loadDeferredSections = () => setShouldLoad(true);
 
-    if (window.location.hash === "#pentru-jucatori" || window.location.hash === "#pentru-administratori") {
+    if (["#pentru-jucatori", "#pentru-administratori", "#preturi"].includes(window.location.hash)) {
       loadDeferredSections();
     }
 

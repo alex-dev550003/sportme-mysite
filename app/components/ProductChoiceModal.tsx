@@ -6,6 +6,7 @@ import { useI18n } from "../app/i18n";
 type Props = {
   onClose: () => void;
   onSelect: (product: "manager" | "player") => void;
+  mode?: "start" | "signIn";
 };
 
 function CloseIcon() {
@@ -39,12 +40,35 @@ function ArrowIcon() {
   return <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>;
 }
 
-export default function ProductChoiceModal({ onClose, onSelect }: Props) {
+export default function ProductChoiceModal({ onClose, onSelect, mode = "start" }: Props) {
   const { text } = useI18n();
   const choices = [
     { product: "manager" as const, logo: "/logo-512admin.png", title: "SportMe Manager", subtitle: text("For sports venue managers", "Pentru managerii bazelor sportive") },
     { product: "player" as const, logo: "/logo-512.png", title: text("SportMe Player", "SportMe Jucător"), subtitle: text("For players and teams", "Pentru jucători și echipe") },
   ];
+
+  if (mode === "signIn") {
+    return (
+      <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/45 px-4 py-5 backdrop-blur-[2px]" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="product-choice-title">
+        <div className="relative max-h-[90dvh] w-full max-w-[520px] overflow-y-auto rounded-3xl border border-[#D9D8DC] bg-[#E6E5EA] p-6 text-center text-[#1f211f] shadow-2xl" onClick={(event) => event.stopPropagation()}>
+          <button type="button" onClick={onClose} aria-label={text("Close", "Închide")} className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d5dbe5] bg-white text-[#1f211f] shadow-sm transition hover:bg-slate-50 sm:right-5 sm:top-5"><CloseIcon /></button>
+          <div className="mx-auto px-4 pt-1">
+            <h2 id="product-choice-title" className="mt-4 text-[26px] font-medium text-[#1f211f]">{text("Sign in", "Autentificare")}</h2>
+            <p className="mx-auto mt-1 text-[15px] leading-6 text-slate-600">{text("Are you a sports venue manager or a player?", "Ești managerul unei baze sportive sau jucător?")}</p>
+          </div>
+          <div className="mx-auto mt-6 grid max-w-[360px] grid-cols-2 gap-5 sm:gap-8">
+            {choices.map((choice) => (
+              <button key={choice.product} type="button" onClick={() => onSelect(choice.product)} className="group flex flex-col items-center py-3 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4b73ff]">
+                <Image src={choice.logo} alt="" width={112} height={112} className="h-24 w-24 rounded-[18px] object-cover transition-transform group-hover:scale-105 sm:h-28 sm:w-28" />
+                <span className="mt-3 text-[17px] font-medium text-[#1f211f] sm:whitespace-nowrap">{choice.product === "manager" ? text("Managers", "Manageri Baze") : text("Players", "Jucători")}</span>
+                <span className="mt-1 text-[13px] leading-5 text-[#667184] sm:whitespace-nowrap">{choice.product === "manager" ? text("Free or PRO plans", "Gratuit sau Planuri PRO") : text("Free", "Gratuit")}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-[#111827]/70 px-4 py-4 font-sans backdrop-blur-[6px]" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="product-choice-title">

@@ -7,7 +7,7 @@ import type { ShowcaseMode } from "./AppShowcaseTabs";
 import type { LanguageKey } from "../../app/languages";
 import { translateText } from "../../app/public-locales";
 
-type Slide = { src: string; alt: string };
+type Slide = { src: string; alt: string; format?: "desktop" };
 type Props = { mode: ShowcaseMode; slides: Slide[]; language: LanguageKey; availableImages: string[] };
 
 function ShowcaseImagePreload({ slide }: { slide: Slide }) {
@@ -15,9 +15,9 @@ function ShowcaseImagePreload({ slide }: { slide: Slide }) {
     <Image
       src={slide.src}
       alt=""
-      width={1080}
-      height={2186}
-      sizes="(max-width: 767px) 85vw, 600px"
+      width={slide.format === "desktop" ? 1595 : 1080}
+      height={slide.format === "desktop" ? 925 : 2186}
+      sizes={slide.format === "desktop" ? "(max-width: 767px) 100vw, 1400px" : "(max-width: 767px) 85vw, 600px"}
       quality={95}
       loading="eager"
       fetchPriority="low"
@@ -27,12 +27,12 @@ function ShowcaseImagePreload({ slide }: { slide: Slide }) {
   );
 }
 
-function ShowcaseImage({ slide, label, priority, available, enlarged = false }: { slide: Slide; label: string; priority: boolean; available: boolean; enlarged?: boolean }) {
+function ShowcaseImage({ slide, label, priority, available, enlarged = false, collage = false }: { slide: Slide; label: string; priority: boolean; available: boolean; enlarged?: boolean; collage?: boolean }) {
   const [failed, setFailed] = useState(!available);
   useEffect(() => setFailed(!available), [available, slide.src]);
 
   return (
-    <div className="app-showcase-image-frame">
+    <div className={`app-showcase-image-frame${slide.format === "desktop" ? " is-desktop" : ""}`}>
       {failed ? (
         <div className="app-showcase-placeholder" role="img" aria-label={slide.alt}>
           <span>{label}</span>
@@ -43,7 +43,9 @@ function ShowcaseImage({ slide, label, priority, available, enlarged = false }: 
           src={slide.src}
           alt={slide.alt}
           fill
-          sizes={enlarged ? "(max-width: 767px) 85vw, 600px" : "(max-width: 405px) 51vw, (max-width: 767px) 207px, 320px"}
+          sizes={slide.format === "desktop"
+            ? (enlarged ? "(max-width: 767px) 100vw, 1400px" : "(max-width: 767px) 85vw, 900px")
+            : (enlarged ? "(max-width: 767px) 85vw, 600px" : collage ? "(max-width: 767px) 25vw, 250px" : "(max-width: 405px) 51vw, (max-width: 767px) 207px, 320px")}
           quality={95}
           priority={priority}
           draggable={false}
@@ -100,7 +102,7 @@ function ShowcaseLightbox({ slide, slides, index, total, title, language, availa
           .filter((neighbor, neighborIndex, neighbors) => neighbor && neighbors.findIndex((item) => item.src === neighbor.src) === neighborIndex)
           .map((neighbor) => <ShowcaseImagePreload key={neighbor.src} slide={neighbor} />)}
       </div>
-      <div className="showcase-lightbox-panel">
+      <div className={`showcase-lightbox-panel${slide.format === "desktop" ? " is-desktop" : ""}`}>
         <button type="button" className="showcase-lightbox-control is-close" onClick={onClose} aria-label={text("Close image", "Închide imaginea")} autoFocus>×</button>
         <button type="button" className="showcase-lightbox-control is-previous" onClick={onPrevious} disabled={total < 2} aria-label={text("Previous screenshot", "Captura anterioară")}>‹</button>
         <div className="showcase-lightbox-image">
@@ -122,6 +124,7 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
   const suppressClick = useRef(false);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const collageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => { setActiveIndex(0); setPreviewOpen(false); }, [mode]);
   const previous = () => setActiveIndex((index) => (index - 1 + slides.length) % slides.length);
@@ -157,6 +160,44 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
     else next();
   };
 
+  const lightbox = previewOpen && slides[activeIndex] ? (
+    <ShowcaseLightbox
+      slide={slides[activeIndex]} slides={slides} index={activeIndex} total={slides.length}
+      title={mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")}
+      language={language} available={availableImages.includes(slides[activeIndex].src)}
+      onPrevious={previous} onNext={next}
+      onClose={() => {
+        setPreviewOpen(false);
+        requestAnimationFrame(() => {
+          if (mode === "manager") collageRef.current?.querySelectorAll<HTMLButtonElement>(".app-showcase-collage-image")[activeIndex]?.focus({ preventScroll: true });
+          else carouselRef.current?.querySelector<HTMLButtonElement>(".app-showcase-slide.is-active")?.focus({ preventScroll: true });
+        });
+      }}
+    />
+  ) : null;
+
+  if (mode === "manager") {
+    return (
+      <div className="app-showcase-carousel-wrap">
+        <div ref={collageRef} className="app-showcase-manager-collage" role="group" aria-label={text("SportMe Manager on desktop and mobile", "SportMe Manager pe desktop și mobil")}>
+          {slides.map((slide, index) => (
+            <button
+              type="button"
+              key={slide.src}
+              className={`app-showcase-collage-image ${slide.format === "desktop" ? "is-desktop" : "is-mobile"}`}
+              aria-haspopup="dialog"
+              aria-label={`${text("Enlarge image", "Mărește imaginea")}: ${slide.alt}`}
+              onClick={() => { setActiveIndex(index); setPreviewOpen(true); }}
+            >
+              <ShowcaseImage slide={slide} label={placeholderLabel} priority={index === 0} available={availableImages.includes(slide.src)} collage />
+            </button>
+          ))}
+        </div>
+        {lightbox}
+      </div>
+    );
+  }
+
   return (
     <div className="app-showcase-carousel-wrap">
       <div
@@ -164,7 +205,7 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
         className="app-showcase-carousel"
         role="region"
         aria-roledescription="carousel"
-        aria-label={`${mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")} — ${text("app screenshots", "Capturi aplicație")}`}
+        aria-label={`${text("SportMe Player", "SportMe Jucător")} — ${text("app screenshots", "Capturi aplicație")}`}
         tabIndex={0}
         onKeyDown={handleKeyDown}
         onPointerDown={handlePointerDown}
@@ -187,7 +228,7 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
               setPreviewOpen(true);
             }}
           >
-            <ShowcaseImage slide={slide} label={placeholderLabel} priority={mode === "manager" && index === 0} available={availableImages.includes(slide.src)} />
+            <ShowcaseImage slide={slide} label={placeholderLabel} priority={false} available={availableImages.includes(slide.src)} />
           </button>
         ))}
         <button type="button" className="app-showcase-arrow is-left" onClick={previous} aria-label={text("Previous screenshot", "Captura anterioară")}>‹</button>
@@ -196,18 +237,7 @@ export function AppShowcaseCarousel({ mode, slides, language, availableImages }:
       <div className="app-showcase-dots" role="group" aria-label={text("Choose screenshot", "Alege captura")}>
         {slides.map((slide, index) => <button key={slide.src} type="button" className={index === activeIndex ? "is-active" : ""} onClick={() => setActiveIndex(index)} aria-label={`${text("Screenshot", "Captura")} ${index + 1}`} aria-current={index === activeIndex ? "true" : undefined} />)}
       </div>
-      {previewOpen && slides[activeIndex] ? (
-        <ShowcaseLightbox
-          slide={slides[activeIndex]} slides={slides} index={activeIndex} total={slides.length}
-          title={mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")}
-          language={language} available={availableImages.includes(slides[activeIndex].src)}
-          onPrevious={previous} onNext={next}
-          onClose={() => {
-            setPreviewOpen(false);
-            requestAnimationFrame(() => carouselRef.current?.querySelector<HTMLButtonElement>(".app-showcase-slide.is-active")?.focus({ preventScroll: true }));
-          }}
-        />
-      ) : null}
+      {lightbox}
     </div>
   );
 }

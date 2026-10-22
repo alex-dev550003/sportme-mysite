@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
 
@@ -12,20 +12,6 @@ function AccessArrowIcon() {
     <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5 !text-white">
       <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-  );
-}
-
-function PricingStepArrow({ className = "", style }: { className?: string; style?: CSSProperties }) {
-  return (
-    <div
-      className={`pointer-events-none flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#2b8cff]/70 bg-[#06245a]/88 text-[#72b4ff] shadow-[0_0_0_5px_rgba(43,140,255,0.24),0_0_18px_rgba(43,140,255,0.3)] ${className}`}
-      style={style}
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 24 24" className="h-5 w-5">
-        <path d="M5 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
   );
 }
 
@@ -58,11 +44,37 @@ export default function AboutDeferredSections() {
     text("Locations / sports zones count - UNLIMITED*", "Nr. locatii sportive - NELIMITAT*"),
     ...adminAdvancedPlanFeatures,
   ];
-  const isLocationLimitFeature = (item: string) => [adminFreemiumFeatures[5], adminStarterFeatures[5], adminProFeatures[5]].includes(item);
-  const isHighlightedPricingFeature = (item: string) => isLocationLimitFeature(item);
-  const highlightedPricingFeatureClass = "-ml-1 rounded-lg border border-[#2b8cff]/34 bg-white/[0.085] px-2 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]";
+  const pricingPlans = [
+    {
+      name: "Freemium",
+      subtitle: text("For one sports venue", "Pentru o bază sportivă"),
+      price: "€0",
+      variant: "free",
+      features: adminFreemiumFeatures,
+      unavailable: adminAdvancedPlanFeatures,
+      note: text("Upgrade is available anytime", "Upgrade oricând"),
+    },
+    {
+      name: "Premium - STARTER",
+      subtitle: text("For up to two sports venues", "Pentru maximum două baze sportive"),
+      price: "€8,90",
+      variant: "starter",
+      features: adminStarterFeatures,
+      unavailable: [],
+      note: text("Upgrade/downgrade is available anytime", "Upgrade/downgrade oricând"),
+    },
+    {
+      name: "Premium - PRO",
+      subtitle: text("For sports venues without a limit", "Pentru baze sportive nelimitate"),
+      price: "€14,90",
+      variant: "pro",
+      features: adminProFeatures,
+      unavailable: [],
+      note: text("Downgrade is available anytime", "Downgrade oricând"),
+    },
+  ];
   const PricingCheck = () => (
-    <svg viewBox="0 0 20 20" aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0564ff]">
+    <svg viewBox="0 0 20 20" aria-hidden className="pricing-plan-check mt-0.5 h-4 w-4 shrink-0">
       <path d="M4 10.5l3.2 3.2L16 5.8" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -71,8 +83,8 @@ export default function AboutDeferredSections() {
       <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
     </svg>
   );
-  const openManagerAccessModal = () => {
-    window.dispatchEvent(new Event("sportme:open-manager-access"));
+  const openProductChoiceModal = () => {
+    window.dispatchEvent(new Event("sportme:open-product-choice"));
   };
 
   return (
@@ -175,7 +187,7 @@ export default function AboutDeferredSections() {
               <p>{text("- suitable for multisport venues", "- potrivit pentru baze multisport")}</p>
             </div>
           </div>
-          <div id="preturi" className="about-pricing-section order-1 mt-8 scroll-mt-8">
+          <div id="preturi" className="about-pricing-section order-1 mt-8 scroll-mt-24">
             <div className="about-pricing-intro mb-6 space-y-2">
               <h2 className="about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
                 <span className="modern-accent block">{text("SportMe Manager pricing", "Prețuri SportMe Manager")}</span>
@@ -186,113 +198,37 @@ export default function AboutDeferredSections() {
                 {text("Afterwards, it can be used free of charge with no time limit for one location.", "Ulterior, poate fi folosită gratuit, fără limită de timp pentru o singură locație.")}
               </p>
             </div>
-            <div className="pricing-card-row relative flex snap-x snap-mandatory items-stretch gap-2 overflow-x-scroll pb-4 [scrollbar-color:#2b8cff_rgba(255,255,255,0.14)] [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:pb-0">
-              <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc((100% - 40px) / 3 - 12px)" }} />
-              <PricingStepArrow className="absolute top-1/2 z-30 hidden -translate-y-1/2 lg:flex" style={{ left: "calc(((100% - 40px) / 3) * 2 + 8px)" }} />
-              <div className="pricing-card relative flex min-w-[270px] snap-start flex-col rounded-[18px] border-[1.5px] border-[#0564ff] bg-[#111c25] p-5 shadow-[0_28px_80px_rgba(5,100,255,0.16)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
-                <div className="pricing-popular-badge absolute left-1/2 top-0 inline-flex items-center rounded-full bg-[#0564ff] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.06em] !text-white shadow-[0_12px_30px_rgba(5,100,255,0.3)]">
-                  {text("MOST POPULAR", "MOST POPULAR")}
+            <div className="pricing-card-row grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+              {pricingPlans.map((plan) => (
+                <div key={plan.name} className={`pricing-plan-card pricing-plan-card--${plan.variant} flex flex-col`}>
+                  <h3 className="pricing-plan-name">{plan.name}</h3>
+                  <p className="pricing-plan-subtitle">{plan.subtitle}</p>
+                  <div className="pricing-plan-price-row">
+                    <span className="pricing-plan-price">{plan.price}</span>
+                    <span className="pricing-plan-period">/{periodLabel}</span>
+                  </div>
+                  <button type="button" onClick={openProductChoiceModal} className="pricing-plan-button">
+                    {plan.variant === "free" ? text("Start for FREE", "Începe GRATUIT") : text("Try for FREE", "Testează GRATUIT")}
+                  </button>
+                  <div className="pricing-plan-features">
+                    <p className="pricing-plan-includes">{text("Includes:", "Include:")}</p>
+                    {plan.features.map((item) => (
+                      <p key={item} className="pricing-plan-feature">
+                        <PricingCheck />
+                        <span>{item}</span>
+                      </p>
+                    ))}
+                    {plan.unavailable.map((item) => (
+                      <p key={item} className="pricing-plan-feature pricing-plan-feature--unavailable">
+                        <PricingCross />
+                        <span>{item}</span>
+                      </p>
+                    ))}
+                  </div>
+                  <p className="pricing-plan-note mt-auto">* {plan.note}</p>
                 </div>
-                <h4 className="pricing-card-title text-xl font-medium text-white">Freemium</h4>
-                <div className="mt-4 flex items-end gap-1">
-                  <span className="pricing-card-price pricing-value text-2xl font-normal leading-none text-white">€0</span>
-                  <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
-                </div>
-                <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
-                  {adminFreemiumFeatures.map((item) => (
-                    <p
-                      key={item}
-                      className={`flex gap-2 leading-4 lg:leading-5 ${
-                        isHighlightedPricingFeature(item) ? `${highlightedPricingFeatureClass} pricing-highlighted-feature` : ""
-                      }`}
-                    >
-                      <PricingCheck />
-                      <span className={isHighlightedPricingFeature(item) ? "font-medium text-white/86" : undefined}>{item}</span>
-                    </p>
-                  ))}
-                  {adminAdvancedPlanFeatures.map((item) => (
-                    <p
-                      key={item}
-                      className={`flex gap-2 leading-4 lg:leading-5 ${
-                        isHighlightedPricingFeature(item) ? `${highlightedPricingFeatureClass} pricing-highlighted-feature` : ""
-                      }`}
-                    >
-                      <PricingCross />
-                      <span className={isHighlightedPricingFeature(item) ? "font-medium text-white/86" : undefined}>{item}</span>
-                    </p>
-                  ))}
-                </div>
-                <div className="mt-auto pt-6">
-                  <p className="text-xs text-white/48">* {text("Upgrade is available anytime", "Upgrade oricand")}</p>
-                </div>
-              </div>
-
-              <PricingStepArrow className="relative z-30 -mx-3 self-center lg:hidden" />
-
-              <div className="pricing-card relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
-                <h4 className="pricing-card-title text-xl font-medium text-white">Premium - STARTER</h4>
-                <div className="mt-4 flex items-end gap-1">
-                  <span className="pricing-card-price pricing-value text-2xl font-normal leading-none text-white">€8,90</span>
-                  <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
-                </div>
-                <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
-                  {adminStarterFeatures.map((item) => (
-                    <p
-                      key={item}
-                      className={`flex gap-2 leading-4 lg:leading-5 ${
-                        isHighlightedPricingFeature(item) ? `${highlightedPricingFeatureClass} pricing-highlighted-feature` : ""
-                      }`}
-                    >
-                      <PricingCheck />
-                      <span className={isHighlightedPricingFeature(item) ? "font-medium text-white/86" : undefined}>{item}</span>
-                    </p>
-                  ))}
-                </div>
-                <div className="mt-auto pt-6">
-                  <p className="text-xs text-white/48">* {text("Upgrade/downgrade is available anytime", "Upgrade/downgrade oricand")}</p>
-                </div>
-              </div>
-
-              <PricingStepArrow className="relative z-30 -mx-3 self-center lg:hidden" />
-
-              <div className="pricing-card relative flex min-w-[270px] snap-start flex-col rounded-[18px] border border-white/12 bg-[#111c25] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.24)] sm:min-w-[310px] lg:min-h-[520px] lg:min-w-0 lg:p-6">
-                <h4 className="pricing-card-title text-xl font-medium text-white">Premium - PRO</h4>
-                <div className="mt-4 flex items-end gap-1">
-                  <span className="pricing-card-price pricing-value text-2xl font-normal leading-none text-white">€14,90</span>
-                  <span className="translate-y-0.5 text-base leading-none text-white/42">/{periodLabel}</span>
-                </div>
-                <div className="mt-5 space-y-1 border-t border-white/10 pt-4 text-[13px] text-white/72 lg:space-y-2 lg:text-sm">
-                  {adminProFeatures.map((item) => (
-                    <p
-                      key={item}
-                      className={`flex gap-2 leading-4 lg:leading-5 ${
-                        isHighlightedPricingFeature(item) ? `${highlightedPricingFeatureClass} pricing-highlighted-feature` : ""
-                      }`}
-                    >
-                      <PricingCheck />
-                      <span className={isHighlightedPricingFeature(item) ? "font-medium text-white/86" : undefined}>{item}</span>
-                    </p>
-                  ))}
-                </div>
-                <div className="mt-auto pt-6">
-                  <p className="text-xs text-white/48">* {text("Downgrade is available anytime", "Downgrade oricand")}</p>
-                </div>
-              </div>
+              ))}
             </div>
-
-            <button
-              type="button"
-              onClick={openManagerAccessModal}
-              className="modern-cta-button relative mx-auto mt-6 flex w-full max-w-[760px] cursor-pointer items-center justify-center rounded-full border px-14 py-3 text-center text-sm font-semibold leading-tight transition sm:py-5 sm:text-lg lg:mt-8 lg:max-w-[620px] lg:text-lg"
-            >
-              <span>
-                <span className="block">{text("Open Manager dashboard", "Deschide dashboard Manager")}</span>
-                <span className="mt-0.5 block font-normal text-white/78">{text("(first 30 days free)", "(primele 30 zile gratuit)")}</span>
-              </span>
-              <span className="absolute right-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0b62df] text-white sm:right-4 sm:h-11 sm:w-11">
-                <AccessArrowIcon />
-              </span>
-            </button>
           </div>
         </div>
       </section>

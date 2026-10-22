@@ -16,7 +16,7 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
   const { t, language, text } = useI18n();
   const [headerScrollProgress, setHeaderScrollProgress] = useState(0);
   const [showHeroMenu, setShowHeroMenu] = useState(false);
-  const [openNavPanel, setOpenNavPanel] = useState<"resources" | "sign-in" | null>(null);
+  const [openNavPanel, setOpenNavPanel] = useState<"resources" | null>(null);
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const [showProductChoiceModal, setShowProductChoiceModal] = useState(false);
@@ -63,8 +63,13 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
 
   useEffect(() => {
     const openManagerAccess = () => setShowManagerAccessModal(true);
+    const openProductChoice = () => setShowProductChoiceModal(true);
     window.addEventListener("sportme:open-manager-access", openManagerAccess);
-    return () => window.removeEventListener("sportme:open-manager-access", openManagerAccess);
+    window.addEventListener("sportme:open-product-choice", openProductChoice);
+    return () => {
+      window.removeEventListener("sportme:open-manager-access", openManagerAccess);
+      window.removeEventListener("sportme:open-product-choice", openProductChoice);
+    };
   }, []);
 
   useEffect(() => {
@@ -87,26 +92,37 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
     setShowPlatformDownloadModal(true);
   };
 
+  const openSignInModal = () => {
+    closeNavPanels();
+    setShowProductChoiceModal(true);
+  };
+
+  const signInAs = (product: "manager" | "player") => {
+    setShowProductChoiceModal(false);
+    const webUrl = product === "manager" ? adminUrl : playerWebUrl;
+    if (/Android/i.test(navigator.userAgent)) {
+      const appHostAndPath = product === "manager" ? "login/auth" : "app";
+      const appScheme = product === "manager" ? "com.sportme.dashboard" : "ro.sportme.app";
+      window.location.assign(`intent://${appHostAndPath}#Intent;scheme=${appScheme};package=${appScheme};S.browser_fallback_url=${encodeURIComponent(webUrl)};end`);
+      return;
+    }
+    window.location.assign(webUrl);
+  };
+
   const renderMenu = () => (
     <div className="modern-menu absolute right-0 top-[calc(100%+12px)] z-30 w-[min(360px,calc(100vw-32px))] overflow-hidden rounded-[22px] border p-2 backdrop-blur-xl">
-      <a href="#download" onClick={openPlatformDownload} className="block rounded-2xl px-4 py-3 text-base font-medium transition">Descarcă</a>
-      <a href="#preturi" onClick={(event) => { scrollToAudienceSection(event, "preturi"); closeNavPanels(); }} className="block rounded-2xl px-4 py-3 text-base font-medium transition">Prețuri</a>
+      <a href="#download" onClick={openPlatformDownload} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{text("Download", "Descarcă")}</a>
+      <a href="#preturi" onClick={(event) => { scrollToAudienceSection(event, "preturi"); closeNavPanels(); }} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{text("Pricing", "Prețuri")}</a>
       <div className="my-1 border-t border-[#d9dee7]" />
-      <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">Resurse <span aria-hidden="true">{openNavPanel === "resources" ? "−" : "+"}</span></button>
+      <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Resources", "Resurse")} <span aria-hidden="true">{openNavPanel === "resources" ? "−" : "+"}</span></button>
       {openNavPanel === "resources" ? (
         <div className="mb-1 ml-3 border-l border-[#d9dee7] pl-2">
-          <a href="#pentru-administratori" onClick={(event) => { scrollToAudienceSection(event, "pentru-administratori"); closeNavPanels(); }} className="block rounded-2xl px-4 py-2.5 text-sm transition">Pentru baze sportive</a>
-          <a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-2xl px-4 py-2.5 text-sm transition">Pentru jucători</a>
+          <a href="https://www.sportme.ro/manager/quick-start" onClick={closeNavPanels} className="block rounded-2xl px-4 py-2.5 text-sm transition">{text("For sports venues", "Pentru baze sportive")}</a>
+          <a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-2xl px-4 py-2.5 text-sm transition">{text("For players", "Pentru jucători")}</a>
         </div>
       ) : null}
-      <button type="button" aria-expanded={openNavPanel === "sign-in"} onClick={() => setOpenNavPanel(openNavPanel === "sign-in" ? null : "sign-in")} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">Autentificare <span aria-hidden="true">{openNavPanel === "sign-in" ? "−" : "+"}</span></button>
-      {openNavPanel === "sign-in" ? (
-        <div className="mb-1 ml-3 border-l border-[#d9dee7] pl-2">
-          <a href={adminUrl} className="block rounded-2xl px-4 py-2.5 text-sm transition">SportMe Manager</a>
-          <a href={playerWebUrl} className="block rounded-2xl px-4 py-2.5 text-sm transition">SportMe Player</a>
-        </div>
-      ) : null}
-      <button type="button" onClick={() => { closeNavPanels(); setShowProductChoiceModal(true); }} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">Testează platforma gratuit</button>
+      <button type="button" onClick={openSignInModal} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Sign in", "Autentificare")}</button>
+      <button type="button" onClick={() => { closeNavPanels(); setShowPlatformDownloadModal(true); }} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Try the platform for free", "Testează platforma gratuit")}</button>
     </div>
   );
 
@@ -118,25 +134,24 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
 
       <div className="relative z-10 mx-auto w-full max-w-[1540px] px-5 pt-[calc(env(safe-area-inset-top)+18px)] sm:px-8 md:px-12 lg:px-16 xl:px-20">
         <div className="relative flex w-full min-w-0 items-center justify-between gap-3">
-          <nav className={`quickstart-nav modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1240px,calc(100vw-24px))] -translate-x-1/2 items-center gap-1 rounded-[18px] border px-2 py-2 sm:w-[min(1240px,calc(100vw-32px))] sm:gap-2 sm:px-5`} aria-label="Main navigation">
+          <nav className={`quickstart-nav modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1240px,calc(100vw-24px))] -translate-x-1/2 items-center gap-1 rounded-[18px] border px-2 py-2 sm:w-[min(1240px,calc(100vw-32px))] sm:gap-2 sm:px-5`} aria-label={text("Main navigation", "Navigare principală")}>
             <a href="/" className="sportme-sidebar-brand flex shrink-0 items-center gap-1.5 rounded-[10px] px-1.5 py-1.5 sm:gap-2 sm:px-3" aria-label="SportMe">
               <img src="/logo-512.png" alt="" className="h-6 w-6 rounded-[6px] sm:h-7 sm:w-7 sm:rounded-[7px]" />
               <span className="sportme-sidebar-wordmark"><span>sport</span><span className="sportme-sidebar-wordmark-me">me</span></span>
             </a>
             <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
-              <a href="#download" onClick={openPlatformDownload} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">Descarcă</a>
-              <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">Prețuri</a>
+              <a href="#download" onClick={openPlatformDownload} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Download", "Descarcă")}</a>
+              <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Pricing", "Prețuri")}</a>
               <div className="relative">
-                <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex items-center gap-1 rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">Resurse <span aria-hidden="true" className="text-xs">⌄</span></button>
-                {openNavPanel === "resources" ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href="#pentru-administratori" onClick={(event) => { scrollToAudienceSection(event, "pentru-administratori"); closeNavPanels(); }} className="block rounded-xl px-4 py-3 text-sm transition">Pentru baze sportive</a><a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-xl px-4 py-3 text-sm transition">Pentru jucători</a></div> : null}
+                <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex items-center gap-1.5 rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Resources", "Resurse")} <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className={`h-3.5 w-3.5 shrink-0 transition-transform ${openNavPanel === "resources" ? "rotate-180" : ""}`}><path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
+                {openNavPanel === "resources" ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href="https://www.sportme.ro/manager/quick-start" onClick={closeNavPanels} className="block rounded-xl px-4 py-3 text-sm transition">{text("For sports venues", "Pentru baze sportive")}</a><a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-xl px-4 py-3 text-sm transition">{text("For players", "Pentru jucători")}</a></div> : null}
               </div>
               <div className="relative">
-                <button type="button" aria-expanded={openNavPanel === "sign-in"} onClick={() => setOpenNavPanel(openNavPanel === "sign-in" ? null : "sign-in")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">Autentificare</button>
-                {openNavPanel === "sign-in" ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href={adminUrl} className="block rounded-xl px-4 py-3 text-sm transition">SportMe Manager</a><a href={playerWebUrl} className="block rounded-xl px-4 py-3 text-sm transition">SportMe Player</a></div> : null}
+                <button type="button" onClick={openSignInModal} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Sign in", "Autentificare")}</button>
               </div>
             </div>
             <div className="ml-auto flex shrink-0 items-center gap-1.5 lg:ml-0">
-              <button type="button" onClick={() => setShowProductChoiceModal(true)} className="modern-signup inline-flex h-9 items-center justify-center rounded-full border border-[#b8c0c9] bg-white/20 px-2.5 text-[11px] font-normal leading-5 text-[#182032] transition hover:bg-white/70 sm:h-10 sm:px-4 sm:text-base sm:leading-6">Testează platforma gratuit</button>
+              <button type="button" onClick={() => setShowPlatformDownloadModal(true)} className="modern-signup inline-flex h-9 items-center justify-center rounded-full border border-[#b8c0c9] bg-white/20 px-2.5 text-[11px] font-normal leading-5 text-[#182032] transition hover:bg-white/70 sm:h-10 sm:px-4 sm:text-base sm:leading-6">{text("Try the platform for free", "Testează platforma gratuit")}</button>
             </div>
             <button type="button" onClick={toggleHeroMenu} aria-label={t("about.nav.openMenu")} aria-expanded={showHeroMenu} className="modern-mobile-menu ml-0 flex h-9 w-8 shrink-0 items-center justify-center rounded-[7px] transition lg:hidden">
               <span className="flex w-4 flex-col gap-1"><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /></span>
@@ -148,22 +163,15 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
         <AppShowcase
           language={language}
           availableImages={availableShowcaseImages}
-          onOpenManager={() => {
-            trackEvent("click_sportme_manager_access");
-            setShowManagerAccessModal(true);
-          }}
           onOpenPlayer={() => setShowPlayerAccessModal(true)}
         />
       </div>
 
       {showProductChoiceModal ? (
         <ProductChoiceModal
+          mode="signIn"
           onClose={() => setShowProductChoiceModal(false)}
-          onSelect={(product) => {
-            setShowProductChoiceModal(false);
-            if (product === "manager") setShowManagerAccessModal(true);
-            else setShowPlayerAccessModal(true);
-          }}
+          onSelect={signInAs}
         />
       ) : null}
       {showManagerAccessModal ? <ManagerAccessModal onClose={() => setShowManagerAccessModal(false)} adminUrl={adminUrl} managerPlayStoreUrl={managerPlayStoreUrl} /> : null}

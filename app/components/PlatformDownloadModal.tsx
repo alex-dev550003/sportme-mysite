@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useI18n } from "../app/i18n";
 
 type Props = {
   onClose: () => void;
@@ -36,6 +37,7 @@ function DownloadIcon({ className = "h-9 w-9" }: { className?: string }) {
 }
 
 export default function PlatformDownloadModal({ onClose, adminUrl, managerPlayStoreUrl, playerWebUrl, playerPlayStoreUrl }: Props) {
+  const { text } = useI18n();
   const [audience, setAudience] = useState<"manager" | "player">("manager");
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -48,28 +50,30 @@ export default function PlatformDownloadModal({ onClose, adminUrl, managerPlaySt
   const cards = [
     { id: "apple" as const, title: "Apple", available: false },
     { id: "android" as const, title: "Android", available: true },
-    { id: "browser" as const, title: "Browser", available: true },
+    { id: "browser" as const, title: text("Browser", "Browser"), available: true },
   ];
 
   return (
     <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/45 px-4 py-5 backdrop-blur-[2px]" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="platform-download-title">
       <div className="relative max-h-[90dvh] w-full max-w-[520px] overflow-y-auto rounded-3xl border border-[#D9D8DC] bg-[#E6E5EA] p-6 text-center text-[#1f211f] shadow-2xl" onClick={(event) => event.stopPropagation()}>
-        <button type="button" onClick={onClose} aria-label="Închide" className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d5dbe5] bg-white text-[#1f211f] shadow-sm transition hover:bg-slate-50 sm:right-5 sm:top-5"><CloseIcon /></button>
+        <button type="button" onClick={onClose} aria-label={text("Close", "Închide")} className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d5dbe5] bg-white text-[#1f211f] shadow-sm transition hover:bg-slate-50 sm:right-5 sm:top-5"><CloseIcon /></button>
         <div className="mx-auto max-w-[680px] px-4 pt-1">
-          <h2 id="platform-download-title" className="mt-4 text-[26px] font-medium text-[#1f211f]">Sportme pe toate platformele</h2>
-          <p className="mx-auto mt-1 max-w-[580px] text-[15px] leading-6 text-slate-600">Alege cum vrei să folosești SportMe, pe telefon sau pe calculator.</p>
+          <h2 id="platform-download-title" className="mt-4 text-[26px] font-medium text-[#1f211f]">{text("Sportme on every platform", "Sportme pe toate platformele")}</h2>
+          <p className="mx-auto mt-1 max-w-[580px] text-[15px] leading-6 text-slate-600">{text("Choose how to use SportMe, on your phone or computer.", "Alege cum vrei să folosești SportMe, pe telefon sau pe calculator.")}</p>
         </div>
 
-        <div role="tablist" aria-label="Alege experiența SportMe" className="relative mt-6 inline-flex rounded-full bg-white p-1 shadow-sm">
+        <div role="tablist" aria-label={text("Choose SportMe experience", "Alege experiența SportMe")} className="relative mt-6 inline-flex rounded-full bg-white p-1 shadow-sm">
           <span aria-hidden="true" className={`absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#111111] transition-transform duration-300 ease-in-out motion-reduce:transition-none ${audience === "player" ? "translate-x-full" : "translate-x-0"}`} />
-          <button type="button" role="tab" id="platform-manager-tab" aria-selected={audience === "manager"} aria-controls="platform-options" onClick={() => setAudience("manager")} className={`relative z-10 w-28 rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-200 ${audience === "manager" ? "text-white" : "text-[#1f211f] hover:bg-[#f4f4f5]"}`}>Manager</button>
-          <button type="button" role="tab" id="platform-player-tab" aria-selected={audience === "player"} aria-controls="platform-options" onClick={() => setAudience("player")} className={`relative z-10 w-28 rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-200 ${audience === "player" ? "text-white" : "text-[#1f211f] hover:bg-[#f4f4f5]"}`}>Jucător</button>
+          <button type="button" role="tab" id="platform-manager-tab" aria-selected={audience === "manager"} aria-controls="platform-options" onClick={() => setAudience("manager")} className={`relative z-10 w-28 rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-200 ${audience === "manager" ? "text-white" : "text-[#1f211f] hover:bg-[#f4f4f5]"}`}>{text("Manager", "Manager")}</button>
+          <button type="button" role="tab" id="platform-player-tab" aria-selected={audience === "player"} aria-controls="platform-options" onClick={() => setAudience("player")} className={`relative z-10 w-28 rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-200 ${audience === "player" ? "text-white" : "text-[#1f211f] hover:bg-[#f4f4f5]"}`}>{text("Player", "Jucător")}</button>
         </div>
 
         <div id="platform-options" role="tabpanel" aria-labelledby={audience === "manager" ? "platform-manager-tab" : "platform-player-tab"} className="mx-auto mt-5 grid max-w-[430px] grid-cols-3 gap-2 sm:gap-3">
           {cards.map((card) => {
             const href = card.id === "android" ? audience === "manager" ? managerPlayStoreUrl : playerPlayStoreUrl : audience === "manager" ? adminUrl : playerWebUrl;
-            const actionLabel = card.id === "android" ? `Deschide Google Play pentru SportMe ${audience === "manager" ? "Manager" : "Jucător"}` : `Deschide SportMe ${audience === "manager" ? "Manager" : "Jucător"} în browser`;
+            const actionLabel = card.id === "android"
+              ? audience === "manager" ? text("Open Google Play for SportMe Manager", "Deschide Google Play pentru SportMe Manager") : text("Open Google Play for SportMe Player", "Deschide Google Play pentru SportMe Jucător")
+              : audience === "manager" ? text("Open SportMe Manager in your browser", "Deschide SportMe Manager în browser") : text("Open SportMe Player in your browser", "Deschide SportMe Jucător în browser");
             return <section key={card.id} className="flex flex-col items-center py-3 text-center sm:py-4">
               {card.available ? <a href={href} target="_blank" rel="noreferrer" aria-label={actionLabel} className="group relative flex h-20 w-20 items-center justify-center rounded-[22px] bg-white shadow-sm transition hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4b73ff] sm:h-24 sm:w-24">
                 <span className="transition-opacity group-hover:opacity-0 group-focus-visible:opacity-0"><PlatformIcon platform={card.id} /></span>
@@ -77,7 +81,7 @@ export default function PlatformDownloadModal({ onClose, adminUrl, managerPlaySt
                 <span className="pointer-events-none absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#4b73ff] shadow-sm sm:hidden"><DownloadIcon className="h-4 w-4" /></span>
               </a> : <span className="flex h-20 w-20 items-center justify-center rounded-[22px] bg-white text-[#252a34] shadow-sm sm:h-24 sm:w-24"><PlatformIcon platform={card.id} /></span>}
               <h3 className="mt-3 text-base font-semibold text-[#1f211f]">{card.title}</h3>
-              {card.available ? <span className="mt-2 rounded-full bg-[#dff4e9] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#16814d]">LIVE</span> : <span className="mt-2 rounded-full bg-[#eef2f6] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#68758a]">În curând</span>}
+              {card.available ? <span className="mt-2 rounded-full bg-[#dff4e9] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#16814d]">{text("LIVE", "LIVE")}</span> : <span className="mt-2 rounded-full bg-[#eef2f6] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#68758a]">{text("Soon", "În curând")}</span>}
             </section>;
           })}
         </div>

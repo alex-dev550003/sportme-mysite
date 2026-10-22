@@ -75,13 +75,8 @@ const structuredData = [
 ];
 
 const showcaseImagePaths = [
+  "/app-showcase/manager/01-dashboarddesktop.png",
   "/app-showcase/manager/01-dashboard.jpg",
-  "/app-showcase/manager/02-rezervari.jpg",
-  "/app-showcase/manager/03-terenuri.jpg",
-  "/app-showcase/manager/04-rezervarenoua.jpg",
-  "/app-showcase/manager/05-rezervareasteptare.jpg",
-  "/app-showcase/manager/06-angajati.jpg",
-  "/app-showcase/manager/06-notificari.jpg",
   "/app-showcase/player/01-home.jpg",
   "/app-showcase/player/02-locatii.jpg",
   "/app-showcase/player/03-rezervari.jpg",
