@@ -4,13 +4,19 @@ import { useI18n } from "../app/i18n";
 import { openCookieSettings } from "../utils/consent";
 
 export function SiteFooter() {
-  const { t } = useI18n();
+  const { t, text } = useI18n();
 
   return (
     <footer className="sportme-site-footer rounded-[28px] border border-transparent bg-transparent px-4 py-4 shadow-none md:px-5 md:py-4">
       <div className="flex flex-col gap-2 text-sm text-[#5b564b] md:flex-row md:items-center md:justify-between">
         <div className="text-xs uppercase tracking-[0.3em] text-[#7a7566]">SportMe</div>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <a className="font-normal text-[#0564ff] no-underline" href="/software-management-baze-sportive">
+            SportMe Manager
+          </a>
+          <a className="font-normal text-[#0564ff] no-underline" href="/intrebari-frecvente">
+            {text("Frequently asked questions", "Intrebari frecvente")}
+          </a>
           <a className="font-normal text-[#0564ff] no-underline" href="/terms">
             {t("footer.terms")}
           </a>

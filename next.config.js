@@ -55,7 +55,17 @@ const nextConfig = {
       },
       {
         source: "/pricing",
-        destination: "/manageri",
+        destination: "/#preturi",
+        statusCode: 301,
+      },
+      {
+        source: "/manageri",
+        destination: "/#pentru-administratori",
+        statusCode: 301,
+      },
+      {
+        source: "/terenuri-sportive",
+        destination: "/#pentru-jucatori",
         statusCode: 301,
       },
       {
