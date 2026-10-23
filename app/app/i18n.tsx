@@ -1,8 +1,9 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { translations, type TranslationKey, type LanguageKey } from "./translations";
-import { isLanguageKey, languages } from "./languages";
+import { detectVisitorLanguage, isLanguageKey, languages } from "./languages";
 import { translateText } from "./public-locales";
 
 type I18nContextValue = {
@@ -14,24 +15,22 @@ type I18nContextValue = {
 };
 
 const LANGUAGE_STORAGE_KEY = "appLanguage";
-const COUNTRY_LANGUAGE: Partial<Record<string, LanguageKey>> = {
-  RO: "RO", MD: "RO",
-  GB: "EN", IE: "EN", US: "EN", AU: "EN", NZ: "EN",
-  FR: "FR",
-  DE: "DE", AT: "DE",
-  IT: "IT", SM: "IT",
-  ES: "ES", MX: "ES", AR: "ES", CO: "ES", CL: "ES", PE: "ES", UY: "ES", PY: "ES", BO: "ES", EC: "ES", VE: "ES",
-  PT: "PT", BR: "PT",
-};
 const I18nContext = createContext<I18nContextValue | null>(null);
+
+function persistLanguageCookie(language: LanguageKey) {
+  try {
+    document.cookie = `sportmeLanguage=${language}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === "https:" ? "; Secure" : ""}`;
+  } catch { /* Language selection still works if cookies are blocked. */ }
+}
 
 function formatMessage(template: string, params?: Record<string, string | number>) {
   if (!params) return template;
   return template.replace(/\{(\w+)\}/g, (_, key) => String(params[key] ?? ""));
 }
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<LanguageKey>("RO");
+export function I18nProvider({ children, initialLanguage }: { children: React.ReactNode; initialLanguage: LanguageKey }) {
+  const router = useRouter();
+  const [language, setLanguageState] = useState<LanguageKey>(initialLanguage);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -41,22 +40,25 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     } catch { /* Language switching remains usable when storage is blocked. */ }
     if (isLanguageKey(stored)) {
       setLanguageState(stored);
+      persistLanguageCookie(stored);
+      if (stored !== initialLanguage) router.refresh();
+      return;
+    }
+
+    const selectedCookie = document.cookie.match(/(?:^|;\s*)sportmeLanguage=(RO|EN|FR|DE|IT|ES|PT)(?:;|$)/)?.[1];
+    if (isLanguageKey(selectedCookie)) {
+      setLanguageState(selectedCookie);
       return;
     }
 
     const country = document.cookie.match(/(?:^|;\s*)sportmeVisitorCountry=([A-Z]{2})(?:;|$)/)?.[1];
-    const countryLanguage = country ? COUNTRY_LANGUAGE[country] : undefined;
-    if (countryLanguage) {
-      setLanguageState(countryLanguage);
-      return;
+    const detected = detectVisitorLanguage(country, [...(navigator.languages ?? []), navigator.language]);
+    setLanguageState(detected);
+    if (detected !== initialLanguage) {
+      persistLanguageCookie(detected);
+      router.refresh();
     }
-
-    const preferredLanguage = [...(navigator.languages ?? []), navigator.language]
-      .map((locale) => locale.split("-")[0]?.toUpperCase())
-      .find(isLanguageKey);
-    if (preferredLanguage) setLanguageState(preferredLanguage);
-    else if (country) setLanguageState("EN");
-  }, []);
+  }, [initialLanguage, router]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -64,18 +66,22 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       if (event.key !== LANGUAGE_STORAGE_KEY) return;
       if (isLanguageKey(event.newValue)) {
         setLanguageState(event.newValue);
+        persistLanguageCookie(event.newValue);
+        router.refresh();
       }
     };
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
-  }, []);
+  }, [router]);
 
   const setLanguage = useCallback((lang: LanguageKey) => {
     setLanguageState(lang);
+    persistLanguageCookie(lang);
     if (typeof window !== "undefined") {
       try { window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang); } catch { /* Optional persistence. */ }
+      router.refresh();
     }
-  }, []);
+  }, [router]);
 
   const t = useCallback(
     (key: TranslationKey, params?: Record<string, string | number>) => {

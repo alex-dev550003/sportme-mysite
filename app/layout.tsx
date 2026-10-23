@@ -4,6 +4,9 @@ import Script from "next/script";
 import "./globals.css";
 import { Providers } from "./providers";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
+import { getServerLanguage } from "./app/server-language";
+import { languages } from "./app/languages";
+import { siteCopy } from "./app/seo-copy";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -12,13 +15,16 @@ const roboto = Roboto({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const language = await getServerLanguage();
+  const description = siteCopy.home[language].description;
+  return {
   metadataBase: new URL("https://www.sportme.ro"),
   title: {
     default: "SportMe",
     template: "%s | SportMe",
   },
-  description: "Rezerva rapid terenuri sportive si administreaza bazele sportive cu SportMe.",
+  description,
   manifest: "/manifest.webmanifest",
   applicationName: "SportMe",
   authors: [{ name: "SportMe" }],
@@ -31,7 +37,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "SportMe",
-    description: "Rezerva rapid terenuri sportive si administreaza bazele sportive cu SportMe.",
+    description,
     images: [
       {
         url: "https://www.sportme.ro/og-image.png",
@@ -42,16 +48,17 @@ export const metadata: Metadata = {
     ],
     url: "https://www.sportme.ro/",
     siteName: "SportMe",
-    locale: "ro_RO",
+    locale: languages.find(({ code }) => code === language)!.locale.replace("-", "_"),
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "SportMe",
-    description: "Rezerva rapid terenuri sportive si administreaza bazele sportive cu SportMe.",
+    description,
     images: ["https://www.sportme.ro/og-image.png"],
   },
-};
+  };
+}
 
 export const viewport = {
   width: "device-width",
@@ -60,15 +67,16 @@ export const viewport = {
   themeColor: "#020915",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const bodyClassName = `${roboto.variable} antialiased`;
+  const language = await getServerLanguage();
 
   return (
-    <html lang="ro">
+    <html lang={language.toLowerCase()}>
       <head>
         <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="apple-touch-icon" href="/logo-512.png" />
@@ -93,7 +101,7 @@ export default function RootLayout({
       </head>
       <body className={bodyClassName} style={{ fontFamily: 'var(--font-urbanist), ui-sans-serif, system-ui, sans-serif' }}>
         <GoogleAnalytics />
-        <Providers>
+        <Providers initialLanguage={language}>
           <main className="min-h-screen">{children}</main>
         </Providers>
       </body>

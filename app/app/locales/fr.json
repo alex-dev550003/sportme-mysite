@@ -1,5 +1,10 @@
 {
   "english": {
+    "The necessary cookies sportmeLanguage and sportmeVisitorCountry help display the selected or initial site language. They are not used for advertising or analytics.": "Les cookies nécessaires sportmeLanguage et sportmeVisitorCountry permettent d’afficher la langue choisie ou la langue initiale du site. Ils ne servent ni à la publicité ni aux statistiques.",
+    "The sportmeLanguage cookie lasts up to one year or until the language preference changes; sportmeVisitorCountry lasts until the browser is closed.": "Le cookie sportmeLanguage dure jusqu’à un an ou jusqu’au changement de langue ; sportmeVisitorCountry dure jusqu’à la fermeture du navigateur.",
+    "Up to one year or until the language preference is changed.": "Jusqu’à un an ou jusqu’au changement de langue.",
+    "Selects the initial site language based on the visitor's country.": "Définit la langue initiale du site selon le pays du visiteur.",
+    "Until the browser is closed.": "Jusqu’à la fermeture du navigateur.",
     "Back to home page": "Retour à l’accueil",
     "Last updated: 28 July 2026": "Dernière mise à jour : 28 juillet 2026",
     "Quick summary": "En bref",
@@ -308,6 +313,10 @@
     "The Staff dashboard feature is available according to the active subscription plan.": "Le tableau de bord des employés est disponible selon le forfait actif."
   },
   "romanian": {
+    "Acasă": "Accueil",
+    "Beneficii": "Avantages",
+    "Rezervări": "Réservations",
+    "Echipa": "Équipe",
     "Software management baze sportive - SportMe Manager": "Logiciel de gestion d’installations sportives - SportMe Manager",
     "SportMe Manager ajută bazele sportive să administreze rezervări, calendare, angajați, notificări și activitatea terenurilor într-o platformă simplă.": "SportMe Manager aide à gérer réservations, calendriers, employés, notifications et activité des terrains dans une plateforme simple.",
     "Ce este SportMe Manager?": "Qu’est-ce que SportMe Manager ?",

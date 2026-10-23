@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { SeoContentPage, type SeoFaqItem } from "../components/SeoContentPage";
+import { getServerLanguage } from "../app/server-language";
+import { makePageMetadata } from "../app/seo-copy";
+import { translateDocumentText } from "../app/content-locales";
+import { languages } from "../app/languages";
 
 const title = "Întrebări frecvente - SportMe";
 const description =
@@ -64,46 +68,24 @@ const managerFaqItems: SeoFaqItem[] = [
 
 const allFaqItems = [...userFaqItems, ...managerFaqItems];
 
-export const metadata: Metadata = {
-  title: {
-    absolute: title,
-  },
-  description,
-  keywords: [
-    "SportMe întrebări frecvente",
-    "cum rezerv teren sportiv",
-    "aplicație rezervări terenuri",
-    "SportMe Manager",
-    "rezervări sport online",
-  ],
-  alternates: {
-    canonical,
-  },
-  openGraph: {
-    title,
-    description,
-    url: canonical,
-    siteName: "SportMe",
-    type: "website",
-    locale: "ro_RO",
-    images: ["https://www.sportme.ro/og-image.png"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description,
-    images: ["https://www.sportme.ro/og-image.png"],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const language = await getServerLanguage();
+  return makePageMetadata(language, {
+    title: translateDocumentText(title, language, "romanian"),
+    description: translateDocumentText(description, language, "romanian"),
+  }, canonical);
+}
 
-const structuredData = [
+function getStructuredData(language: Awaited<ReturnType<typeof getServerLanguage>>) {
+  const localize = (value: string) => translateDocumentText(value, language, "romanian");
+  return [
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: title,
-    description,
+    name: localize(title),
+    description: localize(description),
     url: canonical,
-    inLanguage: "ro-RO",
+    inLanguage: languages.find(({ code }) => code === language)!.locale,
     isPartOf: {
       "@type": "WebSite",
       name: "SportMe",
@@ -115,19 +97,21 @@ const structuredData = [
     "@type": "FAQPage",
     mainEntity: allFaqItems.map((item) => ({
       "@type": "Question",
-      name: item.question,
+      name: localize(item.question),
       acceptedAnswer: {
         "@type": "Answer",
-        text: item.answer,
+        text: localize(item.answer),
       },
     })),
   },
-];
+  ];
+}
 
-export default function IntrebariFrecventePage() {
+export default async function IntrebariFrecventePage() {
+  const language = await getServerLanguage();
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(getStructuredData(language)) }} />
       <SeoContentPage
         eyebrow="SportMe FAQ"
         title="Întrebări frecvente despre SportMe"

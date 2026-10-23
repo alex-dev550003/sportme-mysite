@@ -718,7 +718,7 @@ function SectionHeader({ id, eyebrow, title }: { id: string; eyebrow: string; ti
 }
 
 export function QuickStartContent() {
-  const { language, locale } = useI18n();
+  const { language, locale, text: translate } = useI18n();
   const [showProductChoiceModal, setShowProductChoiceModal] = useState(false);
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
@@ -751,12 +751,12 @@ export function QuickStartContent() {
             <span>SportMe app</span>
           </a>
           <div className="ml-auto hidden items-center gap-1.5 lg:flex">
-            <a href="/#pentru-administratori" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">Software baze sportive / Jucători</a>
-            <a href="/manager/quick-start" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">Quickstart</a>
-            <a href="/#preturi" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">Prețuri</a>
+            <a href="/#pentru-administratori" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Venue software / Players", "Software baze sportive / Jucători")}</a>
+            <a href="/manager/quick-start" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Quickstart")}</a>
+            <a href="/#preturi" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Pricing", "Prețuri")}</a>
           </div>
           <div className="ml-0 flex shrink-0 items-center gap-1.5">
-            <button type="button" onClick={() => setShowProductChoiceModal(true)} className="quickstart-primary-nav-button modern-primary inline-flex h-7 items-center rounded-[8px] bg-[#0d64d8] px-2.5 text-[13px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">Începe gratuit</button>
+            <button type="button" onClick={() => setShowProductChoiceModal(true)} className="quickstart-primary-nav-button modern-primary inline-flex h-7 items-center rounded-[8px] bg-[#0d64d8] px-2.5 text-[13px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{translate("Start for free", "Începe gratuit")}</button>
           </div>
         </nav>
         <div className="quickstart-language fixed right-6 top-[20px] z-[60] hidden lg:block">

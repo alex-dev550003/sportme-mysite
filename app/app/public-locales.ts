@@ -32,6 +32,7 @@ const messages: Record<string, readonly [string, string, string, string, string]
   "Switch language": ["Changer de langue", "Sprache wechseln", "Cambia lingua", "Cambiar idioma", "Mudar idioma"],
   "Open menu": ["Ouvrir le menu", "Menü öffnen", "Apri menu", "Abrir menú", "Abrir menu"],
   "Venue software / Players": ["Gestion des centres / Joueurs", "Sportstätten / Spieler", "Centri sportivi / Giocatori", "Centros deportivos / Jugadores", "Centros desportivos / Jogadores"],
+  "Quickstart": ["Démarrage rapide", "Schnellstart", "Guida rapida", "Guía rápida", "Guia rápido"],
   "Pricing": ["Tarifs", "Preise", "Prezzi", "Precios", "Preços"],
   "Download": ["Télécharger", "Herunterladen", "Scarica", "Descargar", "Descarregar"],
   "Resources": ["Ressources", "Ressourcen", "Risorse", "Recursos", "Recursos"],

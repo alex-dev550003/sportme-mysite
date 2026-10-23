@@ -3,52 +3,13 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { AboutDeferredLoader } from "./about/AboutDeferredLoader";
 import { AboutHero } from "./about/AboutHero";
+import { getServerLanguage } from "./app/server-language";
+import { makePageMetadata, siteCopy } from "./app/seo-copy";
 
-const title = "SportMe - Rezervă terenuri sportive rapid";
-const description =
-  "SportMe te ajută să găsești, să verifici disponibilitatea și să rezervi rapid terenuri sportive pentru fotbal, tenis, padel, squash și alte sporturi.";
-
-export const metadata: Metadata = {
-  title: {
-    absolute: title,
-  },
-  description,
-  keywords: [
-    "SportMe",
-    "rezervare terenuri sportive",
-    "rezervari terenuri fotbal",
-    "rezervari tenis",
-    "rezervari padel",
-    "rezervari squash",
-    "terenuri sportive",
-    "aplicatie sport",
-  ],
-  alternates: {
-    canonical: "https://www.sportme.ro/",
-  },
-  openGraph: {
-    title,
-    description,
-    url: "https://www.sportme.ro/",
-    siteName: "SportMe",
-    type: "website",
-    locale: "ro_RO",
-    images: [
-      {
-        url: "https://www.sportme.ro/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "SportMe - rezervari terenuri sportive",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description,
-    images: ["https://www.sportme.ro/og-image.png"],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const language = await getServerLanguage();
+  return makePageMetadata(language, siteCopy.home[language], "https://www.sportme.ro/");
+}
 
 const structuredData = [
   {

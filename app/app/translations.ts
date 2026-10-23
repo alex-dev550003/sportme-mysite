@@ -461,6 +461,7 @@ export const privacyPolicy = {
         body: [
           "When you access the public website, technical data needed to deliver and secure the website may be processed, such as IP address, user agent, browser and device information, technical request information, date and time of access, and other technical information needed to serve the website.",
           "The public website uses localStorage key appLanguage to remember your language preference. This is not used for advertising or analytics.",
+          "The necessary cookies sportmeLanguage and sportmeVisitorCountry help display the selected or initial site language. They are not used for advertising or analytics.",
           "The public website uses localStorage key sportme_public_cookie_consent to remember your Analytics choice so the website can respect your privacy preference. This is not used for advertising.",
           "The public website itself does not process user accounts, passwords, bookings, payments, card data, GPS location, or push notifications.",
         ],
@@ -503,6 +504,7 @@ export const privacyPolicy = {
         title: "7. Retention",
         body: [
           "appLanguage and sportme_public_cookie_consent remain in your browser until you clear browser storage or change/reset the preferences.",
+          "The sportmeLanguage cookie lasts up to one year or until the language preference changes; sportmeVisitorCountry lasts until the browser is closed.",
           "The website allows Google Analytics cookies to be created only after you give consent for Analytics. When you later withdraw or reject Analytics, first-party GA cookies identified by the website are deleted.",
           "Google Analytics data is retained according to the GA property settings and applicable Google policies.",
           "Email correspondence is kept only as long as necessary for the purpose for which it was sent and for applicable obligations.",
@@ -561,6 +563,7 @@ export const privacyPolicy = {
         body: [
           "Cand accesezi site-ul public, pot fi prelucrate date tehnice necesare livrarii si securitatii site-ului, precum adresa IP, user agent, informatii despre browser si dispozitiv, informatii tehnice despre request, data si ora accesului si alte informatii tehnice necesare livrarii site-ului.",
           "Site-ul public foloseste cheia localStorage appLanguage pentru memorarea preferintei de limba. Aceasta nu este folosita pentru advertising sau analytics.",
+          "Cookie-urile necesare sportmeLanguage și sportmeVisitorCountry ajută la afișarea limbii alese sau inițiale a site-ului. Nu sunt folosite pentru publicitate sau analiză.",
           "Site-ul public foloseste cheia localStorage sportme_public_cookie_consent pentru memorarea alegerii privind Analytics, astfel incat site-ul sa respecte preferinta ta de confidentialitate. Aceasta nu este folosita pentru advertising.",
           "Site-ul public, prin propriile functionalitati, nu proceseaza conturi de utilizator, parole, rezervari, plati, date de card, locatie GPS sau push notifications.",
         ],
@@ -603,6 +606,7 @@ export const privacyPolicy = {
         title: "7. Retentie",
         body: [
           "appLanguage si sportme_public_cookie_consent raman in browser pana la stergerea storage-ului sau schimbarea/resetarea preferintelor.",
+          "Cookie-ul sportmeLanguage durează până la un an sau până la schimbarea preferinței de limbă; sportmeVisitorCountry durează până la închiderea browserului.",
           "Site-ul permite crearea cookie-urilor Google Analytics numai dupa acordarea consimtamantului pentru Analytics. Cand utilizatorul retrage sau refuza ulterior Analytics, cookies GA first-party identificate de site sunt sterse.",
           "Datele Google Analytics sunt pastrate conform setarilor proprietatii GA si politicilor aplicabile Google.",
           "Corespondenta email este pastrata numai cat este necesar scopului pentru care a fost transmisa si obligatiilor aplicabile.",
@@ -813,6 +817,24 @@ export const cookiesPolicy = {
               "Until browser storage is cleared or the preference is changed.",
             ],
             [
+              "sportmeLanguage",
+              "cookie",
+              "SportMe Booking SRL",
+              "Remembers the language preference.",
+              "Necessary/preference",
+              "Always active",
+              "Up to one year or until the language preference is changed.",
+            ],
+            [
+              "sportmeVisitorCountry",
+              "cookie",
+              "SportMe Booking SRL",
+              "Selects the initial site language based on the visitor's country.",
+              "Necessary/preference",
+              "Always active",
+              "Until the browser is closed.",
+            ],
+            [
               "sportme_public_cookie_consent",
               "localStorage",
               "SportMe Booking SRL",
@@ -917,6 +939,24 @@ export const cookiesPolicy = {
               "Necesar/preferinta",
               "Activ permanent",
               "Pana la stergerea storage-ului sau schimbarea preferintei.",
+            ],
+            [
+              "sportmeLanguage",
+              "cookie",
+              "SportMe Booking SRL",
+              "Memorarea limbii preferate.",
+              "Necesar/preferinta",
+              "Activ permanent",
+              "Până la un an sau până la schimbarea preferinței de limbă.",
+            ],
+            [
+              "sportmeVisitorCountry",
+              "cookie",
+              "SportMe Booking SRL",
+              "Selectează limba inițială a site-ului pe baza țării vizitatorului.",
+              "Necesar/preferinta",
+              "Activ permanent",
+              "Până la închiderea browserului.",
             ],
             [
               "sportme_public_cookie_consent",

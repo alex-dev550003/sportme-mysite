@@ -1,6 +1,10 @@
 {
   "english": {},
   "romanian": {
+    "Acasă": "Home",
+    "Beneficii": "Benefits",
+    "Rezervări": "Bookings",
+    "Echipa": "Team",
     "Software management baze sportive - SportMe Manager": "Sports venue management software - SportMe Manager",
     "SportMe Manager ajută bazele sportive să administreze rezervări, calendare, angajați, notificări și activitatea terenurilor într-o platformă simplă.": "SportMe Manager helps sports venues manage bookings, calendars, staff, notifications and court activity in one simple platform.",
     "Ce este SportMe Manager?": "What is SportMe Manager?",
