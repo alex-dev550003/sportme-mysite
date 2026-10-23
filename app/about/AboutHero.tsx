@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useEffect, useState, type MouseEvent } from "react";
 import { useI18n } from "../app/i18n";
 import { AppShowcase } from "../components/home/AppShowcase";
@@ -20,6 +21,7 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
   const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const [showProductChoiceModal, setShowProductChoiceModal] = useState(false);
+  const [showShowcaseChoiceModal, setShowShowcaseChoiceModal] = useState(false);
   const [showPlatformDownloadModal, setShowPlatformDownloadModal] = useState(false);
   const adminUrl = "https://admin.sportme.ro/auth";
   const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
@@ -109,8 +111,24 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
     window.location.assign(webUrl);
   };
 
+  const startAs = (product: "manager" | "player") => {
+    setShowShowcaseChoiceModal(false);
+    const webUrl = product === "manager" ? adminUrl : playerWebUrl;
+    const playStoreUrl = product === "manager" ? managerPlayStoreUrl : playerPlayStoreUrl;
+    const userAgent = navigator.userAgent;
+
+    if (/Android/i.test(userAgent)) {
+      window.location.assign(playStoreUrl);
+      return;
+    }
+
+    // The SportMe iOS apps are not yet available in the App Store.
+    // iPhone and iPad visitors continue in the browser until official links exist.
+    window.location.assign(webUrl);
+  };
+
   const renderMenu = () => (
-    <div className="modern-menu absolute right-0 top-[calc(100%+12px)] z-30 w-[min(360px,calc(100vw-32px))] overflow-hidden rounded-[22px] border p-2 backdrop-blur-xl">
+    <div className="modern-menu absolute right-5 top-[calc(100%+12px)] z-30 w-[min(360px,calc(100vw-40px))] overflow-visible rounded-[22px] border p-2 backdrop-blur-xl sm:right-6">
       <a href="#download" onClick={openPlatformDownload} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{text("Download", "Descarcă")}</a>
       <a href="#preturi" onClick={(event) => { scrollToAudienceSection(event, "preturi"); closeNavPanels(); }} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{text("Pricing", "Prețuri")}</a>
       <div className="my-1 border-t border-[#d9dee7]" />
@@ -122,23 +140,29 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
         </div>
       ) : null}
       <button type="button" onClick={openSignInModal} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Sign in", "Autentificare")}</button>
-      <button type="button" onClick={() => { closeNavPanels(); setShowPlatformDownloadModal(true); }} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Try the platform for free", "Testează platforma gratuit")}</button>
+      <button type="button" onClick={() => { closeNavPanels(); setShowPlatformDownloadModal(true); }} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Try for free", "Testează gratuit")}</button>
+      <div className="my-1 border-t border-[#d9dee7]" />
+      <div className="flex items-center justify-between gap-3 px-4 py-2">
+        <span className="text-sm font-medium text-[#526078]">{t("about.languageToggleLabel")}</span>
+        <LanguageSelector />
+      </div>
     </div>
   );
 
   return (
     <section className="sportme-modern-home app-showcase-hero relative overflow-hidden">
-      <div className="sportme-language-control absolute right-5 top-[calc(env(safe-area-inset-top)+90px)] z-20 flex flex-col items-end gap-3 sm:right-8 lg:right-12 lg:top-[calc(env(safe-area-inset-top)+18px)]">
+      <div className="sportme-language-control absolute right-5 top-[calc(env(safe-area-inset-top)+90px)] z-20 hidden flex-col items-end gap-3 sm:right-8 lg:right-12 lg:top-[calc(env(safe-area-inset-top)+18px)] lg:flex">
         <LanguageSelector />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1540px] px-5 pt-[calc(env(safe-area-inset-top)+18px)] sm:px-8 md:px-12 lg:px-16 xl:px-20">
         <div className="relative flex w-full min-w-0 items-center justify-between gap-3">
-          <nav className={`quickstart-nav modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed left-1/2 top-[calc(env(safe-area-inset-top)+20px)] z-50 flex w-[min(1240px,calc(100vw-24px))] -translate-x-1/2 items-center gap-1 rounded-[18px] border px-2 py-2 sm:w-[min(1240px,calc(100vw-32px))] sm:gap-2 sm:px-5`} aria-label={text("Main navigation", "Navigare principală")}>
-            <a href="/" className="sportme-sidebar-brand flex shrink-0 items-center gap-1.5 rounded-[10px] px-1.5 py-1.5 sm:gap-2 sm:px-3" aria-label="SportMe">
+          <nav className={`quickstart-nav modern-desktop-nav ${headerScrollProgress > 0 ? "is-scrolled" : ""} fixed inset-x-0 top-[env(safe-area-inset-top)] z-50 w-full rounded-none border py-2`} aria-label={text("Main navigation", "Navigare principală")}>
+            <div className="relative mx-auto flex w-full max-w-[1040px] items-center gap-1 px-5 sm:gap-2 sm:px-6">
+            <Link href="/" className="sportme-sidebar-brand flex shrink-0 items-center gap-1.5 rounded-[10px] px-1.5 py-1.5 sm:gap-2 sm:px-3" aria-label="SportMe">
               <img src="/logo-512.png" alt="" className="h-6 w-6 rounded-[6px] sm:h-7 sm:w-7 sm:rounded-[7px]" />
               <span className="sportme-sidebar-wordmark"><span>sport</span><span className="sportme-sidebar-wordmark-me">me</span></span>
-            </a>
+            </Link>
             <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
               <a href="#download" onClick={openPlatformDownload} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Download", "Descarcă")}</a>
               <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Pricing", "Prețuri")}</a>
@@ -150,13 +174,14 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
                 <button type="button" onClick={openSignInModal} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Sign in", "Autentificare")}</button>
               </div>
             </div>
-            <div className="ml-auto flex shrink-0 items-center gap-1.5 lg:ml-0">
-              <button type="button" onClick={() => setShowPlatformDownloadModal(true)} className="modern-signup inline-flex h-9 items-center justify-center rounded-full border border-[#b8c0c9] bg-white/20 px-2.5 text-[11px] font-normal leading-5 text-[#182032] transition hover:bg-white/70 sm:h-10 sm:px-4 sm:text-base sm:leading-6">{text("Try the platform for free", "Testează platforma gratuit")}</button>
+            <div className="ml-auto hidden shrink-0 items-center gap-1.5 lg:ml-0 lg:flex">
+              <button type="button" onClick={() => { closeNavPanels(); setShowPlatformDownloadModal(true); }} className="modern-signup inline-flex h-9 items-center justify-center rounded-full border border-[#b8c0c9] bg-white/20 px-2.5 text-[11px] font-normal leading-5 text-[#182032] transition hover:bg-white/70 sm:h-10 sm:px-4 sm:text-base sm:leading-6">{text("Try for free", "Testează gratuit")}</button>
             </div>
-            <button type="button" onClick={toggleHeroMenu} aria-label={t("about.nav.openMenu")} aria-expanded={showHeroMenu} className="modern-mobile-menu ml-0 flex h-9 w-8 shrink-0 items-center justify-center rounded-[7px] transition lg:hidden">
+            <button type="button" onClick={toggleHeroMenu} aria-label={t("about.nav.openMenu")} aria-expanded={showHeroMenu} className="modern-mobile-menu ml-auto flex h-9 w-8 shrink-0 items-center justify-center rounded-[7px] transition lg:hidden">
               <span className="flex w-4 flex-col gap-1"><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /></span>
             </button>
             {showHeroMenu ? renderMenu() : null}
+            </div>
           </nav>
         </div>
 
@@ -164,6 +189,7 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
           language={language}
           availableImages={availableShowcaseImages}
           onOpenPlayer={() => setShowPlayerAccessModal(true)}
+          onOpenStart={() => setShowShowcaseChoiceModal(true)}
         />
       </div>
 
@@ -172,6 +198,13 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
           mode="signIn"
           onClose={() => setShowProductChoiceModal(false)}
           onSelect={signInAs}
+        />
+      ) : null}
+      {showShowcaseChoiceModal ? (
+        <ProductChoiceModal
+          mode="showcase"
+          onClose={() => setShowShowcaseChoiceModal(false)}
+          onSelect={startAs}
         />
       ) : null}
       {showManagerAccessModal ? <ManagerAccessModal onClose={() => setShowManagerAccessModal(false)} adminUrl={adminUrl} managerPlayStoreUrl={managerPlayStoreUrl} /> : null}

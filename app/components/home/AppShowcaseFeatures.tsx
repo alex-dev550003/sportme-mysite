@@ -15,7 +15,7 @@ type Feature = { icon: ReactNode; ro: [string, string]; en: [string, string] };
 const features: Record<ShowcaseMode, Feature[]> = {
   manager: [
     { icon: <CalendarIcon />, ro: ["Rezervări", "centralizate"], en: ["Centralized", "bookings"] },
-    { icon: <ClockIcon />, ro: ["Disponibilitate", "în timp real"], en: ["Real-time", "availability"] },
+    { icon: <ClockIcon />, ro: ["Disponibilitate", "live"], en: ["Real-time", "availability"] },
     { icon: <ChartIcon />, ro: ["Rapoarte", "și statistici"], en: ["Reports", "and insights"] },
   ],
   player: [

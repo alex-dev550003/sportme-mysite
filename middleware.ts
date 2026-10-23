@@ -12,5 +12,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(pathname, "https://app.sportme.ro"));
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+  const country = request.headers.get("x-vercel-ip-country")?.toUpperCase();
+  if (request.headers.get("accept")?.includes("text/html") && country && /^[A-Z]{2}$/.test(country) && request.cookies.get("sportmeVisitorCountry")?.value !== country) {
+    response.cookies.set("sportmeVisitorCountry", country, {
+      path: "/",
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+  }
+  return response;
 }

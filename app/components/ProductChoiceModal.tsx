@@ -6,7 +6,7 @@ import { useI18n } from "../app/i18n";
 type Props = {
   onClose: () => void;
   onSelect: (product: "manager" | "player") => void;
-  mode?: "start" | "signIn";
+  mode?: "start" | "signIn" | "showcase";
 };
 
 function CloseIcon() {
@@ -47,14 +47,14 @@ export default function ProductChoiceModal({ onClose, onSelect, mode = "start" }
     { product: "player" as const, logo: "/logo-512.png", title: text("SportMe Player", "SportMe Jucător"), subtitle: text("For players and teams", "Pentru jucători și echipe") },
   ];
 
-  if (mode === "signIn") {
+  if (mode === "signIn" || mode === "showcase") {
     return (
       <div className="fixed inset-0 isolate z-[999] flex items-center justify-center overflow-y-auto bg-black/45 px-4 py-5 backdrop-blur-[2px]" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="product-choice-title">
         <div className="relative max-h-[90dvh] w-full max-w-[520px] overflow-y-auto rounded-3xl border border-[#D9D8DC] bg-[#E6E5EA] p-6 text-center text-[#1f211f] shadow-2xl" onClick={(event) => event.stopPropagation()}>
           <button type="button" onClick={onClose} aria-label={text("Close", "Închide")} className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d5dbe5] bg-white text-[#1f211f] shadow-sm transition hover:bg-slate-50 sm:right-5 sm:top-5"><CloseIcon /></button>
           <div className="mx-auto px-4 pt-1">
-            <h2 id="product-choice-title" className="mt-4 text-[26px] font-medium text-[#1f211f]">{text("Sign in", "Autentificare")}</h2>
-            <p className="mx-auto mt-1 text-[15px] leading-6 text-slate-600">{text("Are you a sports venue manager or a player?", "Ești managerul unei baze sportive sau jucător?")}</p>
+            <h2 id="product-choice-title" className="mt-4 text-[26px] font-medium text-[#1f211f]">{mode === "showcase" ? text("Are you a MANAGER or a PLAYER?", "Ești MANAGER sau JUCĂTOR?") : text("Sign in", "Autentificare")}</h2>
+            {mode === "signIn" ? <p className="mx-auto mt-1 text-[15px] leading-6 text-slate-600">{text("Are you a sports venue manager or a player?", "Ești managerul unei baze sportive sau jucător?")}</p> : null}
           </div>
           <div className="mx-auto mt-6 grid max-w-[360px] grid-cols-2 gap-5 sm:gap-8">
             {choices.map((choice) => (

@@ -8,13 +8,12 @@ import { translateText } from "../../app/public-locales";
 import type { LanguageKey } from "../../app/languages";
 
 type Language = "RO" | "EN";
-type Props = { language: LanguageKey; availableImages: string[]; onOpenPlayer: () => void };
+type Props = { language: LanguageKey; availableImages: string[]; onOpenPlayer: () => void; onOpenStart: () => void };
 
 const showcase = {
   manager: {
     eyebrow: { RO: "APLICAȚIA PENTRU BAZE SPORTIVE", EN: "THE APP FOR SPORTS VENUES" },
     title: { RO: ["Administrează mai simplu.", "Crește mai mult."], EN: ["Manage more simply.", "Grow with clarity."] },
-    subtitle: { RO: "Tot ce ai nevoie pentru rezervări, clienți și terenuri, într-o singură aplicație.", EN: "Everything you need for bookings, customers and courts, in one app." },
     slides: [
       { src: "/app-showcase/manager/01-dashboarddesktop.png", width: 1595, height: 925, internationalSrc: "/app-showcase/manager/01-dashboarddesktop-en.png", internationalWidth: 1609, internationalHeight: 925, alt: "Dashboard SportMe Manager pe desktop", label: "Desktop dashboard", format: "desktop" },
       { src: "/app-showcase/manager/01-dashboard.jpg", width: 1080, height: 2186, internationalSrc: "/app-showcase/manager/01-dashboard-en.png", internationalWidth: 1080, internationalHeight: 2340, alt: "Dashboard SportMe Manager", label: "Dashboard" },
@@ -34,9 +33,9 @@ const showcase = {
       { src: "/app-showcase/player/06-profile.jpg", alt: "Profil în SportMe Jucător", label: "Profile" },
     ],
   },
-} satisfies Record<ShowcaseMode, { eyebrow: Record<Language, string>; title: Record<Language, string[]>; subtitle: Record<Language, string>; cta?: Record<Language, string>; slides: { src: string; width?: number; height?: number; internationalSrc?: string; internationalWidth?: number; internationalHeight?: number; alt: string; label: string; format?: "desktop" }[] }>;
+} satisfies Record<ShowcaseMode, { eyebrow: Record<Language, string>; title: Record<Language, string[]>; subtitle?: Record<Language, string>; cta?: Record<Language, string>; slides: { src: string; width?: number; height?: number; internationalSrc?: string; internationalWidth?: number; internationalHeight?: number; alt: string; label: string; format?: "desktop" }[] }>;
 
-export function AppShowcase({ language, availableImages, onOpenPlayer }: Props) {
+export function AppShowcase({ language, availableImages, onOpenPlayer, onOpenStart }: Props) {
   const [mode, setMode] = useState<ShowcaseMode>("manager");
   const content = showcase[mode];
   const text = (english: string, romanian?: string) => translateText(language, english, romanian);
@@ -57,7 +56,7 @@ export function AppShowcase({ language, availableImages, onOpenPlayer }: Props) 
           <span>{text(content.title.EN[0], content.title.RO[0])}</span>
           <span className="is-muted">{text(content.title.EN[1], content.title.RO[1])}</span>
         </h1>
-        <p className="app-showcase-subtitle">{text(content.subtitle.EN, content.subtitle.RO)}</p>
+        {mode === "player" ? <p className="app-showcase-subtitle">{text(showcase.player.subtitle.EN, showcase.player.subtitle.RO)}</p> : null}
       </header>
 
       <AppShowcaseTabs activeMode={mode} language={language} onChange={setMode} />
@@ -66,6 +65,11 @@ export function AppShowcase({ language, availableImages, onOpenPlayer }: Props) 
         alt: language === "RO" ? slide.alt : `${text(slide.label)} — ${mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")}`,
       }))} language={language} availableImages={availableImages} />
       <AppShowcaseFeatures mode={mode} language={language} />
+      {mode === "manager" ? (
+        <button type="button" className="app-showcase-cta" onClick={onOpenStart}>
+          <span>{text("Start now", "Începe acum")}</span><span aria-hidden="true">→</span>
+        </button>
+      ) : null}
       {mode === "player" ? (
         <button type="button" className="app-showcase-cta" onClick={onOpenPlayer}>
           <span>{text(showcase.player.cta.EN, showcase.player.cta.RO)}</span><span aria-hidden="true">→</span>

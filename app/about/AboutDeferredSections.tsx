@@ -83,8 +83,16 @@ export default function AboutDeferredSections() {
       <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
     </svg>
   );
-  const openProductChoiceModal = () => {
-    window.dispatchEvent(new Event("sportme:open-product-choice"));
+  const openManagerFromPricing = () => {
+    const adminUrl = "https://admin.sportme.ro/auth";
+    if (/Android/i.test(navigator.userAgent)) {
+      const playStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
+      window.location.assign(`intent://login/auth#Intent;scheme=com.sportme.dashboard;package=com.sportme.dashboard;S.browser_fallback_url=${encodeURIComponent(playStoreUrl)};end`);
+      return;
+    }
+
+    // The Manager iOS app is not available in the App Store yet.
+    window.location.assign(adminUrl);
   };
 
   return (
@@ -190,9 +198,8 @@ export default function AboutDeferredSections() {
           <div id="preturi" className="about-pricing-section order-1 mt-8 scroll-mt-24">
             <div className="about-pricing-intro mb-6 space-y-2">
               <h2 className="about-audience-section-heading modern-section-heading text-3xl leading-tight lg:text-[40px]">
-                <span className="modern-accent block">{text("SportMe Manager pricing", "Prețuri SportMe Manager")}</span>
+                <span className="modern-accent block">{text("SportMe Manager pricing", "Prețuri Sportme Manager")}</span>
               </h2>
-              <p className="text-base leading-7 text-[#5b6678]">{text("Free for players.", "Pentru jucători este gratuit.")}</p>
               <p className="max-w-3xl text-base leading-7 text-[#5b6678]">
                 {text("You can test all features free for 30 days and see if the platform fits your sports venue.", "30 de zile gratuite pentru testare dacă platforma se potrivește bazei dvs. sportive.")}<br />
                 {text("Afterwards, it can be used free of charge with no time limit for one location.", "Ulterior, poate fi folosită gratuit, fără limită de timp pentru o singură locație.")}
@@ -207,7 +214,7 @@ export default function AboutDeferredSections() {
                     <span className="pricing-plan-price">{plan.price}</span>
                     <span className="pricing-plan-period">/{periodLabel}</span>
                   </div>
-                  <button type="button" onClick={openProductChoiceModal} className="pricing-plan-button">
+                  <button type="button" onClick={openManagerFromPricing} className="pricing-plan-button">
                     {plan.variant === "free" ? text("Start for FREE", "Începe GRATUIT") : text("Try for FREE", "Testează GRATUIT")}
                   </button>
                   <div className="pricing-plan-features">
