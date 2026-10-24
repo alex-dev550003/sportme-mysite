@@ -19,7 +19,7 @@ function PlayerIcon() {
 
 export function AppShowcaseTabs({ activeMode, language, onChange }: Props) {
   const text = (english: string, romanian?: string) => translateText(language, english, romanian);
-  const labels = { manager: [text("Manager", "Manager"), text("Free + PRO plans", "Gratuit + planuri PRO")], player: [text("Player", "Jucător"), text("Free", "Gratuit")] };
+  const labels = { manager: [text("Manager", "Manager"), text("Free or Premium", "Gratuit sau Premium")], player: [text("Player", "Jucător"), text("Free", "Gratuit")] };
 
   return (
     <div className="app-showcase-tabs" role="tablist" aria-label={text("Choose SportMe experience", "Alege experiența SportMe")}>

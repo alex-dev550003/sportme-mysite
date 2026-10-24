@@ -53,10 +53,10 @@ Manageri/baze sportive:
 - Un angajat poate primi separat permisiuni pentru creare rezervari, administrare rezervari si trimitere remindere; conturile de angajati pot fi modificate sau sterse de manager.
 - Stergerea contului de manager este permanenta si necesita confirmare; pentru probleme de stergere sau date ramase, solicitarea trebuie verificata de echipa SportMe.
 - Abonamentul Premium poate fi gestionat din cont, iar anularea opreste reinnoirea conform starii afisate in aplicatie; platile, facturile si statusul concret necesita verificare in cont.
-- Freemium permite listare de baza cu functionalitati limitate.
-- Premium STARTER costa 8,90 EUR/luna si este potrivit pentru baze mici.
-- Premium PRO costa 14,90 EUR/luna si este potrivit pentru baze cu mai multe zone sportive.
-- Pentru pana la 2 terenuri sau zone sportive se aplica abonamentul Premium STARTER (8,90 EUR/luna); pentru mai mult de 2 terenuri sau zone sportive se aplica Premium PRO (14,90 EUR/luna).
+- SportMe Manager are doua planuri pe site: Free si Premium, fara conditie de minimum o locatie sau o baza sportiva pentru alegerea planului.
+- Free include listarea locatiei online, calendar public vizibil, rezervari facute de manageri sau telefonic/fizic de jucatori si controlul programului si tarifelor.
+- Premium include caracteristicile Free, plus rezervari ale jucatorilor din aplicatie, confirmari instant, notificari automate, statistici si dashboard separat pentru angajatii locatiei.
+- Pretul lunar Premium difera in functie de tara din care este accesat site-ul; pretul actual pentru vizitator este afisat in sectiunea Preturi de pe sportme.ro.
 - Exista trial gratuit de 30 zile pentru Premium, daca eligibilitatea contului permite.
 
 Canale si contact:
@@ -158,16 +158,7 @@ function getPricingResponse(message: string) {
 
   if (!asksAboutPricing) return null;
 
-  const countMatch = lower.match(/\b(\d+)\s*(?:de\s*)?(?:teren(?:uri)?|zon(?:a|e|ă))\b/i);
-  const count = countMatch ? Number(countMatch[1]) : null;
-
-  if (count !== null && Number.isFinite(count)) {
-    return count <= 2
-      ? "Pentru până la 2 terenuri sau zone sportive, abonamentul este Premium STARTER: 8,90 EUR/lună."
-      : "Pentru mai mult de 2 terenuri sau zone sportive, abonamentul este Premium PRO: 14,90 EUR/lună.";
-  }
-
-  return "Până la 2 terenuri sau zone sportive ai Premium STARTER la 8,90 EUR/lună; pentru mai mult de 2 ai Premium PRO la 14,90 EUR/lună.";
+  return "SportMe Manager are doar planurile Free și Premium; oferta de pe site nu împarte Premium după numărul de terenuri. Prețul pentru țara ta este afișat în secțiunea Prețuri.";
 }
 
 export function buildSportMeSystemPrompt(channel: "site" | "meta" = "site") {

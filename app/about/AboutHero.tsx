@@ -9,9 +9,8 @@ import { trackEvent } from "../utils/analytics";
 import { LanguageSelector } from "../components/LanguageSelector";
 
 const ManagerAccessModal = dynamic(() => import("../components/ManagerAccessModal"), { ssr: false });
-const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"), { ssr: false });
 const ProductChoiceModal = dynamic(() => import("../components/ProductChoiceModal"), { ssr: false });
-const PlatformDownloadModal = dynamic(() => import("../components/PlatformDownloadModal"), { ssr: false });
+type ProductChoiceEntry = "download" | "signIn" | "signUp" | "startNow";
 
 export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages: string[] }) {
   const { t, language, text } = useI18n();
@@ -19,10 +18,13 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
   const [showHeroMenu, setShowHeroMenu] = useState(false);
   const [openNavPanel, setOpenNavPanel] = useState<"resources" | null>(null);
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
-  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
-  const [showProductChoiceModal, setShowProductChoiceModal] = useState(false);
-  const [showShowcaseChoiceModal, setShowShowcaseChoiceModal] = useState(false);
-  const [showPlatformDownloadModal, setShowPlatformDownloadModal] = useState(false);
+  const [productChoiceEntry, setProductChoiceEntry] = useState<ProductChoiceEntry | null>(null);
+  const choiceLabels = {
+    download: text("Download", "Descarcă"),
+    signIn: text("Sign in", "Autentificare"),
+    signUp: text("Sign up for free", "Înscrie-te gratuit"),
+    startNow: text("Start now", "Începe acum"),
+  };
   const adminUrl = "https://admin.sportme.ro/auth";
   const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
   const playerWebUrl = "https://app.sportme.ro/app";
@@ -65,7 +67,7 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
 
   useEffect(() => {
     const openManagerAccess = () => setShowManagerAccessModal(true);
-    const openProductChoice = () => setShowProductChoiceModal(true);
+    const openProductChoice = () => setProductChoiceEntry("signIn");
     window.addEventListener("sportme:open-manager-access", openManagerAccess);
     window.addEventListener("sportme:open-product-choice", openProductChoice);
     return () => {
@@ -88,48 +90,27 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
     setOpenNavPanel(null);
   };
 
-  const openPlatformDownload = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
+  const openChoiceModal = (entry: ProductChoiceEntry) => {
     closeNavPanels();
-    setShowPlatformDownloadModal(true);
-  };
-
-  const openSignInModal = () => {
-    closeNavPanels();
-    setShowProductChoiceModal(true);
+    setProductChoiceEntry(entry);
   };
 
   const signInAs = (product: "manager" | "player") => {
-    setShowProductChoiceModal(false);
+    setProductChoiceEntry(null);
     const webUrl = product === "manager" ? adminUrl : playerWebUrl;
     if (/Android/i.test(navigator.userAgent)) {
       const appHostAndPath = product === "manager" ? "login/auth" : "app";
       const appScheme = product === "manager" ? "com.sportme.dashboard" : "ro.sportme.app";
-      window.location.assign(`intent://${appHostAndPath}#Intent;scheme=${appScheme};package=${appScheme};S.browser_fallback_url=${encodeURIComponent(webUrl)};end`);
+      const playStoreUrl = product === "manager" ? managerPlayStoreUrl : playerPlayStoreUrl;
+      window.location.assign(`intent://${appHostAndPath}#Intent;scheme=${appScheme};package=${appScheme};S.browser_fallback_url=${encodeURIComponent(playStoreUrl)};end`);
       return;
     }
-    window.location.assign(webUrl);
-  };
-
-  const startAs = (product: "manager" | "player") => {
-    setShowShowcaseChoiceModal(false);
-    const webUrl = product === "manager" ? adminUrl : playerWebUrl;
-    const playStoreUrl = product === "manager" ? managerPlayStoreUrl : playerPlayStoreUrl;
-    const userAgent = navigator.userAgent;
-
-    if (/Android/i.test(userAgent)) {
-      window.location.assign(playStoreUrl);
-      return;
-    }
-
-    // The SportMe iOS apps are not yet available in the App Store.
-    // iPhone and iPad visitors continue in the browser until official links exist.
     window.location.assign(webUrl);
   };
 
   const renderMenu = () => (
     <div className="modern-menu absolute right-5 top-[calc(100%+12px)] z-30 w-[min(360px,calc(100vw-40px))] overflow-visible rounded-[22px] border p-2 backdrop-blur-xl sm:right-6">
-      <a href="#download" onClick={openPlatformDownload} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{text("Download", "Descarcă")}</a>
+      <button type="button" onClick={() => openChoiceModal("download")} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition">{choiceLabels.download}</button>
       <a href="#preturi" onClick={(event) => { scrollToAudienceSection(event, "preturi"); closeNavPanels(); }} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{text("Pricing", "Prețuri")}</a>
       <div className="my-1 border-t border-[#d9dee7]" />
       <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Resources", "Resurse")} <span aria-hidden="true">{openNavPanel === "resources" ? "−" : "+"}</span></button>
@@ -139,8 +120,8 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
           <a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-2xl px-4 py-2.5 text-sm transition">{text("For players", "Pentru jucători")}</a>
         </div>
       ) : null}
-      <button type="button" onClick={openSignInModal} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Sign in", "Autentificare")}</button>
-      <button type="button" onClick={() => { closeNavPanels(); setShowPlatformDownloadModal(true); }} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Try for free", "Testează gratuit")}</button>
+      <button type="button" onClick={() => openChoiceModal("signIn")} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{choiceLabels.signIn}</button>
+      <button type="button" onClick={() => openChoiceModal("signUp")} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{choiceLabels.signUp}</button>
       <div className="my-1 border-t border-[#d9dee7]" />
       <div className="flex items-center justify-between gap-3 px-4 py-2">
         <span className="text-sm font-medium text-[#526078]">{t("about.languageToggleLabel")}</span>
@@ -164,18 +145,18 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
               <span className="sportme-sidebar-wordmark"><span>sport</span><span className="sportme-sidebar-wordmark-me">me</span></span>
             </Link>
             <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
-              <a href="#download" onClick={openPlatformDownload} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Download", "Descarcă")}</a>
+              <button type="button" onClick={() => openChoiceModal("download")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{choiceLabels.download}</button>
               <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Pricing", "Prețuri")}</a>
               <div className="relative">
                 <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex items-center gap-1.5 rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Resources", "Resurse")} <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className={`h-3.5 w-3.5 shrink-0 transition-transform ${openNavPanel === "resources" ? "rotate-180" : ""}`}><path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
                 {openNavPanel === "resources" ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href="https://www.sportme.ro/manager/quick-start" onClick={closeNavPanels} className="block rounded-xl px-4 py-3 text-sm transition">{text("For sports venues", "Pentru baze sportive")}</a><a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-xl px-4 py-3 text-sm transition">{text("For players", "Pentru jucători")}</a></div> : null}
               </div>
               <div className="relative">
-                <button type="button" onClick={openSignInModal} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Sign in", "Autentificare")}</button>
+                <button type="button" onClick={() => openChoiceModal("signIn")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{choiceLabels.signIn}</button>
               </div>
             </div>
             <div className="ml-auto hidden shrink-0 items-center gap-1.5 lg:ml-0 lg:flex">
-              <button type="button" onClick={() => { closeNavPanels(); setShowPlatformDownloadModal(true); }} className="modern-signup inline-flex h-9 items-center justify-center rounded-full border border-[#b8c0c9] bg-white/20 px-2.5 text-[11px] font-normal leading-5 text-[#182032] transition hover:bg-white/70 sm:h-10 sm:px-4 sm:text-base sm:leading-6">{text("Try for free", "Testează gratuit")}</button>
+              <button type="button" onClick={() => openChoiceModal("signUp")} className="modern-signup inline-flex h-9 items-center justify-center rounded-full border border-[#b8c0c9] bg-white/20 px-2.5 text-[11px] font-normal leading-5 text-[#182032] transition hover:bg-white/70 sm:h-10 sm:px-4 sm:text-base sm:leading-6">{choiceLabels.signUp}</button>
             </div>
             <button type="button" onClick={toggleHeroMenu} aria-label={t("about.nav.openMenu")} aria-expanded={showHeroMenu} className="modern-mobile-menu ml-auto flex h-9 w-8 shrink-0 items-center justify-center rounded-[7px] transition lg:hidden">
               <span className="flex w-4 flex-col gap-1"><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /></span>
@@ -188,28 +169,19 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
         <AppShowcase
           language={language}
           availableImages={availableShowcaseImages}
-          onOpenPlayer={() => setShowPlayerAccessModal(true)}
-          onOpenStart={() => setShowShowcaseChoiceModal(true)}
+          onOpenStart={() => openChoiceModal("startNow")}
         />
       </div>
 
-      {showProductChoiceModal ? (
+      {productChoiceEntry ? (
         <ProductChoiceModal
           mode="signIn"
-          onClose={() => setShowProductChoiceModal(false)}
+          title={choiceLabels[productChoiceEntry]}
+          onClose={() => setProductChoiceEntry(null)}
           onSelect={signInAs}
         />
       ) : null}
-      {showShowcaseChoiceModal ? (
-        <ProductChoiceModal
-          mode="showcase"
-          onClose={() => setShowShowcaseChoiceModal(false)}
-          onSelect={startAs}
-        />
-      ) : null}
       {showManagerAccessModal ? <ManagerAccessModal onClose={() => setShowManagerAccessModal(false)} adminUrl={adminUrl} managerPlayStoreUrl={managerPlayStoreUrl} /> : null}
-      {showPlayerAccessModal ? <PlayerAccessModal onClose={() => setShowPlayerAccessModal(false)} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
-      {showPlatformDownloadModal ? <PlatformDownloadModal onClose={() => setShowPlatformDownloadModal(false)} adminUrl={adminUrl} managerPlayStoreUrl={managerPlayStoreUrl} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
     </section>
   );
 }

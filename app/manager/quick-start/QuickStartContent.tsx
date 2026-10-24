@@ -5,13 +5,12 @@ import { useMemo, useState } from "react";
 import { useI18n } from "../../app/i18n";
 import type { BaseLanguageKey } from "../../app/languages";
 import { localizeContent, translateDocumentText } from "../../app/content-locales";
+import { LanguageSelector } from "../../components/LanguageSelector";
 import { PublicTopControls } from "../../components/PublicTopControls";
 import { SiteFooter } from "../../components/SiteFooter";
-import { LightboxImage } from "./LightboxImage";
 
-const ManagerAccessModal = dynamic(() => import("../../components/ManagerAccessModal"), { ssr: false });
-const PlayerAccessModal = dynamic(() => import("../../components/PlayerAccessModal"), { ssr: false });
 const ProductChoiceModal = dynamic(() => import("../../components/ProductChoiceModal"), { ssr: false });
+type HeaderChoice = "download" | "signIn" | "signUp";
 
 const canonical = "https://www.sportme.ro/manager/quick-start";
 const managerUrl = "https://admin.sportme.ro/auth";
@@ -33,7 +32,6 @@ type Subsection = {
 
 type GuideBlock = {
   title: string;
-  image: string;
   body: string[];
   bullets?: string[];
   flow?: string[];
@@ -50,7 +48,7 @@ type QuickStartCopy = {
   setupSteps: SetupStep[];
   bookingBlocks: GuideBlock[];
   locationBlocks: GuideBlock[];
-  hero: { eyebrow: string; title: string; subtitle: string; body: string; dashboardAlt: string };
+  hero: { eyebrow: string; title: string; subtitle: string; body: string };
   intro: { eyebrow: string; title: string; body: string; callout: string };
   sections: {
     setupEyebrow: string;
@@ -67,7 +65,7 @@ type QuickStartCopy = {
     subscriptionCta: string;
   };
   finalCta: { title: string; body: string; manager: string; pricing: string };
-  aria: { navigation: string; screenshotSuffix: string; subscriptionAlt: string };
+  aria: { navigation: string };
   closeSlot: { title: string; body: string; examples: string };
 };
 
@@ -84,7 +82,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       title: "Quick Start SportMe Manager",
       subtitle: "Configurează baza sportivă și învață să gestionezi rezervările în câteva minute.",
       body: "De la configurarea firmei și publicarea bazei sportive până la rezervări, notificări și administrarea zonelor sportive.",
-      dashboardAlt: "Dashboard SportMe Manager",
     },
     intro: {
       eyebrow: "Introducere",
@@ -104,11 +101,9 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       subscriptionEyebrow: "Abonament",
       subscriptionTitle: "Abonamentul SportMe Manager",
       subscriptionBody: [
-        "În Setări - Abonament poți vedea planul activ, zonele sportive incluse și costul abonamentului.",
-        "Freemium: maximum 1 bază sportivă + 1 zonă sportivă.",
-        "Premium STARTER: maximum 2 zone sportive.",
-        "Premium PRO: zone sportive nelimitate, conform structurii comerciale actuale.",
-        "Costul este calculat automat în funcție de configurația contului și poate fi verificat oricând din Setări.",
+        "În Setări - Abonament poți vedea planul activ și costul asociat contului tău.",
+        "Pe site, opțiunile sunt prezentate ca Free și Premium. Free include administrarea de bază, iar Premium adaugă rezervări din aplicație, confirmări, notificări și statistici.",
+        "Prețul Premium afișat pe site depinde de țara din care este accesat.",
       ],
       subscriptionCta: "Vezi planurile SportMe Manager",
     },
@@ -120,8 +115,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
     },
     aria: {
       navigation: "Navigație ghid Quick Start",
-      screenshotSuffix: "screenshot SportMe Manager",
-      subscriptionAlt: "Abonament SportMe Manager",
     },
     closeSlot: {
       title: "Închide interval",
@@ -132,7 +125,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 1,
         title: "Completează datele firmei",
-        image: "01-date-firma.png",
         body: [
           "Introdu datele de identificare și contact ale firmei care administrează baza sportivă.",
           "Poți completa manual informațiile sau poți introduce CIF/CNP și apăsa „Completează automat” pentru preluarea datelor disponibile.",
@@ -143,7 +135,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 2,
         title: "Creează baza sportivă",
-        image: "02-creare-baza.png",
         body: [
           "Adaugă baza sportivă în care funcționează zonele tale rezervabile.",
           "Completează numele bazei sportive și adresa, apoi folosește „Amplasează locația pe hartă” pentru a indica poziția exactă.",
@@ -153,7 +144,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 3,
         title: "Adaugă prima zonă sportivă",
-        image: "03-zona-sportiva.png",
         body: [
           "Creează primul teren sau spațiu care va putea fi rezervat de jucători.",
           "Introdu numele zonei sportive și selectează sportul pentru care este destinat.",
@@ -167,7 +157,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 4,
         title: "Configurează programul și prețurile",
-        image: "04-program-preturi.png",
         body: ["Stabilește când este disponibilă zona sportivă pentru rezervări și cât costă un interval."],
         bullets: ["zilele de funcționare", "ora de început", "ora de sfârșit", "durata intervalului", "prețul intervalului în RON"],
         notes: [
@@ -178,7 +167,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 5,
         title: "Configurează notificările",
-        image: "05-notificari.png",
         body: [
           "SportMe include două mesaje implicite pe care le poți configura pentru notificările automate.",
           "Pe lângă acestea, managerul poate adăuga și alte mesaje preferate, astfel încât să poată reutiliza rapid texte proprii pentru diferite situații.",
@@ -191,7 +179,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 6,
         title: "Verifică și publică baza",
-        image: "06-publicare-baza.png",
         body: [
           "Înainte de publicare, verifică dacă toate etapele sunt finalizate.",
           "Dacă totul este corect, apasă „Publică online”.",
@@ -203,13 +190,11 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
     bookingBlocks: [
       {
         title: "Dashboardul rezervărilor",
-        image: "07-dashboard.png",
         body: ["După publicarea bazei sportive, pagina Prezentare devine centrul de control pentru activitatea zilnică."],
         bullets: ["Calendar rezervări", "Rezervări viitoare", "Rezervări recente", "Analitice rezervări", "Gradul de ocupare al intervalelor", "Statusuri: Confirmat / În așteptare / Anulat"],
       },
       {
         title: "Creează o rezervare manuală",
-        image: "09-rezervare-manuala.png",
         body: [
           "Din meniul Rezervări poți crea rapid o rezervare pentru un client.",
           "Dacă telefonul aparține unui utilizator SportMe, rezervarea poate fi asociată contului acestuia și utilizatorul poate primi notificări.",
@@ -239,7 +224,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       },
       {
         title: "Rezervări repetitive",
-        image: "09-rezervare-manuala.png",
         body: [
           "Pentru rezervările care se repetă, managerul poate crea automat mai multe rezervări pornind de la aceeași configurație.",
           "SportMe va crea rezervările recurente până la data selectată, în limita disponibilității intervalelor.",
@@ -249,7 +233,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       },
       {
         title: "Aprobă sau respinge o rezervare",
-        image: "10-aprobare-rezervare.png",
         body: [
           "Când un jucător trimite o rezervare care necesită confirmare, aceasta apare cu statusul „În așteptare”.",
           "Managerul o poate gestiona direct din calendar sau din pagina „Aprobări în așteptare”.",
@@ -258,16 +241,14 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
         bullets: ["„Aprobă rezervarea” -> rezervarea devine confirmată", "„Respinge” / „Anulează rezervarea” -> cererea este refuzată"],
         notes: [{ title: "Pont", body: "Pentru mai multe cereri folosește pagina „Aprobări în așteptare”." }],
       },
-      { title: "Aprobări în așteptare", image: "11-aprobari-in-asteptare.png", body: ["Pagina dedicată pentru aprobări ajută atunci când există mai multe cereri de verificat și vrei să le parcurgi separat de calendar."] },
+      { title: "Aprobări în așteptare", body: ["Pagina dedicată pentru aprobări ajută atunci când există mai multe cereri de verificat și vrei să le parcurgi separat de calendar."] },
       {
         title: "Gestionează o rezervare confirmată",
-        image: "12-rezervare-confirmata.png",
         body: ["Deschide o rezervare confirmată direct din calendar pentru a vedea toate detaliile."],
         bullets: ["vezi terenul, data și ora", "vezi clientul și telefonul", "vezi numărul de jucători", "trimiți o notificare manuală", "anulezi rezervarea"],
       },
       {
         title: "Notificări manuale",
-        image: "13-notificare-manuala.png",
         body: [
           "Managerul poate selecta unul dintre mesajele salvate și îl poate trimite prin Aplicație sau WhatsApp.",
           "Cele două mesaje implicite rămân disponibile, iar mesajele suplimentare adăugate de manager pot fi reutilizate.",
@@ -279,14 +260,12 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
     locationBlocks: [
       {
         title: "Baze și zone sportive",
-        image: "14-baze-zone.png",
         body: ["Din meniul „Baze și zone sportive” poți administra infrastructura disponibilă pentru rezervări."],
         bullets: ["adăuga baze sportive", "edita baze existente", "elimina baze", "publica sau retrage baze din online", "adăuga zone sportive", "edita zone sportive", "șterge zone sportive", "seta zile indisponibile"],
       },
-      { title: "Editează baza sportivă", image: "15-editare-baza.png", body: ["Poți modifica numele bazei, adresa, site-ul web, localitatea, județul și poziția pe hartă.", "După modificare se apasă „Salvează”."] },
+      { title: "Editează baza sportivă", body: ["Poți modifica numele bazei, adresa, site-ul web, localitatea, județul și poziția pe hartă.", "După modificare se apasă „Salvează”."] },
       {
         title: "Adaugă sau editează o zonă sportivă",
-        image: "16-editare-zona.png",
         body: [
           "Pentru fiecare zonă sportivă se pot configura denumirea, sportul, zilele disponibile, programul, durata intervalului și prețul.",
           "Zona poate fi eliminată dacă nu mai este utilizată.",
@@ -295,14 +274,12 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       },
       {
         title: "Zile indisponibile",
-        image: "17-zile-indisponibile.png",
         body: ["Pentru zile în care una sau mai multe zone nu sunt disponibile, folosește „Zile indisponibile”.", "Managerul poate selecta simultan una sau mai multe zone sportive și una sau mai multe date."],
         bullets: ["sărbători", "mentenanță", "competiții", "evenimente private", "închidere temporară"],
         notes: [{ title: "Important", body: "Zilele care sunt deja închise conform programului normal sunt marcate automat și nu trebuie selectate din nou." }],
       },
       {
         title: "Dashboard angajați",
-        image: "19-angajati.png",
         body: [
           "Din Setări -> Dashboard angajați poți crea conturi separate pentru membrii echipei și poți controla exact ce funcții și pagini pot accesa în SportMe Manager.",
           "Pentru fiecare angajat poți seta numele, numele de utilizator și parola, apoi poți alege permisiunile disponibile.",
@@ -325,7 +302,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       title: "Quick Start SportMe Manager",
       subtitle: "Set up your sports venue and learn how to manage bookings in just a few minutes.",
       body: "From company details and publishing your sports venue to bookings, notifications and sports area administration.",
-      dashboardAlt: "SportMe Manager dashboard",
     },
     intro: {
       eyebrow: "Introduction",
@@ -345,11 +321,9 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       subscriptionEyebrow: "Subscription",
       subscriptionTitle: "SportMe Manager subscription",
       subscriptionBody: [
-        "In Settings - Subscription you can see the active plan, included sports areas and subscription cost.",
-        "Freemium: maximum 1 sports venue + 1 sports area.",
-        "Premium STARTER: maximum 2 sports areas.",
-        "Premium PRO: unlimited sports areas, according to the current commercial structure.",
-        "The cost is calculated automatically based on the account configuration and can be checked anytime from Settings.",
+        "In Settings - Subscription you can see the active plan and the cost associated with your account.",
+        "On the site, the options are shown as Free and Premium. Free includes basic management, while Premium adds in-app bookings, confirmations, notifications and statistics.",
+        "The Premium price shown on the site depends on the country from which it is accessed.",
       ],
       subscriptionCta: "See SportMe Manager plans",
     },
@@ -361,8 +335,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
     },
     aria: {
       navigation: "Quick Start guide navigation",
-      screenshotSuffix: "SportMe Manager screenshot",
-      subscriptionAlt: "SportMe Manager subscription",
     },
     closeSlot: {
       title: "Close slot",
@@ -373,7 +345,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 1,
         title: "Complete company details",
-        image: "01-date-firma.png",
         body: [
           "Enter the identification and contact details of the company that manages the sports venue.",
           "You can fill in the information manually or enter the company/personal tax ID and press “Autofill” to retrieve available data.",
@@ -384,14 +355,12 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 2,
         title: "Create the sports venue",
-        image: "02-creare-baza.png",
         body: ["Add the sports venue that contains your bookable sports areas.", "Enter the venue name and address, then use “Place location on map” to indicate the exact position."],
         notes: [{ title: "Tip", body: "Correct map positioning helps players find the sports venue more easily." }],
       },
       {
         step: 3,
         title: "Add the first sports area",
-        image: "03-zona-sportiva.png",
         body: ["Create the first court or space that players will be able to book.", "Enter the sports area name and select the sport it is intended for."],
         notes: [
           { title: "Example", body: "Court 01 -> Football" },
@@ -402,7 +371,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 4,
         title: "Configure schedule and pricing",
-        image: "04-program-preturi.png",
         body: ["Set when the sports area is available for bookings and how much each slot costs."],
         bullets: ["operating days", "start time", "end time", "slot duration", "slot price in RON"],
         notes: [{ title: "Example", body: "For a 10:00-20:00 schedule and 60-minute slots, SportMe automatically generates the available booking slots." }, { title: "Tip", body: "Schedule and pricing can be changed later." }],
@@ -410,7 +378,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 5,
         title: "Configure notifications",
-        image: "05-notificari.png",
         body: [
           "SportMe includes two default messages that can be configured for automatic notifications.",
           "In addition, the manager can add other preferred messages, making it easy to reuse custom texts for different situations.",
@@ -423,7 +390,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 6,
         title: "Review and publish the venue",
-        image: "06-publicare-baza.png",
         body: ["Before publishing, check that all steps are complete.", "If everything is correct, press “Publish online”.", "After publishing, the sports venue becomes available in SportMe Player and can receive bookings."],
         notes: [{ title: "Important", body: "The SportMe team may review the information and contact the manager if corrections are needed." }],
       },
@@ -431,13 +397,11 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
     bookingBlocks: [
       {
         title: "Bookings dashboard",
-        image: "07-dashboard.png",
         body: ["After publishing the sports venue, the Overview page becomes the control center for daily activity."],
         bullets: ["Bookings calendar", "Upcoming bookings", "Recent bookings", "Booking analytics", "Slot occupancy", "Statuses: Confirmed / Pending / Cancelled"],
       },
       {
         title: "Create a manual booking",
-        image: "09-rezervare-manuala.png",
         body: ["From the Bookings menu, you can quickly create a booking for a customer.", "If the phone number belongs to a SportMe user, the booking can be linked to that account and the user can receive notifications."],
         flow: ["choose the sports area on the left if there is more than one", "choose the week", "identify a “Free” slot", "press the slot", "fill in the name and phone number", "press “Book slot”"],
         subsections: [
@@ -464,7 +428,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       },
       {
         title: "Recurring bookings",
-        image: "09-rezervare-manuala.png",
         body: [
           "For repeating bookings, the manager can automatically create multiple bookings based on the same configuration.",
           "SportMe creates the recurring bookings up to the selected end date, subject to slot availability.",
@@ -474,21 +437,18 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       },
       {
         title: "Approve or reject a booking",
-        image: "10-aprobare-rezervare.png",
         body: ["When a player sends a booking that requires confirmation, it appears with the “Pending” status.", "The manager can handle it directly from the calendar or from the “Pending approvals” page.", "From the booking window, the manager can check the court, date, time, name, phone number and number of players."],
         bullets: ["“Approve booking” -> the booking becomes confirmed", "“Reject” / “Cancel booking” -> the request is refused"],
         notes: [{ title: "Tip", body: "For multiple requests, use the “Pending approvals” page." }],
       },
-      { title: "Pending approvals", image: "11-aprobari-in-asteptare.png", body: ["The dedicated approvals page helps when there are several requests to review and you want to handle them separately from the calendar."] },
+      { title: "Pending approvals", body: ["The dedicated approvals page helps when there are several requests to review and you want to handle them separately from the calendar."] },
       {
         title: "Manage a confirmed booking",
-        image: "12-rezervare-confirmata.png",
         body: ["Open a confirmed booking directly from the calendar to see all details."],
         bullets: ["view the court, date and time", "view the customer and phone number", "view the number of players", "send a manual notification", "cancel the booking"],
       },
       {
         title: "Manual notifications",
-        image: "13-notificare-manuala.png",
         body: ["The manager can select one of the saved messages and send it through the App or WhatsApp.", "The two default messages remain available, and additional messages added by the manager can also be reused.", "When a confirmed booking is cancelled, the booking is cancelled immediately and that slot becomes “Free” again, so another player can book it."],
         notes: [{ title: "Important", body: "Manual notifications are additional to the automatic notifications configured earlier or from Settings." }],
       },
@@ -496,26 +456,22 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
     locationBlocks: [
       {
         title: "Sports venues and sports areas",
-        image: "14-baze-zone.png",
         body: ["From the “Sports venues and areas” menu, you can manage the infrastructure available for bookings."],
         bullets: ["add sports venues", "edit existing venues", "remove venues", "publish or unpublish venues", "add sports areas", "edit sports areas", "delete sports areas", "set unavailable days"],
       },
-      { title: "Edit the sports venue", image: "15-editare-baza.png", body: ["You can change the venue name, address, website, city, county and map position.", "After making changes, press “Save”."] },
+      { title: "Edit the sports venue", body: ["You can change the venue name, address, website, city, county and map position.", "After making changes, press “Save”."] },
       {
         title: "Add or edit a sports area",
-        image: "16-editare-zona.png",
         body: ["For each sports area, you can configure its name, sport, available days, schedule, slot duration and price.", "The area can be removed if it is no longer used.", "On days closed to the public, the manager can still create manual bookings, according to the current application behavior."],
       },
       {
         title: "Unavailable days",
-        image: "17-zile-indisponibile.png",
         body: ["For days when one or more areas are unavailable, use “Unavailable days”.", "The manager can select one or more sports areas and one or more dates at the same time."],
         bullets: ["holidays", "maintenance", "competitions", "private events", "temporary closure"],
         notes: [{ title: "Important", body: "Days that are already closed according to the normal schedule are marked automatically and do not need to be selected again." }],
       },
       {
         title: "Staff dashboard",
-        image: "19-angajati.png",
         body: ["From Settings -> Staff dashboard, you can create separate accounts for team members and control exactly which features and pages they can access in SportMe Manager.", "For each staff member, you can set the name, username and password, then choose the available permissions.", "Created accounts appear in the “Existing accounts” list, where they can be managed later."],
         bullets: ["Create bookings", "Approve / cancel bookings", "Send reminders", "Overview", "Bookings", "Pending approvals", "Sports venues and areas", "Settings"],
         notes: [{ title: "Tip", body: "Give each staff member only the permissions they need for their role." }, { title: "Important", body: "The Staff dashboard feature is available according to the active subscription plan." }],
@@ -523,18 +479,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
     ],
   },
 };
-
-function imageSrc(fileName: string) {
-  return `/images/quick-start/${fileName}`;
-}
-
-function Screenshot({ fileName, alt, priority = false }: { fileName: string; alt: string; priority?: boolean }) {
-  return (
-    <div className="overflow-hidden rounded-[20px] border border-white/12 bg-white/[0.05] shadow-[0_22px_70px_rgba(0,0,0,0.22)]">
-      <LightboxImage src={imageSrc(fileName)} alt={alt} priority={priority} />
-    </div>
-  );
-}
 
 function NoteCard({ note }: { note: Note }) {
   const { language } = useI18n();
@@ -619,7 +563,7 @@ function CloseSlotCard({ closeSlot }: { closeSlot: QuickStartCopy["closeSlot"] }
 }
 
 function GuideContent({ block, closeSlot }: { block: GuideBlock; closeSlot: QuickStartCopy["closeSlot"] }) {
-  const isManualBooking = block.image === "09-rezervare-manuala.png" && block.title !== "Rezervări repetitive" && block.title !== "Recurring bookings";
+  const isManualBooking = Boolean(block.flow && block.subsections);
 
   return (
     <div>
@@ -647,9 +591,9 @@ function GuideContent({ block, closeSlot }: { block: GuideBlock; closeSlot: Quic
   );
 }
 
-function SetupStepCard({ step, reverse, text }: { step: SetupStep; reverse: boolean; text: QuickStartCopy }) {
+function SetupStepCard({ step, text }: { step: SetupStep; text: QuickStartCopy }) {
   return (
-    <article className={`grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center ${reverse ? "lg:[&>div:first-child]:order-2 lg:grid-cols-[1.22fr_0.78fr]" : ""}`}>
+    <article className="max-w-5xl">
       <div>
         <div className="flex items-center gap-4">
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#106dff] text-lg font-semibold text-white shadow-[0_16px_32px_rgba(16,109,255,0.28)]">{step.step}</span>
@@ -659,13 +603,12 @@ function SetupStepCard({ step, reverse, text }: { step: SetupStep; reverse: bool
           <GuideContent block={step} closeSlot={text.closeSlot} />
         </div>
       </div>
-      <Screenshot fileName={step.image} alt={`${step.title} - ${text.aria.screenshotSuffix}`} priority={step.step === 1} />
     </article>
   );
 }
 
-function FeatureBlock({ block, index, text }: { block: GuideBlock; index: number; text: QuickStartCopy }) {
-  const isManualBooking = block.image === "09-rezervare-manuala.png" && block.subsections;
+function FeatureBlock({ block, text }: { block: GuideBlock; text: QuickStartCopy }) {
+  const isManualBooking = Boolean(block.flow && block.subsections);
 
   if (isManualBooking) {
     return (
@@ -677,7 +620,6 @@ function FeatureBlock({ block, index, text }: { block: GuideBlock; index: number
               <BodyCopy paragraphs={block.body} />
             </div>
           </div>
-          <Screenshot fileName={block.image} alt={`${block.title} - ${text.aria.screenshotSuffix}`} />
           <CloseSlotCard closeSlot={text.closeSlot} />
         </div>
         <div className="p-1 md:p-3">
@@ -696,14 +638,13 @@ function FeatureBlock({ block, index, text }: { block: GuideBlock; index: number
   }
 
   return (
-    <article className={`grid gap-7 rounded-[24px] border border-white/12 bg-white/[0.055] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-5 lg:grid-cols-[0.78fr_1.22fr] lg:items-center ${index % 2 === 1 ? "lg:[&>div:first-child]:order-2 lg:grid-cols-[1.22fr_0.78fr]" : ""}`}>
+    <article className="max-w-5xl rounded-[24px] border border-white/12 bg-white/[0.055] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-5">
       <div className="p-1 md:p-3">
         <h3 className="text-2xl font-semibold leading-tight text-white">{block.title}</h3>
         <div className="mt-4">
           <GuideContent block={block} closeSlot={text.closeSlot} />
         </div>
       </div>
-      <Screenshot fileName={block.image} alt={`${block.title} - ${text.aria.screenshotSuffix}`} />
     </article>
   );
 }
@@ -719,9 +660,34 @@ function SectionHeader({ id, eyebrow, title }: { id: string; eyebrow: string; ti
 
 export function QuickStartContent() {
   const { language, locale, text: translate } = useI18n();
-  const [showProductChoiceModal, setShowProductChoiceModal] = useState(false);
-  const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
-  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
+  const [headerChoice, setHeaderChoice] = useState<HeaderChoice | null>(null);
+  const [showMenu, setShowMenu] = useState(false);
+  const [showResources, setShowResources] = useState(false);
+  const headerLabels = {
+    download: translate("Download", "Descarcă"),
+    signIn: translate("Sign in", "Autentificare"),
+    signUp: translate("Sign up for free", "Înscrie-te gratuit"),
+  };
+  const closeMenus = () => {
+    setShowMenu(false);
+    setShowResources(false);
+  };
+  const openChoice = (choice: HeaderChoice) => {
+    closeMenus();
+    setHeaderChoice(choice);
+  };
+  const openSelectedApp = (product: "manager" | "player") => {
+    setHeaderChoice(null);
+    const webUrl = product === "manager" ? managerUrl : playerWebUrl;
+    if (/Android/i.test(navigator.userAgent)) {
+      const appHostAndPath = product === "manager" ? "login/auth" : "app";
+      const appScheme = product === "manager" ? "com.sportme.dashboard" : "ro.sportme.app";
+      const playStoreUrl = product === "manager" ? managerPlayStoreUrl : playerPlayStoreUrl;
+      window.location.assign(`intent://${appHostAndPath}#Intent;scheme=${appScheme};package=${appScheme};S.browser_fallback_url=${encodeURIComponent(playStoreUrl)};end`);
+      return;
+    }
+    window.location.assign(webUrl);
+  };
   const text = useMemo(() => localizeContent(copy[language === "RO" ? "RO" : "EN"], language), [language]);
   const structuredData = useMemo(
     () => ({
@@ -735,7 +701,6 @@ export function QuickStartContent() {
         "@type": "HowToStep",
         name: step.title,
         text: step.body.join(" "),
-        image: `https://www.sportme.ro${imageSrc(step.image)}`,
       })),
     }),
     [locale, text]
@@ -745,28 +710,50 @@ export function QuickStartContent() {
     <main className="public-site public-dark min-h-screen text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="mx-auto w-full max-w-[1440px] px-4 pb-12 pt-24 sm:px-5 md:px-8 lg:pb-16 lg:pt-28">
-        <nav className="quickstart-nav modern-desktop-nav fixed left-1/2 top-[20px] z-50 flex w-[min(1180px,calc(100vw-24px))] -translate-x-1/2 items-center gap-2 rounded-[18px] border border-transparent bg-transparent px-4 py-2 sm:w-[min(1180px,calc(100vw-32px))] sm:px-5" aria-label={language === "RO" ? "Navigare principală" : translateDocumentText("Main navigation", language)}>
-          <a href="/" className="flex shrink-0 items-center gap-2 rounded-[10px] px-2 py-1.5 text-[17px] font-medium tracking-normal text-[#182032] sm:px-3 sm:text-[18px]">
-            <img src="/logo-512.png" alt="" className="h-7 w-7 rounded-[8px] sm:h-8 sm:w-8" />
-            <span>SportMe app</span>
-          </a>
-          <div className="ml-auto hidden items-center gap-1.5 lg:flex">
-            <a href="/#pentru-administratori" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Venue software / Players", "Software baze sportive / Jucători")}</a>
-            <a href="/manager/quick-start" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Quickstart")}</a>
-            <a href="/#preturi" className="rounded-full px-2.5 py-1.5 text-[13px] text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Pricing", "Prețuri")}</a>
-          </div>
-          <div className="ml-0 flex shrink-0 items-center gap-1.5">
-            <button type="button" onClick={() => setShowProductChoiceModal(true)} className="quickstart-primary-nav-button modern-primary inline-flex h-7 items-center rounded-[8px] bg-[#0d64d8] px-2.5 text-[13px] text-white shadow-[0_10px_22px_rgba(13,100,216,0.22)] transition hover:brightness-105">{translate("Start for free", "Începe gratuit")}</button>
+        <nav className="quickstart-nav quickstart-home-nav fixed inset-x-0 top-[env(safe-area-inset-top)] z-50 w-full rounded-none border py-2" aria-label={language === "RO" ? "Navigare principală" : translateDocumentText("Main navigation", language)}>
+          <div className="relative mx-auto flex w-full max-w-[1040px] items-center gap-1 px-5 sm:gap-2 sm:px-6">
+            <a href="/" className="sportme-sidebar-brand flex shrink-0 items-center gap-1.5 rounded-[10px] px-1.5 py-1.5 sm:gap-2 sm:px-3" aria-label="SportMe">
+              <img src="/logo-512.png" alt="" className="h-6 w-6 rounded-[6px] sm:h-7 sm:w-7 sm:rounded-[7px]" />
+              <span className="sportme-sidebar-wordmark"><span>sport</span><span className="sportme-sidebar-wordmark-me">me</span></span>
+            </a>
+            <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
+              <button type="button" onClick={() => openChoice("download")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{headerLabels.download}</button>
+              <a href={pricingHref} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Pricing", "Prețuri")}</a>
+              <div className="relative">
+                <button type="button" aria-expanded={showResources} onClick={() => setShowResources((value) => !value)} className="flex items-center gap-1.5 rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Resources", "Resurse")} <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className={`h-3.5 w-3.5 shrink-0 transition-transform ${showResources ? "rotate-180" : ""}`}><path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
+                {showResources ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href="/manager/quick-start" onClick={closeMenus} className="block rounded-xl px-4 py-3 text-sm transition">{translate("For sports venues", "Pentru baze sportive")}</a><a href="/#pentru-jucatori" onClick={closeMenus} className="block rounded-xl px-4 py-3 text-sm transition">{translate("For players", "Pentru jucători")}</a></div> : null}
+              </div>
+              <button type="button" onClick={() => openChoice("signIn")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{headerLabels.signIn}</button>
+            </div>
+            <div className="ml-auto hidden shrink-0 items-center gap-1.5 lg:ml-0 lg:flex">
+              <button type="button" onClick={() => openChoice("signUp")} className="modern-signup inline-flex h-9 items-center justify-center rounded-full border border-[#b8c0c9] bg-white/20 px-2.5 text-[11px] font-normal leading-5 text-[#182032] transition hover:bg-white/70 sm:h-10 sm:px-4 sm:text-base sm:leading-6">{headerLabels.signUp}</button>
+            </div>
+            <button type="button" onClick={() => setShowMenu((value) => !value)} aria-label={translate("Open menu", "Deschide meniul")} aria-expanded={showMenu} className="modern-mobile-menu ml-auto flex h-9 w-8 shrink-0 items-center justify-center rounded-[7px] transition lg:hidden">
+              <span className="flex w-4 flex-col gap-1"><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /></span>
+            </button>
+            {showMenu ? (
+              <div className="modern-menu absolute right-5 top-[calc(100%+12px)] z-30 w-[min(360px,calc(100vw-40px))] overflow-visible rounded-[22px] border p-2 backdrop-blur-xl sm:right-6 lg:hidden">
+                <button type="button" onClick={() => openChoice("download")} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition">{headerLabels.download}</button>
+                <a href={pricingHref} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{translate("Pricing", "Prețuri")}</a>
+                <div className="my-1 border-t border-[#d9dee7]" />
+                <button type="button" aria-expanded={showResources} onClick={() => setShowResources((value) => !value)} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{translate("Resources", "Resurse")} <span aria-hidden="true">{showResources ? "−" : "+"}</span></button>
+                {showResources ? <div className="mb-1 ml-3 border-l border-[#d9dee7] pl-2"><a href="/manager/quick-start" onClick={closeMenus} className="block rounded-2xl px-4 py-2.5 text-sm transition">{translate("For sports venues", "Pentru baze sportive")}</a><a href="/#pentru-jucatori" onClick={closeMenus} className="block rounded-2xl px-4 py-2.5 text-sm transition">{translate("For players", "Pentru jucători")}</a></div> : null}
+                <button type="button" onClick={() => openChoice("signIn")} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{headerLabels.signIn}</button>
+                <button type="button" onClick={() => openChoice("signUp")} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{headerLabels.signUp}</button>
+                <div className="my-1 border-t border-[#d9dee7]" />
+                <div className="flex items-center justify-between gap-3 px-4 py-2"><span className="text-sm font-medium text-[#526078]">{translate("Switch language", "Schimbă limba")}</span><LanguageSelector /></div>
+              </div>
+            ) : null}
           </div>
         </nav>
-        <div className="quickstart-language fixed right-6 top-[20px] z-[60] hidden lg:block">
+        <div className="quickstart-language fixed right-5 top-[calc(env(safe-area-inset-top)+18px)] z-[60] hidden lg:block">
           <PublicTopControls hideLanguage={false} />
         </div>
 
         <section className="mt-8 space-y-14">
           <SectionHeader id="configurare-initiala" eyebrow={text.sections.setupEyebrow} title={text.sections.setupTitle} />
-          {text.setupSteps.map((step, index) => (
-            <SetupStepCard key={step.image} step={step} reverse={index % 2 === 1} text={text} />
+          {text.setupSteps.map((step) => (
+            <SetupStepCard key={step.step} step={step} text={text} />
           ))}
           <div className="rounded-[24px] border border-emerald-300/20 bg-emerald-300/[0.08] p-6 md:p-8">
             <h3 className="text-2xl font-semibold text-white">{text.sections.setupDoneTitle}</h3>
@@ -776,15 +763,15 @@ export function QuickStartContent() {
 
         <section className="mt-28 space-y-8">
           <SectionHeader id="rezervari" eyebrow={text.sections.bookingsEyebrow} title={text.sections.bookingsTitle} />
-          {text.bookingBlocks.map((block, index) => (
-            <FeatureBlock key={`${block.title}-${block.image}`} block={block} index={index} text={text} />
+          {text.bookingBlocks.map((block) => (
+            <FeatureBlock key={block.title} block={block} text={text} />
           ))}
         </section>
 
         <section className="mt-28 space-y-8">
           <SectionHeader id="baze-zone" eyebrow={text.sections.locationsEyebrow} title={text.sections.locationsTitle} />
-          {text.locationBlocks.map((block, index) => (
-            <FeatureBlock key={block.image} block={block} index={index} text={text} />
+          {text.locationBlocks.map((block) => (
+            <FeatureBlock key={block.title} block={block} text={text} />
           ))}
         </section>
 
@@ -798,25 +785,20 @@ export function QuickStartContent() {
               ))}
             </div>
           </div>
-          <Screenshot fileName="18-abonament.png" alt={text.aria.subscriptionAlt} />
         </section>
 
         <div className="mt-12">
           <SiteFooter />
         </div>
       </div>
-      {showProductChoiceModal ? (
+      {headerChoice ? (
         <ProductChoiceModal
-          onClose={() => setShowProductChoiceModal(false)}
-          onSelect={(product) => {
-            setShowProductChoiceModal(false);
-            if (product === "manager") setShowManagerAccessModal(true);
-            else setShowPlayerAccessModal(true);
-          }}
+          mode="signIn"
+          title={headerLabels[headerChoice]}
+          onClose={() => setHeaderChoice(null)}
+          onSelect={openSelectedApp}
         />
       ) : null}
-      {showManagerAccessModal ? <ManagerAccessModal onClose={() => setShowManagerAccessModal(false)} adminUrl={managerUrl} managerPlayStoreUrl={managerPlayStoreUrl} /> : null}
-      {showPlayerAccessModal ? <PlayerAccessModal onClose={() => setShowPlayerAccessModal(false)} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
     </main>
   );
 }

@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
+import { formatPublicMonthlyPrice, getPublicMonthlyPremiumPrice } from "../../lib/public-pricing";
 
 const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"), { ssr: false });
 
@@ -15,74 +16,56 @@ function AccessArrowIcon() {
   );
 }
 
+function PricingCheck() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden className="pricing-plan-check mt-0.5 h-4 w-4 shrink-0">
+      <path d="M4 10.5l3.2 3.2L16 5.8" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function AboutDeferredSections() {
   const { t, text } = useI18n();
   const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const playerWebUrl = "https://app.sportme.ro/app";
   const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
+  const [visitorLocation] = useState(() => ({
+    country: typeof document === "undefined" ? null : document.cookie.match(/(?:^|;\s*)sportmeVisitorCountry=([A-Z]{2})(?:;|$)/)?.[1] ?? null,
+    timeZone: typeof window === "undefined" ? undefined : Intl.DateTimeFormat().resolvedOptions().timeZone,
+  }));
+  const premiumPrice = getPublicMonthlyPremiumPrice(visitorLocation.country, visitorLocation.timeZone);
   const periodLabel = text("month", "luna");
-  const adminCommonPlanFeatures = [text("Online venue listing", "Listare locatie online"), text("Visible public calendar", "Calendar public vizibil"), text("Manager bookings", "Rezervari manageri")];
-  const adminScheduleControlFeature = text("Full schedule and pricing control", "Control complet program si tarife");
-  const adminAdvancedPlanFeatures = [text("Instant confirmations", "Confirmari instant"), text("Automatic notifications", "Notificari automate"), text("Booking statistics", "Statistici rezervari"), text("Priority support", "Suport prioritar"), text("Venue employee dashboard", "Dashboard angajati locatie")];
-  const adminFreemiumFeatures = [
-    ...adminCommonPlanFeatures,
-    text("Player bookings - phone only", "Rezervari jucatori - doar telefonic"),
-    adminScheduleControlFeature,
-    text("Locations / sports zones count - MAX 1", "Nr. locatii sportive - MAXIM 1"),
+  const freeFeatures = [
+    text("Online venue listing", "Listare locație online"),
+    text("Visible public calendar", "Calendar public vizibil"),
+    text("Manager bookings", "Rezervări manageri"),
+    text("Player bookings - by phone or in person", "Rezervări jucători - telefonic / fizic"),
+    text("Full schedule and pricing control", "Control complet program și tarife"),
   ];
-  const adminStarterFeatures = [
-    ...adminCommonPlanFeatures,
-    text("Player bookings - online", "Rezervari jucatori - online"),
-    adminScheduleControlFeature,
-    text("Locations / sports zones count - MAX 2*", "Nr. locatii sportive - MAXIM 2*"),
-    ...adminAdvancedPlanFeatures,
-  ];
-  const adminProFeatures = [
-    ...adminCommonPlanFeatures,
-    text("Player bookings - online", "Rezervari jucatori - online"),
-    adminScheduleControlFeature,
-    text("Locations / sports zones count - UNLIMITED*", "Nr. locatii sportive - NELIMITAT*"),
-    ...adminAdvancedPlanFeatures,
+  const premiumFeatures = [
+    text("Player bookings - by phone, in person and in the app", "Rezervări jucători - telefonic / fizic + din aplicație"),
+    text("Instant confirmations", "Confirmări instant"),
+    text("Automatic notifications for managers and players", "Notificări automate manageri / jucători"),
+    text("Booking statistics", "Statistici rezervări"),
+    text("Separate venue employee dashboard", "Dashboard separat pentru angajații locației"),
+    text("And more...", "Și mai mult..."),
   ];
   const pricingPlans = [
     {
-      name: "Freemium",
-      subtitle: text("For one sports venue", "Pentru o bază sportivă"),
-      price: "€0",
+      name: "Free",
+      subtitle: text("Everything you need to get started", "Tot ce ai nevoie pentru a începe"),
+      price: formatPublicMonthlyPrice("0", premiumPrice.currency),
       variant: "free",
-      features: adminFreemiumFeatures,
-      unavailable: adminAdvancedPlanFeatures,
-      note: text("Upgrade is available anytime", "Upgrade oricând"),
+      features: freeFeatures,
     },
     {
-      name: "Premium - STARTER",
-      subtitle: text("For up to two sports venues", "Pentru maximum două baze sportive"),
-      price: "€8,90",
-      variant: "starter",
-      features: adminStarterFeatures,
-      unavailable: [],
-      note: text("Upgrade/downgrade is available anytime", "Upgrade/downgrade oricând"),
-    },
-    {
-      name: "Premium - PRO",
-      subtitle: text("For sports venues without a limit", "Pentru baze sportive nelimitate"),
-      price: "€14,90",
-      variant: "pro",
-      features: adminProFeatures,
-      unavailable: [],
-      note: text("Downgrade is available anytime", "Downgrade oricând"),
+      name: "Premium",
+      subtitle: text("More ways to manage bookings", "Mai multe opțiuni pentru rezervări"),
+      price: formatPublicMonthlyPrice(premiumPrice.amount, premiumPrice.currency),
+      variant: "premium",
+      features: premiumFeatures,
     },
   ];
-  const PricingCheck = () => (
-    <svg viewBox="0 0 20 20" aria-hidden className="pricing-plan-check mt-0.5 h-4 w-4 shrink-0">
-      <path d="M4 10.5l3.2 3.2L16 5.8" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-  const PricingCross = () => (
-    <svg viewBox="0 0 20 20" aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#ff4b55]">
-      <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
-    </svg>
-  );
   const openManagerFromPricing = () => {
     const adminUrl = "https://admin.sportme.ro/auth";
     if (/Android/i.test(navigator.userAgent)) {
@@ -201,11 +184,11 @@ export default function AboutDeferredSections() {
                 <span className="modern-accent block">{text("SportMe Manager pricing", "Prețuri Sportme Manager")}</span>
               </h2>
               <p className="max-w-3xl text-base leading-7 text-[#5b6678]">
-                {text("You can test all features free for 30 days and see if the platform fits your sports venue.", "30 de zile gratuite pentru testare dacă platforma se potrivește bazei dvs. sportive.")}<br />
-                {text("Afterwards, it can be used free of charge with no time limit for one location.", "Ulterior, poate fi folosită gratuit, fără limită de timp pentru o singură locație.")}
+                {text("Try Premium free for 30 days.", "Testează Premium gratuit timp de 30 de zile.")}<br />
+                {text("The Free plan stays free with no time limit.", "Planul Free rămâne gratuit, fără limită de timp.")}
               </p>
             </div>
-            <div className="pricing-card-row grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            <div className="pricing-card-row mx-auto grid max-w-[960px] gap-5 md:grid-cols-2 lg:gap-6">
               {pricingPlans.map((plan) => (
                 <div key={plan.name} className={`pricing-plan-card pricing-plan-card--${plan.variant} flex flex-col`}>
                   <h3 className="pricing-plan-name">{plan.name}</h3>
@@ -215,24 +198,19 @@ export default function AboutDeferredSections() {
                     <span className="pricing-plan-period">/{periodLabel}</span>
                   </div>
                   <button type="button" onClick={openManagerFromPricing} className="pricing-plan-button">
-                    {plan.variant === "free" ? text("Start for FREE", "Începe GRATUIT") : text("Try for FREE", "Testează GRATUIT")}
+                    {plan.variant === "free" ? text("Start for FREE", "Începe GRATUIT") : text("Try for free - 30 days", "Testează gratuit - 30 zile")}
                   </button>
                   <div className="pricing-plan-features">
-                    <p className="pricing-plan-includes">{text("Includes:", "Include:")}</p>
+                    <p className="pricing-plan-includes">
+                      {plan.variant === "free" ? text("Includes:", "Include:") : text("All free features, plus:", "Toate caracteristicile gratuite, plus:")}
+                    </p>
                     {plan.features.map((item) => (
                       <p key={item} className="pricing-plan-feature">
                         <PricingCheck />
                         <span>{item}</span>
                       </p>
                     ))}
-                    {plan.unavailable.map((item) => (
-                      <p key={item} className="pricing-plan-feature pricing-plan-feature--unavailable">
-                        <PricingCross />
-                        <span>{item}</span>
-                      </p>
-                    ))}
                   </div>
-                  <p className="pricing-plan-note mt-auto">* {plan.note}</p>
                 </div>
               ))}
             </div>

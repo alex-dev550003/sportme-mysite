@@ -4,7 +4,7 @@ import type { LanguageKey } from "../../app/languages";
 import { translateText } from "../../app/public-locales";
 
 function CalendarIcon() { return <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="7" width="22" height="20" rx="4" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M10 4v6M22 4v6M5 13h22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>; }
-function ClockIcon() { return <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M16 9v7l5 3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>; }
+function ExternalPaymentIcon() { return <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="10" width="21" height="16" rx="3" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M4 16h21M17 4h11v11M28 4 17 15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>; }
 function ChartIcon() { return <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 26V15h5v11M14 26V7h5v19M22 26V11h5v15M4 26h25" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>; }
 function SearchIcon() { return <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="14" cy="14" r="8" fill="none" stroke="currentColor" strokeWidth="2" /><path d="m20 20 7 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>; }
 function BoltIcon() { return <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m18 3-10 15h8l-2 11 10-16h-8l2-10Z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /></svg>; }
@@ -15,7 +15,7 @@ type Feature = { icon: ReactNode; ro: [string, string]; en: [string, string] };
 const features: Record<ShowcaseMode, Feature[]> = {
   manager: [
     { icon: <CalendarIcon />, ro: ["Rezervări", "centralizate"], en: ["Centralized", "bookings"] },
-    { icon: <ClockIcon />, ro: ["Disponibilitate", "live"], en: ["Real-time", "availability"] },
+    { icon: <ExternalPaymentIcon />, ro: ["Plata rezervărilor", "direct către bază"], en: ["Booking payments", "direct to venue"] },
     { icon: <ChartIcon />, ro: ["Rapoarte", "și statistici"], en: ["Reports", "and insights"] },
   ],
   player: [
@@ -27,7 +27,7 @@ const features: Record<ShowcaseMode, Feature[]> = {
 
 export function AppShowcaseFeatures({ mode, language }: { mode: ShowcaseMode; language: LanguageKey }) {
   return (
-    <div className="app-showcase-features">
+    <div className={`app-showcase-features ${mode === "manager" ? "is-manager" : ""}`}>
       {features[mode].map((feature) => (
         <div className="app-showcase-feature" key={feature.ro.join("-")}>
           <span className="app-showcase-feature-icon">{feature.icon}</span>

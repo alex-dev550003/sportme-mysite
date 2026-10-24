@@ -1844,6 +1844,24 @@ body * {
   -webkit-backdrop-filter: blur(18px);
 }
 
+.public-dark .quickstart-home-nav {
+  box-shadow: 0 6px 24px rgba(44, 55, 76, 0.08) !important;
+}
+
+.quickstart-home-nav .sportme-sidebar-wordmark { font-size: 20px; }
+.quickstart-home-nav .modern-signup { background: transparent; border-color: rgba(24, 32, 50, 0.28); color: #182032; white-space: nowrap; }
+.quickstart-home-nav .modern-mobile-menu { color: rgba(24, 32, 50, 0.72); }
+.quickstart-home-nav .modern-mobile-menu span span { background: currentColor; }
+.quickstart-home-nav .modern-menu { border-color: rgba(215, 220, 228, 0.92); background: rgba(255, 255, 255, 0.86); color: #182032; box-shadow: 0 24px 60px rgba(44, 55, 76, 0.16); }
+.quickstart-home-nav .modern-menu a,
+.quickstart-home-nav .modern-menu button { color: rgba(24, 32, 50, 0.72); }
+.quickstart-home-nav .modern-menu a:hover,
+.quickstart-home-nav .modern-menu button:hover { color: #182032; }
+
+@media (min-width: 640px) {
+  .quickstart-home-nav .sportme-sidebar-wordmark { font-size: 23px; }
+}
+
 .sportme-modern-home .quickstart-nav,
 .sportme-modern-home .quickstart-nav.is-scrolled {
   border-color: rgba(215, 220, 228, 0.92) !important;
@@ -2034,7 +2052,7 @@ body * {
   min-width: 0;
   min-height: 0;
   font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
-  padding: 24px 28px;
+  padding: 32px 34px 36px;
   border: 1px solid rgba(222, 226, 232, 0.8);
   border-radius: 30px;
   background: #fff;
@@ -2042,8 +2060,7 @@ body * {
   box-shadow: 0 18px 48px rgba(35, 53, 75, 0.1);
 }
 
-.about-pricing-section .pricing-plan-card--starter,
-.about-pricing-section .pricing-plan-card--pro {
+.about-pricing-section .pricing-plan-card--premium {
   border-color: #131b2b;
   background: #131b2b;
   color: #fff;
@@ -2063,8 +2080,7 @@ body * {
   line-height: 1.4;
 }
 
-.about-pricing-section .pricing-plan-card--starter .pricing-plan-subtitle,
-.about-pricing-section .pricing-plan-card--pro .pricing-plan-subtitle {
+.about-pricing-section .pricing-plan-card--premium .pricing-plan-subtitle {
   color: #8993a6;
 }
 
@@ -2114,30 +2130,27 @@ body * {
   outline-offset: 3px;
 }
 
-.about-pricing-section .pricing-plan-card--starter .pricing-plan-button,
-.about-pricing-section .pricing-plan-card--pro .pricing-plan-button {
+.about-pricing-section .pricing-plan-card--premium .pricing-plan-button {
   background: #ff7829;
   color: #fff;
 }
 
-.about-pricing-section .pricing-plan-card--starter .pricing-plan-button:hover,
-.about-pricing-section .pricing-plan-card--pro .pricing-plan-button:hover {
+.about-pricing-section .pricing-plan-card--premium .pricing-plan-button:hover {
   background: #f35d0b;
 }
 
 .about-pricing-section .pricing-plan-features {
   display: grid;
   align-content: start;
-  gap: 6px;
-  margin-top: 22px;
-  padding-top: 20px;
+  gap: 11px;
+  margin-top: 28px;
+  padding-top: 24px;
   border-top: 1px solid #e9ebee;
-  font-size: 14px;
-  line-height: 1.35;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
-.about-pricing-section .pricing-plan-card--starter .pricing-plan-features,
-.about-pricing-section .pricing-plan-card--pro .pricing-plan-features {
+.about-pricing-section .pricing-plan-card--premium .pricing-plan-features {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -2146,8 +2159,7 @@ body * {
   color: #9ba1aa;
 }
 
-.about-pricing-section .pricing-plan-card--starter .pricing-plan-includes,
-.about-pricing-section .pricing-plan-card--pro .pricing-plan-includes {
+.about-pricing-section .pricing-plan-card--premium .pricing-plan-includes {
   color: #8e98a8;
 }
 
@@ -2159,22 +2171,6 @@ body * {
 
 .about-pricing-section .pricing-plan-check {
   color: #ff851d;
-}
-
-.about-pricing-section .pricing-plan-feature--unavailable {
-  color: #9299a3;
-}
-
-.about-pricing-section .pricing-plan-note {
-  padding-top: 16px;
-  color: #8f98a6;
-  font-size: 12px;
-  line-height: 1.4;
-}
-
-.about-pricing-section .pricing-plan-card--starter .pricing-plan-note,
-.about-pricing-section .pricing-plan-card--pro .pricing-plan-note {
-  color: #8993a6;
 }
 
 /* Match the manager sign-out modal surface without changing access-modal content. */
@@ -2241,6 +2237,14 @@ body * {
   .about-pricing-section .pricing-plan-card {
     min-height: 0;
     padding: 27px 24px;
+  }
+
+  .about-pricing-section .pricing-plan-price {
+    font-size: clamp(30px, 8.5vw, 38px);
+  }
+
+  .about-pricing-section .pricing-plan-period {
+    font-size: 14px;
   }
 }
 
@@ -2425,7 +2429,7 @@ body * {
 }
 
 .app-showcase-tab-icon svg { width: 25px; height: 25px; }
-.app-showcase-tab-copy { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; text-align: left; }
+.app-showcase-tab-copy { display: flex; min-width: 0; flex-direction: column; align-items: center; text-align: center; }
 .app-showcase-tab-copy strong { font-size: 15px; font-weight: 700; line-height: 1.02; }
 .app-showcase-tab-copy small { margin-top: 3px; font-size: 11px; font-weight: 500; line-height: 1.08; white-space: normal; text-wrap: balance; opacity: 0.7; }
 .app-showcase-tab.is-active .app-showcase-tab-copy small { opacity: 0.9; }
@@ -2456,8 +2460,8 @@ body * {
 }
 
 .app-showcase-carousel {
-  --showcase-slide-width: min(51vw, 207px);
-  --showcase-slide-height: min(103.23vw, 419px);
+  --showcase-slide-width: min(34vw, 138px);
+  --showcase-slide-height: min(68.82vw, 279.3px);
   position: relative;
   width: min(100vw, 1120px);
   height: var(--showcase-slide-height);
@@ -2619,8 +2623,8 @@ body * {
   transform: translateY(-50%);
 }
 
-.app-showcase-arrow.is-left { left: calc(24.5% - 58px); }
-.app-showcase-arrow.is-right { right: calc(24.5% - 58px); }
+.app-showcase-arrow.is-left { left: calc(50% - min(17vw, 69px) - 54px); }
+.app-showcase-arrow.is-right { right: calc(50% - min(17vw, 69px) - 54px); }
 .app-showcase-arrow:hover { background: #fff; }
 
 .app-showcase-dots { display: flex; justify-content: center; gap: 12px; margin-top: 4px; }
@@ -2669,7 +2673,6 @@ body * {
 }
 
 @media (max-width: 389px) {
-  .app-showcase-shell { padding-top: 96px; padding-bottom: 72px; }
   .app-showcase-title { font-size: 24px; }
   .app-showcase-tab { gap: 4px; padding-inline: 5px; }
   .app-showcase-tab-icon { width: 23px; height: 23px; flex-basis: 23px; }
@@ -2682,7 +2685,13 @@ body * {
 }
 
 @media (max-width: 767px) {
-  .app-showcase-shell { padding-bottom: 16px; }
+  .app-showcase-shell { padding-top: 64px; padding-bottom: 16px; }
+  .app-showcase-features.is-manager { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 12px; }
+  .app-showcase-features.is-manager .app-showcase-feature { flex-direction: row; text-align: left; }
+  .app-showcase-features.is-manager .app-showcase-feature:first-child { justify-content: flex-start; padding-left: 20px; }
+  .app-showcase-features.is-manager .app-showcase-feature:nth-child(2) { justify-content: flex-start; gap: 4px; }
+  .app-showcase-features.is-manager .app-showcase-feature:nth-child(3) { display: none; }
+  .app-showcase-cta { min-height: 48px; margin-top: 14px; border-radius: 18px; font-size: 16px; }
   #sectiunea-2 { padding-top: 16px; }
 }
 
@@ -2697,10 +2706,10 @@ body * {
   .app-showcase-tab-icon svg { width: 29px; height: 29px; }
   .app-showcase-tab-copy strong { font-size: 17px; }
   .app-showcase-tab-copy small { font-size: 13px; white-space: nowrap; }
-  .app-showcase-carousel { --showcase-slide-width: 320px; --showcase-slide-height: 647.7px; }
+  .app-showcase-carousel { --showcase-slide-width: 213px; --showcase-slide-height: 431px; }
   .app-showcase-slide { width: var(--showcase-slide-width); }
-  .app-showcase-arrow.is-left { left: calc(50% - 218px); }
-  .app-showcase-arrow.is-right { right: calc(50% - 218px); }
+  .app-showcase-arrow.is-left { left: calc(50% - 161px); }
+  .app-showcase-arrow.is-right { right: calc(50% - 161px); }
   .app-showcase-feature > span:last-child { font-size: 16px; }
 }
 
@@ -2718,8 +2727,8 @@ body * {
   .app-showcase-slide { width: var(--showcase-slide-width); }
   .app-showcase-slide.is-previous { transform: translateX(-100%) scale(0.84); }
   .app-showcase-slide.is-next { transform: translateX(0) scale(0.84); }
-  .app-showcase-arrow.is-left { left: calc(50% - 218px); }
-  .app-showcase-arrow.is-right { right: calc(50% - 218px); }
+  .app-showcase-arrow.is-left { left: calc(50% - 161px); }
+  .app-showcase-arrow.is-right { right: calc(50% - 161px); }
 }
 
 .app-showcase-hero .quickstart-nav .modern-primary {

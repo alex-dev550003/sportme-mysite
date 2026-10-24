@@ -8,7 +8,7 @@ import { translateText } from "../../app/public-locales";
 import type { LanguageKey } from "../../app/languages";
 
 type Language = "RO" | "EN";
-type Props = { language: LanguageKey; availableImages: string[]; onOpenPlayer: () => void; onOpenStart: () => void };
+type Props = { language: LanguageKey; availableImages: string[]; onOpenStart: () => void };
 
 const showcase = {
   manager: {
@@ -23,7 +23,6 @@ const showcase = {
     eyebrow: { RO: "APLICAȚIA PENTRU JUCĂTORI", EN: "THE APP FOR PLAYERS" },
     title: { RO: ["Găsește și rezervă.", "Joacă mai mult."], EN: ["Find and book fast.", "Play more."] },
     subtitle: { RO: "Descoperă locații, verifică disponibilitatea și rezervă terenul potrivit direct din aplicație.", EN: "Discover venues, check availability and book the right court straight from the app." },
-    cta: { RO: "Vezi SportMe Jucător", EN: "Explore SportMe Player" },
     slides: [
       { src: "/app-showcase/player/01-home.jpg", alt: "Pagina principală SportMe Jucător", label: "Home" },
       { src: "/app-showcase/player/02-locatii.jpg", alt: "Locații în SportMe Jucător", label: "Venues" },
@@ -33,9 +32,9 @@ const showcase = {
       { src: "/app-showcase/player/06-profile.jpg", alt: "Profil în SportMe Jucător", label: "Profile" },
     ],
   },
-} satisfies Record<ShowcaseMode, { eyebrow: Record<Language, string>; title: Record<Language, string[]>; subtitle?: Record<Language, string>; cta?: Record<Language, string>; slides: { src: string; width?: number; height?: number; internationalSrc?: string; internationalWidth?: number; internationalHeight?: number; alt: string; label: string; format?: "desktop" }[] }>;
+} satisfies Record<ShowcaseMode, { eyebrow: Record<Language, string>; title: Record<Language, string[]>; subtitle?: Record<Language, string>; slides: { src: string; width?: number; height?: number; internationalSrc?: string; internationalWidth?: number; internationalHeight?: number; alt: string; label: string; format?: "desktop" }[] }>;
 
-export function AppShowcase({ language, availableImages, onOpenPlayer, onOpenStart }: Props) {
+export function AppShowcase({ language, availableImages, onOpenStart }: Props) {
   const [mode, setMode] = useState<ShowcaseMode>("manager");
   const content = showcase[mode];
   const text = (english: string, romanian?: string) => translateText(language, english, romanian);
@@ -65,16 +64,9 @@ export function AppShowcase({ language, availableImages, onOpenPlayer, onOpenSta
         alt: language === "RO" ? slide.alt : `${text(slide.label)} — ${mode === "manager" ? "SportMe Manager" : text("SportMe Player", "SportMe Jucător")}`,
       }))} language={language} availableImages={availableImages} />
       <AppShowcaseFeatures mode={mode} language={language} />
-      {mode === "manager" ? (
-        <button type="button" className="app-showcase-cta" onClick={onOpenStart}>
-          <span>{text("Start now", "Începe acum")}</span><span aria-hidden="true">→</span>
-        </button>
-      ) : null}
-      {mode === "player" ? (
-        <button type="button" className="app-showcase-cta" onClick={onOpenPlayer}>
-          <span>{text(showcase.player.cta.EN, showcase.player.cta.RO)}</span><span aria-hidden="true">→</span>
-        </button>
-      ) : null}
+      <button type="button" className="app-showcase-cta" onClick={onOpenStart}>
+        <span>{text("Start now", "Începe acum")}</span><span aria-hidden="true">→</span>
+      </button>
     </div>
   );
 }
