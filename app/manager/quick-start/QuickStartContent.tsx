@@ -81,7 +81,7 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       eyebrow: "SPORTME MANAGER",
       title: "Quick Start SportMe Manager",
       subtitle: "Configurează baza sportivă și învață să gestionezi rezervările în câteva minute.",
-      body: "De la configurarea firmei și publicarea bazei sportive până la rezervări, notificări și administrarea zonelor sportive.",
+      body: "De la datele de contact si publicarea bazei sportive pana la rezervari, notificari si administrarea zonelor sportive.",
     },
     intro: {
       eyebrow: "Introducere",
@@ -103,7 +103,11 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       subscriptionBody: [
         "În Setări - Abonament poți vedea planul activ și costul asociat contului tău.",
         "Pe site, opțiunile sunt prezentate ca Free și Premium. Free include administrarea de bază, iar Premium adaugă rezervări din aplicație, confirmări, notificări și statistici.",
-        "Prețul Premium afișat pe site depinde de țara din care este accesat.",
+        "Pregatim abonamentele prin Google Play pentru aplicatia Android. Optiunea va putea fi folosita dupa lansarea versiunii care o include.",
+        "Pentru abonamentele cumparate prin Google Play, plata si reinnoirea sunt gestionate de Google Play. Pretul final, moneda si perioada de facturare sunt afisate inainte de confirmarea achizitiei.",
+        "Datele de plata si eventualele informatii fiscale necesare achizitiei se gestioneaza in contul Google. Nu va fi necesar sa completezi in SportMe date de facturare pentru aceste abonamente. Documentele disponibile pentru plata se consulta in contul Google.",
+        "Abonamentul cumparat prin Google Play se gestioneaza sau se anuleaza din Google Play > Plati si abonamente > Abonamente, folosind contul Google cu care ai facut achizitia.",
+        "Dupa activarea abonamentului, vei putea folosi accesul Premium si din browser, autentificat in acelasi cont SportMe, fara o a doua achizitie.",
       ],
       subscriptionCta: "Vezi planurile SportMe Manager",
     },
@@ -124,13 +128,11 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
     setupSteps: [
       {
         step: 1,
-        title: "Completează datele firmei",
+        title: "Verifica datele de contact",
         body: [
-          "Introdu datele de identificare și contact ale firmei care administrează baza sportivă.",
-          "Poți completa manual informațiile sau poți introduce CIF/CNP și apăsa „Completează automat” pentru preluarea datelor disponibile.",
-          "Verifică în special persoana de contact, telefonul, emailul, denumirea firmei, datele fiscale și adresa.",
+          "Verifica numele persoanei de contact, telefonul si adresa de email folosite pentru administrarea bazei sportive.",
         ],
-        notes: [{ title: "Pont", body: "Dacă folosești „Completează automat”, verifică informațiile înainte de salvare și completează manual câmpurile lipsă." }],
+        notes: [{ title: "Pont", body: "Pastreaza datele de contact actualizate, pentru ca echipa SportMe sa te poata contacta in legatura cu baza sportiva." }],
       },
       {
         step: 2,
@@ -301,7 +303,7 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       eyebrow: "SPORTME MANAGER",
       title: "Quick Start SportMe Manager",
       subtitle: "Set up your sports venue and learn how to manage bookings in just a few minutes.",
-      body: "From company details and publishing your sports venue to bookings, notifications and sports area administration.",
+      body: "From contact details and publishing your sports venue to bookings, notifications and sports area administration.",
     },
     intro: {
       eyebrow: "Introduction",
@@ -323,7 +325,11 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       subscriptionBody: [
         "In Settings - Subscription you can see the active plan and the cost associated with your account.",
         "On the site, the options are shown as Free and Premium. Free includes basic management, while Premium adds in-app bookings, confirmations, notifications and statistics.",
-        "The Premium price shown on the site depends on the country from which it is accessed.",
+        "Google Play subscriptions are being prepared for the Android app. This option will be available after the version that includes it is released.",
+        "For subscriptions purchased through Google Play, Google Play handles payments and renewals. The final price, currency and billing period are displayed before you confirm the purchase.",
+        "Payment details and any tax information required for the purchase are managed in your Google account. You will not need to enter billing details in SportMe for these subscriptions. Available payment documents can be found in your Google account.",
+        "Manage or cancel a subscription purchased through Google Play in Google Play > Payments & subscriptions > Subscriptions, using the Google account used for the purchase.",
+        "Once the subscription is activated, you will also be able to use Premium in a browser by signing in to the same SportMe account, without a second purchase.",
       ],
       subscriptionCta: "See SportMe Manager plans",
     },
@@ -344,13 +350,11 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
     setupSteps: [
       {
         step: 1,
-        title: "Complete company details",
+        title: "Check contact details",
         body: [
-          "Enter the identification and contact details of the company that manages the sports venue.",
-          "You can fill in the information manually or enter the company/personal tax ID and press “Autofill” to retrieve available data.",
-          "Check the contact person, phone number, email, company name, tax details and address in particular.",
+          "Check the contact person's name, phone number and email address used to manage the sports venue.",
         ],
-        notes: [{ title: "Tip", body: "If you use “Autofill”, review the information before saving and manually complete any missing fields." }],
+        notes: [{ title: "Tip", body: "Keep contact details up to date so the SportMe team can contact you about your sports venue." }],
       },
       {
         step: 2,
