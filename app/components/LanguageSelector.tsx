@@ -20,7 +20,9 @@ export function LanguageSelector() {
     const frame = requestAnimationFrame(() => {
       const menu = menuRef.current;
       if (!menu) return;
-      menu.querySelector<HTMLButtonElement>('[aria-checked="true"]')?.focus({ preventScroll: true });
+      const selected = menu.querySelector<HTMLButtonElement>('[aria-checked="true"]');
+      selected?.focus({ preventScroll: true });
+      selected?.scrollIntoView({ block: "nearest" });
     });
     const dismiss = (event: PointerEvent) => {
       if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
@@ -50,6 +52,7 @@ export function LanguageSelector() {
     else return;
     event.preventDefault();
     buttons[next]?.focus({ preventScroll: true });
+    buttons[next]?.scrollIntoView({ block: "nearest" });
   };
 
   return (

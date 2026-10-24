@@ -1,4 +1,12 @@
 import type { LanguageKey } from "./languages";
+import pl from "./locales/public-pl.json";
+import hu from "./locales/public-hu.json";
+import cs from "./locales/public-cs.json";
+import da from "./locales/public-da.json";
+import sv from "./locales/public-sv.json";
+import no from "./locales/public-no.json";
+import is from "./locales/public-is.json";
+import tr from "./locales/public-tr.json";
 
 // Columns: French, German, Italian, Spanish, Portuguese. Romanian and English
 // stay alongside the existing content, so adding locales does not alter either.
@@ -215,8 +223,12 @@ const messages: Record<string, readonly [string, string, string, string, string]
 };
 
 const columns = { FR: 0, DE: 1, IT: 2, ES: 3, PT: 4 } as const;
+const additionalMessages: Partial<Record<LanguageKey, Record<string, string>>> = {
+  PL: pl, HU: hu, CS: cs, DA: da, SV: sv, NO: no, IS: is, TR: tr,
+};
 export function translateText(language: LanguageKey, english: string, romanian = english): string {
   if (language === "RO") return romanian;
   if (language === "EN") return english;
-  return messages[english]?.[columns[language]] ?? english;
+  if (language in columns) return messages[english]?.[columns[language as keyof typeof columns]] ?? english;
+  return additionalMessages[language]?.[english] ?? english;
 }

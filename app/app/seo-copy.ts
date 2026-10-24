@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import type { LanguageKey } from "./languages";
 import { languages } from "./languages";
+import { translateDocumentText } from "./content-locales";
 
 type SeoText = { title: string; description: string };
 type LocalizedSeoText = Record<LanguageKey, SeoText>;
 
-export const siteCopy: Record<"home" | "quickStart" | "terms" | "cookies" | "privacy", LocalizedSeoText> = {
+const baseSiteCopy = {
   home: {
     RO: { title: "SportMe - Rezervă terenuri sportive rapid", description: "SportMe te ajută să găsești, să verifici disponibilitatea și să rezervi rapid terenuri sportive pentru fotbal, tenis, padel, squash și alte sporturi." },
     EN: { title: "SportMe - Book sports courts quickly", description: "Find sports venues, check availability and book courts for football, tennis, padel, squash and more with SportMe." },
@@ -52,6 +53,18 @@ export const siteCopy: Record<"home" | "quickStart" | "terms" | "cookies" | "pri
     PT: { title: "Política de privacidade | SportMe", description: "Saiba como o SportMe recolhe, utiliza e protege os dados pessoais na aplicação de reservas desportivas." },
   },
 };
+
+type PageKey = keyof typeof baseSiteCopy;
+export const siteCopy = Object.fromEntries(
+  Object.entries(baseSiteCopy).map(([page, translations]) => [page, Object.fromEntries(
+    languages.map(({ code }) => [code, code in translations
+      ? translations[code as keyof typeof translations]
+      : {
+          title: translateDocumentText(translations.EN.title, code),
+          description: translateDocumentText(translations.EN.description, code),
+        }]),
+  )]),
+) as Record<PageKey, LocalizedSeoText>;
 
 export function makePageMetadata(language: LanguageKey, text: SeoText, canonical: string, type: "website" | "article" = "website", keywords?: string[]): Metadata {
   return {

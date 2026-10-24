@@ -34,6 +34,11 @@ export function I18nProvider({ children, initialLanguage }: { children: React.Re
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const selectedCookie = document.cookie.match(/(?:^|;\s*)sportmeLanguage=([^;]*)(?:;|$)/)?.[1];
+    if (isLanguageKey(selectedCookie)) {
+      setLanguageState(selectedCookie);
+      return;
+    }
     let stored: string | null = null;
     try {
       stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
@@ -45,19 +50,11 @@ export function I18nProvider({ children, initialLanguage }: { children: React.Re
       return;
     }
 
-    const selectedCookie = document.cookie.match(/(?:^|;\s*)sportmeLanguage=(RO|EN|FR|DE|IT|ES|PT)(?:;|$)/)?.[1];
-    if (isLanguageKey(selectedCookie)) {
-      setLanguageState(selectedCookie);
-      return;
-    }
-
     const country = document.cookie.match(/(?:^|;\s*)sportmeVisitorCountry=([A-Z]{2})(?:;|$)/)?.[1];
     const detected = detectVisitorLanguage(country, [...(navigator.languages ?? []), navigator.language]);
     setLanguageState(detected);
-    if (detected !== initialLanguage) {
-      persistLanguageCookie(detected);
-      router.refresh();
-    }
+    // Automatic detection must not overwrite a visitor's future preferences.
+    // The server already reads Accept-Language for the initial HTML/metadata.
   }, [initialLanguage, router]);
 
   useEffect(() => {
