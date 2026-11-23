@@ -21,19 +21,6 @@ export default function PlayerAccessModal({ onClose, playerWebUrl, playerPlaySto
       closeLabel={text("Close", "Închide")}
       sections={[
         {
-          label: text("On desktop", "Pe desktop"),
-          description: text("Continue in your computer's browser", "Continuă în browserul de pe calculator"),
-          icon: "desktop",
-          actions: [
-            {
-              title: text("Web Browser", "Web Browser"),
-              eyebrow: text("Open in", "Deschide în"),
-              icon: "web",
-              href: playerWebUrl,
-            },
-          ],
-        },
-        {
           label: text("On mobile", "Pe mobil"),
           description: text("Install the app on your phone", "Instalează aplicația pe telefon"),
           icon: "mobile",
@@ -51,6 +38,19 @@ export default function PlayerAccessModal({ onClose, playerWebUrl, playerPlaySto
               icon: "appStore",
               href: "https://apps.apple.com/ro/app/sportme-player/id6823907031",
               status: { label: t("about.cta.live"), tone: "live" },
+            },
+          ],
+        },
+        {
+          label: text("On desktop", "Pe desktop"),
+          description: text("Continue in your computer's browser", "Continuă în browserul de pe calculator"),
+          icon: "desktop",
+          actions: [
+            {
+              title: text("Web Browser", "Web Browser"),
+              eyebrow: text("Open in", "Deschide în"),
+              icon: "web",
+              href: playerWebUrl,
             },
           ],
         },
