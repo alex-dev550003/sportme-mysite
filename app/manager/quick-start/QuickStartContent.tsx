@@ -10,6 +10,7 @@ import { PublicTopControls } from "../../components/PublicTopControls";
 import { SiteFooter } from "../../components/SiteFooter";
 
 const ProductChoiceModal = dynamic(() => import("../../components/ProductChoiceModal"), { ssr: false });
+const PlayerAccessModal = dynamic(() => import("../../components/PlayerAccessModal"), { ssr: false });
 type HeaderChoice = "download" | "signIn" | "signUp";
 
 const canonical = "https://www.sportme.ro/manager/quick-start";
@@ -665,6 +666,7 @@ function SectionHeader({ id, eyebrow, title }: { id: string; eyebrow: string; ti
 export function QuickStartContent() {
   const { language, locale, text: translate } = useI18n();
   const [headerChoice, setHeaderChoice] = useState<HeaderChoice | null>(null);
+  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showResources, setShowResources] = useState(false);
   const headerLabels = {
@@ -682,6 +684,10 @@ export function QuickStartContent() {
   };
   const openSelectedApp = (product: "manager" | "player") => {
     setHeaderChoice(null);
+    if (headerChoice === "download" && product === "player") {
+      setShowPlayerAccessModal(true);
+      return;
+    }
     const webUrl = product === "manager" ? managerUrl : playerWebUrl;
     if (/Android/i.test(navigator.userAgent)) {
       const appHostAndPath = product === "manager" ? "login/auth" : "app";
@@ -803,6 +809,7 @@ export function QuickStartContent() {
           onSelect={openSelectedApp}
         />
       ) : null}
+      {showPlayerAccessModal ? <PlayerAccessModal onClose={() => setShowPlayerAccessModal(false)} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
     </main>
   );
 }

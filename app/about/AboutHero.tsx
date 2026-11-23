@@ -9,6 +9,7 @@ import { trackEvent } from "../utils/analytics";
 import { LanguageSelector } from "../components/LanguageSelector";
 
 const ManagerAccessModal = dynamic(() => import("../components/ManagerAccessModal"), { ssr: false });
+const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"), { ssr: false });
 const ProductChoiceModal = dynamic(() => import("../components/ProductChoiceModal"), { ssr: false });
 type ProductChoiceEntry = "download" | "signIn" | "signUp" | "startNow";
 
@@ -18,6 +19,7 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
   const [showHeroMenu, setShowHeroMenu] = useState(false);
   const [openNavPanel, setOpenNavPanel] = useState<"resources" | null>(null);
   const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
+  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const [productChoiceEntry, setProductChoiceEntry] = useState<ProductChoiceEntry | null>(null);
   const choiceLabels = {
     download: text("Download", "Descarcă"),
@@ -97,6 +99,10 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
 
   const signInAs = (product: "manager" | "player") => {
     setProductChoiceEntry(null);
+    if (productChoiceEntry === "download" && product === "player") {
+      setShowPlayerAccessModal(true);
+      return;
+    }
     const webUrl = product === "manager" ? adminUrl : playerWebUrl;
     if (/Android/i.test(navigator.userAgent)) {
       const appHostAndPath = product === "manager" ? "login/auth" : "app";
@@ -182,6 +188,7 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
         />
       ) : null}
       {showManagerAccessModal ? <ManagerAccessModal onClose={() => setShowManagerAccessModal(false)} adminUrl={adminUrl} managerPlayStoreUrl={managerPlayStoreUrl} /> : null}
+      {showPlayerAccessModal ? <PlayerAccessModal onClose={() => setShowPlayerAccessModal(false)} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
     </section>
   );
 }
