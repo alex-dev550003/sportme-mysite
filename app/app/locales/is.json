@@ -1,5 +1,10 @@
 {
   "english": {
+    "Open or resume the setup guide from your dashboard.": "Opnaðu eða haltu áfram með uppsetningarleiðbeiningarnar á stjórnborðinu.",
+    "Enter the venue name, address, city, county or region and country, then mark its exact position on the map.": "Skráðu nafn aðstöðunnar, heimilisfang, bæ, sýslu eða svæði og land og merktu síðan nákvæma staðsetningu á kortinu.",
+    "Set up your first sports venue in 5 steps.": "Settu upp fyrstu íþróttaaðstöðuna þína í 5 skrefum.",
+    "slot price in the venue’s currency": "verð tímabilsins í gjaldmiðli aðstöðunnar",
+    "After publishing, the venue is visible in SportMe Player. Players can book in the app when app bookings are enabled for the venue; otherwise, they can contact you by phone.": "Eftir birtingu sést aðstaðan í SportMe Player. Leikmenn geta bókað í appinu þegar appbókanir eru virkar fyrir aðstöðuna; annars geta þeir haft samband við þig í síma.",
     "From contact details and publishing your sports venue to bookings, notifications and sports area administration.": "Frá samskiptaupplýsingum og birtingu íþróttastaðar til bókana, tilkynninga og umsjónar íþróttasvæða.",
     "Check contact details": "Athugaðu samskiptaupplýsingar",
     "Check the contact person's name, phone number and email address used to manage the sports venue.": "Athugaðu nafn tengiliðar, síma og netfang sem notuð eru við umsjón staðarins.",

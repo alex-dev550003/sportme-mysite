@@ -9,7 +9,7 @@ import { trackEvent } from "../utils/analytics";
 import { LanguageSelector } from "../components/LanguageSelector";
 
 const ProductAccessFlow = dynamic(() => import("../components/ProductAccessFlow"), { ssr: false });
-type ProductChoiceEntry = "download" | "signIn" | "signUp" | "startNow";
+type ProductChoiceEntry = "signIn" | "signUp" | "startNow";
 
 export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages: string[] }) {
   const { t, language, text } = useI18n();
@@ -18,7 +18,6 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
   const [openNavPanel, setOpenNavPanel] = useState<"resources" | null>(null);
   const [productChoiceEntry, setProductChoiceEntry] = useState<ProductChoiceEntry | null>(null);
   const choiceLabels = {
-    download: text("Download", "Descarcă"),
     signIn: text("Sign in", "Autentificare"),
     signUp: text("Sign up for free", "Înscrie-te gratuit"),
     startNow: text("Start now", "Începe acum"),
@@ -91,17 +90,15 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
 
   const renderMenu = () => (
     <div className="modern-menu absolute right-5 top-[calc(100%+12px)] z-30 w-[min(360px,calc(100vw-40px))] overflow-visible rounded-[22px] border p-2 backdrop-blur-xl sm:right-6">
-      <button type="button" onClick={() => openChoiceModal("download")} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition">{choiceLabels.download}</button>
-      <a href="#preturi" onClick={(event) => { scrollToAudienceSection(event, "preturi"); closeNavPanels(); }} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{text("Pricing", "Prețuri")}</a>
+      <a href="#preturi" onClick={(event) => { scrollToAudienceSection(event, "preturi"); closeNavPanels(); }} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{text("Manager pricing", "Prețuri Manageri")}</a>
       <div className="my-1 border-t border-[#d9dee7]" />
       <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{text("Resources", "Resurse")} <span aria-hidden="true">{openNavPanel === "resources" ? "−" : "+"}</span></button>
       {openNavPanel === "resources" ? (
         <div className="mb-1 ml-3 border-l border-[#d9dee7] pl-2">
-          <a href="https://www.sportme.ro/manager/quick-start" onClick={closeNavPanels} className="block rounded-2xl px-4 py-2.5 text-sm transition">{text("For sports venues", "Pentru baze sportive")}</a>
-          <a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-2xl px-4 py-2.5 text-sm transition">{text("For players", "Pentru jucători")}</a>
+          <a href="/manager/quick-start" onClick={closeNavPanels} className="block rounded-2xl px-4 py-2.5 text-sm transition">{text("For sports venues", "Pentru baze sportive")}</a>
+          <a href="/player/quick-start" onClick={closeNavPanels} className="block rounded-2xl px-4 py-2.5 text-sm transition">{text("For players", "Pentru jucători")}</a>
         </div>
       ) : null}
-      <button type="button" onClick={() => openChoiceModal("signIn")} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{choiceLabels.signIn}</button>
       <button type="button" onClick={() => openChoiceModal("signUp")} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{choiceLabels.signUp}</button>
       <div className="my-1 border-t border-[#d9dee7]" />
       <div className="flex items-center justify-between gap-3 px-4 py-2">
@@ -126,14 +123,10 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
               <span className="sportme-sidebar-wordmark"><span>sport</span><span className="sportme-sidebar-wordmark-me">me</span></span>
             </Link>
             <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
-              <button type="button" onClick={() => openChoiceModal("download")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{choiceLabels.download}</button>
-              <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Pricing", "Prețuri")}</a>
+              <a href="#preturi" onClick={(event) => scrollToAudienceSection(event, "preturi")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Manager pricing", "Prețuri Manageri")}</a>
               <div className="relative">
                 <button type="button" aria-expanded={openNavPanel === "resources"} onClick={() => setOpenNavPanel(openNavPanel === "resources" ? null : "resources")} className="flex items-center gap-1.5 rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{text("Resources", "Resurse")} <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className={`h-3.5 w-3.5 shrink-0 transition-transform ${openNavPanel === "resources" ? "rotate-180" : ""}`}><path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
-                {openNavPanel === "resources" ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href="https://www.sportme.ro/manager/quick-start" onClick={closeNavPanels} className="block rounded-xl px-4 py-3 text-sm transition">{text("For sports venues", "Pentru baze sportive")}</a><a href="#pentru-jucatori" onClick={(event) => { scrollToAudienceSection(event, "pentru-jucatori"); closeNavPanels(); }} className="block rounded-xl px-4 py-3 text-sm transition">{text("For players", "Pentru jucători")}</a></div> : null}
-              </div>
-              <div className="relative">
-                <button type="button" onClick={() => openChoiceModal("signIn")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{choiceLabels.signIn}</button>
+                {openNavPanel === "resources" ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href="/manager/quick-start" onClick={closeNavPanels} className="block rounded-xl px-4 py-3 text-sm transition">{text("For sports venues", "Pentru baze sportive")}</a><a href="/player/quick-start" onClick={closeNavPanels} className="block rounded-xl px-4 py-3 text-sm transition">{text("For players", "Pentru jucători")}</a></div> : null}
               </div>
             </div>
             <div className="ml-auto hidden shrink-0 items-center gap-1.5 lg:ml-0 lg:flex">

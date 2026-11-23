@@ -1,5 +1,10 @@
 {
   "english": {
+    "Open or resume the setup guide from your dashboard.": "Otevřete nebo pokračujte v průvodci nastavením z přehledu.",
+    "Enter the venue name, address, city, county or region and country, then mark its exact position on the map.": "Zadejte název sportoviště, adresu, město, okres nebo region a zemi, poté označte přesnou polohu na mapě.",
+    "Set up your first sports venue in 5 steps.": "Nastavte své první sportoviště v 5 krocích.",
+    "slot price in the venue’s currency": "cena termínu v měně sportoviště",
+    "After publishing, the venue is visible in SportMe Player. Players can book in the app when app bookings are enabled for the venue; otherwise, they can contact you by phone.": "Po zveřejnění je sportoviště viditelné ve SportMe Player. Hráči mohou rezervovat v aplikaci, pokud je tato funkce pro sportoviště aktivní; jinak vás mohou kontaktovat telefonicky.",
     "From contact details and publishing your sports venue to bookings, notifications and sports area administration.": "Od kontaktů a zveřejnění areálu po rezervace, oznámení a správu sportovních prostor.",
     "Check contact details": "Zkontrolujte kontaktní údaje",
     "Check the contact person's name, phone number and email address used to manage the sports venue.": "Zkontrolujte jméno kontaktní osoby, telefon a e-mail používané ke správě areálu.",

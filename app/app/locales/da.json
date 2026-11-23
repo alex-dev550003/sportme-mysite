@@ -1,5 +1,10 @@
 {
   "english": {
+    "Open or resume the setup guide from your dashboard.": "Åbn eller genoptag opsætningsguiden fra dit dashboard.",
+    "Enter the venue name, address, city, county or region and country, then mark its exact position on the map.": "Angiv anlæggets navn, adresse, by, område eller region og land, og markér derefter den præcise placering på kortet.",
+    "Set up your first sports venue in 5 steps.": "Opsæt dit første sportsanlæg i 5 trin.",
+    "slot price in the venue’s currency": "prisen på tidsrummet i anlæggets valuta",
+    "After publishing, the venue is visible in SportMe Player. Players can book in the app when app bookings are enabled for the venue; otherwise, they can contact you by phone.": "Efter offentliggørelsen er anlægget synligt i SportMe Player. Spillere kan booke i appen, når app-bookinger er aktiveret for anlægget; ellers kan de kontakte dig telefonisk.",
     "From contact details and publishing your sports venue to bookings, notifications and sports area administration.": "Fra kontaktoplysninger og offentliggørelse af anlæg til bookinger, notifikationer og administration af sportsområder.",
     "Check contact details": "Kontrollér kontaktoplysninger",
     "Check the contact person's name, phone number and email address used to manage the sports venue.": "Kontrollér kontaktpersonens navn, telefonnummer og e-mail til administration af anlægget.",

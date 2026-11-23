@@ -42,6 +42,7 @@ const messages: Record<string, readonly [string, string, string, string, string]
   "Venue software / Players": ["Gestion des centres / Joueurs", "Sportstätten / Spieler", "Centri sportivi / Giocatori", "Centros deportivos / Jugadores", "Centros desportivos / Jogadores"],
   "Quickstart": ["Démarrage rapide", "Schnellstart", "Guida rapida", "Guía rápida", "Guia rápido"],
   "Pricing": ["Tarifs", "Preise", "Prezzi", "Precios", "Preços"],
+  "Manager pricing": ["Tarifs gestionnaires", "Preise für Betreiber", "Prezzi per gestori", "Precios para gestores", "Preços para gestores"],
   "Download": ["Télécharger", "Herunterladen", "Scarica", "Descargar", "Descarregar"],
   "Resources": ["Ressources", "Ressourcen", "Risorse", "Recursos", "Recursos"],
   "For sports venues": ["Pour les centres sportifs", "Für Sportstätten", "Per i centri sportivi", "Para centros deportivos", "Para centros desportivos"],

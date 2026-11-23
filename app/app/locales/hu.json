@@ -1,5 +1,10 @@
 {
   "english": {
+    "Open or resume the setup guide from your dashboard.": "Nyisd meg vagy folytasd a beállítási útmutatót az irányítópulton.",
+    "Enter the venue name, address, city, county or region and country, then mark its exact position on the map.": "Add meg a létesítmény nevét, címét, települését, megyéjét vagy régióját és országát, majd jelöld be a pontos helyét a térképen.",
+    "Set up your first sports venue in 5 steps.": "Állítsd be első sportlétesítményedet 5 lépésben.",
+    "slot price in the venue’s currency": "az időpont ára a létesítmény pénznemében",
+    "After publishing, the venue is visible in SportMe Player. Players can book in the app when app bookings are enabled for the venue; otherwise, they can contact you by phone.": "Közzététel után a létesítmény látható a SportMe Playerben. A játékosok akkor foglalhatnak az alkalmazásban, ha ez a funkció aktív a létesítménynél; ellenkező esetben telefonon léphetnek kapcsolatba veled.",
     "From contact details and publishing your sports venue to bookings, notifications and sports area administration.": "A kapcsolattartási adatoktól és a létesítmény közzétételétől a foglalásokig, értesítésekig és sportterületek kezeléséig.",
     "Check contact details": "Ellenőrizze a kapcsolattartási adatokat",
     "Check the contact person's name, phone number and email address used to manage the sports venue.": "Ellenőrizze a létesítmény kezeléséhez használt kapcsolattartó nevét, telefonszámát és e-mail-címét.",

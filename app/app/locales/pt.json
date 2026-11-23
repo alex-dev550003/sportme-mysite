@@ -1,5 +1,10 @@
 {
   "english": {
+    "Open or resume the setup guide from your dashboard.": "Abra ou retome o guia de configuração no seu painel.",
+    "Enter the venue name, address, city, county or region and country, then mark its exact position on the map.": "Introduza o nome do centro, a morada, a localidade, o distrito ou região e o país e marque a posição exata no mapa.",
+    "Set up your first sports venue in 5 steps.": "Configure o seu primeiro centro desportivo em 5 passos.",
+    "slot price in the venue’s currency": "preço do horário na moeda do centro",
+    "After publishing, the venue is visible in SportMe Player. Players can book in the app when app bookings are enabled for the venue; otherwise, they can contact you by phone.": "Após a publicação, o centro fica visível no SportMe Player. Os jogadores podem reservar na aplicação se esta função estiver ativa para o centro; caso contrário, podem contactá-lo por telefone.",
     "From contact details and publishing your sports venue to bookings, notifications and sports area administration.": "Dos dados de contacto e da publicação da instalação desportiva às reservas, notificações e gestão dos espaços desportivos.",
     "Check contact details": "Verifique os dados de contacto",
     "Check the contact person's name, phone number and email address used to manage the sports venue.": "Verifique o nome da pessoa de contacto, o número de telefone e o endereço de e-mail utilizados para gerir a instalação desportiva.",

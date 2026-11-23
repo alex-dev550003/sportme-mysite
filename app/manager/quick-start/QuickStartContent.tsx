@@ -1,19 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useI18n } from "../../app/i18n";
 import type { BaseLanguageKey } from "../../app/languages";
 import { localizeContent, translateDocumentText } from "../../app/content-locales";
-import { LanguageSelector } from "../../components/LanguageSelector";
-import { PublicTopControls } from "../../components/PublicTopControls";
+import { PublicGuideHeader } from "../../components/PublicGuideHeader";
 import { SiteFooter } from "../../components/SiteFooter";
 
-const ProductAccessFlow = dynamic(() => import("../../components/ProductAccessFlow"), { ssr: false });
-type HeaderChoice = "download" | "signIn" | "signUp";
-
 const canonical = "https://www.sportme.ro/manager/quick-start";
-const pricingHref = "/#preturi";
 
 type Note = {
   title: string;
@@ -83,13 +77,13 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       eyebrow: "Introducere",
       title: "Bun venit în SportMe Manager",
       body: "După crearea contului vei ajunge în dashboardul SportMe Manager. Ghidul de start te ajută să configurezi baza sportivă pas cu pas înainte de publicare.",
-      callout: "Apasă „Ghid de start” pentru a începe configurarea.",
+      callout: "Deschide sau reia ghidul de configurare din dashboard.",
     },
     sections: {
       setupEyebrow: "Configurare inițială",
-      setupTitle: "Configurează prima bază sportivă în 6 pași.",
+      setupTitle: "Configurează prima bază sportivă în 5 pași.",
       setupDoneTitle: "Configurarea este gata!",
-      setupDoneBody: "Baza ta sportivă este online. De acum poți primi și gestiona rezervările direct din SportMe Manager.",
+      setupDoneBody: "După publicare, baza este vizibilă în SportMe Player. Jucătorii pot rezerva din aplicație când această funcție este activă pentru bază; în caz contrar, te pot contacta telefonic.",
       bookingsEyebrow: "Rezervări",
       bookingsTitle: "Gestionarea rezervărilor",
       locationsEyebrow: "Baze și zone sportive",
@@ -135,7 +129,7 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
         title: "Creează baza sportivă",
         body: [
           "Adaugă baza sportivă în care funcționează zonele tale rezervabile.",
-          "Completează numele bazei sportive și adresa, apoi folosește „Amplasează locația pe hartă” pentru a indica poziția exactă.",
+          "Completează numele bazei, adresa, localitatea, județul sau regiunea și țara, apoi marchează poziția exactă pe hartă.",
         ],
         notes: [{ title: "Pont", body: "Poziționarea corectă pe hartă îi ajută pe jucători să găsească mai ușor baza sportivă." }],
       },
@@ -156,7 +150,7 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
         step: 4,
         title: "Configurează programul și prețurile",
         body: ["Stabilește când este disponibilă zona sportivă pentru rezervări și cât costă un interval."],
-        bullets: ["zilele de funcționare", "ora de început", "ora de sfârșit", "durata intervalului", "prețul intervalului în RON"],
+        bullets: ["zilele de funcționare", "ora de început", "ora de sfârșit", "durata intervalului", "prețul intervalului în moneda bazei sportive"],
         notes: [
           { title: "Exemplu", body: "Pentru program 10:00-20:00 și intervale de 60 de minute, SportMe generează automat intervalele disponibile pentru rezervare." },
           { title: "Pont", body: "Programul și prețurile pot fi modificate ulterior." },
@@ -164,6 +158,17 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       },
       {
         step: 5,
+        title: "Verifică și publică baza",
+        body: [
+          "Înainte de publicare, verifică dacă toate etapele sunt finalizate.",
+          "Dacă totul este corect, apasă „Publică online”.",
+          "După publicare, baza este vizibilă în SportMe Player. Jucătorii pot rezerva din aplicație când această funcție este activă pentru bază; în caz contrar, te pot contacta telefonic.",
+        ],
+        notes: [{ title: "Important", body: "Echipa SportMe poate verifica informațiile introduse și poate contacta managerul dacă sunt necesare corecții." }],
+      },
+    ],
+    bookingBlocks: [
+      {
         title: "Configurează notificările",
         body: [
           "SportMe include două mesaje implicite pe care le poți configura pentru notificările automate.",
@@ -174,18 +179,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
         ],
         notes: [{ title: "Pont", body: "Poți salva mesaje suplimentare pentru reguli de acces, echipament necesar, informații despre parcare sau alte instrucțiuni specifice bazei sportive." }],
       },
-      {
-        step: 6,
-        title: "Verifică și publică baza",
-        body: [
-          "Înainte de publicare, verifică dacă toate etapele sunt finalizate.",
-          "Dacă totul este corect, apasă „Publică online”.",
-          "După publicare, baza sportivă devine disponibilă în SportMe Player și poate primi rezervări.",
-        ],
-        notes: [{ title: "Important", body: "Echipa SportMe poate verifica informațiile introduse și poate contacta managerul dacă sunt necesare corecții." }],
-      },
-    ],
-    bookingBlocks: [
       {
         title: "Dashboardul rezervărilor",
         body: ["După publicarea bazei sportive, pagina Prezentare devine centrul de control pentru activitatea zilnică."],
@@ -305,13 +298,13 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       eyebrow: "Introduction",
       title: "Welcome to SportMe Manager",
       body: "After creating your account, you will land in the SportMe Manager dashboard. The quick start guide helps you configure your sports venue step by step before publishing.",
-      callout: "Press “Start guide” to begin the setup.",
+      callout: "Open or resume the setup guide from your dashboard.",
     },
     sections: {
       setupEyebrow: "Initial setup",
-      setupTitle: "Set up your first sports venue in 6 steps.",
+      setupTitle: "Set up your first sports venue in 5 steps.",
       setupDoneTitle: "Setup is complete!",
-      setupDoneBody: "Your sports venue is online. You can now receive and manage bookings directly from SportMe Manager.",
+      setupDoneBody: "After publishing, the venue is visible in SportMe Player. Players can book in the app when app bookings are enabled for the venue; otherwise, they can contact you by phone.",
       bookingsEyebrow: "Bookings",
       bookingsTitle: "Managing bookings",
       locationsEyebrow: "Sports venues and areas",
@@ -355,7 +348,7 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       {
         step: 2,
         title: "Create the sports venue",
-        body: ["Add the sports venue that contains your bookable sports areas.", "Enter the venue name and address, then use “Place location on map” to indicate the exact position."],
+        body: ["Add the sports venue that contains your bookable sports areas.", "Enter the venue name, address, city, county or region and country, then mark its exact position on the map."],
         notes: [{ title: "Tip", body: "Correct map positioning helps players find the sports venue more easily." }],
       },
       {
@@ -372,11 +365,18 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
         step: 4,
         title: "Configure schedule and pricing",
         body: ["Set when the sports area is available for bookings and how much each slot costs."],
-        bullets: ["operating days", "start time", "end time", "slot duration", "slot price in RON"],
+        bullets: ["operating days", "start time", "end time", "slot duration", "slot price in the venue’s currency"],
         notes: [{ title: "Example", body: "For a 10:00-20:00 schedule and 60-minute slots, SportMe automatically generates the available booking slots." }, { title: "Tip", body: "Schedule and pricing can be changed later." }],
       },
       {
         step: 5,
+        title: "Review and publish the venue",
+        body: ["Before publishing, check that all steps are complete.", "If everything is correct, press “Publish online”.", "After publishing, the venue is visible in SportMe Player. Players can book in the app when app bookings are enabled for the venue; otherwise, they can contact you by phone."],
+        notes: [{ title: "Important", body: "The SportMe team may review the information and contact the manager if corrections are needed." }],
+      },
+    ],
+    bookingBlocks: [
+      {
         title: "Configure notifications",
         body: [
           "SportMe includes two default messages that can be configured for automatic notifications.",
@@ -387,14 +387,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
         ],
         notes: [{ title: "Tip", body: "You can save additional messages for access rules, required equipment, parking information or other venue-specific instructions." }],
       },
-      {
-        step: 6,
-        title: "Review and publish the venue",
-        body: ["Before publishing, check that all steps are complete.", "If everything is correct, press “Publish online”.", "After publishing, the sports venue becomes available in SportMe Player and can receive bookings."],
-        notes: [{ title: "Important", body: "The SportMe team may review the information and contact the manager if corrections are needed." }],
-      },
-    ],
-    bookingBlocks: [
       {
         title: "Bookings dashboard",
         body: ["After publishing the sports venue, the Overview page becomes the control center for daily activity."],
@@ -659,23 +651,7 @@ function SectionHeader({ id, eyebrow, title }: { id: string; eyebrow: string; ti
 }
 
 export function QuickStartContent() {
-  const { language, locale, text: translate } = useI18n();
-  const [headerChoice, setHeaderChoice] = useState<HeaderChoice | null>(null);
-  const [showMenu, setShowMenu] = useState(false);
-  const [showResources, setShowResources] = useState(false);
-  const headerLabels = {
-    download: translate("Download", "Descarcă"),
-    signIn: translate("Sign in", "Autentificare"),
-    signUp: translate("Sign up for free", "Înscrie-te gratuit"),
-  };
-  const closeMenus = () => {
-    setShowMenu(false);
-    setShowResources(false);
-  };
-  const openChoice = (choice: HeaderChoice) => {
-    closeMenus();
-    setHeaderChoice(choice);
-  };
+  const { language, locale } = useI18n();
   const text = useMemo(() => localizeContent(copy[language === "RO" ? "RO" : "EN"], language), [language]);
   const structuredData = useMemo(
     () => ({
@@ -698,45 +674,17 @@ export function QuickStartContent() {
     <main className="public-site public-dark min-h-screen text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="mx-auto w-full max-w-[1440px] px-4 pb-12 pt-24 sm:px-5 md:px-8 lg:pb-16 lg:pt-28">
-        <nav className="quickstart-nav quickstart-home-nav fixed inset-x-0 top-[env(safe-area-inset-top)] z-50 w-full rounded-none border py-2" aria-label={language === "RO" ? "Navigare principală" : translateDocumentText("Main navigation", language)}>
-          <div className="relative mx-auto flex w-full max-w-[1040px] items-center gap-1 px-5 sm:gap-2 sm:px-6">
-            <a href="/" className="sportme-sidebar-brand flex shrink-0 items-center gap-1.5 rounded-[10px] px-1.5 py-1.5 sm:gap-2 sm:px-3" aria-label="SportMe">
-              <img src="/logo-512.png" alt="" className="h-6 w-6 rounded-[6px] sm:h-7 sm:w-7 sm:rounded-[7px]" />
-              <span className="sportme-sidebar-wordmark"><span>sport</span><span className="sportme-sidebar-wordmark-me">me</span></span>
-            </a>
-            <div className="modern-desktop-links ml-auto hidden items-center gap-1.5 lg:flex">
-              <button type="button" onClick={() => openChoice("download")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{headerLabels.download}</button>
-              <a href={pricingHref} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Pricing", "Prețuri")}</a>
-              <div className="relative">
-                <button type="button" aria-expanded={showResources} onClick={() => setShowResources((value) => !value)} className="flex items-center gap-1.5 rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{translate("Resources", "Resurse")} <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className={`h-3.5 w-3.5 shrink-0 transition-transform ${showResources ? "rotate-180" : ""}`}><path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
-                {showResources ? <div className="modern-menu absolute right-0 top-[calc(100%+10px)] z-30 w-56 overflow-hidden rounded-[18px] border p-2 backdrop-blur-xl"><a href="/manager/quick-start" onClick={closeMenus} className="block rounded-xl px-4 py-3 text-sm transition">{translate("For sports venues", "Pentru baze sportive")}</a><a href="/#pentru-jucatori" onClick={closeMenus} className="block rounded-xl px-4 py-3 text-sm transition">{translate("For players", "Pentru jucători")}</a></div> : null}
-              </div>
-              <button type="button" onClick={() => openChoice("signIn")} className="rounded-full px-3 py-2 text-base text-[#182032] transition hover:bg-[#e8ecf3]">{headerLabels.signIn}</button>
-            </div>
-            <div className="ml-auto hidden shrink-0 items-center gap-1.5 lg:ml-0 lg:flex">
-              <button type="button" onClick={() => openChoice("signUp")} className="modern-signup inline-flex h-9 items-center justify-center rounded-full border border-[#b8c0c9] bg-white/20 px-2.5 text-[11px] font-normal leading-5 text-[#182032] transition hover:bg-white/70 sm:h-10 sm:px-4 sm:text-base sm:leading-6">{headerLabels.signUp}</button>
-            </div>
-            <button type="button" onClick={() => setShowMenu((value) => !value)} aria-label={translate("Open menu", "Deschide meniul")} aria-expanded={showMenu} className="modern-mobile-menu ml-auto flex h-9 w-8 shrink-0 items-center justify-center rounded-[7px] transition lg:hidden">
-              <span className="flex w-4 flex-col gap-1"><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /><span className="block h-0.5 w-4 rounded-full" /></span>
-            </button>
-            {showMenu ? (
-              <div className="modern-menu absolute right-5 top-[calc(100%+12px)] z-30 w-[min(360px,calc(100vw-40px))] overflow-visible rounded-[22px] border p-2 backdrop-blur-xl sm:right-6 lg:hidden">
-                <button type="button" onClick={() => openChoice("download")} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition">{headerLabels.download}</button>
-                <a href={pricingHref} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium transition">{translate("Pricing", "Prețuri")}</a>
-                <div className="my-1 border-t border-[#d9dee7]" />
-                <button type="button" aria-expanded={showResources} onClick={() => setShowResources((value) => !value)} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{translate("Resources", "Resurse")} <span aria-hidden="true">{showResources ? "−" : "+"}</span></button>
-                {showResources ? <div className="mb-1 ml-3 border-l border-[#d9dee7] pl-2"><a href="/manager/quick-start" onClick={closeMenus} className="block rounded-2xl px-4 py-2.5 text-sm transition">{translate("For sports venues", "Pentru baze sportive")}</a><a href="/#pentru-jucatori" onClick={closeMenus} className="block rounded-2xl px-4 py-2.5 text-sm transition">{translate("For players", "Pentru jucători")}</a></div> : null}
-                <button type="button" onClick={() => openChoice("signIn")} className="block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{headerLabels.signIn}</button>
-                <button type="button" onClick={() => openChoice("signUp")} className="mt-1 block w-full rounded-2xl px-4 py-3 text-left text-base font-medium transition hover:bg-[#e8ecf3]">{headerLabels.signUp}</button>
-                <div className="my-1 border-t border-[#d9dee7]" />
-                <div className="flex items-center justify-between gap-3 px-4 py-2"><span className="text-sm font-medium text-[#526078]">{translate("Switch language", "Schimbă limba")}</span><LanguageSelector /></div>
-              </div>
-            ) : null}
-          </div>
-        </nav>
-        <div className="quickstart-language fixed right-5 top-[calc(env(safe-area-inset-top)+18px)] z-[60] hidden lg:block">
-          <PublicTopControls hideLanguage={false} />
-        </div>
+        <PublicGuideHeader />
+
+        <header className="mb-12 max-w-4xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#6aa7ff]">{text.hero.eyebrow}</p>
+          <h1 className="mt-3 text-3xl font-semibold leading-tight md:text-5xl">{text.hero.title}</h1>
+          <p className="mt-5 text-lg leading-8 text-white/72">{text.hero.subtitle}</p>
+          <p className="mt-4 text-base leading-7 text-white/72">{text.intro.body} {text.intro.callout}</p>
+          <nav aria-label={text.aria.navigation} className="mt-6 flex flex-wrap gap-3">
+            {text.navigation.map((item) => <a key={item.href} href={item.href} className="rounded-full border border-white/20 px-4 py-2 text-sm transition hover:bg-white/10">{item.label}</a>)}
+          </nav>
+        </header>
 
         <section className="mt-8 space-y-14">
           <SectionHeader id="configurare-initiala" eyebrow={text.sections.setupEyebrow} title={text.sections.setupTitle} />
@@ -779,12 +727,6 @@ export function QuickStartContent() {
           <SiteFooter />
         </div>
       </div>
-      {headerChoice ? (
-        <ProductAccessFlow
-          title={headerLabels[headerChoice]}
-          onClose={() => setHeaderChoice(null)}
-        />
-      ) : null}
     </main>
   );
 }

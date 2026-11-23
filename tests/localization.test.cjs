@@ -35,6 +35,43 @@ const { siteCopy } = load('app/app/seo-copy.ts');
 const { getPublicMonthlyPremiumPrice } = load('lib/public-pricing.ts');
 const newLanguages = ['PL', 'HU', 'CS', 'DA', 'SV', 'NO', 'IS', 'TR'];
 
+test('player guide has complete localized content for every site language', () => {
+  const { playerGuideCopy } = load('app/player/quick-start/guide-copy.ts');
+  for (const { code } of languages) {
+    const guide = playerGuideCopy[code];
+    assert.ok(guide?.title && guide.intro && guide.tipsTitle, `${code}: missing guide heading`);
+    assert.equal(guide.steps.length, 6, `${code}: missing guide steps`);
+    assert.equal(guide.tips.length, 3, `${code}: missing guide tips`);
+    const accessLabels = code === 'RO'
+      ? ['Începe acum', 'Jucători', 'Web Browser']
+      : ['Start now', 'Players', 'Web Browser'].map(key => translateText(code, key));
+    for (const label of accessLabels) {
+      assert.ok(guide.steps[0].body.includes(label), `${code}: guide does not match access button ${label}`);
+    }
+    const strings = [guide.title, guide.intro, guide.tipsTitle, ...guide.steps.flatMap(step => [step.title, step.body]), ...guide.tips];
+    const english = playerGuideCopy.EN;
+    const englishStrings = [english.title, english.intro, english.tipsTitle, ...english.steps.flatMap(step => [step.title, step.body]), ...english.tips];
+    strings.forEach((value, index) => {
+      assert.ok(value.trim(), `${code}: empty guide text`);
+      if (code !== 'EN') assert.notEqual(value, englishStrings[index], `${code}: untranslated guide text`);
+    });
+  }
+});
+
+test('updated manager setup instructions are translated in every additional language', () => {
+  for (const { code } of languages.filter(({ code }) => !['RO', 'EN'].includes(code))) {
+    for (const key of [
+      'Set up your first sports venue in 5 steps.',
+      'Open or resume the setup guide from your dashboard.',
+      'Enter the venue name, address, city, county or region and country, then mark its exact position on the map.',
+      'slot price in the venue’s currency',
+      'After publishing, the venue is visible in SportMe Player. Players can book in the app when app bookings are enabled for the venue; otherwise, they can contact you by phone.',
+    ]) {
+      assert.notEqual(translateDocumentText(key, code), key, `${code}: untranslated manager correction`);
+    }
+  }
+});
+
 test('browser language takes priority over location, with country and English fallbacks', () => {
   assert.equal(detectVisitorLanguage('RO', ['pl-PL', 'en-US']), 'PL');
   assert.equal(detectVisitorLanguage('PL', ['ro-RO']), 'RO');
