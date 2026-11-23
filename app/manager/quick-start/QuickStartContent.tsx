@@ -9,15 +9,10 @@ import { LanguageSelector } from "../../components/LanguageSelector";
 import { PublicTopControls } from "../../components/PublicTopControls";
 import { SiteFooter } from "../../components/SiteFooter";
 
-const ProductChoiceModal = dynamic(() => import("../../components/ProductChoiceModal"), { ssr: false });
-const PlayerAccessModal = dynamic(() => import("../../components/PlayerAccessModal"), { ssr: false });
+const ProductAccessFlow = dynamic(() => import("../../components/ProductAccessFlow"), { ssr: false });
 type HeaderChoice = "download" | "signIn" | "signUp";
 
 const canonical = "https://www.sportme.ro/manager/quick-start";
-const managerUrl = "https://admin.sportme.ro/auth";
-const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
-const playerWebUrl = "https://app.sportme.ro/app";
-const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
 const pricingHref = "/#preturi";
 
 type Note = {
@@ -666,7 +661,6 @@ function SectionHeader({ id, eyebrow, title }: { id: string; eyebrow: string; ti
 export function QuickStartContent() {
   const { language, locale, text: translate } = useI18n();
   const [headerChoice, setHeaderChoice] = useState<HeaderChoice | null>(null);
-  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showResources, setShowResources] = useState(false);
   const headerLabels = {
@@ -681,22 +675,6 @@ export function QuickStartContent() {
   const openChoice = (choice: HeaderChoice) => {
     closeMenus();
     setHeaderChoice(choice);
-  };
-  const openSelectedApp = (product: "manager" | "player") => {
-    setHeaderChoice(null);
-    if (headerChoice === "download" && product === "player") {
-      setShowPlayerAccessModal(true);
-      return;
-    }
-    const webUrl = product === "manager" ? managerUrl : playerWebUrl;
-    if (/Android/i.test(navigator.userAgent)) {
-      const appHostAndPath = product === "manager" ? "login/auth" : "app";
-      const appScheme = product === "manager" ? "com.sportme.dashboard" : "ro.sportme.app";
-      const playStoreUrl = product === "manager" ? managerPlayStoreUrl : playerPlayStoreUrl;
-      window.location.assign(`intent://${appHostAndPath}#Intent;scheme=${appScheme};package=${appScheme};S.browser_fallback_url=${encodeURIComponent(playStoreUrl)};end`);
-      return;
-    }
-    window.location.assign(webUrl);
   };
   const text = useMemo(() => localizeContent(copy[language === "RO" ? "RO" : "EN"], language), [language]);
   const structuredData = useMemo(
@@ -802,14 +780,11 @@ export function QuickStartContent() {
         </div>
       </div>
       {headerChoice ? (
-        <ProductChoiceModal
-          mode="signIn"
+        <ProductAccessFlow
           title={headerLabels[headerChoice]}
           onClose={() => setHeaderChoice(null)}
-          onSelect={openSelectedApp}
         />
       ) : null}
-      {showPlayerAccessModal ? <PlayerAccessModal onClose={() => setShowPlayerAccessModal(false)} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
     </main>
   );
 }

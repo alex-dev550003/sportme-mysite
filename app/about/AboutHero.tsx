@@ -8,9 +8,7 @@ import { AppShowcase } from "../components/home/AppShowcase";
 import { trackEvent } from "../utils/analytics";
 import { LanguageSelector } from "../components/LanguageSelector";
 
-const ManagerAccessModal = dynamic(() => import("../components/ManagerAccessModal"), { ssr: false });
-const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"), { ssr: false });
-const ProductChoiceModal = dynamic(() => import("../components/ProductChoiceModal"), { ssr: false });
+const ProductAccessFlow = dynamic(() => import("../components/ProductAccessFlow"), { ssr: false });
 type ProductChoiceEntry = "download" | "signIn" | "signUp" | "startNow";
 
 export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages: string[] }) {
@@ -18,8 +16,6 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
   const [headerScrollProgress, setHeaderScrollProgress] = useState(0);
   const [showHeroMenu, setShowHeroMenu] = useState(false);
   const [openNavPanel, setOpenNavPanel] = useState<"resources" | null>(null);
-  const [showManagerAccessModal, setShowManagerAccessModal] = useState(false);
-  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
   const [productChoiceEntry, setProductChoiceEntry] = useState<ProductChoiceEntry | null>(null);
   const choiceLabels = {
     download: text("Download", "Descarcă"),
@@ -27,10 +23,6 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
     signUp: text("Sign up for free", "Înscrie-te gratuit"),
     startNow: text("Start now", "Începe acum"),
   };
-  const adminUrl = "https://admin.sportme.ro/auth";
-  const managerPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
-  const playerWebUrl = "https://app.sportme.ro/app";
-  const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
 
   const toggleHeroMenu = () => {
     setShowHeroMenu((value) => {
@@ -68,7 +60,7 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
   }, []);
 
   useEffect(() => {
-    const openManagerAccess = () => setShowManagerAccessModal(true);
+    const openManagerAccess = () => setProductChoiceEntry("startNow");
     const openProductChoice = () => setProductChoiceEntry("signIn");
     window.addEventListener("sportme:open-manager-access", openManagerAccess);
     window.addEventListener("sportme:open-product-choice", openProductChoice);
@@ -82,7 +74,7 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
     const url = new URL(window.location.href);
     if (url.searchParams.get("openManagerAccess") !== "1") return;
 
-    setShowManagerAccessModal(true);
+    setProductChoiceEntry("startNow");
     url.searchParams.delete("openManagerAccess");
     window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
   }, []);
@@ -95,23 +87,6 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
   const openChoiceModal = (entry: ProductChoiceEntry) => {
     closeNavPanels();
     setProductChoiceEntry(entry);
-  };
-
-  const signInAs = (product: "manager" | "player") => {
-    setProductChoiceEntry(null);
-    if (productChoiceEntry === "download" && product === "player") {
-      setShowPlayerAccessModal(true);
-      return;
-    }
-    const webUrl = product === "manager" ? adminUrl : playerWebUrl;
-    if (/Android/i.test(navigator.userAgent)) {
-      const appHostAndPath = product === "manager" ? "login/auth" : "app";
-      const appScheme = product === "manager" ? "com.sportme.dashboard" : "ro.sportme.app";
-      const playStoreUrl = product === "manager" ? managerPlayStoreUrl : playerPlayStoreUrl;
-      window.location.assign(`intent://${appHostAndPath}#Intent;scheme=${appScheme};package=${appScheme};S.browser_fallback_url=${encodeURIComponent(playStoreUrl)};end`);
-      return;
-    }
-    window.location.assign(webUrl);
   };
 
   const renderMenu = () => (
@@ -180,15 +155,11 @@ export function AboutHero({ availableShowcaseImages }: { availableShowcaseImages
       </div>
 
       {productChoiceEntry ? (
-        <ProductChoiceModal
-          mode="signIn"
+        <ProductAccessFlow
           title={choiceLabels[productChoiceEntry]}
           onClose={() => setProductChoiceEntry(null)}
-          onSelect={signInAs}
         />
       ) : null}
-      {showManagerAccessModal ? <ManagerAccessModal onClose={() => setShowManagerAccessModal(false)} adminUrl={adminUrl} managerPlayStoreUrl={managerPlayStoreUrl} /> : null}
-      {showPlayerAccessModal ? <PlayerAccessModal onClose={() => setShowPlayerAccessModal(false)} playerWebUrl={playerWebUrl} playerPlayStoreUrl={playerPlayStoreUrl} /> : null}
     </section>
   );
 }

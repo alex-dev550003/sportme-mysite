@@ -6,7 +6,7 @@ import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
 import { formatPublicMonthlyPrice, getPublicMonthlyPremiumPrice } from "../../lib/public-pricing";
 
-const PlayerAccessModal = dynamic(() => import("../components/PlayerAccessModal"), { ssr: false });
+const ProductAccessFlow = dynamic(() => import("../components/ProductAccessFlow"), { ssr: false });
 
 function AccessArrowIcon() {
   return (
@@ -26,9 +26,7 @@ function PricingCheck() {
 
 export default function AboutDeferredSections() {
   const { t, text } = useI18n();
-  const [showPlayerAccessModal, setShowPlayerAccessModal] = useState(false);
-  const playerWebUrl = "https://app.sportme.ro/app";
-  const playerPlayStoreUrl = "https://play.google.com/store/apps/details?id=ro.sportme.app";
+  const [accessTitle, setAccessTitle] = useState<string | null>(null);
   const [visitorLocation] = useState(() => ({
     country: typeof document === "undefined" ? null : document.cookie.match(/(?:^|;\s*)sportmeVisitorCountry=([A-Z]{2})(?:;|$)/)?.[1] ?? null,
     timeZone: typeof window === "undefined" ? undefined : Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -66,17 +64,6 @@ export default function AboutDeferredSections() {
       features: premiumFeatures,
     },
   ];
-  const openManagerFromPricing = () => {
-    const adminUrl = "https://admin.sportme.ro/auth";
-    if (/Android/i.test(navigator.userAgent)) {
-      const playStoreUrl = "https://play.google.com/store/apps/details?id=com.sportme.dashboard";
-      window.location.assign(`intent://login/auth#Intent;scheme=com.sportme.dashboard;package=com.sportme.dashboard;S.browser_fallback_url=${encodeURIComponent(playStoreUrl)};end`);
-      return;
-    }
-
-    // The Manager iOS app is not available in the App Store yet.
-    window.location.assign(adminUrl);
-  };
 
   return (
     <div className="about-deferred-layout mx-auto w-full max-w-7xl space-y-0">
@@ -118,7 +105,7 @@ export default function AboutDeferredSections() {
           </div>
           <button
             type="button"
-            onClick={() => setShowPlayerAccessModal(true)}
+            onClick={() => setAccessTitle(text("Open player app", "Acceseaza aplicatia jucatorilor"))}
             className="about-player-cta modern-cta-button mt-5 flex w-full cursor-pointer items-center gap-3 rounded-full border p-2.5 pl-4 text-left transition sm:gap-4 sm:p-4 sm:pl-6 lg:mt-6 lg:max-w-[620px]"
           >
             <img src="/logo-512.png" alt="" className="h-10 w-10 rounded-[9px] sm:h-14 sm:w-14" />
@@ -197,7 +184,7 @@ export default function AboutDeferredSections() {
                     <span className="pricing-plan-price">{plan.price}</span>
                     <span className="pricing-plan-period">/{periodLabel}</span>
                   </div>
-                  <button type="button" onClick={openManagerFromPricing} className="pricing-plan-button">
+                  <button type="button" onClick={() => setAccessTitle(plan.variant === "free" ? text("Start for FREE", "Începe GRATUIT") : text("Try for free - 30 days", "Testează gratuit - 30 zile"))} className="pricing-plan-button">
                     {plan.variant === "free" ? text("Start for FREE", "Începe GRATUIT") : text("Try for free - 30 days", "Testează gratuit - 30 zile")}
                   </button>
                   <div className="pricing-plan-features">
@@ -255,11 +242,10 @@ export default function AboutDeferredSections() {
         </div>
       </section>
 
-      {showPlayerAccessModal ? (
-        <PlayerAccessModal
-          onClose={() => setShowPlayerAccessModal(false)}
-          playerWebUrl={playerWebUrl}
-          playerPlayStoreUrl={playerPlayStoreUrl}
+      {accessTitle ? (
+        <ProductAccessFlow
+          title={accessTitle}
+          onClose={() => setAccessTitle(null)}
         />
       ) : null}
 
