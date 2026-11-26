@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useI18n } from "../../app/i18n";
 import type { BaseLanguageKey } from "../../app/languages";
+import { getManagerPremiumPrices } from "../../../lib/public-pricing";
 import { localizeContent, translateDocumentText } from "../../app/content-locales";
 import { PublicGuideHeader } from "../../components/PublicGuideHeader";
 import { SiteFooter } from "../../components/SiteFooter";
@@ -93,7 +94,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       subscriptionBody: [
         "În Setări - Abonament poți vedea planul activ și costul asociat contului tău.",
         "Pe site, opțiunile sunt prezentate ca Free și Premium. Free include administrarea de bază, iar Premium adaugă rezervări din aplicație, confirmări, notificări și statistici.",
-        "Pregatim abonamentele prin Google Play pentru aplicatia Android. Optiunea va putea fi folosita dupa lansarea versiunii care o include.",
         "Pentru abonamentele cumparate prin Google Play, plata si reinnoirea sunt gestionate de Google Play. Pretul final, moneda si perioada de facturare sunt afisate inainte de confirmarea achizitiei.",
         "Datele de plata si eventualele informatii fiscale necesare achizitiei se gestioneaza in contul Google. Nu va fi necesar sa completezi in SportMe date de facturare pentru aceste abonamente. Documentele disponibile pentru plata se consulta in contul Google.",
         "Abonamentul cumparat prin Google Play se gestioneaza sau se anuleaza din Google Play > Plati si abonamente > Abonamente, folosind contul Google cu care ai facut achizitia.",
@@ -314,7 +314,6 @@ const copy: Record<BaseLanguageKey, QuickStartCopy> = {
       subscriptionBody: [
         "In Settings - Subscription you can see the active plan and the cost associated with your account.",
         "On the site, the options are shown as Free and Premium. Free includes basic management, while Premium adds in-app bookings, confirmations, notifications and statistics.",
-        "Google Play subscriptions are being prepared for the Android app. This option will be available after the version that includes it is released.",
         "For subscriptions purchased through Google Play, Google Play handles payments and renewals. The final price, currency and billing period are displayed before you confirm the purchase.",
         "Payment details and any tax information required for the purchase are managed in your Google account. You will not need to enter billing details in SportMe for these subscriptions. Available payment documents can be found in your Google account.",
         "Manage or cancel a subscription purchased through Google Play in Google Play > Payments & subscriptions > Subscriptions, using the Google account used for the purchase.",
@@ -652,6 +651,7 @@ function SectionHeader({ id, eyebrow, title }: { id: string; eyebrow: string; ti
 
 export function QuickStartContent() {
   const { language, locale } = useI18n();
+  const premiumPrices = getManagerPremiumPrices(language);
   const text = useMemo(() => localizeContent(copy[language === "RO" ? "RO" : "EN"], language), [language]);
   const structuredData = useMemo(
     () => ({
@@ -716,6 +716,9 @@ export function QuickStartContent() {
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#6aa7ff]">{text.sections.subscriptionEyebrow}</p>
             <h2 className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl">{text.sections.subscriptionTitle}</h2>
             <div className="mt-5 space-y-3 text-base leading-7 text-white/72">
+              <p>{premiumPrices.googlePlay}</p>
+              <p>{premiumPrices.appStore}</p>
+              <p>{premiumPrices.note}</p>
               {text.sections.subscriptionBody.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}

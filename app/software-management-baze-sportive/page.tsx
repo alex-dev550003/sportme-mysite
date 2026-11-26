@@ -4,6 +4,7 @@ import { getServerLanguage } from "../app/server-language";
 import { makePageMetadata } from "../app/seo-copy";
 import { translateDocumentText } from "../app/content-locales";
 import { languages } from "../app/languages";
+import { getManagerPremiumFaq } from "../../lib/public-pricing";
 
 const title = "Software management baze sportive - SportMe Manager";
 const description =
@@ -65,13 +66,13 @@ function getStructuredData(language: Awaited<ReturnType<typeof getServerLanguage
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
+    mainEntity: [...faqItems.map(item => ({
+      question: localize(item.question),
+      answer: localize(item.answer),
+    })), getManagerPremiumFaq(language)].map(item => ({
       "@type": "Question",
-      name: localize(item.question),
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: localize(item.answer),
-      },
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
     })),
   },
   ];
@@ -118,7 +119,7 @@ export default async function SoftwareManagementBazeSportivePage() {
             body: "Conturile pentru angajați și evidența operațională ajută baza sportivă să păstreze controlul asupra programului, fără dependență de foi separate sau mesaje împrăștiate.",
           },
         ]}
-        faqGroups={[{ title: "FAQ pentru administratori", items: faqItems }]}
+        faqGroups={[{ title: "FAQ pentru administratori", items: faqItems, includeManagerPremium: true }]}
         links={[
           { label: "Pentru administratori", href: "/#pentru-administratori" },
           { label: "Întrebări frecvente", href: "/intrebari-frecvente" },

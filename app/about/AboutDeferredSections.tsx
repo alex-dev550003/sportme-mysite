@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useI18n } from "../app/i18n";
 import { SiteFooter } from "../components/SiteFooter";
-import { formatPublicMonthlyPrice, getPublicMonthlyPremiumPrice } from "../../lib/public-pricing";
+import { getManagerPremiumPrices } from "../../lib/public-pricing";
 
 const ProductAccessFlow = dynamic(() => import("../components/ProductAccessFlow"), { ssr: false });
 
@@ -25,13 +25,9 @@ function PricingCheck() {
 }
 
 export default function AboutDeferredSections() {
-  const { t, text } = useI18n();
+  const { t, text, language } = useI18n();
   const [accessTitle, setAccessTitle] = useState<string | null>(null);
-  const [visitorLocation] = useState(() => ({
-    country: typeof document === "undefined" ? null : document.cookie.match(/(?:^|;\s*)sportmeVisitorCountry=([A-Z]{2})(?:;|$)/)?.[1] ?? null,
-    timeZone: typeof window === "undefined" ? undefined : Intl.DateTimeFormat().resolvedOptions().timeZone,
-  }));
-  const premiumPrice = getPublicMonthlyPremiumPrice(visitorLocation.country, visitorLocation.timeZone);
+  const premiumPrices = getManagerPremiumPrices(language);
   const periodLabel = text("month", "luna");
   const freeFeatures = [
     text("Online venue listing", "Listare locație online"),
@@ -52,14 +48,12 @@ export default function AboutDeferredSections() {
     {
       name: "Free",
       subtitle: text("Everything you need to get started", "Tot ce ai nevoie pentru a începe"),
-      price: formatPublicMonthlyPrice("0", premiumPrice.currency),
       variant: "free",
       features: freeFeatures,
     },
     {
       name: "Premium",
       subtitle: text("More ways to manage bookings", "Mai multe opțiuni pentru rezervări"),
-      price: formatPublicMonthlyPrice(premiumPrice.amount, premiumPrice.currency),
       variant: "premium",
       features: premiumFeatures,
     },
@@ -180,10 +174,18 @@ export default function AboutDeferredSections() {
                 <div key={plan.name} className={`pricing-plan-card pricing-plan-card--${plan.variant} flex flex-col`}>
                   <h3 className="pricing-plan-name">{plan.name}</h3>
                   <p className="pricing-plan-subtitle">{plan.subtitle}</p>
-                  <div className="pricing-plan-price-row">
-                    <span className="pricing-plan-price">{plan.price}</span>
-                    <span className="pricing-plan-period">/{periodLabel}</span>
-                  </div>
+                  {plan.variant === "free" ? (
+                    <div className="pricing-plan-price-row">
+                      <span className="pricing-plan-price">0</span>
+                      <span className="pricing-plan-period">/{periodLabel}</span>
+                    </div>
+                  ) : (
+                    <div className="mt-4 space-y-2 text-sm leading-6">
+                      <p>{premiumPrices.googlePlay}</p>
+                      <p>{premiumPrices.appStore}</p>
+                      <p>{premiumPrices.note}</p>
+                    </div>
+                  )}
                   <button type="button" onClick={() => setAccessTitle(plan.variant === "free" ? text("Start for FREE", "Începe GRATUIT") : text("Try for free - 30 days", "Testează gratuit - 30 zile"))} className="pricing-plan-button">
                     {plan.variant === "free" ? text("Start for FREE", "Începe GRATUIT") : text("Try for free - 30 days", "Testează gratuit - 30 zile")}
                   </button>

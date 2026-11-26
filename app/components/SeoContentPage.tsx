@@ -4,6 +4,7 @@ import { useI18n } from "../app/i18n";
 import { localizeContent, translateDocumentText } from "../app/content-locales";
 import { PublicTopControls } from "./PublicTopControls";
 import { SiteFooter } from "./SiteFooter";
+import { getManagerPremiumFaq } from "../../lib/public-pricing";
 
 export type SeoFaqItem = {
   question: string;
@@ -32,6 +33,7 @@ type SeoContentPageProps = {
   faqGroups: Array<{
     title: string;
     items: SeoFaqItem[];
+    includeManagerPremium?: boolean;
   }>;
   links: Array<{
     label: string;
@@ -53,6 +55,9 @@ export function SeoContentPage(props: SeoContentPageProps) {
     links,
     showStoreCta = false,
   } = localizeContent(props, language, "romanian");
+  const localizedFaqGroups = faqGroups.map(group => group.includeManagerPremium
+    ? { ...group, items: [...group.items, getManagerPremiumFaq(language)] }
+    : group);
   return (
     <main className="public-site public-dark min-h-screen text-white">
       <div className="relative overflow-hidden">
@@ -138,7 +143,7 @@ export function SeoContentPage(props: SeoContentPageProps) {
           <section className="rounded-[28px] border border-[#d8d1bf] bg-white p-6 shadow-[0_25px_50px_-40px_rgba(32,33,31,0.6)] lg:p-8">
             <p className="text-xs uppercase tracking-[0.25em] text-[#7a7566]">{translateDocumentText("Întrebări frecvente", language, "romanian")}</p>
             <div className="mt-5 grid gap-6 lg:grid-cols-2">
-              {faqGroups.map((group) => (
+              {localizedFaqGroups.map((group) => (
                 <div key={group.title}>
                   <h2 className="modern-section-heading text-xl">{group.title}</h2>
                   <div className="mt-4 space-y-3">

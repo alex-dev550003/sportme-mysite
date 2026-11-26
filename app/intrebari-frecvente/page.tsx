@@ -4,6 +4,7 @@ import { getServerLanguage } from "../app/server-language";
 import { makePageMetadata } from "../app/seo-copy";
 import { translateDocumentText } from "../app/content-locales";
 import { languages } from "../app/languages";
+import { getManagerPremiumFaq } from "../../lib/public-pricing";
 
 const title = "Întrebări frecvente - SportMe";
 const description =
@@ -95,13 +96,13 @@ function getStructuredData(language: Awaited<ReturnType<typeof getServerLanguage
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: allFaqItems.map((item) => ({
+    mainEntity: [...allFaqItems.map(item => ({
+      question: localize(item.question),
+      answer: localize(item.answer),
+    })), getManagerPremiumFaq(language)].map(item => ({
       "@type": "Question",
-      name: localize(item.question),
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: localize(item.answer),
-      },
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
     })),
   },
   ];
@@ -138,7 +139,7 @@ export default async function IntrebariFrecventePage() {
         ]}
         faqGroups={[
           { title: "FAQ pentru utilizatori", items: userFaqItems },
-          { title: "FAQ pentru administratori", items: managerFaqItems },
+          { title: "FAQ pentru administratori", items: managerFaqItems, includeManagerPremium: true },
         ]}
         links={[
           { label: "Acasă", href: "/" },

@@ -1,61 +1,32 @@
-export type PublicMonthlyPrice = { amount: string; currency: string };
+type StorePrices = { googlePlay: string; appStore: string; note: string };
 
-const currencyDisplay: Record<string, { symbol: string; before?: boolean }> = {
-  RON: { symbol: "RON" },
-  EUR: { symbol: "€" },
-  PLN: { symbol: "zł" },
-  HUF: { symbol: "Ft" },
-  CZK: { symbol: "Kč" },
-  DKK: { symbol: "kr" },
-  SEK: { symbol: "kr" },
-  NOK: { symbol: "kr" },
-  ISK: { symbol: "kr" },
-  CHF: { symbol: "CHF" },
-  GBP: { symbol: "£", before: true },
-  TRY: { symbol: "₺", before: true },
-};
+const prices = {
+  googlePlay: { ron: "28,80", eur: "4,80" },
+  appStore: { ron: "28,49", eur: "4,79" },
+} as const;
 
-const countryPrices: Record<string, PublicMonthlyPrice> = {
-  RO: { amount: "12,99", currency: "RON" },
-  PL: { amount: "12,99", currency: "PLN" },
-  HU: { amount: "999", currency: "HUF" },
-  CZ: { amount: "69,99", currency: "CZK" },
-  DK: { amount: "19,99", currency: "DKK" },
-  SE: { amount: "32,99", currency: "SEK" },
-  NO: { amount: "29,99", currency: "NOK" },
-  IS: { amount: "399", currency: "ISK" },
-  CH: { amount: "2,99", currency: "CHF" },
-  LI: { amount: "2,99", currency: "CHF" },
-  GB: { amount: "2,49", currency: "GBP" },
-  TR: { amount: "149,99", currency: "TRY" },
-};
+export function getManagerPremiumPrices(language: string): StorePrices {
+  const { googlePlay, appStore } = prices;
+  if (language === "RO") {
+    return {
+      googlePlay: `Google Play (achiziții noi): ${googlePlay.ron} lei/lună în România sau ${googlePlay.eur} €/lună în țările cu tarif în euro.`,
+      appStore: `App Store (tarife salvate): ${appStore.ron} lei/lună în România sau ${appStore.eur} €/lună în țările cu tarif în euro. Versiunea iOS este în evaluare la Apple.`,
+      note: "Prețul local apare în magazin înainte de confirmarea achiziției.",
+    };
+  }
 
-const euroPrice: PublicMonthlyPrice = { amount: "2,99", currency: "EUR" };
-
-const timeZoneCountries: Record<string, string> = {
-  "Europe/Bucharest": "RO",
-  "Europe/Warsaw": "PL",
-  "Europe/Budapest": "HU",
-  "Europe/Prague": "CZ",
-  "Europe/Copenhagen": "DK",
-  "Europe/Stockholm": "SE",
-  "Europe/Oslo": "NO",
-  "Atlantic/Reykjavik": "IS",
-  "Europe/Zurich": "CH",
-  "Europe/Vaduz": "LI",
-  "Europe/London": "GB",
-  "Europe/Istanbul": "TR",
-};
-
-// The public site uses the visitor's country cookie set by middleware. Countries
-// outside the specified list use the euro price until a local price is defined.
-// Browser time zone is only a fallback for local development or missing IP data.
-export function getPublicMonthlyPremiumPrice(country: string | null | undefined, timeZone?: string): PublicMonthlyPrice {
-  const resolvedCountry = country?.toUpperCase() ?? timeZoneCountries[timeZone ?? ""];
-  return countryPrices[resolvedCountry ?? ""] ?? euroPrice;
+  const decimal = (amount: string) => amount.replace(",", ".");
+  return {
+    googlePlay: `Google Play (new purchases): RON ${decimal(googlePlay.ron)}/month in Romania or €${decimal(googlePlay.eur)}/month in countries priced in euros.`,
+    appStore: `App Store (saved prices): RON ${decimal(appStore.ron)}/month in Romania or €${decimal(appStore.eur)}/month in countries priced in euros. The iOS version is under Apple review.`,
+    note: "The local price appears in the store before you confirm your purchase.",
+  };
 }
 
-export function formatPublicMonthlyPrice(amount: string, currency: string): string {
-  const display = currencyDisplay[currency] ?? { symbol: currency };
-  return display.before ? `${display.symbol}${amount}` : `${amount} ${display.symbol}`;
+export function getManagerPremiumFaq(language: string) {
+  const { googlePlay, appStore, note } = getManagerPremiumPrices(language);
+  return {
+    question: language === "RO" ? "Cât costă SportMe Manager Premium?" : "How much does SportMe Manager Premium cost?",
+    answer: [googlePlay, appStore, note].join(" "),
+  };
 }
